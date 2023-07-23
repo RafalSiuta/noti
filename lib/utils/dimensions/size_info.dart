@@ -22,7 +22,7 @@ class SizeInfo {
   ///general - repeat in other widgets:
   static double headerTitleSize = 32;
   static double headerSubtitleSize = 18;
-  static double verticalHeaderPadding = 10;
+  static double verticalHeaderPadding = 5.0;
 
   static double helpTextSize = 8.0;
 
@@ -38,12 +38,12 @@ class SizeInfo {
   static double navSideTitleSize = 18;
 
   ///task dimens:
-  static double taskCardHeight = 78;
+  static double taskCardHeight = 70;
   static double taskCardTitle = 12;
   static double taskCardDescription = 10;
   static double taskCreatorTitle = 23;
   static double taskCreatorDescription = 15;
-
+  static double timeCardColor = 8.0;
   static double leftEdgePadding = 12;
 
   ///note dimens:
@@ -62,10 +62,10 @@ class SizeInfo {
   ///calendar dimens:
   static double calendarDaySize = 12;
   static double smallIndicatorIconSize = 10;
-  static double calendarMarkerSize = 15;
-  static double calendarMarkerFontSize = 10.0;
+  static double calendarMarkerSize = 12.2;//15;
+  static double calendarMarkerFontSize = 6.0;//10.0;
   static double calendarCellMargin = 8.0;
-  static double rowHeight = 42;
+  static double rowHeight = 38;
 
   ///settings dimens:
   static double settingsCardTitleFontSize = 12;

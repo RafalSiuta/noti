@@ -1,0 +1,13 @@
+export 'package:noti_2/widgets/shapes/shape_paths/shape1.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape2.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape3.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape4.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape5.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape6.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape7.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape8.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape9.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape10.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape11.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape12.dart';
+export 'package:noti_2/widgets/shapes/shape_paths/shape13.dart';

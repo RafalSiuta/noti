@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:noti_2/screens/project_screen/project_screen.dart';
 import 'package:provider/provider.dart';
 import '../model/menu/nav_model.dart';
 import '../model/menu/screen_model.dart';
 import '../providers/home_provider.dart';
 import '../utils/dimensions/size_info.dart';
+import '../widgets/buttons/custom_fab.dart';
 import '../widgets/navigators/side_nav.dart';
 import '../widgets/responsive/screen_type_layout.dart';
 import 'calendar_screen/calendar_screen.dart';
@@ -54,7 +56,12 @@ class _MainScreenState extends State<MainScreen>
         page: const NoteScreen(),
         title: NavModel(
           title: 'Notes',
-        ))
+        )),
+    ScreenModel(
+        page: const ProjectScreen(),
+        title: NavModel(
+          title: 'Projects',
+        )),
   ];
 
   hideTrigger() {
@@ -136,7 +143,7 @@ class _MainScreenState extends State<MainScreen>
                           key: widget.key,
                           child: PageView.builder(
                               physics: const BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
+                                  parent: NeverScrollableScrollPhysics()),
                               itemCount: _pages.length,
                               controller: _pageController,
                               onPageChanged: _onPageChange,
@@ -170,7 +177,25 @@ class _MainScreenState extends State<MainScreen>
                 ),
               ),
             ]),
-           //todo: create custom fab button with 3 options
+
+           //todo: create custom icons for expanded buttons
+            floatingActionButton: ExpandableFab(
+              distance: 112.0,
+              children: [
+                ActionButton(
+                  onPressed: () => null,
+                  icon: Icon(Icons.design_services, color:Theme.of(context).textTheme.headlineLarge!.color)
+                ),
+                ActionButton(
+                  onPressed: () => null,
+                  icon:  Icon(Icons.description, color:Theme.of(context).textTheme.headlineLarge!.color)
+                ),
+                ActionButton(
+                  onPressed: () => null,
+                  icon:  Icon(Icons.task,color:Theme.of(context).textTheme.headlineLarge!.color)
+                ),
+              ],
+            ),
           );
         },
       ),

@@ -15,6 +15,7 @@ const theme_4indicatorColor = Color(0xFFffca28); // FEA735 f5f5f5
 
 final themeDefault = ThemeData(
     scaffoldBackgroundColor: theme_4MainBcgColor,
+    //colorScheme: ColorScheme(onBackground: theme_4TitleBoxBcgColor, brightness: Brightness.light, onPrimary: theme_4firstGradientColor, secondary: ),
     backgroundColor: theme_4TitleBoxBcgColor,
     canvasColor: theme_4TitleBoxBcgColor,
     focusColor: theme_4firstGradientColor,
@@ -29,6 +30,10 @@ final themeDefault = ThemeData(
     dialogBackgroundColor: theme_4lastGradientColor,
     primarySwatch: Colors.blue,
     textTheme: TextTheme(
+      displayLarge:  const TextStyle(
+        color: Colors.black,
+        fontSize: 32,
+      )
       // /// main big title
       // headline1: GoogleFonts.raleway(
       //     textStyle: const TextStyle(

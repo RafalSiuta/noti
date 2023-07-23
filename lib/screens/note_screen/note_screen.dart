@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/headers/search_bar.dart';
+import 'note_list.dart';
+
 class NoteScreen extends StatefulWidget {
   const NoteScreen({Key? key}) : super(key: key);
 
@@ -10,6 +13,16 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Not Screen'),);
+    return Container(
+        child: Column(
+          children: const [
+            SearchBar(),
+            Expanded(
+              child: NoteList(
+                isGrid: true,
+              ),
+            ),
+          ],
+        ));
   }
 }

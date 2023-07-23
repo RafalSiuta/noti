@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:noti_2/providers/calendar_provider.dart';
 import 'package:noti_2/providers/home_provider.dart';
+import 'package:noti_2/providers/note_provider.dart';
 import 'package:noti_2/providers/settings_provider.dart';
+import 'package:noti_2/providers/task_provider.dart';
 import 'package:noti_2/screens/main_screen.dart';
 import 'package:noti_2/screens/settings_screen/settings_screen.dart';
-import 'package:noti_2/themes/theme_default.dart';
+import 'package:noti_2/widgets/themes/theme2.dart';
+import 'package:noti_2/widgets/themes/theme_default.dart';
 import 'package:noti_2/utils/custom_page_route/custom_page_route.dart';
+import 'package:noti_2/widgets/themes/theme_default.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -45,14 +50,20 @@ class Noti extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
+            create: (context) => CalendarProvider(),
+          ),
+          ChangeNotifierProvider(
             create: (context) => SettingsProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => HomeProvider(),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => TaskProvider(),
-          // ),
+          ChangeNotifierProvider(
+            create: (context) => TaskProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => NoteProvider(),
+          ),
           // ChangeNotifierProvider(
           //   create: (context) => NoteCategoryProvider(),
           // ),
@@ -65,7 +76,7 @@ class Noti extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-              theme: themeDefault,
+              theme: theme2,
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),
             );
