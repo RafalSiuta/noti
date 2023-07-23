@@ -15,7 +15,7 @@ class CalendarMarker extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(8.0)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(5.0)),
             // shape: BoxShape.circle,
 
 
@@ -54,7 +54,7 @@ class CalendarMarker extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(10)),
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(5.0)),
             // shape: BoxShape.circle,
             color: Theme.of(context).indicatorColor,
           ),

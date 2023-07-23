@@ -41,8 +41,8 @@ class SizeInfo {
   static double taskCardHeight = 70;
   static double taskCardTitle = 12;
   static double taskCardDescription = 10;
-  static double taskCreatorTitle = 23;
-  static double taskCreatorDescription = 15;
+  static double taskCreatorTitle = 18;
+  static double taskCreatorDescription = 12;
   static double timeCardColor = 8.0;
   static double leftEdgePadding = 12;
 
@@ -65,7 +65,7 @@ class SizeInfo {
   static double calendarMarkerSize = 12.2;//15;
   static double calendarMarkerFontSize = 6.0;//10.0;
   static double calendarCellMargin = 8.0;
-  static double rowHeight = 38;
+  static double rowHeight = 40;
 
   ///settings dimens:
   static double settingsCardTitleFontSize = 12;

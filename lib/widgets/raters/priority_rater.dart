@@ -74,6 +74,7 @@ class Rater extends StatelessWidget {
               style:
                   Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                         fontSize: helperTextSize,
+                        fontWeight:FontWeight.w100,
                       )),
         ],
       ),

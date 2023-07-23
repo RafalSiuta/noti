@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,8 @@ import '../../model/menu/nav_model.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/custom_icon_btn.dart';
+import '../../widgets/calendar/calendar_widget.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
@@ -60,10 +63,10 @@ class _TaskCreatorState extends State<TaskCreator>
 
   List<NavModel> titles = [
     NavModel(
-      icon: FontAwesomeIcons.save,
+      icon: FontAwesomeIcons.floppyDisk,
     ),
     NavModel(
-      icon: FontAwesomeIcons.edit,
+      icon: FontAwesomeIcons.penToSquare,
     ),
     NavModel(
       icon: FontAwesomeIcons.clock,
@@ -90,33 +93,70 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   _pickDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
+    showDialog(
+        context: context,
+        builder:(context){
+          return CustomDial(
+            title: 'Date picker',
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 30,
+              height: 250,
+              child: CalendarWidget((picked){
+                if (picked != null && picked != selectedDate) {
+                  setState(() {
+                    selectedDate = picked;
+                    widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
+                        selectedDate.day, dayTime.hour, dayTime.minute); //picked;
+                  });
+                }
+              })
+            ),
+          );
+        }
     );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-            selectedDate.day, dayTime.hour, dayTime.minute); //picked;
-      });
-    }
   }
 
   _pickTime(BuildContext context) async {
-    final TimeOfDay? selectedTime = await showTimePicker(
-      initialTime: dayTime,
+    // final TimeOfDay? selectedTime = await showTimePicker(
+    //   initialTime: dayTime,
+    //   context: context,
+    // );
+    // if (selectedTime != null && selectedTime != dayTime) {
+    //   setState(() {
+    //     dayTime = selectedTime;
+    //     widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
+    //         selectedDate.day, dayTime.hour, dayTime.minute);
+    //   });
+    // }
+    showDialog(
       context: context,
+      builder:(context){
+        return CustomDial(
+          title: 'Time picker',
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width - 30,
+            height: 250,
+            child: Center(child: TimePickerSpinner(
+              highlightedTextStyle: Theme.of(context).textTheme.headlineMedium,
+              normalTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 15),
+              is24HourMode: true,
+              onTimeChange: (time) {
+                setState(() {
+                  TimeOfDay pickTime = TimeOfDay(hour: time.hour, minute: time.minute);
+                 // print(time);
+                 // print(time.runtimeType);
+                  if (pickTime != dayTime ) {
+                    dayTime = pickTime;
+                    widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
+                        selectedDate.day, dayTime.hour, dayTime.minute);
+                  }
+                });
+              },
+            )),
+          ),
+        );
+      }
     );
-    if (selectedTime != null && selectedTime != dayTime) {
-      setState(() {
-        dayTime = selectedTime;
-        widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-            selectedDate.day, dayTime.hour, dayTime.minute);
-      });
-    }
   }
 
   _pickIcon(BuildContext context) {
@@ -124,7 +164,7 @@ class _TaskCreatorState extends State<TaskCreator>
         context: context,
         builder: (context) {
           return CustomDial(
-              title: 'Task category icon',
+              title: 'Category picker',
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 30,
                 height: 250,
@@ -137,20 +177,19 @@ class _TaskCreatorState extends State<TaskCreator>
                   crossAxisCount: 5,
                   children: List.generate(
                       categoryIcons.iconsList.length,
-                      (index) => IconButton(
-                            onPressed: () {
-                              setState(() {
-                                widget.newTask.icon = index;
-                              });
-                            },
-                            icon: Icon(
-                              categoryIcons.iconsList[index],
-                              color: categoryIcons.iconsList.length == index
-                                  ? Theme.of(context).indicatorColor
-                                  : Theme.of(context).unselectedWidgetColor,
-                              size: 13,
-                            ),
-                          )),
+                      (index) =>
+                      CustomIconButton((){
+                            setState(() {
+                              widget.newTask.icon = index;
+                            });
+                      },12,categoryIcons.iconsList[index], Theme.of(context)
+                          .inputDecorationTheme
+                          .helperStyle!
+                          .copyWith(
+                          fontSize: 7.0), "Category", categoryIcons.iconsList.length == index
+                  ? Theme.of(context).indicatorColor
+                  : Theme.of(context).unselectedWidgetColor)
+                  ),
                 ),
               ));
         });
@@ -222,7 +261,7 @@ class _TaskCreatorState extends State<TaskCreator>
               builder: (context, taskProvider, settingsProvider, child) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
@@ -264,19 +303,14 @@ class _TaskCreatorState extends State<TaskCreator>
                                               ),
                                             ),
                                             children: [
-                                              IconButton(
-                                                alignment: Alignment.centerLeft,
-                                                padding: const EdgeInsets.only(
-                                                    right: 5.0),
-                                                icon: Icon(
-                                                  categoryIcons.iconsList[
-                                                      widget.newTask.icon ?? 1],
-                                                  size: navIconSize,
-                                                ),
-                                                onPressed: () {
-                                                  _pickIcon(context);
-                                                },
-                                              ),
+                                              CustomIconButton((){
+                                                _pickIcon(context);
+                                              }, navIconSize, categoryIcons.iconsList[
+                                              widget.newTask.icon ?? 1],Theme.of(context)
+                                                  .inputDecorationTheme
+                                                  .helperStyle!
+                                                  .copyWith(
+                                                  fontSize: helpTextFontSize), "Category", Theme.of(context).iconTheme.color),
                                               const VerticalDivider(),
                                               TextButton(
                                                 onPressed: () {
@@ -300,7 +334,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   _pickTime(context);
                                                 },
                                                 child: Text(
-                                                  DateFormat('hh:mm').format(
+                                                  DateFormat('HH:mm').format(
                                                       widget.newTask.date),
                                                   style: Theme.of(context)
                                                       .textTheme
@@ -358,7 +392,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                           autofocus: true,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headlineMedium!
+                                              .headlineLarge!
                                               .copyWith(
                                                   fontSize: titleFontSize,
                                                   decoration: widget
@@ -374,6 +408,11 @@ class _TaskCreatorState extends State<TaskCreator>
                                                 .helperStyle!
                                                 .copyWith(
                                                     fontSize: helpTextFontSize),
+                                            hintStyle: Theme.of(context)
+                                                .inputDecorationTheme
+                                                .helperStyle!
+                                                .copyWith(
+                                                fontSize: helpTextFontSize),
                                           ),
                                         ),
                                       ),
@@ -440,6 +479,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                               .inputDecorationTheme
                                               .helperStyle!
                                               .copyWith(
+                                            fontWeight: FontWeight.w100,
                                                   fontSize: helpTextFontSize),
                                         ),
                                       ),

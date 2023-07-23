@@ -25,9 +25,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
         SliverList(
           delegate: SliverChildListDelegate([
             Calendar(),
-            Container(
-                height: 800,
-                child: TabNav([TaskList(),NoteList(isGrid: true,),TaskList()])),
+            SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: TabNav([TaskList(),NoteList(isGrid: true,),TaskList()])
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),child: Divider(),
+            )
 
           ]),
         ),

@@ -1,4 +1,3 @@
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -19,7 +18,7 @@ class CustomDialog {
             title: Text(
               title,
               style:
-                  Theme.of(context).textTheme.headline2!.copyWith(fontSize: 18),
+                  Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18),
             ),
             content: SingleChildScrollView(
               child: Column(
@@ -70,14 +69,14 @@ class _CustomDialState extends State<CustomDial> {
       ),
       child: Card(
           elevation: 5.0,
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.all(8.0),
@@ -96,6 +95,7 @@ class _CustomDialState extends State<CustomDial> {
                   ),
                 ),
                 widget.child!,
+                const Divider(indent: 30, endIndent: 30,),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);

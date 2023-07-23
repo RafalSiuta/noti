@@ -17,6 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.0 # import 'package:google_fonts/google_fonts.dart';
   table_calendar: ^3.0.9
+  flutter_time_picker_spinner: ^2.0.0 #import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
   provider: ^6.0.5 #https://pub.dev/packages/provider # import 'package:provider/provider.dart';
   shared_preferences: ^2.0.20 #https://pub.dev/packages/shared_preferences/install import 'package:shared_preferences/shared_preferences.dart';
   csshadow: ^0.0.2  #https://pub.dev/packages/csshadow/install import 'package:csshadow/csshadow.dart';

@@ -95,13 +95,13 @@ class TaskCard extends StatelessWidget {
                   Icon(
                     iconPick.iconsList[task.icon!],
                     size: iconSize,
-                    color: Theme.of(context).toggleableActiveColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0,),
-                    child: Divider(color: Theme.of(context).textTheme.displaySmall!.color, height: 4.0,),
+                    child: Divider(color: Theme.of(context).colorScheme.secondary, height: 4.0,),
                   ),
-                  Text('${DateFormat('hh:mm').format(task.date)}  ',textAlign: TextAlign.center, style:Theme.of(context).textTheme.displaySmall!.copyWith(
+                  Text('${DateFormat('HH:mm').format(task.date)}  ',textAlign: TextAlign.center, style:Theme.of(context).textTheme.displaySmall!.copyWith(
                       fontSize: timerSize, ))
                 ],
               ),
@@ -276,7 +276,7 @@ class TaskCard extends StatelessWidget {
                 height: smallRingRadiusSize,
                 margin: marginTextBox,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.background,
                     borderRadius: radiusContainer,
                     boxShadow: [
                       BoxShadow(

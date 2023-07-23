@@ -53,7 +53,7 @@ class NoteList extends StatelessWidget {
                         crossAxisCount: isGrid == true ? columnCount : 1,
                         childAspectRatio: isGrid == true ? 2.3 / 3 : 2.5 / 2,
                         children: List.generate(counter, (index) {
-                          final list = noteList[index];
+                          final note = noteList[index];
                           return AnimationConfiguration.staggeredGrid(
                             columnCount: isGrid == true ? 2 : 1,
                             position: index,
@@ -70,12 +70,12 @@ class NoteList extends StatelessWidget {
                                               context,
                                               CustomPageRoute(
                                                   child: NoteCreator(
-                                                    newNote: list,
+                                                    newNote: note,
                                                     editEnable: false,
                                                   ),
                                                   direction: AxisDirection.up));
                                         },
-                                        note: list,
+                                        note: note,
                                       ))),
                             ),
                           );

@@ -34,12 +34,13 @@ class _TabNavState extends State<TabNav> with SingleTickerProviderStateMixin{
           child: TabBar(
             indicatorWeight: .5,
 
-              dividerColor: Theme.of(context).dividerColor,
+              dividerColor: Theme.of(context).tabBarTheme.dividerColor,
               controller: _tabController,
               tabs: tabs),
         ),
         Expanded(
           child: TabBarView(
+
 
             controller: _tabController,
 

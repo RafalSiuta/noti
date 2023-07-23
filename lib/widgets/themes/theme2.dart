@@ -18,8 +18,21 @@ final theme2 = ThemeData(
     useMaterial3: true,
     splashFactory: NoSplash.splashFactory,
     scaffoldBackgroundColor: theme_2MainBcgColor,
-    backgroundColor: theme_2TitleBoxBcgColor,
-   // colorScheme: ColorScheme(background: theme_2TitleBoxBcgColor),
+   // backgroundColor: theme_2TitleBoxBcgColor,
+
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: theme_2firstGradientColor,
+      onPrimary: theme_2firstGradientColor,
+      secondary: Colors.white,
+      onSecondary: theme_2lastGradientColor,
+      error: Color(0xFFF32424),
+      onError: Color(0xFFF32424),
+      background: theme_2TitleBoxBcgColor,
+      onBackground: theme_2TitleBoxBcgColor,
+      surface: theme_2MainBcgColor,
+      onSurface: theme_2MainBcgColor,
+    ),
     canvasColor: theme_2TitleBoxBcgColor,
     focusColor: theme_2middleGradientColor,
 
@@ -159,6 +172,17 @@ final theme2 = ThemeData(
       //         fontWeight: FontWeight.w400,
       //         overflow: TextOverflow.ellipsis)),
     ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(theme_2MainBcgColor.withOpacity(0.1))
+      )
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(theme_2MainBcgColor.withOpacity(0.1))
+      )
+    ),
+
     textSelectionTheme: const TextSelectionThemeData(
       selectionHandleColor: Colors.transparent,
     ),
@@ -234,15 +258,16 @@ final theme2 = ThemeData(
       hintStyle: TextStyle(color: Colors.black, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme_2noteCardColor,
+        color: theme_2unselectedColor,
       ),
       labelStyle: TextStyle(
         color: theme_2noteCardColor,
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme_2noteCardColor,
-        fontSize: 8.0,
+        color: theme_2unselectedColor,
+        fontSize: 7.0,
+        fontWeight: FontWeight.w100
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(
@@ -260,6 +285,7 @@ final theme2 = ThemeData(
 
     tabBarTheme: TabBarTheme(
       dividerColor: theme_2unselectedColor,
+
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(width: 2.0, color: Colors.amber),

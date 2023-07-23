@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -14,6 +15,8 @@ import '../../model/menu/category_icon_list.dart';
 import '../../model/menu/nav_model.dart';
 import '../../providers/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/custom_icon_btn.dart';
+import '../../widgets/calendar/calendar_widget.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
@@ -35,7 +38,8 @@ class _NoteCreatorState extends State<NoteCreator>
   bool keepInMind = true;
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
-  DateTime currentDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay dayTime = TimeOfDay.now();
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController subtitleVal = TextEditingController();
@@ -72,7 +76,8 @@ class _NoteCreatorState extends State<NoteCreator>
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 30,
                 height: 250,
-                child: GridView.count(
+                child:
+                GridView.count(
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   crossAxisSpacing: 0.0,
@@ -81,18 +86,110 @@ class _NoteCreatorState extends State<NoteCreator>
                   crossAxisCount: 5,
                   children: List.generate(
                       categoryIcons.iconsList.length,
-                      (index) => IconButton(
-                            onPressed: () {
-                              setState(() {
-                                widget.newNote.icon = index;
-                              });
-                            },
-                            icon:
-                                Icon(categoryIcons.iconsList[index], size: 13),
-                          )),
+                          (index) =>
+                          CustomIconButton((){
+                            setState(() {
+                              widget.newNote.icon = index;
+                            });
+                          },12,categoryIcons.iconsList[index], Theme.of(context)
+                              .inputDecorationTheme
+                              .helperStyle!
+                              .copyWith(
+                              fontSize: 7.0), "Category", categoryIcons.iconsList.length == index
+                              ? Theme.of(context).indicatorColor
+                              : Theme.of(context).unselectedWidgetColor)
+                  ),
                 ),
+
+
+                // GridView.count(
+                //   physics: const BouncingScrollPhysics(
+                //       parent: AlwaysScrollableScrollPhysics()),
+                //   crossAxisSpacing: 0.0,
+                //   shrinkWrap: true,
+                //   mainAxisSpacing: 0.0,
+                //   crossAxisCount: 5,
+                //   children: List.generate(
+                //       categoryIcons.iconsList.length,
+                //       (index) => IconButton(
+                //             onPressed: () {
+                //               setState(() {
+                //                 widget.newNote.icon = index;
+                //               });
+                //             },
+                //             icon:
+                //                 Icon(categoryIcons.iconsList[index], size: 13),
+                //           )),
+                // ),
               ));
         });
+  }
+
+  _pickDate(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder:(context){
+          return CustomDial(
+            title: 'Date picker',
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width - 30,
+                height: 250,
+                child: CalendarWidget((picked){
+                  if (picked != null && picked != selectedDate) {
+                    setState(() {
+                      selectedDate = picked;
+                      widget.newNote.date = DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, dayTime.hour, dayTime.minute); //picked;
+                    });
+                  }
+                })
+            ),
+          );
+        }
+    );
+  }
+
+  _pickTime(BuildContext context) async {
+    // final TimeOfDay? selectedTime = await showTimePicker(
+    //   initialTime: dayTime,
+    //   context: context,
+    // );
+    // if (selectedTime != null && selectedTime != dayTime) {
+    //   setState(() {
+    //     dayTime = selectedTime;
+    //     widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
+    //         selectedDate.day, dayTime.hour, dayTime.minute);
+    //   });
+    // }
+    showDialog(
+        context: context,
+        builder:(context){
+          return CustomDial(
+            title: 'Time picker',
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 30,
+              height: 250,
+              child: Center(child: TimePickerSpinner(
+                highlightedTextStyle: Theme.of(context).textTheme.headlineMedium,
+                normalTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 15),
+                is24HourMode: true,
+                onTimeChange: (time) {
+                  setState(() {
+                    TimeOfDay pickTime = TimeOfDay(hour: time.hour, minute: time.minute);
+                    // print(time);
+                    // print(time.runtimeType);
+                    if (pickTime != dayTime ) {
+                      dayTime = pickTime;
+                      widget.newNote.date = DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, dayTime.hour, dayTime.minute);
+                    }
+                  });
+                },
+              )),
+            ),
+          );
+        }
+    );
   }
 
   _bottomDrawer(BuildContext context) async {
@@ -134,7 +231,7 @@ class _NoteCreatorState extends State<NoteCreator>
       //      return widget.newNote.image = value.readAsBytesSync();
       //   }
       // });
-      widget.newNote.image = img;
+      widget.newNote.image = Uint8List(0);//img;
     });
   }
 
@@ -159,9 +256,11 @@ class _NoteCreatorState extends State<NoteCreator>
     ),
   ];
 
+
+
   @override
   void initState() {
-    selectedCategory = widget.newNote.fk!;
+    //selectedCategory = widget.newNote.fk!;
     _menuSlideInController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
 
@@ -203,7 +302,7 @@ class _NoteCreatorState extends State<NoteCreator>
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child:
               Consumer<NoteProvider>(builder: (context, noteProvider, child) {
@@ -211,90 +310,127 @@ class _NoteCreatorState extends State<NoteCreator>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: CustomScrollView(
+                  child:
+
+                  //todo rebuild scroling behavior from task creator
+                  CustomScrollView(
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
                     slivers: [
-                      SliverAppBar(
-                        backgroundColor: Theme.of(context).cardColor,
-                        automaticallyImplyLeading: false,
-                        elevation: 0,
-                        floating: true,
-                        snap: true,
-                        pinned: true,
-                        collapsedHeight: 100,
-                        expandedHeight: 110,
-                        flexibleSpace: Padding(
-                          padding: EdgeInsets.only(top: topMargin, right: 8.0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children:
-                                    AnimationConfiguration.toStaggeredList(
-                                  duration: const Duration(milliseconds: 300),
-                                  delay: const Duration(milliseconds: 200),
-                                  childAnimationBuilder: (widget) =>
-                                      ScaleAnimation(
-                                    scale: 0.5,
-                                    child: FadeInAnimation(
-                                      child: widget,
-                                    ),
-                                  ),
-                                  children: [
-                                    IconButton(
-                                      padding: const EdgeInsets.all(.0),
-                                      icon: Icon(
-                                        categoryIcons.iconsList[
-                                            widget.newNote.icon ?? 1],
-                                        size: navIconSize,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .color,
+                      SliverPadding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        sliver: SliverAppBar(
+                          backgroundColor: Theme.of(context).colorScheme.background,
+                          automaticallyImplyLeading: false,
+                          elevation: 0,
+                          shadowColor: Colors.transparent,
+                          floating: false,
+                          snap: false,
+                          pinned: true,
+                          collapsedHeight: 100,
+                          expandedHeight: 110,
+                          flexibleSpace: Padding(
+                            padding: EdgeInsets.only(top: topMargin, right: 8.0),
+                            child: IntrinsicHeight(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children:
+                                      AnimationConfiguration.toStaggeredList(
+                                    duration: const Duration(milliseconds: 300),
+                                    delay: const Duration(milliseconds: 200),
+                                    childAnimationBuilder: (widget) =>
+                                        ScaleAnimation(
+                                      scale: 0.5,
+                                      child: FadeInAnimation(
+                                        child: widget,
                                       ),
-                                      onPressed: () {
+                                    ),
+                                    children: [
+                                      CustomIconButton((){
                                         _pickIcon(context);
-                                      },
-                                    ),
-                                    const VerticalDivider(),
-                                    Text(
-                                      DateFormat('dd MMM yy')
-                                          .format(widget.newNote.date),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
+                                      }, navIconSize, categoryIcons.iconsList[
+                                      widget.newNote.icon ?? 1],Theme.of(context)
+                                          .inputDecorationTheme
+                                          .helperStyle!
                                           .copyWith(
-                                              fontSize: descriptionFontSize),
-                                    ),
-                                    const VerticalDivider(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 24),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'On dash',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium!
-                                                .copyWith(
-                                                    fontSize: helperTextSize),
-                                          ),
-                                          Switch(
-                                              value: widget.newNote.keep!,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  widget.newNote.keep = value;
-                                                });
-                                              }),
-                                        ],
+                                          fontSize: helperTextSize), "Category", Theme.of(context).iconTheme.color),
+                                      // IconButton(
+                                      //   padding: const EdgeInsets.all(.0),
+                                      //   icon: Icon(
+                                      //     categoryIcons.iconsList[
+                                      //         widget.newNote.icon ?? 1],
+                                      //     size: navIconSize,
+                                      //     color: Theme.of(context)
+                                      //         .textTheme
+                                      //         .headline4!
+                                      //         .color,
+                                      //   ),
+                                      //   onPressed: () {
+                                      //     _pickIcon(context);
+                                      //   },
+                                      // ),
+                                      const VerticalDivider(),
+                                      TextButton(
+                                        onPressed: () {
+                                          _pickDate(context);
+                                        },
+                                        child: Text(
+                                          DateFormat('dd MMM yy')
+                                              .format(
+                                              widget.newNote.date),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                              fontSize:
+                                              descriptionFontSize),
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                )),
+                                      const VerticalDivider(),
+                                      TextButton(
+                                        onPressed: () {
+                                          _pickTime(context);
+                                        },
+                                        child: Text(
+                                          DateFormat('HH:mm').format(
+                                              widget.newNote.date),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                              fontSize:
+                                              descriptionFontSize),
+                                        ),
+                                      )
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(right: 24),
+                                      //   child: Column(
+                                      //     mainAxisAlignment:
+                                      //         MainAxisAlignment.start,
+                                      //     mainAxisSize: MainAxisSize.min,
+                                      //     children: [
+                                      //       Text(
+                                      //         'On dash',
+                                      //         style: Theme.of(context)
+                                      //             .textTheme
+                                      //             .headlineMedium!
+                                      //             .copyWith(
+                                      //                 fontSize: helperTextSize),
+                                      //       ),
+                                      //       Switch(
+                                      //           value: widget.newNote.keep!,
+                                      //           onChanged: (value) {
+                                      //             setState(() {
+                                      //               widget.newNote.keep = value;
+                                      //             });
+                                      //           }),
+                                      //     ],
+                                      //   ),
+                                      // )
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                       ),

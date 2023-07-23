@@ -56,7 +56,7 @@ class NoteCard extends StatelessWidget {
                   padding: EdgeInsets.only(
                       left: 2, top: isGrid ? 12 : 8.0, right: 5.0, bottom: 3.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.background,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
