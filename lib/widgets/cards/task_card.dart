@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:noti_2/utils/extensions/string_extension.dart';
-import '../../model/calendar_model/task.dart';
+import '../../model/db_models/task.dart';
 import '../../model/menu/category_icon_list.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/switch_btn.dart';
@@ -202,14 +202,14 @@ class TaskCard extends StatelessWidget {
                   BoxShadow(
                     color: Theme.of(context)
                         .unselectedWidgetColor
-                        .withOpacity(0.7),
+                        .withOpacity(0.6),
                     offset: const Offset(0.0, 0.0),
                   ),
                   BoxShadow(
                     color: Theme.of(context).shadowColor,
                     offset: const Offset(0.0, 0.0),
-                    spreadRadius: -3.0,
-                    blurRadius: 3.0,
+                    spreadRadius: -2.0,
+                    blurRadius: 2.0,
                   ),
                 ]),
           ), //main shape
@@ -255,14 +255,14 @@ class TaskCard extends StatelessWidget {
               margin: marginContainer,
               decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.7),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.6),
                   offset: const Offset(0.0, 0.0),
                 ),
                 BoxShadow(
                   color: Theme.of(context).shadowColor,
                   offset: const Offset(0.0, 0.0),
-                  spreadRadius: -5.0,
-                  blurRadius: 6.0,
+                  spreadRadius: -3.0,
+                  blurRadius: 3.0,
                 ),
               ]),
             ),
@@ -278,13 +278,14 @@ class TaskCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: radiusContainer,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).shadowColor,
-                          blurRadius: 3.0,
-                          offset: const Offset(.0, .0),
-                          spreadRadius: 2.0),
-                    ]),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //       color: Theme.of(context).shadowColor,
+                    //       blurRadius: 3.0,
+                    //       offset: const Offset(.0, .0),
+                    //       spreadRadius: 2.0),
+                    // ]
+                ),
                 child: Row(
                     mainAxisAlignment: circleFromLeft == true
                         ? MainAxisAlignment.start

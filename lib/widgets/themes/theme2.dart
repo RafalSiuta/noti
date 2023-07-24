@@ -242,7 +242,7 @@ final theme2 = ThemeData(
         ),
         backgroundColor: theme_2MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       border: InputBorder.none,
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
@@ -264,10 +264,12 @@ final theme2 = ThemeData(
         color: theme_2noteCardColor,
       ),
       helperMaxLines: 1,
-      helperStyle: TextStyle(
-        color: theme_2unselectedColor,
-        fontSize: 7.0,
-        fontWeight: FontWeight.w100
+      helperStyle: GoogleFonts.roboto(
+        textStyle: TextStyle(
+          color: theme_2firstGradientColor,//theme_2unselectedColor,
+          fontSize: 7.0,
+          fontWeight: FontWeight.w300,
+        ),
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(

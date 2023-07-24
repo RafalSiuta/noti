@@ -1,4 +1,6 @@
-class Task {
+
+
+class Project {
   int? id;
   int? priority;
   int? icon;
@@ -7,7 +9,7 @@ class Task {
   String? description;
   late DateTime date;
 
-  Task(
+  Project(
       {this.id,
         required this.priority,
         required this.icon,
@@ -39,7 +41,7 @@ class Task {
     return map;
   }
 
-  Task.fromMap(dynamic map) {
+  Project.fromMap(dynamic map) {
     id = map['task_id'] as int?;
     priority = map['task_priority'] as int?;
     icon = map['task_icon'] as int?;

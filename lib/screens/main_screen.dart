@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:noti_2/screens/project_screen/project_screen.dart';
 import 'package:provider/provider.dart';
 import '../model/menu/nav_model.dart';
 import '../model/menu/screen_model.dart';
@@ -10,8 +8,8 @@ import '../widgets/buttons/custom_fab.dart';
 import '../widgets/navigators/side_nav.dart';
 import '../widgets/responsive/screen_type_layout.dart';
 import 'calendar_screen/calendar_screen.dart';
-import 'note_screen/note_screen.dart';
 import 'home_screen/home_screen.dart';
+import 'library_screen/library_screen.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -53,14 +51,9 @@ class _MainScreenState extends State<MainScreen>
       ),
     ),
     ScreenModel(
-        page: const NoteScreen(),
+        page: const LibraryScreen(),
         title: NavModel(
-          title: 'Notes',
-        )),
-    ScreenModel(
-        page: const ProjectScreen(),
-        title: NavModel(
-          title: 'Projects',
+          title: 'Library',
         )),
   ];
 

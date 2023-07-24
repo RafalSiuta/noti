@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:noti_2/providers/calendar_provider.dart';
 import 'package:noti_2/providers/home_provider.dart';
 import 'package:noti_2/providers/note_provider.dart';
+import 'package:noti_2/providers/project_provider.dart';
 import 'package:noti_2/providers/settings_provider.dart';
 import 'package:noti_2/providers/task_provider.dart';
 import 'package:noti_2/screens/main_screen.dart';
@@ -63,6 +64,9 @@ class Noti extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => NoteProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ProjectProvider(),
           ),
           // ChangeNotifierProvider(
           //   create: (context) => NoteCategoryProvider(),

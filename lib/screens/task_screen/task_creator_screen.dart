@@ -6,8 +6,7 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../../model/calendar_model/task.dart';
+import '../../model/db_models/task.dart';
 import '../../model/menu/category_icon_list.dart';
 import '../../model/menu/nav_model.dart';
 import '../../providers/settings_provider.dart';
@@ -239,12 +238,13 @@ class _TaskCreatorState extends State<TaskCreator>
   @override
   Widget build(BuildContext context) {
     var topMargin = SizeInfo.topMargin;
+    var leftPadding = SizeInfo.edgePadding;
     var titleFontSize = SizeInfo.taskCreatorTitle;
     var descriptionFontSize = SizeInfo.taskCreatorDescription;
     var helpTextFontSize = SizeInfo.helpTextSize;
     var edgePadding = SizeInfo.leftEdgePadding;
     var raterIconSize = SizeInfo.switchButtonIconSize;
-    var leftPadding = SizeInfo.edgePadding;
+
     var inputHeight = SizeInfo.searchBarHeight;
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
     int maxTitleLength = 15;
@@ -252,7 +252,7 @@ class _TaskCreatorState extends State<TaskCreator>
     return Scaffold(
         //todo: check nav bar items shrink option
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Container(
           padding: EdgeInsets.only(left: edgePadding),
           key: widget.key,
@@ -260,17 +260,19 @@ class _TaskCreatorState extends State<TaskCreator>
             child: Consumer2<TaskProvider, SettingsProvider>(
               builder: (context, taskProvider, settingsProvider, child) {
                 return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: AnimationLimiter(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topMargin, right: leftPadding),
-                            child: Column(
+                      child: Stack(
+                        children:[
+                          SingleChildScrollView(
+                          child: AnimationLimiter(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topMargin, right: leftPadding),
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.max,
@@ -285,70 +287,9 @@ class _TaskCreatorState extends State<TaskCreator>
                                     ),
                                   ),
                                   children: [
-                                    IntrinsicHeight(
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: AnimationConfiguration
-                                              .toStaggeredList(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            delay: const Duration(
-                                                milliseconds: 200),
-                                            childAnimationBuilder: (widget) =>
-                                                ScaleAnimation(
-                                              scale: 0.5,
-                                              child: FadeInAnimation(
-                                                child: widget,
-                                              ),
-                                            ),
-                                            children: [
-                                              CustomIconButton((){
-                                                _pickIcon(context);
-                                              }, navIconSize, categoryIcons.iconsList[
-                                              widget.newTask.icon ?? 1],Theme.of(context)
-                                                  .inputDecorationTheme
-                                                  .helperStyle!
-                                                  .copyWith(
-                                                  fontSize: helpTextFontSize), "Category", Theme.of(context).iconTheme.color),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickDate(context);
-                                                },
-                                                child: Text(
-                                                  DateFormat('dd MMM yy')
-                                                      .format(
-                                                          widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              descriptionFontSize),
-                                                ),
-                                              ),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickTime(context);
-                                                },
-                                                child: Text(
-                                                  DateFormat('HH:mm').format(
-                                                      widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              descriptionFontSize),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                    ),
+
                                     SizedBox(
-                                      height: topMargin,
+                                      height: 70,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -486,8 +427,77 @@ class _TaskCreatorState extends State<TaskCreator>
                                     ),
                                   ],
                                 )),
+                            ),
                           ),
                         ),
+                          IntrinsicHeight(
+                            child: Container(
+                              color: Theme.of(context).colorScheme.background,
+                              padding: EdgeInsets.only(
+                                  top: topMargin, right: leftPadding),
+                              child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: AnimationConfiguration
+                                      .toStaggeredList(
+                                    duration: const Duration(
+                                        milliseconds: 300),
+                                    delay: const Duration(
+                                        milliseconds: 200),
+                                    childAnimationBuilder: (widget) =>
+                                        ScaleAnimation(
+                                          scale: 0.5,
+                                          child: FadeInAnimation(
+                                            child: widget,
+                                          ),
+                                        ),
+                                    children: [
+                                      CustomIconButton((){
+                                        _pickIcon(context);
+                                      }, navIconSize, categoryIcons.iconsList[
+                                      widget.newTask.icon ?? 1],Theme.of(context)
+                                          .inputDecorationTheme
+                                          .helperStyle!
+                                          .copyWith(
+                                          fontSize: helpTextFontSize), "Category", Theme.of(context).iconTheme.color),
+                                      const VerticalDivider(),
+                                      TextButton(
+                                        onPressed: () {
+                                          _pickDate(context);
+                                        },
+                                        child: Text(
+                                          DateFormat('dd MMM yy')
+                                              .format(
+                                              widget.newTask.date),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                              fontSize:
+                                              descriptionFontSize),
+                                        ),
+                                      ),
+                                      const VerticalDivider(),
+                                      TextButton(
+                                        onPressed: () {
+                                          _pickTime(context);
+                                        },
+                                        child: Text(
+                                          DateFormat('HH:mm').format(
+                                              widget.newTask.date),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                              fontSize:
+                                              descriptionFontSize),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ]
                       ),
                     ),
                     SlideTransition(

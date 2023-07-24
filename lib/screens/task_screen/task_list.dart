@@ -28,65 +28,64 @@ class TaskList extends StatelessWidget {
             ),
           );
         } else {
-          return Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: edgePadding,),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SmallHeader(
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: edgePadding,),
+                child: SmallHeader(
                   title:
                       'You have ${taskProvider.taskListCounter} task${taskProvider.taskListCounter > 1 ? 's' : ""}',
                 ),
-                Expanded(
-                  child: AnimationLimiter(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      shrinkWrap: true,
-                      itemCount: taskProvider.taskListCounter,
-                      itemBuilder: (context, index) {
-                        final tasks = taskProvider.taskList[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 300),
-                          child: SlideAnimation(
-                            verticalOffset: 20.0,
-                            child: FadeInAnimation(
-                                child: TaskCard(
-                                    task: tasks,
-                                    isDone: (val) {
-                                      //todo fix it task provider
-                                      // taskProvider.updateTasks(tasks,
-                                      //     settingsProvider.isNotification);
-                                    },
-                                    edit: () async {
-                                      await Navigator.push(
-                                          context,
-                                          CustomPageRoute(
-                                              child: TaskCreator(
-                                                editEnable: false,
-                                                newTask: tasks,
-                                              ),
-                                              direction: AxisDirection.up));
-                                    },
-                                    circleFromLeft:
-                                        index % 2 == 0 ? true : false)),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: 7,
-                        );
-                      },
-                    ),
+              ),
+              Expanded(
+                child: AnimationLimiter(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8.0),
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    shrinkWrap: true,
+                    itemCount: taskProvider.taskListCounter,
+                    itemBuilder: (context, index) {
+                      final tasks = taskProvider.taskList[index];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 300),
+                        child: SlideAnimation(
+                          verticalOffset: 20.0,
+                          child: FadeInAnimation(
+                              child: TaskCard(
+                                  task: tasks,
+                                  isDone: (val) {
+                                    //todo fix it task provider
+                                    // taskProvider.updateTasks(tasks,
+                                    //     settingsProvider.isNotification);
+                                  },
+                                  edit: () async {
+                                    await Navigator.push(
+                                        context,
+                                        CustomPageRoute(
+                                            child: TaskCreator(
+                                              editEnable: false,
+                                              newTask: tasks,
+                                            ),
+                                            direction: AxisDirection.up));
+                                  },
+                                  circleFromLeft:
+                                      index % 2 == 0 ? true : false)),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 7,
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         }
       },

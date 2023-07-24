@@ -8,9 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_animations/simple_animations.dart';
-
-import '../../model/calendar_model/task.dart';
-import '../../providers/calendar_provider.dart';
+import '../../model/db_models/task.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';

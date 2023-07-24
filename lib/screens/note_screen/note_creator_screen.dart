@@ -291,7 +291,8 @@ class _NoteCreatorState extends State<NoteCreator>
   @override
   Widget build(BuildContext context) {
     var topMargin = SizeInfo.topMargin;
-    var titleTextSize = SizeInfo.headerSubtitleSize;
+    var leftPadding = SizeInfo.edgePadding;
+    var titleTextSize = SizeInfo.taskCreatorTitle;
     var helperTextSize = SizeInfo.helpTextSize;
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
     var verticalPadding = SizeInfo.verticalTextPadding;
@@ -300,372 +301,343 @@ class _NoteCreatorState extends State<NoteCreator>
     int maxSubtitleLength = 25;
     int maxDescriptionLength = 4000;
 
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: SafeArea(
-          child:
-              Consumer<NoteProvider>(builder: (context, noteProvider, child) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child:
 
-                  //todo rebuild scroling behavior from task creator
-                  CustomScrollView(
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    slivers: [
-                      SliverPadding(
-                        padding: const EdgeInsets.only(left: 12.0),
-                        sliver: SliverAppBar(
-                          backgroundColor: Theme.of(context).colorScheme.background,
-                          automaticallyImplyLeading: false,
-                          elevation: 0,
-                          shadowColor: Colors.transparent,
-                          floating: false,
-                          snap: false,
-                          pinned: true,
-                          collapsedHeight: 100,
-                          expandedHeight: 110,
-                          flexibleSpace: Padding(
-                            padding: EdgeInsets.only(top: topMargin, right: 8.0),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children:
-                                      AnimationConfiguration.toStaggeredList(
-                                    duration: const Duration(milliseconds: 300),
-                                    delay: const Duration(milliseconds: 200),
-                                    childAnimationBuilder: (widget) =>
-                                        ScaleAnimation(
-                                      scale: 0.5,
-                                      child: FadeInAnimation(
-                                        child: widget,
-                                      ),
-                                    ),
-                                    children: [
-                                      CustomIconButton((){
-                                        _pickIcon(context);
-                                      }, navIconSize, categoryIcons.iconsList[
-                                      widget.newNote.icon ?? 1],Theme.of(context)
-                                          .inputDecorationTheme
-                                          .helperStyle!
-                                          .copyWith(
-                                          fontSize: helperTextSize), "Category", Theme.of(context).iconTheme.color),
-                                      // IconButton(
-                                      //   padding: const EdgeInsets.all(.0),
-                                      //   icon: Icon(
-                                      //     categoryIcons.iconsList[
-                                      //         widget.newNote.icon ?? 1],
-                                      //     size: navIconSize,
-                                      //     color: Theme.of(context)
-                                      //         .textTheme
-                                      //         .headline4!
-                                      //         .color,
-                                      //   ),
-                                      //   onPressed: () {
-                                      //     _pickIcon(context);
-                                      //   },
-                                      // ),
-                                      const VerticalDivider(),
-                                      TextButton(
-                                        onPressed: () {
-                                          _pickDate(context);
-                                        },
-                                        child: Text(
-                                          DateFormat('dd MMM yy')
-                                              .format(
-                                              widget.newNote.date),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineMedium!
-                                              .copyWith(
-                                              fontSize:
-                                              descriptionFontSize),
+        body: Container(
+          padding: EdgeInsets.only(left: leftPadding),
+          child: SafeArea(
+            child:
+                Consumer<NoteProvider>(builder: (context, noteProvider, child) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child:
+                    Stack(
+                      children:[
+                        SingleChildScrollView(
+                        child: AnimationLimiter(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topMargin, right: leftPadding),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children:
+                                AnimationConfiguration.toStaggeredList(
+                                  duration: const Duration(milliseconds: 300),
+                                  childAnimationBuilder: (widget) =>
+                                      ScaleAnimation(
+                                        scale: 0.5,
+                                        child: FadeInAnimation(
+                                          child: widget,
                                         ),
                                       ),
-                                      const VerticalDivider(),
-                                      TextButton(
-                                        onPressed: () {
-                                          _pickTime(context);
-                                        },
-                                        child: Text(
-                                          DateFormat('HH:mm').format(
-                                              widget.newNote.date),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineMedium!
-                                              .copyWith(
-                                              fontSize:
-                                              descriptionFontSize),
-                                        ),
-                                      )
-                                      // Padding(
-                                      //   padding: const EdgeInsets.only(right: 24),
-                                      //   child: Column(
-                                      //     mainAxisAlignment:
-                                      //         MainAxisAlignment.start,
-                                      //     mainAxisSize: MainAxisSize.min,
-                                      //     children: [
-                                      //       Text(
-                                      //         'On dash',
-                                      //         style: Theme.of(context)
-                                      //             .textTheme
-                                      //             .headlineMedium!
-                                      //             .copyWith(
-                                      //                 fontSize: helperTextSize),
-                                      //       ),
-                                      //       Switch(
-                                      //           value: widget.newNote.keep!,
-                                      //           onChanged: (value) {
-                                      //             setState(() {
-                                      //               widget.newNote.keep = value;
-                                      //             });
-                                      //           }),
-                                      //     ],
-                                      //   ),
-                                      // )
-                                    ],
-                                  )),
-                            ),
+                                  children: [
+
+                                    SizedBox(
+                                                height: 70,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  editText();
+                                                },
+                                                child: SizedBox(
+                                                  key: widget.key,
+                                                  height: 40,
+                                                  child: TextField(
+                                                    maxLengthEnforcement:
+                                                        MaxLengthEnforcement.enforced,
+                                                    focusNode: titleNode,
+                                                    cursorWidth: 1,
+                                                    maxLines: 1,
+                                                    maxLength: maxTitleLength,
+                                                    textInputAction: TextInputAction.done,
+                                                    keyboardType: TextInputType.text,
+                                                    enabled: editTextEnable,
+                                                    onSubmitted: (val) {
+                                                      setState(() {
+                                                        fieldFocusChange(
+                                                            context, titleNode, subtitleNode);
+                                                      });
+                                                    },
+                                                    onChanged: (newText) {
+                                                      setState(() {
+                                                        widget.newNote.title = newText;
+                                                        titleVal.selection =
+                                                            TextSelection.fromPosition(
+                                                                TextPosition(
+                                                          offset: titleVal.text.length,
+                                                        ));
+                                                      });
+                                                    },
+                                                    cursorColor: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .color,
+                                                    controller: titleVal,
+                                                    autofocus: true,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineLarge!
+                                                        .copyWith(fontSize: titleTextSize),
+                                                    textAlign: TextAlign.start,
+                                                    decoration: InputDecoration(
+                                                      helperText: 'Enter title',
+                                                      helperStyle: Theme.of(context)
+                                                          .inputDecorationTheme
+                                                          .helperStyle!
+                                                          .copyWith(fontSize: helperTextSize),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: verticalPadding,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  editText();
+                                                },
+                                                child: SizedBox(
+                                                  key: widget.key,
+                                                  height: 40,
+                                                  child: TextField(
+                                                    maxLengthEnforcement:
+                                                        MaxLengthEnforcement.enforced,
+                                                    focusNode: subtitleNode,
+                                                    cursorWidth: 1,
+                                                    maxLines: 1,
+                                                    maxLength: maxSubtitleLength,
+                                                    textInputAction: TextInputAction.done,
+                                                    onSubmitted: (val) {
+                                                      setState(() {
+                                                        fieldFocusChange(context, subtitleNode,
+                                                            descriptionNode);
+                                                      });
+                                                    },
+                                                    keyboardType: TextInputType.text,
+                                                    enabled: editTextEnable,
+                                                    onChanged: (newText) {
+                                                      setState(() {
+                                                        widget.newNote.subtitle = newText;
+                                                        subtitleVal.selection =
+                                                            TextSelection.fromPosition(
+                                                                TextPosition(
+                                                                    offset:
+                                                                        subtitleVal.text.length));
+                                                      });
+                                                    },
+                                                    cursorColor: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .color,
+                                                    controller: subtitleVal,
+                                                    autofocus: false,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineLarge!
+                                                        .copyWith(fontSize: descriptionFontSize),
+                                                    textAlign: TextAlign.start,
+                                                    decoration: InputDecoration(
+                                                      helperText: 'Enter subtitle',
+                                                      helperStyle: Theme.of(context)
+                                                          .inputDecorationTheme
+                                                          .helperStyle!
+                                                          .copyWith(fontSize: helperTextSize),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: verticalPadding,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  editText();
+                                                },
+                                                child: TextField(
+                                                  maxLengthEnforcement:
+                                                      MaxLengthEnforcement.enforced,
+                                                  focusNode: descriptionNode,
+                                                  cursorWidth: 1,
+                                                  maxLength: maxDescriptionLength,
+                                                  maxLines: null,
+                                                  textInputAction: TextInputAction.newline,
+                                                  enabled: editTextEnable,
+                                                  onSubmitted: (val) {
+                                                    setState(() {
+                                                      descriptionNode.unfocus();
+                                                    });
+                                                  },
+                                                  onChanged: (newText) {
+                                                    setState(() {
+                                                      widget.newNote.description = newText;
+                                                      descVal.selection =
+                                                          TextSelection.fromPosition(TextPosition(
+                                                              offset: descVal.text.length));
+                                                    });
+                                                  },
+                                                  cursorColor: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .color,
+                                                  keyboardType: TextInputType.multiline,
+                                                  controller: descVal,
+                                                  autofocus: false,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineMedium!
+                                                      .copyWith(fontSize: descriptionFontSize),
+                                                  textAlign: TextAlign.start,
+                                                  decoration: InputDecoration(
+                                                    helperText: 'Enter note text',
+                                                    helperStyle: Theme.of(context)
+                                                        .inputDecorationTheme
+                                                        .helperStyle!
+                                                        .copyWith(fontSize: helperTextSize),
+                                                  ),
+                                                ),
+                                              ),
+                                              widget.newNote.image != null &&
+                                                      widget.newNote.image!.isNotEmpty
+                                                  ? ImageCard(
+                                                      img: widget.newNote.image!,
+                                                      size: 200,
+                                                      onTap: () {
+                                                        _bottomDrawer(context);
+                                                      },
+                                                      onHold: () {
+                                                        setState(() {
+                                                          widget.newNote.image = Uint8List(0);
+                                                        });
+                                                      },
+                                                    )
+                                                  : Container(),
+                                  ],
+                                )),
                           ),
                         ),
                       ),
-                      SliverPadding(
-                        padding: const EdgeInsets.only(left: 12.0),
-                        sliver: SliverList(
-                          delegate: SliverChildListDelegate([
-                            SizedBox(
-                              height: verticalPadding,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                editText();
-                              },
-                              child: SizedBox(
-                                key: widget.key,
-                                height: 40,
-                                child: TextField(
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  focusNode: titleNode,
-                                  cursorWidth: 1,
-                                  maxLines: 1,
-                                  maxLength: maxTitleLength,
-                                  textInputAction: TextInputAction.done,
-                                  keyboardType: TextInputType.text,
-                                  enabled: editTextEnable,
-                                  onSubmitted: (val) {
-                                    setState(() {
-                                      fieldFocusChange(
-                                          context, titleNode, subtitleNode);
-                                    });
-                                  },
-                                  onChanged: (newText) {
-                                    setState(() {
-                                      widget.newNote.title = newText;
-                                      titleVal.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                        offset: titleVal.text.length,
-                                      ));
-                                    });
-                                  },
-                                  cursorColor: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .color,
-                                  controller: titleVal,
-                                  autofocus: true,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontSize: titleTextSize),
-                                  textAlign: TextAlign.start,
-                                  decoration: InputDecoration(
-                                    helperText: 'Enter title',
-                                    helperStyle: Theme.of(context)
+                        IntrinsicHeight(
+                          child: Container(
+                            color: Theme.of(context).colorScheme.background,
+                            padding:EdgeInsets.only(
+                                top: topMargin, right: leftPadding),
+                            child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: AnimationConfiguration
+                                    .toStaggeredList(
+                                  duration: const Duration(
+                                      milliseconds: 300),
+                                  delay: const Duration(
+                                      milliseconds: 200),
+                                  childAnimationBuilder: (widget) =>
+                                      ScaleAnimation(
+                                        scale: 0.5,
+                                        child: FadeInAnimation(
+                                          child: widget,
+                                        ),
+                                      ),
+                                  children: [
+                                    CustomIconButton((){
+                                      _pickIcon(context);
+                                    }, navIconSize, categoryIcons.iconsList[
+                                    widget.newNote.icon ?? 1],Theme.of(context)
                                         .inputDecorationTheme
                                         .helperStyle!
-                                        .copyWith(fontSize: helperTextSize),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: verticalPadding,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                editText();
-                              },
-                              child: SizedBox(
-                                key: widget.key,
-                                height: 40,
-                                child: TextField(
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  focusNode: subtitleNode,
-                                  cursorWidth: 1,
-                                  maxLines: 1,
-                                  maxLength: maxSubtitleLength,
-                                  textInputAction: TextInputAction.done,
-                                  onSubmitted: (val) {
-                                    setState(() {
-                                      fieldFocusChange(context, subtitleNode,
-                                          descriptionNode);
-                                    });
-                                  },
-                                  keyboardType: TextInputType.text,
-                                  enabled: editTextEnable,
-                                  onChanged: (newText) {
-                                    setState(() {
-                                      widget.newNote.subtitle = newText;
-                                      subtitleVal.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                                  offset:
-                                                      subtitleVal.text.length));
-                                    });
-                                  },
-                                  cursorColor: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .color,
-                                  controller: subtitleVal,
-                                  autofocus: false,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontSize: titleTextSize),
-                                  textAlign: TextAlign.start,
-                                  decoration: InputDecoration(
-                                    helperText: 'Enter subtitle',
-                                    helperStyle: Theme.of(context)
-                                        .inputDecorationTheme
-                                        .helperStyle!
-                                        .copyWith(fontSize: helperTextSize),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: verticalPadding,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                editText();
-                              },
-                              child: TextField(
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                focusNode: descriptionNode,
-                                cursorWidth: 1,
-                                maxLength: maxDescriptionLength,
-                                maxLines: null,
-                                textInputAction: TextInputAction.newline,
-                                enabled: editTextEnable,
-                                onSubmitted: (val) {
-                                  setState(() {
-                                    descriptionNode.unfocus();
-                                  });
-                                },
-                                onChanged: (newText) {
-                                  setState(() {
-                                    widget.newNote.description = newText;
-                                    descVal.selection =
-                                        TextSelection.fromPosition(TextPosition(
-                                            offset: descVal.text.length));
-                                  });
-                                },
-                                cursorColor: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color,
-                                keyboardType: TextInputType.multiline,
-                                controller: descVal,
-                                autofocus: false,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: titleTextSize),
-                                textAlign: TextAlign.start,
-                                decoration: InputDecoration(
-                                  helperText: 'Enter note text',
-                                  helperStyle: Theme.of(context)
-                                      .inputDecorationTheme
-                                      .helperStyle!
-                                      .copyWith(fontSize: helperTextSize),
-                                ),
-                              ),
-                            ),
-                            widget.newNote.image != null &&
-                                    widget.newNote.image!.isNotEmpty
-                                ? ImageCard(
-                                    img: widget.newNote.image!,
-                                    size: 200,
-                                    onTap: () {
-                                      _bottomDrawer(context);
-                                    },
-                                    onHold: () {
-                                      setState(() {
-                                        widget.newNote.image = Uint8List(0);
-                                      });
-                                    },
-                                  )
-                                : Container(),
-                          ]),
+                                        .copyWith(
+                                        fontSize: helperTextSize), "Category", Theme.of(context).iconTheme.color),
+                                    const VerticalDivider(),
+                                    TextButton(
+                                      onPressed: () {
+                                        _pickDate(context);
+                                      },
+                                      child: Text(
+                                        DateFormat('dd MMM yy')
+                                            .format(
+                                            widget.newNote.date),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                            fontSize:
+                                            descriptionFontSize),
+                                      ),
+                                    ),
+                                    const VerticalDivider(),
+                                    TextButton(
+                                      onPressed: () {
+                                        _pickTime(context);
+                                      },
+                                      child: Text(
+                                        DateFormat('HH:mm').format(
+                                            widget.newNote.date),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                            fontSize:
+                                            descriptionFontSize),
+                                      ),
+                                    )
+                                  ],
+
+                                )),
+                          ),
                         ),
-                      ),
-                    ],
+                      ]
+                    ),
                   ),
-                ),
 
-                SlideTransition(
-                  position: _menuAnimation,
-                  child: CreatorNav(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    navDotIndicatorSize: navIconSize,
-                    itemCount: noteNavTitles.length,
-                    selectedItem: selectedIndex,
-                    titles: noteNavTitles,
-                    onTap: (int index) {
-                      setState(() {
-                        selectedIndex = index;
-                        switch (selectedIndex) {
-                          case 0:
-                            noteProvider.addNote(widget.newNote);
-                            Navigator.pop(context, true);
-                            break;
-                          case 1:
-                            editText();
-                            //_bottomDrawer(context);
-                            break;
-                          case 2:
-                            _bottomDrawer(context);
-                            break;
-                          case 3:
-                            noteProvider.deleteNote(widget.newNote);
-                            Navigator.pop(context, true);
-                            break;
-                          case 4:
-                            setState(() {
-                              editTextEnable = false;
-                            });
-                            Navigator.pop(context, true);
+                  SlideTransition(
+                    position: _menuAnimation,
+                    child: CreatorNav(
+                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                      navDotIndicatorSize: navIconSize,
+                      itemCount: noteNavTitles.length,
+                      selectedItem: selectedIndex,
+                      titles: noteNavTitles,
+                      onTap: (int index) {
+                        setState(() {
+                          selectedIndex = index;
+                          switch (selectedIndex) {
+                            case 0:
+                              noteProvider.addNote(widget.newNote);
+                              Navigator.pop(context, true);
+                              break;
+                            case 1:
+                              editText();
+                              //_bottomDrawer(context);
+                              break;
+                            case 2:
+                              _bottomDrawer(context);
+                              break;
+                            case 3:
+                              noteProvider.deleteNote(widget.newNote);
+                              Navigator.pop(context, true);
+                              break;
+                            case 4:
+                              setState(() {
+                                editTextEnable = false;
+                              });
+                              Navigator.pop(context, true);
 
-                            break;
-                        }
-                      });
-                    },
-                  ),
-                ), //nav rail menu
-              ],
-            );
-          }),
+                              break;
+                          }
+                        });
+                      },
+                    ),
+                  ), //nav rail menu
+                ],
+              );
+            }),
+          ),
         ));
   }
 }

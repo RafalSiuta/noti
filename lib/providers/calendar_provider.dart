@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../model/calendar_model/task.dart';
+import '../model/db_models/task.dart';
 import '../utils/prefs/prefs.dart';
 
 class CalendarProvider extends ChangeNotifier {

@@ -37,6 +37,9 @@ class SizeInfo {
   static double leadingAndTrailingIconSize = 18;
   static double navSideTitleSize = 18;
 
+  //project dimens:
+  static double projectCardHeight = 130;
+
   ///task dimens:
   static double taskCardHeight = 70;
   static double taskCardTitle = 12;

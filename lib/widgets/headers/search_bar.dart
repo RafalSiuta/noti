@@ -88,21 +88,21 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
               key: widget.key,
               width: MediaQuery.of(context).size.width,
               height: searchBarHeight,
-              margin: EdgeInsets.only(left: 8.0, top: topMargin, bottom: 8.0),
+              margin: EdgeInsets.only(left: 8.0, top: topMargin, bottom: 5.0),
               padding:
                   const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Theme.of(context).unselectedWidgetColor,
+                    color: Theme.of(context).unselectedWidgetColor.withOpacity(0.6),
                     offset: const Offset(0.0, 0.0),
                   ),
                   BoxShadow(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     offset: const Offset(0.0, 0.0),
-                    spreadRadius: -3.0,
-                    blurRadius: 3.0,
+                    spreadRadius: -2.0,
+                    blurRadius: 2.0,
                   ),
                 ],
               ),
@@ -113,6 +113,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                     editText();
                   },
                   child: TextField(
+
                     maxLines: 1,
                     cursorWidth: 1,
                     keyboardType: TextInputType.text,
@@ -128,7 +129,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                     onEditingComplete: () {
                       editText();
                     },
-                    cursorColor: Theme.of(context).textTheme.headline3!.color,
+                    cursorColor: Theme.of(context).textTheme.headlineLarge!.color,
                     controller: keywordVal,
                     autofocus: true,
                     textAlign: TextAlign.start,
@@ -138,11 +139,12 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                         .copyWith(fontSize: searchBarFontSize),
                     decoration: InputDecoration(
                         hintText: 'Search notes...',
+                        focusedBorder: InputBorder.none,
                         hintStyle: Theme.of(context)
                             .textTheme
                             .bodyMedium!
                             .copyWith(
-                                fontSize: searchBarFontSize, letterSpacing: 1),
+                                fontSize: searchBarFontSize, letterSpacing: 0),
                         prefixIcon: ScaleTransition(
                           scale: _scaleAnim,
                           child: FadeTransition(

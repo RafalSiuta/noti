@@ -6,6 +6,7 @@ import 'package:noti_2/widgets/headers/sliver_header.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/navigators/tab_nav.dart';
 import '../note_screen/note_list.dart';
+import '../project_screen/project_list.dart';
 import '../task_screen/task_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Calendar(isHeaderVisible: false,),
               Expanded(
                   flex: 5,
-                  child: TabNav([TaskList(),NoteList(isGrid: true,),TaskList()])),
+                  child: TabNav([TaskList(),NoteList(isGrid: true,),ProjectList()])),
 
             ],
           );

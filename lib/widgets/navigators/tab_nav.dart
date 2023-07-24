@@ -30,7 +30,7 @@ class _TabNavState extends State<TabNav> with SingleTickerProviderStateMixin{
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           child: TabBar(
             indicatorWeight: .5,
 
