@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:noti_2/screens/project_screen/project_creator_screen.dart';
 import 'package:provider/provider.dart';
 import '../../providers/project_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../utils/custom_page_route/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/project_card.dart';
 import '../../widgets/displays/default_text.dart';
@@ -51,7 +53,18 @@ class ProjectList extends StatelessWidget {
                         child: SlideAnimation(
                           verticalOffset: 20.0,
                           child: FadeInAnimation(
-                              child: ProjectCard(project: project,isDone: (val) {
+                              child: ProjectCard(project: project,
+                                edit: () async {
+                                  await Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                          child: ProjectCreator(
+                                            newProject: project,
+                                            editEnable: false,
+                                          ),
+                                          direction: AxisDirection.up));
+                                },
+                                isDone: (val) {
                               //todo fix it task provider
                               // taskProvider.updateTasks(tasks,
                               //     settingsProvider.isNotification);

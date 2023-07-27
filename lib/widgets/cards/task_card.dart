@@ -7,7 +7,6 @@ import '../../model/menu/category_icon_list.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/switch_btn.dart';
 import '../responsive/column_row_builder.dart';
-
 class TaskCard extends StatelessWidget {
   const TaskCard(
       {Key? key,
@@ -122,9 +121,10 @@ class TaskCard extends StatelessWidget {
                   style:
                   Theme.of(context).textTheme.headlineMedium!.copyWith(
                   fontSize: titleSize,
+                  overflow: TextOverflow.ellipsis,
                   decoration: task.isTaskDone!
                       ? TextDecoration.lineThrough
-                      : TextDecoration.none),maxLines: 2,)
+                      : TextDecoration.none),maxLines: 1,)
             ),
             Expanded(
               child: Padding(

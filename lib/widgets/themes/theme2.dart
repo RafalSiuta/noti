@@ -276,6 +276,12 @@ final theme2 = ThemeData(
         color: theme_2noteCardColor,
       ),
     ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      refreshBackgroundColor: theme_2unselectedColor,
+     // linearTrackColor: Colors.amber
+
+
+    ),
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.transparent, // theme_4TitleBoxBcgColor,
       elevation: 0,

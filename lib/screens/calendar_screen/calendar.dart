@@ -16,7 +16,8 @@ import '../../widgets/displays/calendar_marker.dart';
 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
-  const Calendar({Key? key, this.isHeaderVisible = true}) : super(key: key);
+  final bool fillViewPrort;
+  const Calendar({Key? key, this.isHeaderVisible = true, this.fillViewPrort = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,8 @@ class Calendar extends StatelessWidget {
               padding: const EdgeInsets.all(3.0),
               child: AnimationLimiter(
                 child: TableCalendar<Task>(
+                  sixWeekMonthsEnforced: true,
+                  shouldFillViewport: fillViewPrort,//(calendarProvider.format == CalendarFormat.month && isHeaderVisible) ? true : false,
                   focusedDay: calendarProvider.focDay,
                   availableGestures: isHeaderVisible
                       ? AvailableGestures.all
@@ -104,6 +107,62 @@ class Calendar extends StatelessWidget {
                             }),
                       );
                     },
+                    selectedBuilder: (context, date, notes){
+                      return Container(
+                       // color: Colors.green,
+                        height: 45,
+                        width: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                        child: Center(
+                            child: Text(
+                              '${date.day}',
+                              style: (date.weekday != 6 && date.weekday != 7)
+                                  ? Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                  fontSize: calendarFontSize,
+                                  fontWeight: FontWeight.w500)
+                                  : Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                  fontSize: calendarFontSize,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      );
+                    },
+                    todayBuilder: (context,date, notes){
+                      return Container(
+                       // color: Colors.green,
+                        height: 45,
+                        width: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        child: Center(
+                            child: Text(
+                              '${date.day}',
+                              style: (date.weekday != 6 && date.weekday != 7)
+                                  ? Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                  fontSize: calendarFontSize,
+                                  fontWeight: FontWeight.w500)
+                                  : Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                  fontSize: calendarFontSize,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      );
+                    },
                     dowBuilder: (context, date) {
                       return AnimationConfiguration.staggeredGrid(
                         columnCount: 7,
@@ -112,23 +171,28 @@ class Calendar extends StatelessWidget {
                         child: ScaleAnimation(
                           scale: 0.5,
                           child: FadeInAnimation(
-                              child: Center(
-                                  child: Text(
+                              child: SizedBox(
+                         //       color: Colors.red,
+                                height: 45,
+                                width: 35,
+                                child: Center(
+                                    child: Text(
                             '${DateFormat('E').format(date)} ',
                             style: (date.weekday != 6 && date.weekday != 7)
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w300)
-                                : Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w300),
-                          ))),
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(
+                                          fontSize: calendarFontSize,
+                                          fontWeight: FontWeight.w300)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontSize: calendarFontSize,
+                                          fontWeight: FontWeight.w300),
+                          )),
+                              )),
                         ),
                       );
                     },
@@ -140,54 +204,44 @@ class Calendar extends StatelessWidget {
                         child: ScaleAnimation(
                           scale: 0.5,
                           child: FadeInAnimation(
-                              child: Center(
-                                  child: Text(
+                              child: SizedBox(
+                                height: 45,
+                                width: 35,
+                                child: Center(
+                                    child: Text(
                             '${date.day}',
                             style: (date.weekday != 6 && date.weekday != 7)
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w500)
-                                : Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w500),
-                          ))),
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(
+                                          fontSize: calendarFontSize,
+                                          fontWeight: FontWeight.w500)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontSize: calendarFontSize,
+                                          fontWeight: FontWeight.w500),
+                          )),
+                              )),
                         ),
                       );
                     },
                     markerBuilder: (context, date, notes) {
                       return notes.isNotEmpty
-                          ? Positioned(
-                              right: 1,
-                              bottom: 0,
-                              top: 0,
-                              child: CalendarMarker(notes.length,markerRadius,markerFontSize)
-                              // Container(
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(10)),
-                              //    // shape: BoxShape.circle,
-                              //     color: Theme.of(context).indicatorColor,
-                              //   ),
-                              //   width: markerRadius,
-                              //   height: markerRadius,
-                              //   child: Center(
-                              //     child: Text('${notes.length}',
-                              //         textAlign: TextAlign.center,
-                              //         style: Theme.of(context)
-                              //             .textTheme
-                              //             .bodySmall!
-                              //             .copyWith(fontSize: markerFontSize)),
-                              //   ),
-                              // )
-                      )
-                          : const Positioned(
-                              right: 1,
-                              bottom: 1,
+                          ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CalendarMarker([5,4,3],markerRadius,markerFontSize))
+
+                      // Positioned(
+                      //         right: 1,
+                      //         bottom: 0,
+                      //         top: 0,
+                      //         child: CalendarMarker(notes.length,markerRadius,markerFontSize)
+                      // )
+                          : const Align(
+                             alignment: Alignment.bottomCenter,
                               child: SizedBox(
                                 width: 5,
                                 height: 5,

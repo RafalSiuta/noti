@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:noti_2/utils/extensions/string_extension.dart';
 import '../../model/db_models/note.dart';
 import '../../model/menu/category_icon_list.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -80,7 +81,7 @@ class NoteCard extends StatelessWidget {
                                 height: 5.0,
                               ),
                               Text(
-                                note.title!, //capitalTitle,
+                                note.title!.capitalizeFirstLetter(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!

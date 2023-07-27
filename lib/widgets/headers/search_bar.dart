@@ -138,7 +138,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                         .headlineMedium!
                         .copyWith(fontSize: searchBarFontSize),
                     decoration: InputDecoration(
-                        hintText: 'Search notes...',
+                        hintText: 'Search...',
                         focusedBorder: InputBorder.none,
                         hintStyle: Theme.of(context)
                             .textTheme

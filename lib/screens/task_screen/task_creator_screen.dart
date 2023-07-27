@@ -247,7 +247,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
     var inputHeight = SizeInfo.searchBarHeight;
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
-    int maxTitleLength = 15;
+    int maxTitleLength = 30;
     int maxDescriptionLength = 4000;
     return Scaffold(
         //todo: check nav bar items shrink option

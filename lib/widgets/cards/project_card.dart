@@ -7,15 +7,17 @@ import '../../model/db_models/project.dart';
 import '../../model/menu/category_icon_list.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/switch_btn.dart';
+import '../raters/custom_progress_bar.dart';
 import '../responsive/column_row_builder.dart';
 
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, this.circleFromLeft = true, required this.project,  required this.isDone,});
+  const ProjectCard({super.key, this.circleFromLeft = true, required this.project,  required this.isDone, this.edit});
 
   final bool circleFromLeft;
   final Project project;
   final Function(bool val)? isDone;
+  final Function()? edit;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class ProjectCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(width: 45,height: 55,),
+            SizedBox(width: iconCircleSize - 8,height: iconCircleSize - 8,),
             Padding(
                 padding: textPadding,
                 child: RichText(
@@ -111,7 +113,7 @@ class ProjectCard extends StatelessWidget {
               child: Padding(
           padding: textPadding,
           child: RichText(
-
+                maxLines: 3,
                 text: TextSpan(
                     text: "${project.title!.capitalizeFirstLetter()}\n",
 
@@ -124,8 +126,9 @@ class ProjectCard extends StatelessWidget {
                             : TextDecoration.none),
                     children:<TextSpan>[
                       TextSpan(
-                          text: "Subtitle example text explain ", style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          text: project.subtitle, style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                           fontSize: subtitleSize,
+
                           overflow: TextOverflow.ellipsis,
                           decoration: project.isTaskDone!
                               ? TextDecoration.lineThrough
@@ -136,7 +139,7 @@ class ProjectCard extends StatelessWidget {
           ),),
             ), // title
             Padding(
-              padding: textPadding,
+              padding: EdgeInsets.only(right: 10.0, top:3.0),
               child: RowBuilder(
                 key: key,
                 itemCount: project.priority!,
@@ -184,155 +187,106 @@ class ProjectCard extends StatelessWidget {
                 ? TextDecoration.lineThrough
                 : TextDecoration.none), maxLines: 3,),
       )),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Text("Proggres..."),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: 5.0, left: 15, right: 15),
-            height: 5.0,width: MediaQuery.of(context).size.width - 100, decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)), color: Colors.amber
-          ),)
-        ],
-      )
+      CustomProgressBar(progressValue: project.progress!,)
 
-      //text
-      // Column(
-      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   crossAxisAlignment: circleFromLeft == true
-      //       ? CrossAxisAlignment.end
-      //       : CrossAxisAlignment.start,
-      //   // mainAxisSize: MainAxisSize.min,
-      //   children: [
-      //     Padding(
-      //       padding: textPadding,
-      //       child: RowBuilder(
-      //         key: key,
-      //         itemCount: project.priority!,
-      //         itemBuilder: (context, index) {
-      //           return Padding(
-      //             padding: const EdgeInsets.only(left: 3.0, top: 3.0),
-      //             child: Icon(
-      //               Icons.circle,
-      //               color: project.isTaskDone!
-      //                   ? Theme.of(context).unselectedWidgetColor
-      //                   : Theme.of(context).indicatorColor,
-      //               size: smallIconSize,
-      //             ),
-      //           );
-      //         },
-      //       ),
-      //     ),
-      //     Expanded(
-      //       child: SwitchBtn(
-      //         value: project.isTaskDone,
-      //         icon: FontAwesomeIcons.check,
-      //         align: circleFromLeft == true
-      //             ? Alignment.bottomRight
-      //             : Alignment.bottomLeft,
-      //         onChanged: isDone,
-      //       ),
-      //     ),
-      //   ],
-      // ),
     ];
 
-    return   Stack(
-      children:[
-        Container(
-        width: MediaQuery.of(context).size.width,
-        height: height,
-        margin: marginContainer,
-        decoration: BoxDecoration(
-            borderRadius: radiusContainer,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Theme.of(context)
-                    .unselectedWidgetColor
-                    .withOpacity(0.6),
-                offset: const Offset(0.0, 0.0),
-              ),
-              BoxShadow(
-                color: Theme.of(context).shadowColor,
-                offset: const Offset(0.0, 0.0),
-                spreadRadius: -2.0,
-                blurRadius: 2.0,
-              ),
-            ]),
-      ),//main shape
-        Align(
-          alignment:
-          circleFromLeft == true ? Alignment.topLeft : Alignment.topRight,
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: smallRingRadiusSize,
-              margin: marginTextBox,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: radiusInnerContainer,
-                // boxShadow: [
-                //   BoxShadow(
-                //       color: Theme.of(context).shadowColor,
-                //       blurRadius: 3.0,
-                //       offset: const Offset(.0, .0),
-                //       spreadRadius: 2.0),
-                // ]
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _items)),
-        ), //title box
-        Align(
-          alignment: circleFromLeft == true ? Alignment.topLeft : Alignment.topRight,
-          child: Container(
-            margin: marginContainer,
-            width: iconCircleSize,
-            height: iconCircleSize,
-            decoration: BoxDecoration(
-              borderRadius: radiusAvatarTile,
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomLeft,
-                stops: const [0.0, 0.5, 1.0],
-                colors: [
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).primaryColorLight,
-                  Theme.of(context).primaryColorDark
-                ],
-              ),
-              // shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2.0),
+    return GestureDetector(
+      key: key,
+      onTap: edit,
+      child: Stack(
+        children:[
+          Container(
+          width: MediaQuery.of(context).size.width,
+          height: height,
+          margin: marginContainer,
+          decoration: BoxDecoration(
+              borderRadius: radiusContainer,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Theme.of(context)
+                      .unselectedWidgetColor
+                      .withOpacity(0.6),
+                  offset: const Offset(0.0, 0.0),
+                ),
+                BoxShadow(
+                  color: Theme.of(context).shadowColor,
+                  offset: const Offset(0.0, 0.0),
+                  spreadRadius: -2.0,
+                  blurRadius: 2.0,
+                ),
+              ]),
+        ),//main shape
+          Align(
+            alignment:
+            circleFromLeft == true ? Alignment.topLeft : Alignment.topRight,
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: smallRingRadiusSize,
+                margin: marginTextBox,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background,
+                  borderRadius: radiusInnerContainer,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       color: Theme.of(context).shadowColor,
+                  //       blurRadius: 3.0,
+                  //       offset: const Offset(.0, .0),
+                  //       spreadRadius: 2.0),
+                  // ]
+                ),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      iconPick.iconsList[project.icon!],
-                      size: iconSize,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0,),
-                      child: Divider(color: Theme.of(context).colorScheme.secondary, height: 4.0,),
-                    ),
-                    Text('${DateFormat('HH:mm').format(project.date)}  ',textAlign: TextAlign.center, style:Theme.of(context).textTheme.displaySmall!.copyWith(
-                      fontSize: timerSize, ))
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _items)),
+          ), //title box
+          Align(
+            alignment: circleFromLeft == true ? Alignment.topLeft : Alignment.topRight,
+            child: Container(
+              margin: marginContainer,
+              width: iconCircleSize,
+              height: iconCircleSize,
+              decoration: BoxDecoration(
+                borderRadius: radiusAvatarTile,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomLeft,
+                  stops: const [0.0, 0.5, 1.0],
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).primaryColorLight,
+                    Theme.of(context).primaryColorDark
                   ],
+                ),
+                // shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        iconPick.iconsList[project.icon!],
+                        size: iconSize,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,),
+                        child: Divider(color: Theme.of(context).colorScheme.secondary, height: 4.0,),
+                      ),
+                      Text('${DateFormat('HH:mm').format(project.date)}  ',textAlign: TextAlign.center, style:Theme.of(context).textTheme.displaySmall!.copyWith(
+                        fontSize: timerSize, ))
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ), //avatar icon tile
-    ]
+          ), //avatar icon tile
+      ]
+      ),
     ); //main shape
   }
 }

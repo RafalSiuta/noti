@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 class CalendarMarker extends StatelessWidget {
   const CalendarMarker(this.itemsQty, this.markerRadius, this.markerFontSize, {super.key});
-  final int? itemsQty;
+  final List<int>? itemsQty;
   final double? markerRadius;
   final double? markerFontSize;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(5.0)),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.0)),
             // shape: BoxShape.circle,
 
 
             color: Theme.of(context).indicatorColor,
           ),
-          width: markerRadius! - 2,
-          height: markerRadius,
+          width: markerRadius,
+          height: markerRadius! - 2,
           child: Center(
-            child: Text('${itemsQty}',
+            child: Text('${itemsQty![0]}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -36,15 +36,15 @@ class CalendarMarker extends StatelessWidget {
           decoration: BoxDecoration(
             //borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
             // shape: BoxShape.circle,
-            border: Border.symmetric(horizontal: BorderSide(color:Theme.of(context)
+            border: Border.symmetric(vertical: BorderSide(color:Theme.of(context)
                 .textTheme
                 .bodySmall!.color!, width: 0.5 ), ),
             color: Theme.of(context).indicatorColor,
           ),
-          width: markerRadius! - 2,
-          height: markerRadius,
+          width: markerRadius,
+          height: markerRadius! - 2,
           child: Center(
-            child: Text('${itemsQty! - 1}',
+            child: Text('${itemsQty![1]}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -58,10 +58,10 @@ class CalendarMarker extends StatelessWidget {
             // shape: BoxShape.circle,
             color: Theme.of(context).indicatorColor,
           ),
-          width: markerRadius! - 2,
-          height: markerRadius,
+          width: markerRadius,
+          height: markerRadius! - 2,
           child: Center(
-            child: Text('${itemsQty! + 1}',
+            child: Text('${itemsQty![2]}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

@@ -10,10 +10,11 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 
-import '../../model/db_models/note.dart';
+import '../../model/db_models/project.dart';
 import '../../model/menu/category_icon_list.dart';
 import '../../model/menu/nav_model.dart';
 import '../../providers/note_provider.dart';
+import '../../providers/project_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/custom_icon_btn.dart';
 import '../../widgets/calendar/calendar_widget.dart';
@@ -22,17 +23,17 @@ import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
 import '../../widgets/navigators/creator_nav.dart';
 
-class NoteCreator extends StatefulWidget {
-  final Note newNote;
+class ProjectCreator extends StatefulWidget {
+  final Project newProject;
   final bool editEnable;
-  const NoteCreator({Key? key, required this.newNote, this.editEnable = true})
+  const ProjectCreator({Key? key, required this.newProject, this.editEnable = true})
       : super(key: key);
 
   @override
-  _NoteCreatorState createState() => _NoteCreatorState();
+  _ProjectCreatorState createState() => _ProjectCreatorState();
 }
 
-class _NoteCreatorState extends State<NoteCreator>
+class _ProjectCreatorState extends State<ProjectCreator>
     with TickerProviderStateMixin {
   bool editTextEnable = false;
   bool keepInMind = true;
@@ -48,8 +49,11 @@ class _NoteCreatorState extends State<NoteCreator>
   CategoryIconsList categoryIcons = CategoryIconsList();
 
   FocusNode titleNode = FocusNode();
+  String titleHelperText = "";
   FocusNode subtitleNode = FocusNode();
+  String subtitleHelperText = "";
   FocusNode descriptionNode = FocusNode();
+  String descHelperText = "";
 
   int selectedIndex = 0;
 
@@ -72,7 +76,7 @@ class _NoteCreatorState extends State<NoteCreator>
         context: context,
         builder: (context) {
           return CustomDial(
-              title: 'Note icon',
+              title: 'Project icon',
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 30,
                 height: 250,
@@ -89,7 +93,7 @@ class _NoteCreatorState extends State<NoteCreator>
                           (index) =>
                           CustomIconButton((){
                             setState(() {
-                              widget.newNote.icon = index;
+                              widget.newProject.icon = index;
                             });
                           },12,categoryIcons.iconsList[index], Theme.of(context)
                               .inputDecorationTheme
@@ -100,27 +104,6 @@ class _NoteCreatorState extends State<NoteCreator>
                               : Theme.of(context).unselectedWidgetColor)
                   ),
                 ),
-
-
-                // GridView.count(
-                //   physics: const BouncingScrollPhysics(
-                //       parent: AlwaysScrollableScrollPhysics()),
-                //   crossAxisSpacing: 0.0,
-                //   shrinkWrap: true,
-                //   mainAxisSpacing: 0.0,
-                //   crossAxisCount: 5,
-                //   children: List.generate(
-                //       categoryIcons.iconsList.length,
-                //       (index) => IconButton(
-                //             onPressed: () {
-                //               setState(() {
-                //                 widget.newNote.icon = index;
-                //               });
-                //             },
-                //             icon:
-                //                 Icon(categoryIcons.iconsList[index], size: 13),
-                //           )),
-                // ),
               ));
         });
   }
@@ -138,7 +121,7 @@ class _NoteCreatorState extends State<NoteCreator>
                   if (picked != null && picked != selectedDate) {
                     setState(() {
                       selectedDate = picked;
-                      widget.newNote.date = DateTime(selectedDate.year, selectedDate.month,
+                      widget.newProject.date = DateTime(selectedDate.year, selectedDate.month,
                           selectedDate.day, dayTime.hour, dayTime.minute); //picked;
                     });
                   }
@@ -150,17 +133,6 @@ class _NoteCreatorState extends State<NoteCreator>
   }
 
   _pickTime(BuildContext context) async {
-    // final TimeOfDay? selectedTime = await showTimePicker(
-    //   initialTime: dayTime,
-    //   context: context,
-    // );
-    // if (selectedTime != null && selectedTime != dayTime) {
-    //   setState(() {
-    //     dayTime = selectedTime;
-    //     widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-    //         selectedDate.day, dayTime.hour, dayTime.minute);
-    //   });
-    // }
     showDialog(
         context: context,
         builder:(context){
@@ -176,11 +148,9 @@ class _NoteCreatorState extends State<NoteCreator>
                 onTimeChange: (time) {
                   setState(() {
                     TimeOfDay pickTime = TimeOfDay(hour: time.hour, minute: time.minute);
-                    // print(time);
-                    // print(time.runtimeType);
                     if (pickTime != dayTime ) {
                       dayTime = pickTime;
-                      widget.newNote.date = DateTime(selectedDate.year, selectedDate.month,
+                      widget.newProject.date = DateTime(selectedDate.year, selectedDate.month,
                           selectedDate.day, dayTime.hour, dayTime.minute);
                     }
                   });
@@ -201,21 +171,6 @@ class _NoteCreatorState extends State<NoteCreator>
             ));
   }
 
-  // _pickCategory(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return CustomDial(
-  //             title: 'Note category',
-  //             child: SizedBox(
-  //                 width: MediaQuery.of(context).size.width - 30,
-  //                 height: 250,
-  //                 child: NoteCategoryScreen(
-  //                   newNote: widget.newNote,
-  //                 )));
-  //       });
-  // }
-
   selectOptions(int index) {
     setState(() {
       selectedIndex = index;
@@ -231,7 +186,7 @@ class _NoteCreatorState extends State<NoteCreator>
       //      return widget.newNote.image = value.readAsBytesSync();
       //   }
       // });
-      widget.newNote.image = Uint8List(0);//img;
+      widget.newProject.image = Uint8List(0);//img;
     });
   }
 
@@ -269,10 +224,32 @@ class _NoteCreatorState extends State<NoteCreator>
             CurvedAnimation(
                 parent: _menuSlideInController!, curve: Curves.ease));
     editTextEnable = widget.editEnable;
-    titleVal.text = widget.newNote.title!;
-    subtitleVal.text = widget.newNote.subtitle!;
-    descVal.text = widget.newNote.description!;
-    keepInMind = widget.newNote.keep!;
+    titleVal.text = widget.newProject.title!;
+    subtitleVal.text = widget.newProject.subtitle!;
+    descVal.text = widget.newProject.description!;
+
+    if (titleVal.text.isEmpty){
+      titleHelperText = "Enter title";
+    }else {
+
+      titleHelperText = "";
+    }
+
+    if (subtitleVal.text.isEmpty){
+      subtitleHelperText = "Enter subtitle";
+    }else {
+
+      subtitleHelperText = "";
+    }
+    if (descVal.text.isEmpty){
+      descHelperText = "Project description";
+    }else {
+
+      descHelperText = "";
+    }
+    descriptionNode.addListener(() {
+
+    });
 
     super.initState();
     Future.delayed(const Duration(milliseconds: 500))
@@ -298,7 +275,7 @@ class _NoteCreatorState extends State<NoteCreator>
     var verticalPadding = SizeInfo.verticalTextPadding;
     var descriptionFontSize = SizeInfo.taskCreatorDescription;
     int maxTitleLength = 30;
-    int maxSubtitleLength = 50;
+    int maxSubtitleLength = 100;
     int maxDescriptionLength = 4000;
 
 
@@ -310,7 +287,7 @@ class _NoteCreatorState extends State<NoteCreator>
           padding: EdgeInsets.only(left: leftPadding),
           child: SafeArea(
             child:
-                Consumer<NoteProvider>(builder: (context, noteProvider, child) {
+                Consumer<ProjectProvider>(builder: (context, projectProvider, child) {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -367,7 +344,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     },
                                                     onChanged: (newText) {
                                                       setState(() {
-                                                        widget.newNote.title = newText;
+                                                        widget.newProject.title = newText;
                                                         titleVal.selection =
                                                             TextSelection.fromPosition(
                                                                 TextPosition(
@@ -387,8 +364,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                         .copyWith(fontSize: titleTextSize),
                                                     textAlign: TextAlign.start,
                                                     decoration: InputDecoration(
-
-                                                      helperText: 'Enter title',
+                                                      helperText: titleHelperText,
                                                       helperStyle: Theme.of(context)
                                                           .inputDecorationTheme
                                                           .helperStyle!
@@ -406,13 +382,13 @@ class _NoteCreatorState extends State<NoteCreator>
                                                 },
                                                 child: SizedBox(
                                                   key: widget.key,
-                                                 // height: 40,
+                                                  //height: null,
                                                   child: TextField(
                                                     maxLengthEnforcement:
                                                         MaxLengthEnforcement.enforced,
                                                     focusNode: subtitleNode,
                                                     cursorWidth: 1,
-                                                    maxLines: 2,
+                                                    maxLines: 3,
                                                     maxLength: maxSubtitleLength,
                                                     textInputAction: TextInputAction.done,
                                                     onSubmitted: (val) {
@@ -425,7 +401,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     enabled: editTextEnable,
                                                     onChanged: (newText) {
                                                       setState(() {
-                                                        widget.newNote.subtitle = newText;
+                                                        widget.newProject.subtitle = newText;
                                                         subtitleVal.selection =
                                                             TextSelection.fromPosition(
                                                                 TextPosition(
@@ -441,11 +417,11 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     autofocus: false,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .headlineLarge!
+                                                        .headlineMedium!
                                                         .copyWith(fontSize: descriptionFontSize),
                                                     textAlign: TextAlign.start,
                                                     decoration: InputDecoration(
-                                                      helperText: 'Enter subtitle',
+                                                      helperText: subtitleHelperText,
                                                       helperStyle: Theme.of(context)
                                                           .inputDecorationTheme
                                                           .helperStyle!
@@ -477,7 +453,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                   },
                                                   onChanged: (newText) {
                                                     setState(() {
-                                                      widget.newNote.description = newText;
+                                                      widget.newProject.description = newText;
                                                       descVal.selection =
                                                           TextSelection.fromPosition(TextPosition(
                                                               offset: descVal.text.length));
@@ -496,7 +472,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                       .copyWith(fontSize: descriptionFontSize),
                                                   textAlign: TextAlign.start,
                                                   decoration: InputDecoration(
-                                                    helperText: 'Enter note text',
+                                                    helperText: descHelperText,
                                                     helperStyle: Theme.of(context)
                                                         .inputDecorationTheme
                                                         .helperStyle!
@@ -504,17 +480,17 @@ class _NoteCreatorState extends State<NoteCreator>
                                                   ),
                                                 ),
                                               ),
-                                              widget.newNote.image != null &&
-                                                      widget.newNote.image!.isNotEmpty
+                                              widget.newProject.image != null &&
+                                                      widget.newProject.image!.isNotEmpty
                                                   ? ImageCard(
-                                                      img: widget.newNote.image!,
+                                                      img: widget.newProject.image!,
                                                       size: 200,
                                                       onTap: () {
                                                         _bottomDrawer(context);
                                                       },
                                                       onHold: () {
                                                         setState(() {
-                                                          widget.newNote.image = Uint8List(0);
+                                                          widget.newProject.image = Uint8List(0);
                                                         });
                                                       },
                                                     )
@@ -549,7 +525,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                     CustomIconButton((){
                                       _pickIcon(context);
                                     }, navIconSize, categoryIcons.iconsList[
-                                    widget.newNote.icon ?? 1],Theme.of(context)
+                                    widget.newProject.icon ?? 1],Theme.of(context)
                                         .inputDecorationTheme
                                         .helperStyle!
                                         .copyWith(
@@ -559,33 +535,85 @@ class _NoteCreatorState extends State<NoteCreator>
                                       onPressed: () {
                                         _pickDate(context);
                                       },
-                                      child: Text(
-                                        DateFormat('dd MMM yy')
-                                            .format(
-                                            widget.newNote.date),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                            fontSize:
-                                            descriptionFontSize),
-                                      ),
+                                      child:
+                                        RichText(
+                                          text: TextSpan(
+                                            text: DateFormat('dd MMM yy')
+                                              .format(
+                                              widget.newProject.date),
+                                            style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium!
+                                                    .copyWith(
+                                                    fontSize:
+                                                    descriptionFontSize),
+                                            children:  <TextSpan>[
+                                              TextSpan(
+                                                text: "\nDeadline date",
+                                                style: Theme.of(context)
+                                                    .inputDecorationTheme
+                                                    .helperStyle!
+                                                    .copyWith(
+                                                    fontSize: helperTextSize)
+                                              )
+                                            ]
+                                          ),
+
+                                        ),
+                                      // Text(
+                                      //   DateFormat('dd MMM yy')
+                                      //       .format(
+                                      //       widget.newProject.date),
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .headlineMedium!
+                                      //       .copyWith(
+                                      //       fontSize:
+                                      //       descriptionFontSize),
+                                      // ),
                                     ),
                                     const VerticalDivider(),
                                     TextButton(
                                       onPressed: () {
                                         _pickTime(context);
                                       },
-                                      child: Text(
-                                        DateFormat('HH:mm').format(
-                                            widget.newNote.date),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                            fontSize:
-                                            descriptionFontSize),
+                                      child:
+                                      RichText(
+                                        text: TextSpan(
+                                            text: DateFormat('HH:mm')
+                                                .format(
+                                                widget.newProject.date),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                                fontSize:
+                                                descriptionFontSize),
+                                            children:  <TextSpan>[
+                                              TextSpan(
+                                                  text: "\nDeadline time",
+                                                style: Theme.of(context)
+                                                    .inputDecorationTheme
+                                                    .helperStyle!
+                                                    .copyWith(
+                                                    fontSize: helperTextSize)
+                                              )
+                                            ]
+                                        ),
+
                                       ),
+
+
+                                      // Text(
+                                      //   DateFormat('HH:mm').format(
+                                      //       widget.newProject.date),
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .headlineMedium!
+                                      //       .copyWith(
+                                      //       fontSize:
+                                      //       descriptionFontSize),
+                                      // ),
                                     )
                                   ],
 
@@ -609,7 +637,7 @@ class _NoteCreatorState extends State<NoteCreator>
                           selectedIndex = index;
                           switch (selectedIndex) {
                             case 0:
-                              noteProvider.addNote(widget.newNote);
+                              //projectProvider.addNote(widget.newProject);
                               Navigator.pop(context, true);
                               break;
                             case 1:
@@ -620,7 +648,7 @@ class _NoteCreatorState extends State<NoteCreator>
                               _bottomDrawer(context);
                               break;
                             case 3:
-                              noteProvider.deleteNote(widget.newNote);
+                              //projectProvider.deleteNote(widget.newProject);
                               Navigator.pop(context, true);
                               break;
                             case 4:
