@@ -16,8 +16,8 @@ import '../../widgets/displays/calendar_marker.dart';
 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
-  final bool fillViewPrort;
-  const Calendar({Key? key, this.isHeaderVisible = true, this.fillViewPrort = false}) : super(key: key);
+  final bool fillViewPort;
+  const Calendar({Key? key, this.isHeaderVisible = true, this.fillViewPort = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class Calendar extends StatelessWidget {
               child: AnimationLimiter(
                 child: TableCalendar<Task>(
                   sixWeekMonthsEnforced: true,
-                  shouldFillViewport: fillViewPrort,//(calendarProvider.format == CalendarFormat.month && isHeaderVisible) ? true : false,
+                  shouldFillViewport: fillViewPort,//(calendarProvider.format == CalendarFormat.month && isHeaderVisible) ? true : false,
                   focusedDay: calendarProvider.focDay,
                   availableGestures: isHeaderVisible
                       ? AvailableGestures.all

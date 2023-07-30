@@ -59,7 +59,7 @@ class Carousel extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme.of(context).colorScheme.background,
                               shadowColor: Theme.of(context).shadowColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(.0),

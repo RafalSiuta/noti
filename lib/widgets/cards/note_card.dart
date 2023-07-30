@@ -36,20 +36,21 @@ class NoteCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                //color: Theme.of(context).indicatorColor,
-                // decoration: BoxDecoration(
-                //   color: Theme.of(context).primaryColorLight,,
-                //     gradient: LinearGradient(
-                //       begin: Alignment.topCenter,
-                //       end: Alignment.bottomLeft,
-                //       stops: const [0.0,  1.0],
-                //       colors: [
-                //         Theme.of(context).primaryColorLight,
-                //         Theme.of(context).primaryColor,
-                //
-                //        // Theme.of(context).primaryColorDark
-                //       ],
-                //     ),
+                color: Theme.of(context).primaryColor,
+        //         decoration: BoxDecoration(
+        //           color: Theme.of(context).primaryColorLight,
+        //             gradient: LinearGradient(
+        //               begin: Alignment.topCenter,
+        //               end: Alignment.bottomLeft,
+        //               stops: const [0.0,  1.0],
+        //               colors: [
+        //                 Theme.of(context).primaryColorLight,
+        //                 Theme.of(context).primaryColor,
+        //
+        //                // Theme.of(context).primaryColorDark
+        //               ],
+        // ),
+        //             ),
                 width: isGrid ? leftPadding : leftPadding - 8,
               ),
               Expanded(

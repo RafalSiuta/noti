@@ -7,6 +7,7 @@ import '../utils/dimensions/size_info.dart';
 import '../widgets/buttons/custom_fab.dart';
 import '../widgets/navigators/side_nav.dart';
 import '../widgets/responsive/screen_type_layout.dart';
+import '../widgets/shapes/shapes.dart';
 import 'calendar_screen/calendar_screen.dart';
 import 'home_screen/home_screen.dart';
 import 'library_screen/library_screen.dart';
@@ -126,7 +127,7 @@ class _MainScreenState extends State<MainScreen>
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Stack(alignment: AlignmentDirectional.topEnd, children: [
-              // const BackgroundShape(), //todo create shapes
+              const BackgroundShape(), 
               SafeArea(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,

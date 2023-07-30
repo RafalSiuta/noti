@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/navigators/side_nav.dart';
+import '../../widgets/shapes/shapes.dart';
 import 'subscreens/about_screen.dart';
 import 'subscreens/themes_screen.dart';
 import 'subscreens/options_screen.dart';
@@ -116,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
     var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
     return Scaffold(
       body: Stack(alignment: AlignmentDirectional.topEnd, children: [
-      // const BackgroundShape(), //todo create shapes
+        const BackgroundShape(),
       SafeArea(
       child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
