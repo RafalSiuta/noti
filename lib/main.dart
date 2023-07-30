@@ -48,13 +48,14 @@ class Noti extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    //final theme = Provider.of<SettingsProvider>(context);
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
             create: (context) => CalendarProvider(),
           ),
           ChangeNotifierProvider(
-            create: (context) => SettingsProvider(),
+            create: (context) => SettingsProvider(theme2),
           ),
           ChangeNotifierProvider(
             create: (context) => HomeProvider(),
@@ -80,16 +81,18 @@ class Noti extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-              theme: theme2,
+              theme: settings.getTheme(),
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),
             );
           },
-        ));
-
+        )
+    );
 
 
   }
+
+
 
   static onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -112,4 +115,37 @@ class Noti extends StatelessWidget {
     }
   }
 }
-
+// class MaterialAppWithTheme extends StatelessWidget {
+//   static onGenerateRoute(RouteSettings settings) {
+//     switch (settings.name) {
+//       case "/":
+//         return CustomPageRoute(
+//             child: const MainScreen(),
+//             settings: settings,
+//             direction: AxisDirection.left);
+//
+//       case "/settings":
+//         return CustomPageRoute(
+//             child: const SettingsScreen(),
+//             settings: settings,
+//             direction: AxisDirection.left);
+//       default:
+//         CustomPageRoute(
+//             child: const MainScreen(),
+//             settings: settings,
+//             direction: AxisDirection.left);
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Provider.of<SettingsProvider>(context);
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Noti',
+//       theme: theme.getTheme(),
+//       initialRoute: '/',
+//       onGenerateRoute: (route) => onGenerateRoute(route),
+//     );
+//   }
+// }

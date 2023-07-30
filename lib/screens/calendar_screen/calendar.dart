@@ -114,7 +114,7 @@ class Calendar extends StatelessWidget {
                         width: 35,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(5)),
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).primaryColorLight,
                         ),
                         child: Center(
                             child: Text(
@@ -124,14 +124,16 @@ class Calendar extends StatelessWidget {
                                   .textTheme
                                   .headlineLarge!
                                   .copyWith(
+                                  color: Theme.of(context).colorScheme.secondary,
                                   fontSize: calendarFontSize,
-                                  fontWeight: FontWeight.w500)
+                                  fontWeight: FontWeight.w600)
                                   : Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
+                                  color: Theme.of(context).colorScheme.secondary,
                                   fontSize: calendarFontSize,
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.w600),
                             )),
                       );
                     },
@@ -269,6 +271,7 @@ class Calendar extends StatelessWidget {
                         .textTheme
                         .headlineMedium!
                         .copyWith(
+                            //color: Theme.of(context).colorScheme.secondary,
                             fontSize: calendarFontSize,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0),

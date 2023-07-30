@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
 
   final List<ScreenModel> _pages = [
     ScreenModel(
-      page: const ThemesScreen(),
+      page: const ThemeScreen(),
       title: NavModel(
         title: 'Themes',
       ),

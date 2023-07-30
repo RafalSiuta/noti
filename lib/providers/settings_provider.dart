@@ -1,30 +1,153 @@
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:noti_2/widgets/shapes/shape_paths/shapes_exports.dart';
 
 import '../model/settings_model/settings_model/calendar_settings_model.dart';
 import '../model/theme_model/shapes_list.dart';
+import '../model/theme_model/themes_list.dart';
 import '../utils/prefs/prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  SettingsProvider() {
+  SettingsProvider(this.themeData) {
     init();
   }
 
   init() async {
     print('Loading settings..');
+    await loadSets();
   }
 
   final Prefs _prefs = Prefs();
-  // ThemeData themeData = ThemeData();
-  // ThemeMode themeMode = ThemeMode.system;
+
+  ThemeMode themeMode = ThemeMode.system;
 
   bool isNotification = true;
   bool isThemeChangeMonthly = false;
   bool isNotificationSound = true;
   bool isShapeTransparent = false;
 
+  int currentMonthByTheme = DateTime.now().month;
+
   CustomClipper<Path> shapes = Shape1();
   ShapesList shapesList = ShapesList();
+
+  ///shapes logic:
+  CarouselController carouselController = CarouselController();
+
+  goToPrevious() {
+    carouselController.previousPage(
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+
+    _prefs.storeInt('shape', currentShape);
+    notifyListeners();
+  }
+
+  goToNext() {
+    carouselController.nextPage(
+        duration: const Duration(milliseconds: 300), curve: Curves.decelerate);
+    _prefs.storeInt('shape', currentShape);
+    notifyListeners();
+  }
+
+  onActivityChange(int index) {
+    currentShape = index;
+    setCustomShape(currentShape);
+    setTransparency(currentShape);
+    notifyListeners();
+  }
+//themes
+  ThemeData themeData = ThemeData();
+  ThemesList themes = ThemesList();
+
+  int currentTheme = 0;
+
+  getTheme() {
+    return themeData;
+  }
+
+  //get getTheme => themeData;
+
+  setCustomTheme(int theme) async {
+    // switch (theme) {
+    //   case 0:
+    //     themeData = themes.themesList[0].themeData!;
+    //     break;
+    // //january
+    //   case 1:
+    //     themeData = themes.themesList[1].themeData!;
+    //     break;
+    // //febuary
+    //   case 2:
+    //     themeData = themes.themesList[2].themeData!;
+    //     break;
+    // //march
+    //   case 3:
+    //     themeData = themes.themesList[3].themeData!;
+    //     break;
+    // //april
+    //   case 4:
+    //     themeData = themes.themesList[4].themeData!;
+    //     break;
+    // //may
+    //   case 5:
+    //     themeData = themes.themesList[5].themeData!;
+    //     break;
+    // //june
+    //   case 6:
+    //     themeData = themes.themesList[6].themeData!;
+    //     break;
+    // //july
+    //   case 7:
+    //     themeData = themes.themesList[7].themeData!;
+    //     break;
+    // //august
+    //   case 8:
+    //     themeData = themes.themesList[8].themeData!;
+    //     break;
+    // //september
+    //   case 9:
+    //     themeData = themes.themesList[9].themeData!;
+    //     break;
+    // //october
+    //   case 10:
+    //     themeData = themes.themesList[10].themeData!;
+    //     break;
+    // //november
+    //   case 11:
+    //     themeData = themes.themesList[11].themeData!;
+    //     break;
+    // //december
+    //   case 12:
+    //     themeData = themes.themesList[12].themeData!;
+    //     break;
+    //   default:
+    //     themeData = themes.themesList[3].themeData!;
+    // }
+    themeData = themes.themesList[theme].themeData!;
+    currentTheme = theme;
+    await _prefs.storeInt('theme', theme);
+    notifyListeners();
+  }
+
+  Future<ThemeData> loadTheme() async {
+    try {
+      await updateCalendarSettings();
+
+      if (isThemeChangeMonthly == true) {
+        setCustomTheme(currentMonthByTheme);
+        setCustomShape(currentMonthByTheme);
+      } else {
+        currentTheme = await _prefs
+            .restoreInt('theme', currentTheme)
+            .then((theme) => currentTheme = setCustomTheme(theme));
+      }
+    } catch (e) {
+      currentTheme = 0;
+    }
+
+    return themeData;
+  }
 
   int currentShape = 0;
 
@@ -33,18 +156,18 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   Future<CustomClipper<Path>> loadShape() async {
-    // try {
-    //   await updateCalendarSettings();
-    //   if (isThemeChangeMonthly == true) {
-    //     setCustomShape(currentMonthByTheme);
-    //   } else {
-    //     currentShape = await _prefs
-    //         .restoreInt("shape", 0)
-    //         .then((shape) => currentShape = setCustomShape(shape));
-    //   }
-    // } catch (e) {
-    //   currentShape = 0;
-    // }
+    try {
+      await updateCalendarSettings();
+      if (isThemeChangeMonthly == true) {
+        setCustomShape(currentMonthByTheme);
+      } else {
+        currentShape = await _prefs
+            .restoreInt("shape", 0)
+            .then((shape) => currentShape = setCustomShape(shape));
+      }
+    } catch (e) {
+      currentShape = 0;
+    }
 
     return shapes;
   }
@@ -116,5 +239,14 @@ class SettingsProvider extends ChangeNotifier {
       isThemeChangeMonthly = value[1].isOn!;
       return value;
     });
+  }
+
+  //loader in init function
+  loadSets() async {
+    updateCalendarSettings();
+    themeData = await loadTheme();
+    shapes = await loadShape();
+    // updateNotificationSettings();
+    // updateTrashSettings();
   }
 }

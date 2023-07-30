@@ -43,7 +43,7 @@ final theme2 = ThemeData(
     cardColor: theme_2middleGradientColor,
     indicatorColor: Colors.amber,
     highlightColor: Colors.transparent,
-    toggleableActiveColor: Colors.white,
+   // toggleableActiveColor: Colors.white,
     shadowColor: theme_2shadowColor,
     dialogBackgroundColor: theme_2lastGradientColor,
     primarySwatch: Colors.amber,
