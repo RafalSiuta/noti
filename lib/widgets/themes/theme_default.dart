@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti_2/widgets/themes/style_exports.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noti_2/widgets/themes/theme12.dart';
 
 
 const theme_4MainBcgColor = Color(0xFFEEEEEE);
@@ -13,7 +12,7 @@ const theme_4noteCardColor = Color(0xFFf5f5f5); //Color(0xFFdec9ab);f5f5f5
 const theme_4descriptionColor = Color(0xFF636363);
 const theme_4dividerColor = Color(0xFF636363);
 const theme_4unselectedColor = Color(0xFF9e9e9e); //595959
-const theme_4calendarWeekendColor = Color(0xFFab977b);
+//const theme_4calendarWeekendColor = Color(0xFFab977b);
 const theme_4indicatorColor = Color(0xFFffca28); // FEA735 f5f5f5
 const theme_4shadowColor = Color(0xFFC0C0C0);
 
@@ -118,7 +117,7 @@ final themeDefault = ThemeData(
       selectionHandleColor: Colors.transparent,
     ),
     dividerTheme: const DividerThemeData(
-      color: theme_2dividerColor,
+      color: theme_4dividerColor,
       thickness: 0.5,
     ),
     navigationRailTheme: NavigationRailThemeData(
@@ -130,19 +129,19 @@ final themeDefault = ThemeData(
         color: Colors.amber,
 
       ),
-      unselectedIconTheme: const IconThemeData(color: theme_2unselectedColor),
+      unselectedIconTheme: IconThemeData(color: theme_4unselectedColor,),
       selectedLabelTextStyle: GoogleFonts.roboto(
         textStyle: const TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900),
       ),
       unselectedLabelTextStyle: GoogleFonts.robotoSlab(
-          textStyle: const TextStyle(
-              color: theme_2unselectedColor,
+          textStyle:  TextStyle(
+              color: theme_4unselectedColor,
               fontSize: 18,
               fontWeight: FontWeight.w500
           )),
     ),
-    accentIconTheme: const IconThemeData(color: theme_2noteCardColor, size: 18),
+    accentIconTheme: const IconThemeData(color: theme_4noteCardColor, size: 18),
     iconTheme: const IconThemeData(color: Colors.amber, size: 18),
     switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith(
@@ -154,31 +153,33 @@ final themeDefault = ThemeData(
             }
           },
         ),
-        trackColor: MaterialStateProperty.all(theme_2MainBcgColor)),
+        trackColor: MaterialStateProperty.all(theme_4MainBcgColor)),
     floatingActionButtonTheme:
-    const FloatingActionButtonThemeData(backgroundColor: Colors.amber),
+    const FloatingActionButtonThemeData(
+        backgroundColor: Colors.amber
+    ),
     dialogTheme: DialogTheme(
         elevation: 5.0,
         titleTextStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-              color: theme_2noteCardColor,
+              color: theme_4noteCardColor,
               fontSize: 18,
               fontWeight: FontWeight.w400),
         ),
         contentTextStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-              color: theme_2noteCardColor,
+              color: theme_4noteCardColor,
               fontSize: 12,
               fontWeight: FontWeight.w400),
         ),
-        backgroundColor: theme_2MainBcgColor,
+        backgroundColor: theme_4MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     inputDecorationTheme: InputDecorationTheme(
       border: InputBorder.none,
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: .5,
-            color: theme_2dividerColor,
+            color: theme_4dividerColor,
           )),
       enabledBorder: InputBorder.none,
       errorBorder: InputBorder.none,
@@ -189,15 +190,15 @@ final themeDefault = ThemeData(
       hintStyle: TextStyle(color: Colors.black, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme_2unselectedColor,
+        color: theme_4unselectedColor,
       ),
       labelStyle: TextStyle(
-        color: theme_2noteCardColor,
+        color: theme_4noteCardColor,
       ),
       helperMaxLines: 1,
       helperStyle: GoogleFonts.roboto(
         textStyle: TextStyle(
-          color: theme_2firstGradientColor,//theme_2unselectedColor,
+          color: theme_4unselectedColor,
           fontSize: 7.0,
           fontWeight: FontWeight.w300,
         ),
@@ -208,7 +209,7 @@ final themeDefault = ThemeData(
       ),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      refreshBackgroundColor: theme_2unselectedColor,
+      refreshBackgroundColor: theme_4unselectedColor,
       // linearTrackColor: Colors.amber
 
 
@@ -223,18 +224,18 @@ final themeDefault = ThemeData(
     ),
 
     tabBarTheme: TabBarTheme(
-      dividerColor: theme_2unselectedColor,
+      dividerColor: theme_4dividerColor,
 
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(width: 2.0, color: Colors.amber),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
       labelColor: Colors.black,
-      unselectedLabelColor: theme_2unselectedColor,
+      unselectedLabelColor: theme_4unselectedColor,
       unselectedLabelStyle: GoogleFonts.roboto(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme_2unselectedColor,
+            color: theme_4unselectedColor,
             fontWeight: FontWeight.w300,
             decoration: TextDecoration.none),
       ),
@@ -249,7 +250,7 @@ final themeDefault = ThemeData(
     ),
     sliderTheme: const SliderThemeData(
         activeTrackColor: theme_12indicatorColor,
-        inactiveTrackColor: theme_2unselectedColor,
+        inactiveTrackColor: theme_4unselectedColor,
         trackShape: RoundedRectSliderTrackShape(),
         thumbColor: Colors.white));
 

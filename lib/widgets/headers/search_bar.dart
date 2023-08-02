@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:simple_animations/simple_animations.dart';
 import '../../providers/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 
@@ -16,13 +15,6 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
   bool editTextEnable = false;
   TextEditingController keywordVal = TextEditingController();
 
-  late AnimationController _controller;
-  late AnimationController _controllerForSlide;
-  late AnimationController _controllerForScale;
-  late Animation<Offset> _slideAnim;
-  late Animation<double> _fadeAnim;
-  late Animation<double> _scaleAnim;
-
   void editText() {
     setState(() {
       editTextEnable = !editTextEnable;
@@ -31,44 +23,11 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
-
-    _controllerForSlide = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
-
-    _controllerForScale = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
-
-    _fadeAnim = Tween<double>(begin: 0.6, end: 1)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-
-    _scaleAnim = Tween<double>(begin: 0.2, end: 1).animate(
-        CurvedAnimation(parent: _controllerForScale, curve: Curves.easeInBack));
-
-    _slideAnim = Tween<Offset>(begin: const Offset(-1.2, 0), end: Offset.zero)
-        .animate(CurvedAnimation(
-            parent: _controllerForSlide, curve: Curves.easeInOut));
-
     super.initState();
-    Future.delayed(const Duration(milliseconds: 200))
-        .then((value) => _controller.forward());
-
-    Future.delayed(const Duration(milliseconds: 400))
-        .then((value) => _controllerForSlide.forward());
-
-    Future.delayed(const Duration(milliseconds: 1000))
-        .then((value) => _controllerForScale.forward());
   }
 
   @override
   void dispose() {
-    if (_controllerForSlide.isAnimating) {
-      _controllerForSlide.stop();
-    }
-    _controller.dispose();
-    _controllerForScale.dispose();
-    _controllerForSlide.dispose();
     super.dispose();
   }
 
@@ -80,17 +39,20 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
         var searchIconSize = SizeInfo.searchIconSize;
         var searchBarHeight = SizeInfo.searchBarHeight;
         var topMargin = SizeInfo.menuTopMargin;
-        return FadeTransition(
-          opacity: _fadeAnim,
-          child: ScaleTransition(
-            scale: _fadeAnim,
-            child: Container(
+        return PlayAnimationBuilder<Offset>(
+          tween: Tween<Offset>(
+              begin: const Offset(-20.0, 0), end: Offset.zero),
+          duration: const Duration(milliseconds: 300),
+          delay: const Duration(milliseconds: 100),
+          curve: Curves.easeOut,
+          builder: (context, value, child){
+            return Container(
               key: widget.key,
               width: MediaQuery.of(context).size.width,
               height: searchBarHeight,
               margin: EdgeInsets.only(left: 8.0, top: topMargin, bottom: 5.0),
               padding:
-                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
+              const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 boxShadow: <BoxShadow>[
@@ -106,12 +68,12 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              child: SlideTransition(
-                position: _slideAnim,
-                child: GestureDetector(
-                  onTap: () {
-                    editText();
-                  },
+              child: GestureDetector(
+                onTap: () {
+                  editText();
+                },
+                child: Transform.translate(
+                  offset: value,
                   child: TextField(
 
                     maxLines: 1,
@@ -144,30 +106,24 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                             .textTheme
                             .bodyMedium!
                             .copyWith(
-                                fontSize: searchBarFontSize, letterSpacing: 0),
-                        prefixIcon: ScaleTransition(
-                          scale: _scaleAnim,
-                          child: FadeTransition(
-                            opacity: _scaleAnim,
-                            child: IconButton(
-                              splashColor: Colors.transparent,
-                              onPressed: () {
-                                noteProvider.getNoteByKeyword();
-                                editText();
-                              },
-                              icon: Icon(
-                                Icons.search,
-                                size: searchIconSize,
-                                color: Theme.of(context).iconTheme.color,
-                              ),
-                            ),
+                            fontSize: searchBarFontSize, letterSpacing: 0),
+                        prefixIcon: IconButton(
+                          splashColor: Colors.transparent,
+                          onPressed: () {
+                            noteProvider.getNoteByKeyword();
+                            editText();
+                          },
+                          icon: Icon(
+                            Icons.search,
+                            size: searchIconSize,
+                            color: Theme.of(context).iconTheme.color,
                           ),
                         )),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

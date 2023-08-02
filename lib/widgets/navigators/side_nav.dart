@@ -32,13 +32,15 @@ class SideNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: Container(
+        width: 45,
+
         key: key,
         margin: isCreator
             ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0)
-            : EdgeInsets.zero,
+            :  const EdgeInsets.only(left: .0,right: 10.0),//EdgeInsets.zero,
         decoration: BoxDecoration(
             color: isCreator
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).colorScheme.background
                 : Colors.transparent,
             borderRadius: isCreator
                 ? const BorderRadius.all(Radius.circular(15))
@@ -61,7 +63,7 @@ class SideNav extends StatelessWidget {
               ? const BorderRadius.all(Radius.circular(15))
               : BorderRadius.zero,
           child: NavigationRail(
-              minWidth: 50,
+              minWidth: 40,
               leading: leading,
               trailing: trailing,
               backgroundColor: backgroundColor,
@@ -86,7 +88,7 @@ class SideNav extends StatelessWidget {
         key: key,
         margin: const EdgeInsets.symmetric(vertical: 32, horizontal: 16.0),
         decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             boxShadow: const [
               BoxShadow(
@@ -98,7 +100,7 @@ class SideNav extends StatelessWidget {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: NavigationRail(
-              minWidth: 120,
+              minWidth: 80,
               leading: leading,
               trailing: trailing,
               backgroundColor: backgroundColor,

@@ -25,8 +25,8 @@ class Calendar extends StatelessWidget {
       builder: (context, calendarProvider, settingsProvider, child) {
         var rowHeight = SizeInfo.rowHeight;
         var calendarFontSize = SizeInfo.calendarDaySize;
-        var headerFontSize = SizeInfo.headerSubtitleSize;
-        var calendarButtonFontSize = SizeInfo.taskCardTitle;
+        var headerFontSize = SizeInfo.calendarDaySize;//SizeInfo.headerSubtitleSize;
+        var calendarButtonFontSize = SizeInfo.calendarDaySize;//SizeInfo.taskCardTitle;
         var chevronIconSize = SizeInfo.switchButtonIconSize;
         var markerRadius = SizeInfo.calendarMarkerSize;
         var markerFontSize = SizeInfo.calendarMarkerFontSize;
@@ -316,9 +316,9 @@ class Calendar extends StatelessWidget {
                     ),
                   ),
                   headerStyle: HeaderStyle(
-                    headerPadding: EdgeInsets.all(cellMargin),
+                    headerPadding: EdgeInsets.zero,
                     formatButtonVisible: true,
-                    titleCentered: true,
+                    titleCentered: false,
                     formatButtonShowsNext: false,
                     formatButtonDecoration: BoxDecoration(
                       color: Theme.of(context)

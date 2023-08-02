@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../model/db_models/task.dart';
-import '../../screens/calendar_screen/calendar.dart';
-import '../calendar/calendar_widget.dart';
+import '../../utils/dimensions/size_info.dart';
 import '../displays/calendar_marker.dart';
 
 
@@ -17,16 +15,33 @@ class CalendarCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const calendarFontSize = 8.0;
+    var calendarHeaderFontSize = SizeInfo.calendarDaySize;
     return Card(
+      surfaceTintColor:Theme.of(context).colorScheme.background ,
       color: Theme.of(context).colorScheme.background,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(DateFormat('MMM yy').format(date!), style: Theme.of(context).textTheme.bodyMedium,),
-              TableCalendar<Task>(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+              margin: const EdgeInsets.only(bottom: 5.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorLight,
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(DateFormat('MMMM yy').format(date!), style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Theme.of(context).textTheme.displaySmall!.color,
+                      fontSize: calendarHeaderFontSize
+                    ),),
+                  ],
+                )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TableCalendar<Task>(
                 sixWeekMonthsEnforced: false,
                 focusedDay: date!,
                 availableGestures: AvailableGestures.none,
@@ -315,9 +330,9 @@ class CalendarCard extends StatelessWidget {
                       fontWeight: FontWeight.w200),
                 ),
               ),
+            ),
 
-            ]),
-      ),
+          ]),
     );
   }
 }

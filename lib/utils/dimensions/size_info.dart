@@ -41,7 +41,7 @@ class SizeInfo {
   static double projectCardHeight = 130;
 
   ///task dimens:
-  static double taskCardHeight = 70;
+  static double taskCardHeight = 76;
   static double taskCardTitle = 12;
   static double taskCardDescription = 10;
   static double taskCreatorTitle = 18;

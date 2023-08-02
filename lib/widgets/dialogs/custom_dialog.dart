@@ -15,6 +15,7 @@ class CustomDialog {
             titlePadding:
                 const EdgeInsets.symmetric(horizontal: 36.0, vertical: 10),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
             title: Text(
               title,
               style:

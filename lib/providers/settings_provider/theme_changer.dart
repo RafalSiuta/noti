@@ -3,9 +3,9 @@ import 'package:noti_2/providers/settings_provider.dart';
 import '../../model/theme_model/themes_list.dart';
 import '../../utils/prefs/prefs.dart';
 
-class ThemeChanger extends SettingsProvider{
-
-  ThemeChanger(themeData) : super(themeData);
+// class ThemeChanger extends SettingsProvider{
+//
+//   ThemeChanger(themeData) : super(themeData);
 
 
   // ThemeData themeData = ThemeData();
@@ -47,4 +47,4 @@ class ThemeChanger extends SettingsProvider{
   //
   //   return themeData;
   // }
-}
+// }

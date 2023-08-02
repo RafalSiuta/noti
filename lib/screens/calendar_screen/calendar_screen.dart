@@ -5,6 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:noti_2/screens/calendar_screen/calendar.dart';
 
 import '../../widgets/cards/calendar_card.dart';
+import '../../widgets/headers/date_header.dart';
+import '../../widgets/headers/sliver_header.dart';
+import '../../widgets/headers/small_header.dart';
 import '../../widgets/navigators/tab_nav.dart';
 import '../note_screen/note_list.dart';
 import '../task_screen/task_list.dart';
@@ -36,24 +39,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
       physics:
       const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
-        // SliverList(delegate: SliverChildListDelegate(
-        //   [
-        //
-        //   ]
-        // )),
-        // SliverAppBar(
-        //   pinned: true,
-        //   backgroundColor: Colors.transparent,
-        //   foregroundColor: Colors.transparent,
-        //   shadowColor: Colors.transparent,
-        //   elevation: 0,
-        //   expandedHeight: MediaQuery.of(context).size.height/2,
-        //   flexibleSpace: Calendar(fillViewPort: false,isHeaderVisible: true,)
-        // ),
+
+        SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeader(
+                paddingHorizontal: .0,
+
+              maxHeight: 70,
+              minHeight: 72,
+                child: const  DateHeader(),)),
         SliverList(
         delegate: SliverChildListDelegate([
           Calendar(fillViewPort: false,isHeaderVisible: true,)
         ])),
+        SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeader(
+              paddingHorizontal: .0,
+              maxHeight: 42,
+              minHeight: 40,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: const  SmallHeader(
+                  title: 'Upcoming todos:',
+                ),
+              ),)),
         SliverList(
           delegate: SliverChildListDelegate([
 

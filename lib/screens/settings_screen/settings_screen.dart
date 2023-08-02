@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti_2/screens/settings_screen/subscreens/sets_screen.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/navigators/side_nav.dart';
 import '../../widgets/shapes/shapes.dart';
@@ -40,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
       ),
     ),
     ScreenModel(
-      page: const OptionsScreen(),
+      page: const SetsScreen(),
       title: NavModel(
         title: 'Settings',
       ),
@@ -116,7 +117,8 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
   Widget build(BuildContext context) {
     var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
     return Scaffold(
-      body: Stack(alignment: AlignmentDirectional.topEnd, children: [
+      body: Stack(
+          alignment: AlignmentDirectional.topEnd, children: [
         const BackgroundShape(),
       SafeArea(
       child: Row(

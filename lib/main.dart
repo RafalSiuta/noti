@@ -14,8 +14,9 @@ import 'package:noti_2/utils/custom_page_route/custom_page_route.dart';
 import 'package:noti_2/widgets/themes/theme_default.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const Noti());
 }
 
@@ -52,10 +53,10 @@ class Noti extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => CalendarProvider(),
+            create: (context) => SettingsProvider(theme2),
           ),
           ChangeNotifierProvider(
-            create: (context) => SettingsProvider(theme2),
+            create: (context) => CalendarProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => HomeProvider(),
@@ -76,7 +77,15 @@ class Noti extends StatelessWidget {
           //   create: (context) => NoteProvider(),
           // ),
         ],
-        child: Consumer<SettingsProvider>(
+        child:
+        // MaterialApp(
+        //   debugShowCheckedModeBanner: false,
+        //   title: 'Noti',
+        //   theme: Provider.of<SettingsProvider>(context).getTheme(),
+        //   initialRoute: '/',
+        //   onGenerateRoute: (route) => onGenerateRoute(route),
+        // ),
+        Consumer<SettingsProvider>(
           builder: (context, settings, child) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,

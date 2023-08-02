@@ -4,6 +4,11 @@ import 'package:noti_2/providers/settings_provider/shape_changer.dart';
 import 'package:noti_2/providers/settings_provider/theme_changer.dart';
 import 'package:noti_2/widgets/shapes/shape_paths/shapes_exports.dart';
 import '../model/settings_model/settings_model/calendar_settings_model.dart';
+import '../model/settings_model/settings_model/notification_settings_model.dart';
+import '../model/settings_model/settings_model/settings_model.dart';
+import '../model/settings_model/social_items.dart';
+import '../model/settings_model/trash_settings_model/trash_model.dart';
+import '../model/settings_model/trash_settings_model/trash_settings_list.dart';
 import '../model/theme_model/shapes_list.dart';
 import '../model/theme_model/themes_list.dart';
 import '../utils/prefs/prefs.dart';
@@ -14,8 +19,8 @@ class SettingsProvider extends ChangeNotifier {
     init();
   }
 
+  //todo custom theme https://medium.com/@alexandersnotes/flutter-custom-theme-with-themeextension-792034106abc
   init() async {
-    print('Loading settings..');
     await loadSets();
   }
 
@@ -30,11 +35,12 @@ class SettingsProvider extends ChangeNotifier {
   bool isThemeChangeMonthly = false;
 
 //themes
-  ThemeData themeData = ThemeData();
+  late ThemeData themeData;// = ThemeData();
 
    //ThemeChanger themeChanger = ThemeChanger();
 
-  getTheme(){
+  ThemeData getTheme(){
+    //loadTheme();
     return themeData;
   }
 
@@ -142,6 +148,8 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //settings option:
+  //calendar settings option
 
   CalendarSettings calendarSets = CalendarSettings();
 
@@ -154,6 +162,67 @@ class SettingsProvider extends ChangeNotifier {
     });
   }
 
+  onCalendarSettingsChange(SettingsModel sets) async {
+    sets.onChange();
+    await _prefs.storeList('calendarSettings', calendarSets.calendarSettings);
+    isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn!;
+    notifyListeners();
+  }
+
+  //notification settings option
+  NotificationSettings notificationSets = NotificationSettings();
+
+  onNotificationSettingsChange(SettingsModel sets) {
+    sets.onChange();
+    _prefs.storeList(
+        'notificationSettings', notificationSets.notificationSettings);
+    notifyListeners();
+  }
+
+  updateNotificationSettings() async {
+    notificationSets.notificationSettings = await _prefs
+        .restoreList(
+        'notificationSettings', notificationSets.notificationSettings)
+        .then((value) {
+      isNotification = value[0].isOn!;
+     // NotificationHelper().isSound = value[1].isOn!;
+      return value;
+    });
+  }
+
+  //trash settings option
+  TrashSettings trashSets = TrashSettings();
+
+  onTrashSettingsChange(TrashModel sets) {
+    sets.onChange();
+    _prefs.storeList('trashSettings', trashSets.trashSettings);
+    notifyListeners();
+  }
+
+  updateTrashSettings() async {
+    trashSets.trashSettings = await _prefs
+        .restoreTrashList('trashSettings', trashSets.trashSettings)
+        .then((value) {
+      if (value[0].isOn == true) {}
+      if (value[1].isOn == true) {}
+      return value;
+    });
+  }
+
+  cancelDeleteSettings(int index) {
+    if (trashSets.trashSettings[index].isOn == true) {
+      trashSets.trashSettings[index].onChange();
+      _prefs.storeList('trashSettings', trashSets.trashSettings);
+    }
+    notifyListeners();
+  }
+
+  onSliderChange(double newValue, int index) {
+    trashSets.trashSettings[index].sliderValue = newValue.floorToDouble();
+    _prefs.storeList('trashSettings', trashSets.trashSettings);
+    notifyListeners();
+  }
+
   //loader in init function
   loadSets() async {
     updateCalendarSettings();
@@ -163,5 +232,9 @@ class SettingsProvider extends ChangeNotifier {
     // updateNotificationSettings();
     // updateTrashSettings();
   }
+
+  //todo this is temporary place
+  //social links
+  SocialList socialList = SocialList();
 
 }

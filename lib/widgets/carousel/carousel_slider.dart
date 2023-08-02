@@ -54,12 +54,15 @@ class Carousel extends StatelessWidget {
                           return Transform.scale(
                             scale: value,
                             child: Card(
+                              //margin: const EdgeInsets.symmetric(vertical: 5.0),
                               elevation: 5,
+                              surfaceTintColor:  Theme.of(context).colorScheme.background,
                               shape: const RoundedRectangleBorder(
+
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
-                              color: Theme.of(context).colorScheme.background,
+                             // color: Theme.of(context).colorScheme.background,
                               shadowColor: Theme.of(context).shadowColor,
                               child: Padding(
                                 padding: const EdgeInsets.all(.0),
@@ -87,9 +90,6 @@ class Carousel extends StatelessWidget {
                           );
                         });
                   }),
-            ),
-            const SizedBox(
-              height: 15,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
