@@ -34,6 +34,7 @@ dependencies:
   hive_flutter: ^1.1.0 #import 'package:hive_flutter/hive_flutter.dart';
   photo_manager: ^2.6.0 #import 'package:photo_manager/photo_manager.dart';
   camera: ^0.10.5+2 #import 'package:camera/camera.dart';
+  timeline_tile: ^2.0.0 #import 'package:timeline_tile/timeline_tile.dart';
 
 
 dev_dependencies:

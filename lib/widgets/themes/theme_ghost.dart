@@ -1,51 +1,52 @@
-import 'package:noti_2/widgets/themes/style_exports.dart';
+//import 'package:noti_2/widgets/themes/style_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:noti_2/widgets/themes/theme12.dart';
 
 const theme_2MainBcgColor = Color(0xFFE6E6E6);
-const theme_2TitleBoxBcgColor = Color(0xFFF8F8F8);
-const theme_2firstGradientColor = Color(0xFF979696);
-const theme_2middleGradientColor = Color(0xFF7B7B7B);
-const theme_2lastGradientColor = Color(0xFF575757);
-const theme_2noteCardColor = Colors.black;
-const theme_2descriptionColor = Colors.black;
-const theme_2dividerColor = Color(0xFF636363);
-const theme_2unselectedColor = Color(0xFF515151);
-const theme_2shadowColor = Color(0xFFC0C0C0);
+const transparent = Colors.transparent;
+//const transparent = Color(0xFFF8F8F8);
 
-final theme2 = ThemeData(
+// const transparent = Color(0xFF979696);
+// const transparent = Color(0xFF7B7B7B);
+// const theme_2lastGradientColor = Color(0xFF575757);
+// const theme_2noteCardColor = Colors.black;
+// const theme_2descriptionColor = Colors.black;
+// const theme_2dividerColor = Color(0xFF636363);
+// const theme_2unselectedColor = Color(0xFF515151);
+// const theme_2shadowColor = Color(0xFFC0C0C0);
+
+final themeGhost = ThemeData(
     useMaterial3: true,
     splashFactory: NoSplash.splashFactory,
     scaffoldBackgroundColor: theme_2MainBcgColor,
-   // backgroundColor: theme_2TitleBoxBcgColor,
+   // backgroundColor: transparent,
 
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
-      primary: theme_2firstGradientColor,
-      onPrimary: theme_2firstGradientColor,
+      primary: theme_2MainBcgColor,
+      onPrimary: transparent,
       secondary: Colors.white,
-      onSecondary: theme_2lastGradientColor,
-      error: Color(0xFFF32424),
-      onError: Color(0xFFF32424),
-      background: theme_2TitleBoxBcgColor,
-      onBackground: theme_2TitleBoxBcgColor,
+      onSecondary: transparent,
+      error: Colors.transparent,
+      onError: transparent,
+      background: theme_2MainBcgColor,
+      onBackground: transparent,
       surface: theme_2MainBcgColor,
       onSurface: theme_2MainBcgColor,
     ),
-    canvasColor: theme_2TitleBoxBcgColor,
-    focusColor: theme_2middleGradientColor,
+    canvasColor: transparent,
+    focusColor: transparent,
 
-    unselectedWidgetColor: theme_2unselectedColor,
-    primaryColor: theme_2firstGradientColor,
-    primaryColorLight: theme_2middleGradientColor,
-    primaryColorDark: theme_2lastGradientColor,
-    cardColor: theme_2middleGradientColor,
+    unselectedWidgetColor: transparent,
+    primaryColor: theme_2MainBcgColor,
+    primaryColorLight: theme_2MainBcgColor,
+    primaryColorDark: theme_2MainBcgColor,
+    cardColor:theme_2MainBcgColor,
     indicatorColor: Colors.amber,
     highlightColor: Colors.transparent,
    // toggleableActiveColor: Colors.white,
-    shadowColor: theme_2shadowColor,
-    dialogBackgroundColor: theme_2lastGradientColor,
+    shadowColor: transparent,
+    dialogBackgroundColor: transparent,
     primarySwatch: Colors.amber,
     splashColor: Colors.transparent,
     textTheme: TextTheme(
@@ -65,7 +66,7 @@ final theme2 = ThemeData(
       headlineMedium: GoogleFonts.robotoSlab(
         textStyle: const TextStyle(
             fontSize: 18,
-            color: theme_2noteCardColor,
+            color: transparent,
             fontWeight: FontWeight.w500,
             decoration: TextDecoration.none,
             overflow: TextOverflow.ellipsis),
@@ -75,16 +76,10 @@ final theme2 = ThemeData(
       displayLarge: GoogleFonts.roboto(
           textStyle: const TextStyle(
               fontSize: 18,
-              color: theme_2lastGradientColor,
+              color: transparent,
               fontWeight: FontWeight.w700,
               letterSpacing: 2)),
       //displayMedium: null,
-      //displayMedium: null,
-      displayMedium: GoogleFonts.roboto(
-          textStyle: const TextStyle(
-            fontSize: 10,
-            color: Colors.black,
-            fontWeight: FontWeight.w400,)),
       //task time
       displaySmall: GoogleFonts.roboto(
           textStyle: const TextStyle(
@@ -102,81 +97,16 @@ final theme2 = ThemeData(
       bodyMedium:  GoogleFonts.roboto(
           textStyle: const TextStyle(
               fontSize: 10,
-              color: theme_2lastGradientColor,
+              color: transparent,
               fontWeight: FontWeight.w300,
               overflow: TextOverflow.ellipsis)),
       ///calendar marker style
       bodySmall: GoogleFonts.roboto(
           textStyle: const TextStyle(
               fontSize: 10,
-              color: theme_2noteCardColor,
+              color: transparent,
               fontWeight: FontWeight.bold,
               overflow: TextOverflow.ellipsis)),
-      //card icon hour display
-      // labelSmall: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //       fontSize: 10,
-      //       color: Colors.white,
-      //       fontWeight: FontWeight.bold
-      //     )),
-
-
-      /// list title
-      // headline2: GoogleFonts.robotoSlab(
-      //   textStyle: const TextStyle(
-      //       fontSize: 18,
-      //       color: theme_2noteCardColor,
-      //       fontWeight: FontWeight.w500,
-      //       decoration: TextDecoration.none),
-      // ),
-      //
-      // /// date header style
-      // headline3: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //         fontSize: 18,
-      //         color: theme_2lastGradientColor,
-      //         fontWeight: FontWeight.w700,
-      //         letterSpacing: 2)),
-
-      ///calendar weekend text style
-      // subtitle1: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //   fontSize: 18,
-      //   color: Colors.amber,
-      // )),
-
-      ///calendar marker style
-      // subtitle2: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //         fontSize: 10,
-      //         color: theme_2noteCardColor,
-      //         fontWeight: FontWeight.bold,
-      //         overflow: TextOverflow.ellipsis)),
-
-      ///task description text style
-      // bodyText1: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //         fontSize: 10,
-      //         color: theme_2lastGradientColor,
-      //         fontWeight: FontWeight.w300,
-      //         overflow: TextOverflow.ellipsis)),
-
-      // ///note title style
-      // headline4: GoogleFonts.robotoSlab(
-      //     textStyle: const TextStyle(
-      //         fontSize: 18,
-      //         color: theme_2descriptionColor,
-      //         fontWeight: FontWeight.w500,
-      //         letterSpacing: 0,
-      //         overflow: TextOverflow.ellipsis)),
-      //
-      // ///note description text style
-      // bodyText2: GoogleFonts.roboto(
-      //     textStyle: const TextStyle(
-      //         fontSize: 10,
-      //         color: theme_2descriptionColor,
-      //         fontWeight: FontWeight.w400,
-      //         overflow: TextOverflow.ellipsis)),
     ),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
@@ -193,7 +123,7 @@ final theme2 = ThemeData(
       selectionHandleColor: Colors.transparent,
     ),
     dividerTheme: const DividerThemeData(
-      color: theme_2dividerColor,
+      color: transparent,
       thickness: 0.5,
     ),
     navigationRailTheme: NavigationRailThemeData(
@@ -205,19 +135,19 @@ final theme2 = ThemeData(
         color: Colors.amber,
 
       ),
-      unselectedIconTheme: const IconThemeData(color: theme_2unselectedColor),
+      unselectedIconTheme: const IconThemeData(color: transparent),
       selectedLabelTextStyle: GoogleFonts.roboto(
         textStyle: const TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900),
       ),
       unselectedLabelTextStyle: GoogleFonts.robotoSlab(
           textStyle: const TextStyle(
-            color: theme_2unselectedColor,
+            color: transparent,
             fontSize: 18,
               fontWeight: FontWeight.w500
           )),
     ),
-    accentIconTheme: const IconThemeData(color: theme_2noteCardColor, size: 18),
+    accentIconTheme: const IconThemeData(color: transparent, size: 18),
     iconTheme: const IconThemeData(color: Colors.amber, size: 18),
     switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith(
@@ -236,13 +166,13 @@ final theme2 = ThemeData(
         elevation: 5.0,
         titleTextStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-              color: theme_2noteCardColor,
+              color: transparent,
               fontSize: 18,
               fontWeight: FontWeight.w400),
         ),
         contentTextStyle: GoogleFonts.roboto(
           textStyle: const TextStyle(
-              color: theme_2noteCardColor,
+              color: transparent,
               fontSize: 12,
               fontWeight: FontWeight.w400),
         ),
@@ -253,7 +183,7 @@ final theme2 = ThemeData(
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
         width: .5,
-        color: theme_2dividerColor,
+        color: transparent,
       )),
       enabledBorder: InputBorder.none,
       errorBorder: InputBorder.none,
@@ -264,26 +194,26 @@ final theme2 = ThemeData(
       hintStyle: TextStyle(color: Colors.black, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme_2unselectedColor,
+        color: transparent,
       ),
       labelStyle: TextStyle(
-        color: theme_2noteCardColor,
+        color: transparent,
       ),
       helperMaxLines: 1,
       helperStyle: GoogleFonts.roboto(
         textStyle: TextStyle(
-          color: theme_2firstGradientColor,//theme_2unselectedColor,
+          color: transparent,//theme_2unselectedColor,
           fontSize: 7.0,
           fontWeight: FontWeight.w300,
         ),
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(
-        color: theme_2noteCardColor,
+        color: transparent,
       ),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      refreshBackgroundColor: theme_2unselectedColor,
+      refreshBackgroundColor: transparent,
      // linearTrackColor: Colors.amber
 
 
@@ -298,18 +228,18 @@ final theme2 = ThemeData(
     ),
 
     tabBarTheme: TabBarTheme(
-      dividerColor: theme_2unselectedColor,
+      dividerColor: transparent,
 
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(width: 2.0, color: Colors.amber),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
       labelColor: Colors.black,
-      unselectedLabelColor: theme_2unselectedColor,
+      unselectedLabelColor: transparent,
       unselectedLabelStyle: GoogleFonts.roboto(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme_2unselectedColor,
+            color: transparent,
             fontWeight: FontWeight.w300,
             decoration: TextDecoration.none),
       ),
@@ -323,7 +253,7 @@ final theme2 = ThemeData(
       ),
     ),
     sliderTheme: const SliderThemeData(
-        activeTrackColor: theme_12indicatorColor,
-        inactiveTrackColor: theme_2unselectedColor,
+        activeTrackColor: transparent,
+        inactiveTrackColor: transparent,
         trackShape: RoundedRectSliderTrackShape(),
         thumbColor: Colors.white));

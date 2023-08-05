@@ -12,6 +12,7 @@ import 'package:noti_2/widgets/themes/theme2.dart';
 import 'package:noti_2/widgets/themes/theme_default.dart';
 import 'package:noti_2/utils/custom_page_route/custom_page_route.dart';
 import 'package:noti_2/widgets/themes/theme_default.dart';
+import 'package:noti_2/widgets/themes/theme_ghost.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -53,7 +54,7 @@ class Noti extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => SettingsProvider(theme2),
+            create: (context) => SettingsProvider(themeGhost),
           ),
           ChangeNotifierProvider(
             create: (context) => CalendarProvider(),

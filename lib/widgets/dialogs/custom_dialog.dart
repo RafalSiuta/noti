@@ -33,7 +33,7 @@ class CustomDialog {
                       },
                       child: Text(
                         'Ok',
-                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                        style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                             fontWeight: FontWeight.w500, fontSize: 23),
                       ))
                 ],
@@ -71,6 +71,7 @@ class _CustomDialState extends State<CustomDial> {
       child: Card(
           elevation: 5.0,
           color: Theme.of(context).colorScheme.background,
+          surfaceTintColor:Theme.of(context).colorScheme.background ,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -91,7 +92,7 @@ class _CustomDialState extends State<CustomDial> {
                   child: Center(
                     child: Text(
                       widget.title!,
-                      style: Theme.of(context).dialogTheme.titleTextStyle,
+                      style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18),
                     ),
                   ),
                 ),
@@ -105,10 +106,7 @@ class _CustomDialState extends State<CustomDial> {
                       visible: widget.isBtnVisible,
                       child: Text(
                         'Ok',
-                        style: Theme.of(context)
-                            .dialogTheme
-                            .contentTextStyle!
-                            .copyWith(fontSize: 18),
+                        style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18),
                       ),
                     ))
               ],

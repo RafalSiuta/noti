@@ -73,7 +73,12 @@ final themeDefault = ThemeData(
               color: theme_2lastGradientColor,
               fontWeight: FontWeight.w700,
               letterSpacing: 2)),
-      //displayMedium: null,
+      //displayMedium: dialogs,
+      displayMedium: GoogleFonts.roboto(
+          textStyle: const TextStyle(
+              fontSize: 10,
+              color: Colors.black,
+              fontWeight: FontWeight.w400,)),
       //task time
       displaySmall: GoogleFonts.roboto(
           textStyle: const TextStyle(
