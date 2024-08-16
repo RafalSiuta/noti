@@ -27,7 +27,7 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var titleSize = SizeInfo.taskCardTitle;
+    var titleFontSize = SizeInfo.taskCardTitle;
     var descriptionSize = SizeInfo.taskCardDescription;
 
     var smallIconSize = SizeInfo.smallIndicatorIconSize;
@@ -39,7 +39,7 @@ class TaskCard extends StatelessWidget {
     double ringRadiusSize = height + 16;
     double smallRingRadiusSize = height - 17;
     double iconCircleSize = height - 24;
-    double iconSize = height - 60;
+    double iconSize = height - 56;
     double sideRadius = 15.0;
     const textPadding = EdgeInsets.only(left: 6, top: 3, right: 6);
 
@@ -88,7 +88,9 @@ class TaskCard extends StatelessWidget {
             child: Icon(
               iconPick.iconsList[task.icon!],
               size: iconSize,
-              color: Theme.of(context).cardColor,
+              color: task.isTaskDone!
+                  ? Theme.of(context).colorScheme.onSecondary
+                  : Theme.of(context).colorScheme.secondary,
             ),
           ),
         ),
@@ -109,11 +111,23 @@ class TaskCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   text: TextSpan(
                       text: '${DateFormat('HH:mm').format(task.date)}  ',
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          fontSize: titleSize,
-                          decoration: task.isTaskDone!
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none),
+                      style: task.isTaskDone! ?
+                      Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                          fontSize: titleFontSize ):
+                      Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(
+                          fontSize: titleFontSize,
+                          decoration:TextDecoration.none),
+                      // Theme.of(context).textTheme.displayLarge!.copyWith(
+                      //     fontSize: titleSize,
+                      //     decoration: task.isTaskDone!
+                      //         ? TextDecoration.lineThrough
+                      //         : TextDecoration.none),
                       children: <TextSpan>[
                         TextSpan(text: task.title!.capitalizeFirstLetter()),
                       ]),
@@ -131,7 +145,7 @@ class TaskCard extends StatelessWidget {
                       .textTheme
                       .bodyMedium!
                       .copyWith(fontSize: descriptionSize),
-                  maxLines: 4,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -200,8 +214,8 @@ class TaskCard extends StatelessWidget {
                   BoxShadow(
                     color: Theme.of(context).shadowColor,
                     offset: const Offset(0.0, 0.0),
-                    spreadRadius: -3.0,
-                    blurRadius: 3.0,
+                    spreadRadius: -2.0,
+                    blurRadius: 2.0,
                   ),
                 ]),
           ), //main shape
@@ -230,9 +244,9 @@ class TaskCard extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         color: circleFromLeft == true ? Theme.of(context)
-                            .primaryColorDark.withOpacity(0.2) : Theme.of(context)
+                            .colorScheme.shadow.withOpacity(0.2) : Theme.of(context)
                             .unselectedWidgetColor
-                            .withOpacity(0.2),
+                            .withOpacity(0.4),
                         blurRadius: 3.0,
                         offset: const Offset(.0, .0),
                         spreadRadius: 3.0),
@@ -274,9 +288,9 @@ class TaskCard extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                           color: Theme.of(context).shadowColor,
-                          blurRadius: 3.0,
+                          blurRadius: 2.0,
                           offset: const Offset(.0, .0),
-                          spreadRadius: 2.0),
+                          spreadRadius: 1.5),
                     ]),
                 child: Row(
                     mainAxisAlignment: circleFromLeft == true

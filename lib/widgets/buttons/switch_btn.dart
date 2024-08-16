@@ -26,12 +26,13 @@ class SwitchBtn extends StatelessWidget {
         },
         splashRadius: 10,
         splashColor: Colors.transparent,
+        disabledColor: Theme.of(context).shadowColor,
         icon: Icon(
           icon,
           size: iconSize,
           color: value == true
               ? Theme.of(context).indicatorColor
-              : Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+              : Theme.of(context).unselectedWidgetColor,
         ));
   }
 }

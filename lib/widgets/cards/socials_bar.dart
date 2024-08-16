@@ -9,7 +9,7 @@ import '../responsive/column_row_builder.dart';
 import '../web/web_link.dart';
 
 class SocialsBar extends StatelessWidget {
-  const SocialsBar({Key? key}) : super(key: key);
+  const SocialsBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class SocialsBar extends StatelessWidget {
                     radius: socialIconSize,
                     child: Icon(
                       listItem.icon,
-                      color: Theme.of(context).textTheme.labelMedium!.color,
+                      color: Theme.of(context).textTheme.headlineLarge!.color,
                       size: socialIconSize,
                     ),
                   ),
@@ -55,7 +55,7 @@ class SocialsBar extends StatelessWidget {
                       listItem.title!,
                       style: Theme.of(context)
                           .textTheme
-                          .headlineMedium!
+                          .bodyMedium!
                           .copyWith(fontSize: socialSubtitleFontSize),
                     ),
                   )

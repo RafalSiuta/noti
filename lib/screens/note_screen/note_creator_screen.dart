@@ -85,7 +85,13 @@ class _NoteCreatorState extends State<NoteCreator>
                               });
                             },
                             icon:
-                                Icon(categoryIcons.iconsList[index], size: 13),
+                            Icon(
+                              categoryIcons.iconsList[index],
+                              color: categoryIcons.iconsList.length == index
+                                  ? Theme.of(context).indicatorColor
+                                  : Theme.of(context).unselectedWidgetColor,
+                              size: 13,
+                            ),
                           )),
                 ),
               ));
@@ -245,10 +251,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                         categoryIcons.iconsList[
                                             widget.newNote.icon ?? 1],
                                         size: navIconSize,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium!
-                                            .color,
+                                        color: Theme.of(context).indicatorColor,
                                       ),
                                       onPressed: () {
                                         _pickIcon(context);
@@ -299,16 +302,16 @@ class _NoteCreatorState extends State<NoteCreator>
                         padding: const EdgeInsets.only(left: 12.0),
                         sliver: SliverList(
                           delegate: SliverChildListDelegate([
-                            SizedBox(
-                              height: verticalPadding,
-                            ),
+                            // SizedBox(
+                            //   height: verticalPadding,
+                            // ),
                             GestureDetector(
                               onTap: () {
                                 editText();
                               },
                               child: SizedBox(
                                 key: widget.key,
-                                height: 40,
+                                height: 35,
                                 child: TextField(
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
@@ -343,7 +346,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   autofocus: true,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headlineLarge!
+                                      .displayLarge!
                                       .copyWith(fontSize: titleTextSize),
                                   textAlign: TextAlign.start,
                                   decoration: InputDecoration(
@@ -365,7 +368,7 @@ class _NoteCreatorState extends State<NoteCreator>
                               },
                               child: SizedBox(
                                 key: widget.key,
-                                height: 40,
+                                height: 35,
                                 child: TextField(
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
@@ -400,8 +403,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                   autofocus: false,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headlineMedium!
-                                      .copyWith(fontSize: titleTextSize),
+                                      .displayLarge!
+                                      .copyWith(fontSize: titleTextSize,height: 1.5),
                                   textAlign: TextAlign.start,
                                   decoration: InputDecoration(
                                     helperText: 'Enter subtitle',
@@ -413,9 +416,9 @@ class _NoteCreatorState extends State<NoteCreator>
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: verticalPadding,
-                            ),
+                            // SizedBox(
+                            //   height: verticalPadding,
+                            // ),
                             GestureDetector(
                               onTap: () {
                                 editText();
@@ -451,8 +454,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                 autofocus: false,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineMedium!
-                                    .copyWith(fontSize: titleTextSize),
+                                    .bodyMedium!
+                                    .copyWith(fontSize: titleTextSize,height: 1.5),
                                 textAlign: TextAlign.start,
                                 decoration: InputDecoration(
                                   helperText: 'Enter note text',

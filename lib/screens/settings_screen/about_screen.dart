@@ -7,7 +7,7 @@ import '../../widgets/cards/socials_bar.dart';
 import 'licence_screen.dart';
 
 class AboutScreen extends StatelessWidget {
-  const AboutScreen({Key? key, this.scaleAnim}) : super(key: key);
+  const AboutScreen({super.key, this.scaleAnim});
 
   final Animation<double>? scaleAnim;
 
@@ -15,8 +15,10 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var sidePadding = SizeInfo.edgePadding;
     var textFontSize = SizeInfo.calendarDaySize;
+    double topMargin = SizeInfo.pageTopMargin;
+
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sidePadding, vertical: 32.0),
+      padding: EdgeInsets.symmetric(horizontal: sidePadding, vertical: topMargin),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +47,7 @@ class AboutScreen extends StatelessWidget {
             label: Text(
               "Licences",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: textFontSize, fontWeight: FontWeight.w700),
+                  fontSize: textFontSize,),
             ),
           ),
         ],

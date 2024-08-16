@@ -52,6 +52,7 @@ dependencies:
   simple_animations: ^5.0.2 #import 'package:simple_animations/simple_animations.dart';
   webview_flutter: ^4.8.0 #import 'package:webview_flutter/webview_flutter.dart';
   csshadow: ^0.0.2 #import 'package:csshadow/csshadow.dart';
+  flutter_localization: ^0.2.1
 
 
 

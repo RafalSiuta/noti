@@ -13,7 +13,7 @@ import '../../widgets/text_display/default_text.dart';
 
 class TaskList extends StatelessWidget {
   final bool isGrid;
-  const TaskList({Key? key, this.isGrid = false}) : super(key: key);
+  const TaskList({super.key, this.isGrid = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class TaskList extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             child: const DefaultText(
-              title: 'Nothing to do ',
+              title: 'There is no assignments\nfor today ',
             ),
           );
         } else {

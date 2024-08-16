@@ -15,19 +15,106 @@ const theme_7titleColor = Color(0xFFD3D1CC);
 const theme_7calendarWeekendColor = Color(0xFFD3D1CC);
 const theme_7indicatorColor = Colors.orange;
 
+const theme_7shadowColor = Color(0xFF484435);
+const theme_7baseTextColor = Color(0xFFD3D1CC);
+const theme_7UnselectedTaskIcon = Color(0xFF4D3421);
+
+final theme_7PickersBaseTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      color: theme_7baseTextColor,
+      fontSize: 12,
+      fontWeight: FontWeight.w500),
+);
+
+final theme_7PickersTitleTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      color: theme_7baseTextColor,
+      fontSize: 18,
+      fontWeight: FontWeight.w700),
+);
+//TEXT STYLES:
+//headers:
+//Large header:
+final TextStyle theme_7largeHeaderTextStyle  = GoogleFonts.raleway(
+    textStyle: const TextStyle(
+        color: theme_7baseTextColor,
+        fontSize: 32,
+        fontWeight: FontWeight.w700
+    ));
+//Subtitle header:
+final TextStyle theme_7subtitleHeaderTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      fontSize: 18,
+      color: theme_7baseTextColor,
+      fontWeight: FontWeight.w700,
+      decoration: TextDecoration.none),
+);
+//task & note card style:
+//title text style:
+final TextStyle theme_7cardTitleTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      fontSize: 12,
+      color: theme_7baseTextColor,
+      fontWeight: FontWeight.w700,
+      decoration: TextDecoration.none),
+);
+//content text:
+final TextStyle theme_7contentTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      fontSize: 12,
+      color: theme_7baseTextColor,
+      fontWeight: FontWeight.w400,
+      decoration: TextDecoration.none),
+);
+//unselected text (is done):
+final TextStyle theme_7unselectedTextStyle = GoogleFonts.raleway(
+  textStyle: const TextStyle(
+      fontSize: 12,
+      color: theme_7unselectedColor,
+      fontWeight: FontWeight.w400,
+      decorationColor: theme_7dividerColor,
+      decoration: TextDecoration.lineThrough),
+);
+//calendar text style:
+//day text style:
+final theme_7calendarDayWeekendTextStyle = GoogleFonts.raleway(
+    textStyle: const TextStyle(
+        fontSize: 12,
+        color: theme_7unselectedColor,
+        fontWeight: FontWeight.w700,
+        decorationColor: theme_7dividerColor));
+
+//next month text style:
+final theme_7calendarNextMonthTextStyle = GoogleFonts.raleway(
+    textStyle: const TextStyle(
+        fontSize: 12,
+        color: theme_7indicatorColor,//theme_7unselectedColor,
+        fontWeight: FontWeight.w200,
+        decorationColor: theme_7unselectedColor));
+
+final theme_7calendarWeekendTextStyle = GoogleFonts.raleway(
+    textStyle: const TextStyle(
+        fontSize: 12,
+        color: theme_7indicatorColor,//theme_7unselectedColor,
+        fontWeight: FontWeight.w400,
+        decorationColor: theme_7dividerColor));
+
+
+
 final theme7 = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: theme_7MainBcgColor,
     colorScheme: const ColorScheme(
-      primary: Colors.white,
-      secondary: Colors.white,
-      surface: theme_7TitleBoxBcgColor,
-      error: Colors.redAccent,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onSurface: theme_7TitleBoxBcgColor,
-      onError: Colors.white,
-      brightness: Brightness.light,
+        primary: Colors.white,
+        secondary: theme_7baseTextColor,
+        surface: theme_7TitleBoxBcgColor,
+        error: Colors.redAccent,
+        onPrimary: Colors.white,
+        onSecondary: theme_7UnselectedTaskIcon,
+        onSurface: theme_7TitleBoxBcgColor,
+        onError: Colors.white,
+        brightness: Brightness.light,
+        shadow: theme_7UnselectedTaskIcon
     ),
     canvasColor: theme_7TitleBoxBcgColor,
     focusColor: theme_7firstGradientColor,
@@ -35,73 +122,28 @@ final theme7 = ThemeData(
     primaryColor: theme_7firstGradientColor,
     primaryColorLight: theme_7middleGradientColor,
     primaryColorDark: theme_7lastGradientColor,
-    cardColor: theme_7noteCardColor,
+    cardColor: theme_7TitleBoxBcgColor,
     indicatorColor: theme_7indicatorColor,
-    shadowColor: theme_7MainBcgColor,
+    shadowColor: theme_7shadowColor,
     dialogBackgroundColor: theme_7lastGradientColor,
     primarySwatch: Colors.blue,
     textTheme: TextTheme(
       /// main big title
-      headlineLarge: GoogleFonts.raleway(
-          textStyle: const TextStyle(
-            color: Colors.black,
-            fontSize: 32,
-          )),
-
-      /// list title
-      headlineMedium: GoogleFonts.raleway(
-        textStyle: const TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            fontWeight: FontWeight.w500,
-            decoration: TextDecoration.none),
-      ),
-
-      /// date header style
-      displayLarge: GoogleFonts.raleway(
-          textStyle: const TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 2)),
-
-      ///calendar weekend text style
-      labelLarge: GoogleFonts.raleway(
-          textStyle: const TextStyle(
-              fontSize: 18, color: theme_7calendarWeekendColor)),
-
-      ///calendar marker style
-      labelMedium: GoogleFonts.openSans(
-          textStyle: const TextStyle(
-              fontSize: 10,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis)),
-
-      ///task description text style
-      bodyLarge: GoogleFonts.openSans(
-          textStyle: const TextStyle(
-              fontSize: 10,
-              color: theme_7calendarWeekendColor,
-              fontWeight: FontWeight.w300,
-              overflow: TextOverflow.ellipsis)),
-
-      ///note title style
-      displayMedium: GoogleFonts.raleway(
-          textStyle: const TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 0,
-              overflow: TextOverflow.ellipsis)),
-
-      ///note description text style
-      bodyMedium: GoogleFonts.openSans(
-          textStyle: const TextStyle(
-              fontSize: 10,
-              color: theme_7descriptionColor,
-              fontWeight: FontWeight.w300,
-              overflow: TextOverflow.ellipsis)),
+      headlineLarge: theme_7largeHeaderTextStyle,
+      /// list title & small headers
+      headlineMedium: theme_7subtitleHeaderTextStyle,
+      ///note & task description text style date header style
+      displayLarge: theme_7cardTitleTextStyle,
+      ///unselected text
+      displayMedium: theme_7unselectedTextStyle,
+      //content text style
+      bodyMedium: theme_7contentTextStyle,
+      ///calendar default text style
+      labelLarge: theme_7calendarDayWeekendTextStyle,
+      //calendar next month text style:
+      labelSmall: theme_7calendarNextMonthTextStyle,
+      ///calendar weekend text style:
+      labelMedium: theme_7calendarWeekendTextStyle,
     ),
     textSelectionTheme: const TextSelectionThemeData(
       selectionHandleColor: Colors.transparent,
@@ -113,89 +155,227 @@ final theme7 = ThemeData(
     navigationRailTheme: NavigationRailThemeData(
       labelType: NavigationRailLabelType.all,
       groupAlignment: -0.5,
+      useIndicator: true,
+      indicatorColor: Colors.transparent,
       selectedIconTheme: const IconThemeData(
-        color: theme_7indicatorColor,
+          color: theme_7indicatorColor,
+          fill: 0.0
       ),
-      unselectedIconTheme: const IconThemeData(color: theme_7unselectedColor),
+      unselectedIconTheme: const IconThemeData(
+          color: theme_7unselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.openSans(
         textStyle: const TextStyle(
-            color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900),
+          color: theme_7baseTextColor, fontSize: 18, fontWeight: FontWeight.w900,
+          backgroundColor: Colors.transparent,
+        ),
       ),
       unselectedLabelTextStyle: GoogleFonts.openSans(
         textStyle: const TextStyle(
-            color: theme_7unselectedColor,
-            fontSize: 17,
-            fontWeight: FontWeight.w900),
+          color: theme_7unselectedColor,
+          fontSize: 17,
+          fontWeight: FontWeight.w900,
+
+        ),
       ),
     ),
-    // accentIconTheme: const IconThemeData(color: theme_7noteCardColor, size: 18),
     iconTheme: const IconThemeData(color: theme_7indicatorColor, size: 18),
     cardTheme: const CardTheme(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        shadowColor: Colors.black54,
+        shadowColor: theme_7unselectedColor,
         elevation: 5),
     switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith(
-              (states) {
-            if (states.contains(MaterialState.selected)) {
-              return theme_7indicatorColor;
-            } else {
-              return Colors.white;
-            }
-          },
-        ),
-        trackColor: MaterialStateProperty.all(theme_7unselectedColor)),
+      trackOutlineWidth:WidgetStateProperty.all(0.5),
+      trackOutlineColor: WidgetStateProperty.resolveWith(
+            (states) {
+          if (states.contains(WidgetState.selected)) {
+            return theme_7unselectedColor;
+          } else {
+            return theme_7shadowColor;
+          }
+        },
+      ),
+      thumbColor: WidgetStateProperty.resolveWith(
+            (states) {
+          if (states.contains(WidgetState.selected)) {
+            return theme_7indicatorColor;
+          } else {
+            return theme_7unselectedColor;
+          }
+        },
+      ),
+      trackColor: WidgetStateProperty.resolveWith(
+            (states) {
+          if (states.contains(WidgetState.selected)) {
+            return theme_7unselectedColor;
+          } else {
+            return theme_7shadowColor;
+          }
+        },
+      ),),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: theme_7indicatorColor),
     dialogTheme: DialogTheme(
         elevation: 5.0,
-        titleTextStyle: GoogleFonts.exo2(
-          textStyle: const TextStyle(
-              color: theme_7MainBcgColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w500),
-        ),
-        contentTextStyle: GoogleFonts.exo2(
-          textStyle: const TextStyle(
-              color: theme_7unselectedColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w200),
-        ),
+        titleTextStyle: theme_7subtitleHeaderTextStyle,
+        contentTextStyle: theme_7contentTextStyle,
         backgroundColor: theme_7MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+    datePickerTheme: DatePickerThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+
+      ),
+      headerBackgroundColor: theme_7indicatorColor,
+      headerHeadlineStyle: theme_7PickersTitleTextStyle,
+      headerForegroundColor: theme_7baseTextColor,
+      weekdayStyle: theme_7PickersBaseTextStyle,
+      dayStyle: theme_7PickersBaseTextStyle,
+      confirmButtonStyle: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(theme_7indicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme_7unselectedColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+          textStyle: const TextStyle(
+              color: theme_7baseTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w400),
+        ),),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+      ),
+      cancelButtonStyle: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(theme_7TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme_7firstGradientColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+            textStyle: const TextStyle(
+                color: theme_7baseTextColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w200),
+          ),),
+          padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+              side: BorderSide(color: theme_7firstGradientColor, width: 0.5),
+              borderRadius: BorderRadius.circular(20) ))
+      ),
+      todayBorder: const BorderSide(color: theme_7baseTextColor, style:BorderStyle.solid, width: 0.5),
+      todayForegroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7baseTextColor; // selected element text color
+        }
+        return  theme_7lastGradientColor; // unselected element text color
+      }),
+      todayBackgroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7indicatorColor.withOpacity(0.5);
+        }
+        return  Colors.transparent; // unselected element text color
+      }),
+      dayOverlayColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7indicatorColor.withOpacity(0.5);
+        }
+        return theme_7lastGradientColor;; // unselected element text color
+      }),
+      dayBackgroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7indicatorColor.withOpacity(0.5);
+        }
+        return  Colors.transparent; // unselected element text color
+      }),
+      dayForegroundColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7baseTextColor; // selected element text color
+        }
+        return  theme_7lastGradientColor;; // unselected element text color
+      }),
+
+    ),
+    timePickerTheme: TimePickerThemeData(
+      elevation: 0.2,
+      dayPeriodColor: theme_7indicatorColor.withOpacity(0.5),
+      dayPeriodTextStyle: theme_7PickersBaseTextStyle,
+      hourMinuteTextStyle: theme_7PickersBaseTextStyle,
+      dialTextStyle: theme_7PickersBaseTextStyle,
+      dialHandColor: theme_7indicatorColor, // color handles
+      hourMinuteTextColor: theme_7baseTextColor, // text colors
+      backgroundColor: theme_7TitleBoxBcgColor, // background color
+      dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7baseTextColor; // selected element text color
+        }
+        return  theme_7firstGradientColor; // unselected element text color
+      }),
+      dialTextColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7baseTextColor; // selected element text color
+        }
+        return  theme_7lastGradientColor;; // unselected element text color
+      }),
+      entryModeIconColor: theme_7baseTextColor, // entry mode icon color
+      hourMinuteColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return theme_7indicatorColor.withOpacity(0.5); // selected hour/minute background color
+        }
+        return  theme_7TitleBoxBcgColor; // unselected hour/minute background color
+
+      }),
+      confirmButtonStyle: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(theme_7indicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme_7baseTextColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+          textStyle: const TextStyle(
+              color: theme_7baseTextColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w400),
+        ),),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+      ),
+      cancelButtonStyle: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(theme_7TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme_7firstGradientColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+            textStyle: const TextStyle(
+                color: theme_7baseTextColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w200),
+          ),),
+          padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+              side: BorderSide(color: theme_7firstGradientColor, width: 0.5),
+              borderRadius: BorderRadius.circular(20) ))
+      ),
+    ),
     inputDecorationTheme: const InputDecorationTheme(
       border: InputBorder.none,
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: .5,
-            color: theme_7calendarWeekendColor,
+            color: theme_7TitleBoxBcgColor,
           )),
       enabledBorder: UnderlineInputBorder(
           borderSide:
-          BorderSide(width: .5, color: theme_7calendarWeekendColor)),
+          BorderSide(width: .5, color: theme_7unselectedColor)),
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: theme_7calendarWeekendColor, fontSize: 20),
+      hintStyle: TextStyle(color: theme_7TitleBoxBcgColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme_7noteCardColor,
+        color: theme_7TitleBoxBcgColor,
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme_7calendarWeekendColor,
+        color: theme_7unselectedColor,
         fontSize: 8.0,
       ),
       labelStyle: TextStyle(
-        color: theme_7calendarWeekendColor,
+        color: theme_7unselectedColor,
         fontSize: 20,
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(
-        color: theme_7noteCardColor,
+        color: theme_7unselectedColor,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
@@ -210,25 +390,28 @@ final theme7 = ThemeData(
       indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(width: 2.0, color: theme_7indicatorColor),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
-      labelColor: Colors.black,
-      unselectedLabelColor: Colors.black54,
+      labelColor: theme_7baseTextColor,
+      unselectedLabelColor: theme_7unselectedColor,
       unselectedLabelStyle: GoogleFonts.raleway(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: Colors.black54,
+            color: theme_7unselectedColor,
             fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
       labelStyle: GoogleFonts.raleway(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: Colors.black,
+            color: theme_7baseTextColor,
             fontWeight: FontWeight.w500,
             decoration: TextDecoration.none),
       ),
     ),
     sliderTheme: const SliderThemeData(
+        trackHeight:1.5,
         activeTrackColor: theme_7indicatorColor,
         inactiveTrackColor: theme_7unselectedColor,
         trackShape: RoundedRectSliderTrackShape(),
-        thumbColor: Colors.white));
+        thumbColor: Colors.white)
+);
+

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 class CustomFab extends StatelessWidget {
   final IconData icon;
   final Function onTap;
@@ -13,7 +15,7 @@ class CustomFab extends StatelessWidget {
   final bool ignorePointer;
 
   const CustomFab(
-      {Key? key,
+      {super.key,
       required this.hideBtn,
       required this.icon,
       required this.onTap,
@@ -22,8 +24,7 @@ class CustomFab extends StatelessWidget {
       required this.translationValueTwo,
       required this.rotationValue,
       required this.addTask,
-      required this.ignorePointer})
-      : super(key: key);
+      required this.ignorePointer});
 
   double getRadianFromDegree(double degree) {
     double unitRadian = 57.295779513;
@@ -32,11 +33,11 @@ class CustomFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fabRadius = 50.0;
+    var fabSize = SizeInfo.fabSize;
     double btnRadius = 15.0;
-
+    double iconSize = SizeInfo.leadingAndTrailingIconSize;
     return Padding(
-      padding: EdgeInsets.only(bottom: fabRadius * 0.2),
+      padding: EdgeInsets.only(bottom: fabSize * 0.2),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -45,15 +46,15 @@ class CustomFab extends StatelessWidget {
             child: IgnorePointer(
               child: Container(
                 color: Colors.transparent,
-                height: fabRadius * 3.0,
-                width: fabRadius,
-                margin: EdgeInsets.only(bottom: fabRadius * 0.2),
+                height: fabSize * 3.0,
+                width: fabSize,
+                margin: EdgeInsets.only(bottom: fabSize * 0.2),
               ),
             ),
           ),
           Transform.translate(
             offset: Offset.fromDirection(getRadianFromDegree(270),
-                translationValueOne * (fabRadius * 2 + 30)),
+                translationValueOne * (fabSize * 2 + 30)),
             child: Transform(
               transform: Matrix4.rotationZ(getRadianFromDegree(rotationValue))
                 ..scale(translationValueOne),
@@ -65,12 +66,12 @@ class CustomFab extends StatelessWidget {
                         .backgroundColor,
                     shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.all(Radius.circular(btnRadius))),
-                width: fabRadius,
-                height: fabRadius,
+                width: fabSize,
+                height: fabSize,
                 child: IconButton(
                   icon: Icon(Icons.note_add,
-                      color: Theme.of(context).textTheme.displayMedium!.color,
-                      size: fabRadius - 20),
+                      color: Theme.of(context).textTheme.headlineMedium!.color,
+                      size: iconSize),
                   onPressed: () {
                     addTask();
                     hideBtn();
@@ -82,7 +83,7 @@ class CustomFab extends StatelessWidget {
           ),
           Transform.translate(
             offset: Offset.fromDirection(getRadianFromDegree(270),
-                translationValueTwo * (fabRadius + 20)),
+                translationValueTwo * (fabSize + 20)),
             child: Transform(
               transform: Matrix4.rotationZ(getRadianFromDegree(rotationValue))
                 ..scale(translationValueTwo),
@@ -93,13 +94,13 @@ class CustomFab extends StatelessWidget {
                         .floatingActionButtonTheme
                         .backgroundColor,
                     shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(btnRadius))),
-                width: fabRadius,
-                height: fabRadius,
+                width: fabSize,
+                height: fabSize,
                 child: IconButton(
                   icon: Icon(
                     Icons.task,
-                    color: Theme.of(context).textTheme.displayMedium!.color,
-                    size: fabRadius - 20,
+                    color: Theme.of(context).textTheme.headlineMedium!.color,
+                    size: iconSize,
                   ),
                   onPressed: () {
                     addNote();
@@ -112,9 +113,10 @@ class CustomFab extends StatelessWidget {
           ),
           FloatingActionButton(
             elevation: 3,
+            isExtended: true,
             child: Icon(Icons.edit,
-                size: fabRadius - 15,
-                color: Theme.of(context).textTheme.displayMedium!.color),
+                size: iconSize,
+                color: Theme.of(context).textTheme.headlineMedium!.color),
             onPressed: () {
               onTap();
             },

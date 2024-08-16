@@ -42,24 +42,32 @@ class SliderDialog extends StatelessWidget {
                   onChanged: (value) {
                     settingsProvider.onSliderChange(value, index);
                   }),
-              Text(
-                  "This setting keeps data for the last ${sets.sliderValue!.toStringAsFixed(0)} months.\nAre You sure?",
-                  maxLines: 5,
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontSize: sliderValueFontSize,
-                      fontWeight: FontWeight.w700,
-                      height: 2.0,
-                      wordSpacing: 3)),
+              RichText(
+                  textAlign: TextAlign.center,
+
+                  text: TextSpan(
+                    text: "This setting keeps data for the last\n",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    children: <TextSpan>[
+                      TextSpan(
+
+                        text: "${sets.sliderValue!.toStringAsFixed(0)} months.\n\n"
+                      ),
+                      TextSpan(
+                          text: "Are You sure?",
+                          style: Theme.of(context).textTheme.displayLarge,
+                      )
+                    ]
+                  )
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(
-                            Theme.of(context).unselectedWidgetColor)),
+                    style: Theme.of(context).datePickerTheme.cancelButtonStyle!,
                     child: Text("cancel",
-                        style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontSize: sliderValueFontSize,
                             )),
                     onPressed: () {
@@ -73,12 +81,9 @@ class SliderDialog extends StatelessWidget {
                     },
                   ),
                   TextButton(
-                    style: ButtonStyle(
-                        elevation: WidgetStateProperty.all(3.0),
-                        backgroundColor: WidgetStateProperty.all(
-                            Theme.of(context).indicatorColor)),
+                    style: Theme.of(context).datePickerTheme.confirmButtonStyle!,
                     child: Text("confirm",
-                        style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontSize: sliderValueFontSize,
                             )),
                     onPressed: () async {

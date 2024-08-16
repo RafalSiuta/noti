@@ -31,12 +31,12 @@ class CreatorNav extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 3.0,
+                  color: Colors.black54.withOpacity(0.3),
+                  blurRadius: 1.0,
                   offset: Offset(.0, .0),
-                  spreadRadius: 2.0)
+                  spreadRadius: 1.0)
             ]),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
@@ -78,12 +78,12 @@ class CreatorNav extends StatelessWidget {
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,
             borderRadius: const BorderRadius.all(Radius.circular(15)),
-            boxShadow: const [
+            boxShadow:  [
               BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 3.0,
+                  color: Colors.black54.withOpacity(0.5),
+                  blurRadius: 1.5,
                   offset: Offset(.0, .0),
-                  spreadRadius: 2.0)
+                  spreadRadius: 1.0)
             ]),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(15)),

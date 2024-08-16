@@ -19,10 +19,16 @@ class DefaultText extends StatelessWidget {
         builder: (context, value, child){
           return Transform.scale(
             scale: value,
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: SizeInfo.headerSubtitleSize, letterSpacing: 1),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: SizeInfo.headerSubtitleSize, letterSpacing: 1),
+              ),
             ),
           );
         },

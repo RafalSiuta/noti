@@ -94,6 +94,7 @@ class _TaskCreatorState extends State<TaskCreator>
       initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2050),
+      locale: const Locale('pl'), useRootNavigator:false
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
@@ -144,7 +145,8 @@ class _TaskCreatorState extends State<TaskCreator>
                   crossAxisCount: 5,
                   children: List.generate(
                       categoryIcons.iconsList.length,
-                      (index) => IconButton(
+                      (index) =>
+                          IconButton(
                             onPressed: () {
                               setState(() {
                                 widget.newTask.icon = index;
@@ -157,7 +159,8 @@ class _TaskCreatorState extends State<TaskCreator>
                                   : Theme.of(context).unselectedWidgetColor,
                               size: 13,
                             ),
-                          )),
+                          )
+                  ),
                 ),
               ));
         });
@@ -173,6 +176,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
   @override
   void initState() {
+    dayTime = TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
     _menuSlideInController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
 
@@ -359,21 +363,22 @@ class _TaskCreatorState extends State<TaskCreator>
                                             });
                                           },
                                           cursorColor: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .color,
+                                              .indicatorColor,
                                           controller: titleVal,
                                           autofocus: true,
-                                          style: Theme.of(context)
+                                          style: widget
+                                              .newTask.isTaskDone! ?
+                                          Theme.of(context)
                                               .textTheme
-                                              .headlineMedium!
+                                              .displayMedium!
+                                              .copyWith(
+                                              fontSize: titleFontSize):
+                                          Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
                                               .copyWith(
                                                   fontSize: titleFontSize,
-                                                  decoration: widget
-                                                          .newTask.isTaskDone!
-                                                      ? TextDecoration
-                                                          .lineThrough
-                                                      : TextDecoration.none),
+                                                  decoration:TextDecoration.none),
                                           textAlign: TextAlign.start,
                                           decoration: InputDecoration(
                                             helperText: 'Enter title',
@@ -386,9 +391,6 @@ class _TaskCreatorState extends State<TaskCreator>
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: topMargin,
-                                    ),
                                     Rater(
                                       size: raterIconSize,
                                       helperTextSize: helpTextFontSize,
@@ -399,9 +401,6 @@ class _TaskCreatorState extends State<TaskCreator>
                                         widget.newTask.priority =
                                             rating.toInt();
                                       }),
-                                    ),
-                                    SizedBox(
-                                      height: topMargin,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -439,7 +438,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headlineMedium!
+                                            .bodyMedium!
                                             .copyWith(
                                                 fontSize: descriptionFontSize),
                                         decoration: InputDecoration(
@@ -461,46 +460,6 @@ class _TaskCreatorState extends State<TaskCreator>
                     SlideTransition(
                       position: _menuAnimation,
                       child: CreatorNav(
-                        // leading: IconButton(
-                        //     padding: const EdgeInsets.all(20),
-                        //     onPressed: () {
-                        //       taskProvider.addTask(widget.newTask,
-                        //           settingsProvider.isNotification);
-                        //       Navigator.pop(context, true);
-                        //     },
-                        //     icon: Icon(
-                        //       Icons.save,
-                        //       size: navIconSize,
-                        //     )),
-                        // trailing: Column(
-                        //   mainAxisSize: MainAxisSize.min,
-                        //   children: [
-                        //     //todo temporary solution try place it better
-                        //     SwitchBtn(
-                        //       value: widget.newTask.isTaskDone,
-                        //       icon: FontAwesomeIcons.check,
-                        //       align: Alignment.center,
-                        //       onChanged: (val) {
-                        //         taskProvider.updateTasks(widget.newTask,
-                        //             settingsProvider.isNotification);
-                        //
-                        //         checkIsTaskDone();
-                        //       },
-                        //     ),
-                        //     IconButton(
-                        //         padding: const EdgeInsets.all(20),
-                        //         onPressed: () {
-                        //           setState(() {
-                        //             editTextEnable = false;
-                        //           });
-                        //           Navigator.pop(context, true);
-                        //         },
-                        //         icon: Icon(
-                        //           Icons.arrow_back,
-                        //           size: navIconSize,
-                        //         )),
-                        //   ],
-                        // ),
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
                         navDotIndicatorSize: navIconSize,

@@ -5,10 +5,10 @@ import '../../utils/dimensions/size_info.dart';
 
 class ThemeCard extends StatelessWidget {
   const ThemeCard({
-    Key? key,
+    super.key,
     required this.themeData,
     required this.onChangeTheme,
-  }) : super(key: key);
+  });
 
   final ThemeModel? themeData;
   final Function()? onChangeTheme;
@@ -21,7 +21,7 @@ class ThemeCard extends StatelessWidget {
         child: Card(
           color: Colors.transparent,
           shadowColor: Theme.of(context).shadowColor,
-          elevation: 5,
+          elevation: 3,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
@@ -39,7 +39,7 @@ class ThemeCard extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   themeData!.title,
-                  style: themeData!.themeData!.textTheme.headlineMedium!
+                  style: themeData!.themeData!.textTheme.headlineLarge!
                       .copyWith(fontSize: indicatorIconSize),
                 ),
               ),

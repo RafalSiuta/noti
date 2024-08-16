@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:noti/providers/category_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
+import 'package:noti/providers/permission_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:noti/providers/task_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +42,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
+            create: (context) => PermissionProvider(),
+          ),
+          ChangeNotifierProvider(
             create: (context) => SettingsProvider(),
           ),
           ChangeNotifierProvider(
@@ -56,34 +62,19 @@ class MyApp extends StatelessWidget {
         ],
         child: Consumer<SettingsProvider>(
           builder: (context, settings, child) {
-            return
-            //   MaterialApp(
-            //   builder: (context, item){
-            //     return
-            //       MediaQuery(
-            //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            //       child:
-            //         MaterialApp(
-            //         debugShowCheckedModeBanner: false,
-            //         title: 'Noti',
-            //         theme: settings.getTheme(),
-            //         initialRoute: '/',
-            //         onGenerateRoute: (route) => onGenerateRoute(route),
-            //       )
-            //     );
-            //
-            //   },
-            //   debugShowCheckedModeBanner: false,
-            //   title: 'Noti',
-            //   theme: settings.getTheme(),
-            //   initialRoute: '/',
-            //   onGenerateRoute: (route) => onGenerateRoute(route),
-            // );
-
-              MaterialApp(
+            return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-              locale: const Locale('pl','PL'),
+              //locale: const Locale('pl','PL'),
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: [
+                const Locale('pl','PL'),
+                const Locale('en', 'GB'),
+              ],
               theme: settings.getTheme(),
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),

@@ -4,7 +4,7 @@ import '../task_screen/task_list.dart';
 import 'calendar.dart';
 
 class CalendarScreen extends StatelessWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  const CalendarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

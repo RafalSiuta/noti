@@ -158,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen>
                         splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.settings_outlined,
+                          color: Theme.of(context).textTheme.displayLarge!.color,
                           size: leadingIconSize,
                         ),
                         onPressed: () async {

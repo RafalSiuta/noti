@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/note_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
+import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
@@ -13,10 +14,11 @@ import '../../widgets/headers/small_header.dart';
 import '../../widgets/responsive/column_row_builder.dart';
 
 class SetsScreen extends StatelessWidget {
-  const SetsScreen({Key? key}) : super(key: key);
+  const SetsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double topMargin = SizeInfo.pageTopMargin;
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
         return CustomScrollView(
@@ -25,7 +27,7 @@ class SetsScreen extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.only(top: 24),
+              padding: EdgeInsets.only(top: topMargin),
               sliver: SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverHeader(

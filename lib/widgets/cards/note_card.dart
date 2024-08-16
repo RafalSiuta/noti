@@ -35,21 +35,8 @@ class NoteCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                //color: Theme.of(context).indicatorColor,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorLight,
-                  //color: Theme.of(context).indicatorColor,
-                  //   gradient: LinearGradient(
-                  //     begin: Alignment.topCenter,
-                  //     end: Alignment.bottomLeft,
-                  //     stops: const [0.0,  1.0],
-                  //     colors: [
-                  //       //Theme.of(context).primaryColorLight,
-                  //       Theme.of(context).primaryColor,
-                  //
-                  //      // Theme.of(context).primaryColorDark
-                  //     ],
-                  //   ),
                 ),
                 width: isGrid ? leftPadding : leftPadding - 8,
               ),
@@ -70,25 +57,24 @@ class NoteCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
-                                categoryIcons.iconsList[note.icon!],
-                                size: titleFontSize,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .color,
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
+                              // Icon(
+                              //   categoryIcons.iconsList[note.icon!],
+                              //   size: titleFontSize,
+                              //   color: Theme.of(context)
+                              //       .textTheme
+                              //       .displayMedium!
+                              //       .color,
+                              // ),
+                              // const SizedBox(
+                              //   height: 5.0,
+                              // ),
                               Text(
                                 note.title!, //capitalTitle,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium!
+                                    .displayLarge!
                                     .copyWith(
-                                        fontSize: titleFontSize,
-                                        letterSpacing: 1),
+                                        fontSize: titleFontSize,),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
@@ -97,21 +83,18 @@ class NoteCard extends StatelessWidget {
                                 note.subtitle!,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: contentFontSize),
+                                    .displayLarge!
+                                    .copyWith(fontSize: contentFontSize, height: 1.5),
                                 maxLines: 1,
                                 textAlign: TextAlign.left,
                                 overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(
-                                height: 5.0,
                               ),
                               Text(
                                 note.description!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
-                                    .copyWith(fontSize: contentFontSize),
+                                    .copyWith(fontSize: contentFontSize, height:1.5),
                                 maxLines: note.image != null && note.image != []
                                     ? 5
                                     : 10,
@@ -119,7 +102,7 @@ class NoteCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(
-                                height: 5.0,
+                                height: 2.0,
                               ),
                               note.image != null && note.image!.isNotEmpty
                                   ? ImageCard(

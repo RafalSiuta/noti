@@ -105,7 +105,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   setState(() {});
                                 },
                                 icon:
-                                    Icon(Icons.arrow_back, size: navIconSize)),
+                                    Icon(
+                                        Icons.arrow_back,
+                                        color: Theme.of(context).textTheme.displayLarge!.color,
+                                        size: navIconSize)),
                             itemCount: _pages.length,
                             titles: _pages.map((e) => e.title!).toList(),
                             selectedItem: _currentPage,

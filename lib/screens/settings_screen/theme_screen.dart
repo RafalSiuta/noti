@@ -22,12 +22,13 @@ class ThemeScreen extends StatelessWidget {
           screenType: getScreenType(mediaQuery), screenSize: mediaQuery.size);
 
       var columnCount = SizeInfo.gridColumnCount;
+      double topMargin = SizeInfo.pageTopMargin;
       return CustomScrollView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
         slivers: [
           SliverPadding(
-            padding: const EdgeInsets.only(top: 24),
+            padding: EdgeInsets.only(top: topMargin),
             sliver: SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverHeader(

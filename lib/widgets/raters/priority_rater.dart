@@ -11,14 +11,14 @@ class Rater extends StatelessWidget {
   final RatingChangeCallback? onRatingChanged;
 
   const Rater({
-    Key? key,
+    super.key,
     this.starCount = 5,
     this.rating = 0,
     this.onRatingChanged,
     this.height = 8.0,
     this.size = 10,
     this.helperTextSize = 8.0,
-  }) : super(key: key);
+  });
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;

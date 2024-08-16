@@ -14,7 +14,7 @@ import '../task_screen/task_creator_screen.dart';
 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
-  const Calendar({Key? key, this.isHeaderVisible = true}) : super(key: key);
+  const Calendar({super.key, this.isHeaderVisible = true});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class Calendar extends StatelessWidget {
                                 editEnable: true,
                                 newTask: Task(
                                     date: DateTime(
-                                        date.year, date.month, date.day),
+                                        date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
                                     icon: 1,
                                     description: " ",
                                     title: " ",
@@ -90,7 +90,7 @@ class Calendar extends StatelessWidget {
                             return Transform.scale(
                               scale: value,
                               child: Text(
-                                '${DateFormat('MMMM yy').format(date)} ',
+                                '${DateFormat('MMM yy').format(date)} ',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!
@@ -117,14 +117,13 @@ class Calendar extends StatelessWidget {
                                     .textTheme
                                     .headlineMedium!
                                     .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w300)
+                                        fontSize: calendarFontSize,)
                                 : Theme.of(context)
                                     .textTheme
-                                    .bodyMedium!
+                                    .labelMedium!
                                     .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w300),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: calendarFontSize,),
                           ))),
                         ),
                       );
@@ -143,16 +142,14 @@ class Calendar extends StatelessWidget {
                             style: (date.weekday != 6 && date.weekday != 7)
                                 ? Theme.of(context)
                                     .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w500)
-                                : Theme.of(context)
-                                    .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                        fontSize: calendarFontSize,
-                                        fontWeight: FontWeight.w500),
+                                        fontSize: calendarFontSize )
+                                : Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                        fontSize: calendarFontSize),
                           ))),
                         ),
                       );
@@ -175,7 +172,7 @@ class Calendar extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelMedium!
+                                          .displayLarge!
                                           .copyWith(fontSize: markerFontSize)),
                                 ),
                               ))
@@ -195,39 +192,27 @@ class Calendar extends StatelessWidget {
                     isTodayHighlighted: true,
                     defaultTextStyle: Theme.of(context)
                         .textTheme
-                        .headlineMedium!
-                        .copyWith(
-                            fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w500),
-                    weekendTextStyle: Theme.of(context)
-                        .textTheme
                         .bodyMedium!
                         .copyWith(
-                            fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w500),
-                    selectedTextStyle: Theme.of(context)
+                            fontSize: calendarFontSize,),
+                    weekendTextStyle: Theme.of(context)
                         .textTheme
                         .labelMedium!
                         .copyWith(
-                            fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0),
+                            fontSize: calendarFontSize,),
+                    selectedTextStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(
+                      fontSize: calendarFontSize,
+                    ),
                     todayTextStyle: Theme.of(context)
                         .textTheme
                         .headlineMedium!
                         .copyWith(
                             fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w500),
-                    outsideTextStyle: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .color!
-                            .withOpacity(0.5),
-                        fontSize: calendarFontSize,
-                        fontWeight: FontWeight.w100,
-                        fontFamily:
-                            Theme.of(context).textTheme.labelMedium!.fontFamily),
+                    ),
+                    outsideTextStyle: Theme.of(context).textTheme.labelSmall!.copyWith(fontSize: calendarFontSize),
                     todayDecoration: BoxDecoration(
                       color: Theme.of(context).focusColor,
                       shape: BoxShape.rectangle,
@@ -285,16 +270,16 @@ class Calendar extends StatelessWidget {
                   daysOfWeekStyle: DaysOfWeekStyle(
                     weekdayStyle: Theme.of(context)
                         .textTheme
-                        .headlineLarge!
+                        .bodyMedium!
                         .copyWith(
                             fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w300),
+                    ),
                     weekendStyle: Theme.of(context)
                         .textTheme
-                        .bodySmall!
+                        .labelMedium!
                         .copyWith(
                             fontSize: calendarFontSize,
-                            fontWeight: FontWeight.w300),
+                    ),
                   ),
                 ),
               ),

@@ -11,9 +11,12 @@ class SizeInfo {
 
   static int gridColumnCount = 2;
 
+  static double fabSize = 48.0;
+
   ///padding / margins:
   static double edgePadding = 8.0;
   static double menuTopMargin = 8.0;
+  static double pageTopMargin = 12.0;
 
   ///corner radius
   static double cornerRadius = 15.0;
@@ -37,9 +40,9 @@ class SizeInfo {
   static double navSideTitleSize = 18;
 
   ///task dimens:
-  static double taskCardHeight = 78;
+  static double taskCardHeight = 72;
   static double taskCardTitle = 12;
-  static double taskCardDescription = 10;
+  static double taskCardDescription = 12;
   static double taskCreatorTitle = 23;
   static double taskCreatorDescription = 15;
 
@@ -47,7 +50,7 @@ class SizeInfo {
 
   ///note dimens:
   static double noteCardImageSize = 50;
-  static double noteCardTitle = 10;
+  static double noteCardTitle = 12;
   static double noteCardContent = 7.0;
   static double noteLeftPadding = 16;
   static double scaleCard = 0.8;
