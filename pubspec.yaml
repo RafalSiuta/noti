@@ -53,6 +53,7 @@ dependencies:
   webview_flutter: ^4.8.0 #import 'package:webview_flutter/webview_flutter.dart';
   csshadow: ^0.0.2 #import 'package:csshadow/csshadow.dart';
   flutter_localization: ^0.2.1
+  permission_handler: ^10.4.0
 
 
 

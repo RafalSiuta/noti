@@ -4,11 +4,11 @@ import '../../utils/dimensions/size_info.dart';
 
 class SettingsCard extends StatelessWidget {
   const SettingsCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.child,
-  }) : super(key: key);
+  });
 
   final String title;
   final String description;
@@ -28,7 +28,7 @@ class SettingsCard extends StatelessWidget {
     const radiusContainer = BorderRadius.all(Radius.circular(15));
     const radiusInnerContainer = BorderRadius.all(Radius.circular(10));
 
-    List<Widget> _items = [
+    List<Widget> items = [
       Expanded(
         child: Padding(
           padding: textPadding,
@@ -66,15 +66,27 @@ class SettingsCard extends StatelessWidget {
               borderRadius: radiusContainer,
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor,
+                  color: Theme.of(context)
+                      .unselectedWidgetColor
+                      .withOpacity(0.8),
                   offset: const Offset(0.0, 0.0),
                 ),
                 BoxShadow(
                   color: Theme.of(context).shadowColor,
                   offset: const Offset(0.0, 0.0),
-                  spreadRadius: -3.0,
-                  blurRadius: 3.0,
+                  spreadRadius: -2.0,
+                  blurRadius: 2.0,
                 ),
+                // BoxShadow(
+                //   color: Theme.of(context).unselectedWidgetColor,
+                //   offset: const Offset(0.0, 0.0),
+                // ),
+                // BoxShadow(
+                //   color: Theme.of(context).shadowColor,
+                //   offset: const Offset(0.0, 0.0),
+                //   spreadRadius: -3.0,
+                //   blurRadius: 3.0,
+                // ),
               ]),
         ), //main shape
         Container(
@@ -86,21 +98,26 @@ class SettingsCard extends StatelessWidget {
                 borderRadius: radiusInnerContainer,
                 boxShadow: [
                   BoxShadow(
-                      color: Theme.of(context).unselectedWidgetColor,
-                      blurRadius: 3.0,
+                      color: Theme.of(context).shadowColor,
+                      blurRadius: 2.0,
                       offset: const Offset(.0, .0),
-                      spreadRadius: 2.0),
-                  BoxShadow(
-                    color: Theme.of(context).shadowColor,
-                    offset: const Offset(0.0, 0.0),
-                    spreadRadius: 3.0,
-                    blurRadius: 3.0,
-                  ),
+                      spreadRadius: 1.5),
+                  // BoxShadow(
+                  //     color: Theme.of(context).unselectedWidgetColor,
+                  //     blurRadius: 3.0,
+                  //     offset: const Offset(.0, .0),
+                  //     spreadRadius: 2.0),
+                  // BoxShadow(
+                  //   color: Theme.of(context).shadowColor,
+                  //   offset: const Offset(0.0, 0.0),
+                  //   spreadRadius: 3.0,
+                  //   blurRadius: 3.0,
+
                 ]),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: _items)),
+                children: items)),
       ],
     );
   }

@@ -7,7 +7,7 @@ import '../../providers/settings_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class Carousel extends StatelessWidget {
-  const Carousel({Key? key}) : super(key: key);
+  const Carousel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class Carousel extends StatelessWidget {
                       return Transform.scale(
                         scale: value,
                         child: Card(
-                          elevation: 5,
+                          elevation: 2,
                           shape: const RoundedRectangleBorder(
                             borderRadius:
                             BorderRadius.all(Radius.circular(15)),
@@ -82,48 +82,6 @@ class Carousel extends StatelessWidget {
                         ),
                       );
                     });
-
-                      // PlayAnimation<double>(
-                      //   tween: Tween<double>(begin: 0.5, end: 1.0),
-                      //   duration: const Duration(milliseconds: 300),
-                      //   delay: const Duration(milliseconds: 200),
-                      //   curve: Curves.easeOut,
-                      //   builder: (context, child, value) {
-                      //     return Transform.scale(
-                      //       scale: value,
-                      //       child: Card(
-                      //         elevation: 5,
-                      //         shape: const RoundedRectangleBorder(
-                      //           borderRadius:
-                      //               BorderRadius.all(Radius.circular(15)),
-                      //         ),
-                      //         color: Theme.of(context).scaffoldBackgroundColor,
-                      //         shadowColor: Theme.of(context).shadowColor,
-                      //         child: Padding(
-                      //           padding: const EdgeInsets.all(.0),
-                      //           child: ClipPath(
-                      //             clipper: carousel,
-                      //             child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   borderRadius: const BorderRadius.all(
-                      //                     Radius.circular(15.0),
-                      //                   ),
-                      //                   gradient: LinearGradient(
-                      //                     begin: Alignment.topCenter,
-                      //                     end: Alignment.bottomLeft,
-                      //                     stops: const [0.0, 0.5, 1.0],
-                      //                     colors: [
-                      //                       Theme.of(context).primaryColor,
-                      //                       Theme.of(context).primaryColorLight,
-                      //                       Theme.of(context).primaryColorDark
-                      //                     ],
-                      //                   )),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     );
-                      //   });
                   }),
             ),
             const SizedBox(

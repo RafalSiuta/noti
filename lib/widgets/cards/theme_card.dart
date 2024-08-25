@@ -21,7 +21,7 @@ class ThemeCard extends StatelessWidget {
         child: Card(
           color: Colors.transparent,
           shadowColor: Theme.of(context).shadowColor,
-          elevation: 3,
+          elevation: 2,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),

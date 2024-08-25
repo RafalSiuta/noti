@@ -3,7 +3,7 @@ import 'package:noti/database/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
-import '../models/db_model/category.dart';
+//import '../models/db_model/category.dart';
 import '../models/db_model/note.dart';
 
 class NoteDB {
@@ -56,14 +56,14 @@ class NoteDB {
     return notes;
   }
 
-  Future<List<Note>> getNotesByCategory(NoteCategory noteCategory) async {
-    final db = await dbNote.database;
-    List<Map<String, dynamic>> allRows = await db.rawQuery('''
-    SELECT * FROM ${dbNote.noteTable} 
-    WHERE ${dbNote.noteFK} = ${noteCategory.id}
-    ''');
-    List<Note> notes = allRows.map((note) => Note.fromMap(note)).toList();
-    return notes;
-  }
+  // Future<List<Note>> getNotesByCategory(NoteCategory noteCategory) async {
+  //   final db = await dbNote.database;
+  //   List<Map<String, dynamic>> allRows = await db.rawQuery('''
+  //   SELECT * FROM ${dbNote.noteTable}
+  //   WHERE ${dbNote.noteFK} = ${noteCategory.id}
+  //   ''');
+  //   List<Note> notes = allRows.map((note) => Note.fromMap(note)).toList();
+  //   return notes;
+  // }
   //todo : https://github.com/jurkko/sqflitetutorial2/blob/a6c97bf4f0d1e3b491873b4be0562e6bd0f0964f/lib/data/contact_operations.dart
 }

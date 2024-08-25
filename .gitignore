@@ -12,6 +12,7 @@
 .buildlog/
 .history
 .svn/
+notes.dart
 
 # IntelliJ related
 *.iml

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/screens/settings_screen/permission_screen.dart';
 import 'package:noti/screens/settings_screen/sets_screen.dart';
 import 'package:noti/screens/settings_screen/theme_screen.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       page: const SetsScreen(),
       title: NavModel(
         title: 'Settings',
+      ),
+    ),
+    ScreenModel(
+      page: const PermissionScreen(),
+      title: NavModel(
+        title: 'Permissions',
       ),
     ),
     ScreenModel(

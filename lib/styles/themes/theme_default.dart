@@ -20,6 +20,8 @@ final themeDefPickersBaseTextStyle = GoogleFonts.exo2(
       fontWeight: FontWeight.w500),
 );
 
+
+
 final themeDefPickersTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       color: themeDefBaseTextColor,

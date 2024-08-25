@@ -229,72 +229,75 @@ class _NoteCreatorState extends State<NoteCreator>
                         expandedHeight: 110,
                         flexibleSpace: Padding(
                           padding: EdgeInsets.only(top: topMargin, right: 8.0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children:
-                                    AnimationConfiguration.toStaggeredList(
-                                  duration: const Duration(milliseconds: 300),
-                                  delay: const Duration(milliseconds: 200),
-                                  childAnimationBuilder: (widget) =>
-                                      ScaleAnimation(
-                                    scale: 0.5,
-                                    child: FadeInAnimation(
-                                      child: widget,
-                                    ),
-                                  ),
-                                  children: [
-                                    IconButton(
-                                      padding: const EdgeInsets.all(.0),
-                                      icon: Icon(
-                                        categoryIcons.iconsList[
-                                            widget.newNote.icon ?? 1],
-                                        size: navIconSize,
-                                        color: Theme.of(context).indicatorColor,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: IntrinsicHeight(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children:
+                                      AnimationConfiguration.toStaggeredList(
+                                    duration: const Duration(milliseconds: 300),
+                                    delay: const Duration(milliseconds: 200),
+                                    childAnimationBuilder: (widget) =>
+                                        ScaleAnimation(
+                                      scale: 0.5,
+                                      child: FadeInAnimation(
+                                        child: widget,
                                       ),
-                                      onPressed: () {
-                                        _pickIcon(context);
-                                      },
                                     ),
-                                    const VerticalDivider(),
-                                    Text(
-                                      DateFormat('dd MMM yy')
-                                          .format(widget.newNote.date),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: descriptionFontSize),
-                                    ),
-                                    const VerticalDivider(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 24),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'On dash',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium!
-                                                .copyWith(
-                                                    fontSize: helperTextSize),
-                                          ),
-                                          Switch(
-                                              value: widget.newNote.keep!,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  widget.newNote.keep = value;
-                                                });
-                                              }),
-                                        ],
+                                    children: [
+                                      IconButton(
+                                        padding: const EdgeInsets.all(.0),
+                                        icon: Icon(
+                                          categoryIcons.iconsList[
+                                              widget.newNote.icon ?? 1],
+                                          size: navIconSize,
+                                          color: Theme.of(context).indicatorColor,
+                                        ),
+                                        onPressed: () {
+                                          _pickIcon(context);
+                                        },
                                       ),
-                                    )
-                                  ],
-                                )),
+                                      const VerticalDivider(),
+                                      Text(
+                                        DateFormat('dd MMM yy')
+                                            .format(widget.newNote.date),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: descriptionFontSize),
+                                      ),
+                                      const VerticalDivider(),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 24),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              'On dash',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium!
+                                                  .copyWith(
+                                                      fontSize: helperTextSize),
+                                            ),
+                                            Switch(
+                                                value: widget.newNote.keep!,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    widget.newNote.keep = value;
+                                                  });
+                                                }),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                       ),

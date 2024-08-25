@@ -257,73 +257,76 @@ class _TaskCreatorState extends State<TaskCreator>
                                     ),
                                   ),
                                   children: [
-                                    IntrinsicHeight(
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: AnimationConfiguration
-                                              .toStaggeredList(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            delay: const Duration(
-                                                milliseconds: 200),
-                                            childAnimationBuilder: (widget) =>
-                                                ScaleAnimation(
-                                              scale: 0.5,
-                                              child: FadeInAnimation(
-                                                child: widget,
-                                              ),
-                                            ),
-                                            children: [
-                                              IconButton(
-                                                alignment: Alignment.centerLeft,
-                                                padding: const EdgeInsets.only(
-                                                    right: 5.0),
-                                                icon: Icon(
-                                                  categoryIcons.iconsList[
-                                                      widget.newTask.icon ?? 1],
-                                                  size: navIconSize,
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: IntrinsicHeight(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: AnimationConfiguration
+                                                .toStaggeredList(
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              delay: const Duration(
+                                                  milliseconds: 200),
+                                              childAnimationBuilder: (widget) =>
+                                                  ScaleAnimation(
+                                                    scale: 0.5,
+                                                    child: FadeInAnimation(
+                                                      child: widget,
+                                                    ),
+                                                  ),
+                                              children: [
+                                                IconButton(
+                                                  alignment: Alignment.centerLeft,
+                                                  padding: const EdgeInsets.only(
+                                                      right: 5.0),
+                                                  icon: Icon(
+                                                    categoryIcons.iconsList[
+                                                    widget.newTask.icon ?? 1],
+                                                    size: navIconSize,
+                                                  ),
+                                                  onPressed: () {
+                                                    _pickIcon(context);
+                                                  },
                                                 ),
-                                                onPressed: () {
-                                                  _pickIcon(context);
-                                                },
-                                              ),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickDate(context);
-                                                },
-                                                child: Text(
-                                                  DateFormat('dd MMM yy')
-                                                      .format(
-                                                          widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              descriptionFontSize),
+                                                const VerticalDivider(),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    _pickDate(context);
+                                                  },
+                                                  child: Text(
+                                                    DateFormat('dd MMM yy')
+                                                        .format(
+                                                        widget.newTask.date),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium!
+                                                        .copyWith(
+                                                        fontSize:
+                                                        descriptionFontSize),
+                                                  ),
                                                 ),
-                                              ),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickTime(context);
-                                                },
-                                                //widget.newTask.date
-                                                child: Text(
-                                                  DateFormat('HH:mm').format(
-                                                      widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              descriptionFontSize),
-                                                ),
-                                              )
-                                            ],
-                                          )),
+                                                const VerticalDivider(),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    _pickTime(context);
+                                                  },
+                                                  //widget.newTask.date
+                                                  child: Text(
+                                                    DateFormat('HH:mm').format(
+                                                        widget.newTask.date),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium!
+                                                        .copyWith(
+                                                        fontSize:
+                                                        descriptionFontSize),
+                                                  ),
+                                                )
+                                              ],
+                                            )),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: topMargin,

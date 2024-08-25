@@ -33,7 +33,7 @@ class CreatorNav extends StatelessWidget {
                 topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-                  color: Colors.black54.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                   blurRadius: 1.0,
                   offset: Offset(.0, .0),
                   spreadRadius: 1.0)
@@ -46,13 +46,11 @@ class CreatorNav extends StatelessWidget {
             child: Wrap(
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
-              spacing: 12,
+              spacing: 10,
               children: List.generate(
                 itemCount,
-                (index) =>
-
-
-                    IconButton(
+                (index) =>  IconButton(
+                      padding: EdgeInsets.all(5.0),
                   onPressed: () {
                     onTap(index);
                   },
@@ -88,7 +86,7 @@ class CreatorNav extends StatelessWidget {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Wrap(
-            spacing: 15,
+            spacing: 10,
             children: List.generate(
               itemCount,
               (index) => IconButton(
