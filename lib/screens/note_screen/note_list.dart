@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import '../../providers/note_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -12,7 +11,7 @@ import 'note_creator_screen.dart';
 
 class NoteList extends StatelessWidget {
   final bool isGrid;
-  const NoteList({Key? key, this.isGrid = false}) : super(key: key);
+  const NoteList({super.key, this.isGrid = false});
   @override
   Widget build(BuildContext context) {
     return Consumer<NoteProvider>(

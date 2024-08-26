@@ -14,7 +14,6 @@ import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
 import '../../widgets/navigators/creator_nav.dart';
-import 'category_screen.dart';
 
 class NoteCreator extends StatefulWidget {
   final Note newNote;
@@ -107,20 +106,6 @@ class _NoteCreatorState extends State<NoteCreator>
             ));
   }
 
-  _pickCategory(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomDial(
-              title: 'Note category',
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 250,
-                  child: NoteCategoryScreen(
-                    newNote: widget.newNote,
-                  )));
-        });
-  }
 
   selectOptions(int index) {
     setState(() {

@@ -168,7 +168,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
   checkIsTaskDone() {
     setState(() {
-      widget.newTask.isTaskDone!
+      widget.newTask.isTaskDone
           ? descVal.text = "Task Finished. Well done!"
           : descVal.text = widget.newTask.description!;
     });
@@ -187,12 +187,12 @@ class _TaskCreatorState extends State<TaskCreator>
 
     selectedDate = widget.newTask.date;
     editTextEnable = widget.editEnable;
-    titleVal.text = widget.newTask.title![0].toUpperCase() +
-        widget.newTask.title!.substring(1, widget.newTask.title!.length);
+    titleVal.text = widget.newTask.title[0].toUpperCase() +
+        widget.newTask.title.substring(1, widget.newTask.title.length);
     checkIsTaskDone();
     //descVal.text = widget.newTask.description!;
     dateVal.text = DateFormat('dd MMM yy').format(widget.newTask.date);
-    priorityRating = widget.newTask.priority!;
+    priorityRating = widget.newTask.priority;
 
     super.initState();
 
@@ -297,8 +297,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   },
                                                   child: Text(
                                                     DateFormat('dd MMM yy')
-                                                        .format(
-                                                        widget.newTask.date),
+                                                        .format(selectedDate),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium!
@@ -314,8 +313,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   },
                                                   //widget.newTask.date
                                                   child: Text(
-                                                    DateFormat('HH:mm').format(
-                                                        widget.newTask.date),
+                                                    DateFormat('HH:mm').format(selectedDate),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium!

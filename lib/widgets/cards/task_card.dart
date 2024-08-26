@@ -62,9 +62,6 @@ class TaskCard extends StatelessWidget {
             topRight: Radius.circular(radiusCircularMain),
             bottomRight: Radius.circular(radiusCircularMain));
 
-    // final capitalTitle = task.title![0].toUpperCase() +
-    //     task.title!.substring(1, task.title!.length);
-
     List<Widget> _items = [
       Padding(
         padding: const EdgeInsets.all(4.0),
@@ -86,9 +83,9 @@ class TaskCard extends StatelessWidget {
           ),
           child: Center(
             child: Icon(
-              iconPick.iconsList[task.icon!],
+              iconPick.iconsList[task.icon],
               size: iconSize,
-              color: task.isTaskDone!
+              color: task.isTaskDone
                   ? Theme.of(context).colorScheme.onSecondary
                   : Theme.of(context).colorScheme.secondary,
             ),
@@ -110,8 +107,8 @@ class TaskCard extends StatelessWidget {
                       circleFromLeft == true ? TextAlign.left : TextAlign.right,
                   overflow: TextOverflow.ellipsis,
                   text: TextSpan(
-                      text: '${DateFormat('HH:mm').format(task.date)}  ',
-                      style: task.isTaskDone! ?
+                      text:circleFromLeft == true ? '${DateFormat('HH:mm').format(task.date)}  ' : task.title.capitalizeFirstLetter(),
+                      style: task.isTaskDone ?
                       Theme.of(context)
                           .textTheme
                           .displayMedium!
@@ -123,22 +120,17 @@ class TaskCard extends StatelessWidget {
                           .copyWith(
                           fontSize: titleFontSize,
                           decoration:TextDecoration.none),
-                      // Theme.of(context).textTheme.displayLarge!.copyWith(
-                      //     fontSize: titleSize,
-                      //     decoration: task.isTaskDone!
-                      //         ? TextDecoration.lineThrough
-                      //         : TextDecoration.none),
                       children: <TextSpan>[
-                        TextSpan(text: task.title!.capitalizeFirstLetter()),
+                        TextSpan(text: circleFromLeft == true ? task.title.capitalizeFirstLetter()  : ' ${DateFormat('HH:mm').format(task.date)}',),
                       ]),
                 )),
             Expanded(
               child: Padding(
                 padding: textPadding,
                 child: Text(
-                  task.isTaskDone!
+                  task.isTaskDone
                       ? "Task Finished. Well done!"
-                      : task.description!,
+                      : task.description,
                   textAlign:
                       circleFromLeft == true ? TextAlign.left : TextAlign.right,
                   style: Theme.of(context)
@@ -164,13 +156,13 @@ class TaskCard extends StatelessWidget {
             padding: textPadding,
             child: RowBuilder(
               key: key,
-              itemCount: task.priority!,
+              itemCount: task.priority,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 3.0, top: 3.0),
                   child: Icon(
                     Icons.circle,
-                    color: task.isTaskDone!
+                    color: task.isTaskDone
                         ? Theme.of(context).unselectedWidgetColor
                         : Theme.of(context).indicatorColor,
                     size: smallIconSize,

@@ -1,55 +1,56 @@
-class Task {
-  int? id;
-  int? priority;
-  int? icon;
-  bool? isTaskDone;
-  String? title;
-  String? description;
-  late DateTime date;
 
-  Task(
-      {this.id,
-      required this.priority,
-      required this.icon,
-      required this.title,
-      required this.isTaskDone,
-      required this.description,
-      required this.date});
+import 'dart:typed_data';
 
-  Map<String, Object?> toMap() {
-    var map = <String, dynamic>{
-      'task_priority': priority,
-      'task_icon': icon,
-      'task_title': title,
-      'task_description': description,
-      'task_date': date.toIso8601String()
-    };
-    if (id != null) {
-      map['task_id'] = id;
-    }
-    if (isTaskDone != null) {
-      if (isTaskDone == true) {
-        map['is_task_done'] = 1;
-      } else {
-        map['is_task_done'] = 0;
-      }
-    } else {
-      map['is_task_done'] = 0;
-    }
-    return map;
-  }
+import 'package:hive/hive.dart';
+import 'package:noti/models/db_model/task_item.dart';
 
-  Task.fromMap(dynamic map) {
-    id = map['task_id'] as int?;
-    priority = map['task_priority'] as int?;
-    icon = map['task_icon'] as int?;
-    title = map['task_title'] as String?;
-    description = map['task_description'] as String?;
-    date = DateTime.parse(map['task_date']);
-    isTaskDone = map['is_task_done'] == 1;
-  }
+import '../../utils/id_generator/id_generator.dart';
+
+part 'task.g.dart';
+
+@HiveType(typeId: 0)
+class Task extends HiveObject {
+  @HiveField(0)
+  String? id;
+
+  @HiveField(1)
+  int priority;
+
+  @HiveField(2)
+  int icon;
+
+  @HiveField(3)
+  bool isTaskDone;
+
+  @HiveField(4)
+  String title;
+
+  @HiveField(5)
+  String description;
+
+  @HiveField(6)
+  DateTime date;
+
+  @HiveField(7)
+  List<TaskItem>? items;
+
+  @HiveField(8)
+  Uint8List? image;
+
+
+  Task({
+    String? id,
+    required this.priority,
+    required this.icon,
+    required this.title,
+    required this.isTaskDone,
+    required this.description,
+    required this.date,
+    this.items,
+    this.image
+  }): id = id ?? makeId();
 
   void toggleTask() {
-    isTaskDone = !isTaskDone!;
+    isTaskDone = !isTaskDone;
   }
 }

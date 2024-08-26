@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:noti/providers/category_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
 import 'package:noti/providers/permission_provider.dart';
@@ -13,9 +12,12 @@ import 'package:noti/utils/customPageRoute/custom_page_route.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'database/database_helper.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.databaseHelper.initializeHive();
   //await NotificationHelper().init();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -52,9 +54,6 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => TaskProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => NoteCategoryProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => NoteProvider(),
