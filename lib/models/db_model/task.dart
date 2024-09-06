@@ -1,11 +1,7 @@
-
 import 'dart:typed_data';
-
 import 'package:hive/hive.dart';
 import 'package:noti/models/db_model/task_item.dart';
-
 import '../../utils/id_generator/id_generator.dart';
-
 part 'task.g.dart';
 
 @HiveType(typeId: 0)
@@ -49,6 +45,8 @@ class Task extends HiveObject {
     this.items,
     this.image
   }): id = id ?? makeId();
+
+
 
   void toggleTask() {
     isTaskDone = !isTaskDone;

@@ -280,19 +280,26 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:noti/providers/settings_provider.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../database/database_helper.dart';
+import '../database/task_db.dart';
 import '../models/db_model/task.dart';
 import '../utils/prefs/prefs.dart';
 
 class TaskProvider extends ChangeNotifier {
+
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
+  //tmp sql database to gt old user tasks
+  final TaskDB _dbTempTask = TaskDB();
+
     int selectedIndex = 0;
   DateTime focDay =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
   DateTime selDay =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOff;
@@ -303,9 +310,12 @@ class TaskProvider extends ChangeNotifier {
 
   int taskMonthsToDelete = 5;
   bool isTaskToDelete = false;
+
   final Prefs _prefs = Prefs();
 
-  TaskProvider() {
+  SettingsProvider settings;
+
+  TaskProvider(this.settings) {
     initTask();
   }
 
@@ -313,6 +323,7 @@ class TaskProvider extends ChangeNotifier {
     _taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
+    await reloadDatabase();
     getSettingsValuesForTask().whenComplete(() => getTaskDbList());
     notifyListeners();
   }
@@ -355,23 +366,11 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   List<Task> getCalendarValues(DateTime date) {
     date = DateTime(date.year, date.month, date.day);
     return tasks[date] ?? [];
   }
 
-  // void addTaskMarker(Task task, DateTime addDate) {
-  //   addDate = DateTime(addDate.year, addDate.month, addDate.day);
-  //   if (tasks[addDate] != null) {
-  //     tasks[addDate]!.add(task);
-  //   } else {
-  //     tasks[addDate] = [task];
-  //   }
-  //   _taskList = getCalendarValues(focDay);
-  //   notifyListeners();
-  // }
   void addTaskMarker(Task task, DateTime addDate) {
     addDate = DateTime(addDate.year, addDate.month, addDate.day);
     if (tasks[addDate] != null) {
@@ -385,6 +384,7 @@ class TaskProvider extends ChangeNotifier {
     _taskList = getCalendarValues(focDay);
     notifyListeners();
   }
+
   Future<void> refreshTasks() async {
     _taskList = _dbHelper.getAllTasks();
     tasks.clear();
@@ -406,6 +406,45 @@ class TaskProvider extends ChangeNotifier {
     _taskList = getCalendarValues(focDay);
     notifyListeners();
   }
+
+  // Funkcja, która sprawdza istnienie bazy danych i migruje dane do Hive
+  Future<void> reloadDatabase() async {
+    // Sprawdzamy, czy baza danych SQLite istnieje
+    final dbPath = await getDatabasesPath();
+    String path = '$dbPath/note_database.db';
+    bool dbExists = await databaseFactory.databaseExists(path);
+
+    if (!dbExists) {
+      print('No SQLite database found. Skipping migration.');
+      return;
+    }
+
+    // Pobieranie wszystkich zadań ze starej bazy danych SQLite
+    try {
+      List<Task> tasks = await _dbTempTask.getAllTasks();
+      for (Task task in tasks) {
+        // Dodawanie zadania do bazy Hive
+        await _dbHelper.addTask(task);
+      }
+
+      // Po pomyślnej migracji, usunięcie danych z SQLite
+      await _dbTempTask.deleteAllTasks();
+      print('Migration completed successfully.');
+    } catch (e) {
+      print('Error during migration: $e');
+    }
+
+    notifyListeners();
+  }
+  // Future<void> reloadDatabase() async {
+  //   _dbTempTask.getAllTasks().then((value) {
+  //     for(Task task in value){
+  //       addTask(task);
+  //     }
+  //   }).whenComplete(()=>_dbTempTask.deleteAllTasks());
+  //
+  //   notifyListeners();
+  // }
 
   // Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
   //   taskMonthsToDelete = month;
@@ -455,6 +494,7 @@ class TaskProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
+    //startingDayOfWeek = settings.calendarStartingDay();
     taskMonthsToDelete = month;
     isTaskToDelete = toDelete;
     _prefs.storeBool("isTaskToDelete", isTaskToDelete);
@@ -472,21 +512,41 @@ class TaskProvider extends ChangeNotifier {
     return _taskList;
   }
 
-  void addTask(Task task, bool isNotification) async {
+  void addTask(Task task) async {
     if (task.isInBox) {
       await _dbHelper.updateTask(task);
     } else {
       await _dbHelper.addTask(task);
+      refreshNotification(task);
     }
     // Po dodaniu lub aktualizacji zadania, odśwież listę zadań i markerów
     await refreshTasks();
     notifyListeners();
   }
 
-    void updateTasks(Task task, bool isNotification) async {
+  void updateTasks(Task task) async {
     task.toggleTask();
     await _dbHelper.updateTask(task);
+    refreshNotification(task);
     _taskList = getCalendarValues(focDay);
+    notifyListeners();
+  }
+
+  void refreshNotification(Task task){
+    if (settings.isNotification) {
+      if (task.isTaskDone == true) {
+        print("NOTIFICATION WAS CANCELED");
+        //notifications.cancel(task.id!);
+      } else {
+            if (task.date.isAfter(DateTime.now()) && task.isTaskDone == false) {
+              print("NOTIFICATION WAS REFRESHED");
+             // NotificationHelper().addSchedule(task, task.date);
+            }
+      }
+    }else{
+      print("NOTIFICATION WAS CANCELED");
+      //notifications.cancel(task.id!);
+    }
     notifyListeners();
   }
 

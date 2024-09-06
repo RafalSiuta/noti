@@ -229,8 +229,8 @@ class _TaskCreatorState extends State<TaskCreator>
           padding: EdgeInsets.only(left: edgePadding),
           key: widget.key,
           child: SafeArea(
-            child: Consumer2<TaskProvider, SettingsProvider>(
-              builder: (context, taskProvider, settingsProvider, child) {
+            child: Consumer<TaskProvider>(
+              builder: (context, taskProvider, child) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,8 +472,7 @@ class _TaskCreatorState extends State<TaskCreator>
                             selectedIndex = index;
                             switch (selectedIndex) {
                               case 0:
-                                taskProvider.addTask(widget.newTask,
-                                    settingsProvider.isNotification);
+                                taskProvider.addTask(widget.newTask);
                                 Navigator.pop(context, true);
                                 break;
                               case 1:
@@ -490,8 +489,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                 Navigator.pop(context, true);
                                 break;
                               case 5:
-                                taskProvider.updateTasks(widget.newTask,
-                                    settingsProvider.isNotification);
+                                taskProvider.updateTasks(widget.newTask);
                                 checkIsTaskDone();
                                 break;
                               case 6:

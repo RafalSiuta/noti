@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/permission_model/permission_model.dart';
 import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../models/settings_model/trash_settings_model/trash_model.dart';
 
@@ -58,18 +59,22 @@ class Prefs extends ChangeNotifier {
 
   Future<bool> restoreBool(String key, bool input) async {
     final prefs = await _prefs;
-    final inputValue = prefs.getBool(key) ?? false;
-    input = inputValue;
+    final inputValue = prefs.getBool(key);// ?? null;
+    if(inputValue != null){
+      input = inputValue;
+    }else{
+      return input;
+    }
     notifyListeners();
     return input;
   }
 
   Future storeList(String key, List list) async {
-    List<String> mySliders = list.map((f) => json.encode(f.toMap())).toList();
+    List<String> itemsList = list.map((f) => json.encode(f.toMap())).toList();
 
     final prefs = await _prefs;
 
-    await prefs.setStringList(key, mySliders);
+    await prefs.setStringList(key, itemsList);
     notifyListeners();
   }
 
@@ -90,6 +95,55 @@ class Prefs extends ChangeNotifier {
     notifyListeners();
     return list;
   }
+  Future<List<PermissionModel>> restorePermissionsList(
+      String key, List<PermissionModel> list) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final result = prefs.getStringList(key);
+
+    try {
+      if (result != null) {
+        list = result.map((i) {
+          return PermissionModel.fromMap(jsonDecode(i));
+        }).toList();
+      }
+    } catch (e) {}
+
+    notifyListeners();
+    return list;
+  }
+
+  //dynamic restore lists:
+  Future<List<T>> restoreObjectList<T>(
+      String key,
+      List<T> list,
+      T Function(Map<String, dynamic>) fromMapFunction
+      ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final result = prefs.getStringList(key);
+
+    try {
+      if (result != null) {
+        list = result.map((i) {
+          return fromMapFunction(jsonDecode(i) as Map<String, dynamic>);
+        }).toList();
+      }
+    } catch (e) {
+      // Obsługa błędów, np. zapisanie w logach
+      print("Error restoring list: $e");
+    }
+
+    notifyListeners();
+    return list;
+  }
+  // przykład użycia:
+  // List<PermissionModel> permissionModels = [];
+  //
+  // permissionModels = await restoreList<PermissionModel>(
+  // 'permissionSettings',
+  // permissionModels,
+  // (map) => PermissionModel.fromMap(map)
+  // );
+
 
   Future<List<TrashModel>> restoreTrashList(
       String key, List<TrashModel> list) async {

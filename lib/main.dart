@@ -46,18 +46,31 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => PermissionProvider(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => SettingsProvider(),
+          ChangeNotifierProxyProvider(
+            create: (context) => SettingsProvider(Provider.of<PermissionProvider>(context, listen: false)),
+            update: (context, PermissionProvider permissions, calendar) => SettingsProvider(permissions),
+          ),
+          // ChangeNotifierProvider(
+          //   create: (context) => SettingsProvider(),
+          // ),
+          ChangeNotifierProxyProvider(
+            create: (context) => TaskProvider(Provider.of<SettingsProvider>(context, listen: false)),
+            update: (context, SettingsProvider settings, calendar) => TaskProvider(settings),
+          ),
+          ChangeNotifierProxyProvider(
+            create: (context) => NoteProvider(Provider.of<SettingsProvider>(context, listen: false)),
+            update: (context, SettingsProvider settings, calendar) => NoteProvider(settings),
           ),
           ChangeNotifierProvider(
             create: (context) => HomeProvider(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => TaskProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => NoteProvider(),
-          ),
+          // ChangeNotifierProvider(
+          //   create: (context) => TaskProvider(),
+          // ),
+
+          // ChangeNotifierProvider(
+          //   create: (context) => NoteProvider(),
+          // ),
         ],
         child: Consumer<SettingsProvider>(
           builder: (context, settings, child) {

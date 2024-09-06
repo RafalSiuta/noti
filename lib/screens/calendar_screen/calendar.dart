@@ -6,7 +6,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
-import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -18,8 +17,8 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<TaskProvider, SettingsProvider>(
-      builder: (context, taskProvider, settingsProvider, child) {
+    return Consumer<TaskProvider>(
+      builder: (context, taskProvider, child) {
         var rowHeight = SizeInfo.rowHeight;
         var calendarFontSize = SizeInfo.calendarDaySize;
         var headerFontSize = SizeInfo.headerSubtitleSize;
@@ -68,10 +67,11 @@ class Calendar extends StatelessWidget {
                   daysOfWeekHeight: rowHeight,
                   headerVisible: isHeaderVisible,
                   startingDayOfWeek:
-                      settingsProvider.calendarSets.calendarSettings[0].isOn ==
-                              false
-                          ? StartingDayOfWeek.monday
-                          : StartingDayOfWeek.sunday,
+                  taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+                  //taskProvider.startingDayOfWeek,
+                  // taskProvider.settings.calendarSets.calendarSettings[0].isOn == false
+                  //         ? StartingDayOfWeek.monday
+                  //         : StartingDayOfWeek.sunday,
                   daysOfWeekVisible: true,
                   onPageChanged: (day) => taskProvider.onMonthChange(day),
                   onDaySelected: taskProvider.onDaySelected,

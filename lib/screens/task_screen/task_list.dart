@@ -17,8 +17,8 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<TaskProvider, SettingsProvider>(
-      builder: (context, taskProvider, settingsProvider, child) {
+    return Consumer<TaskProvider>(
+      builder: (context, taskProvider, child) {
         var edgePadding = SizeInfo.edgePadding;
         if (taskProvider.taskList.isEmpty) {
           return SizedBox(
@@ -58,8 +58,7 @@ class TaskList extends StatelessWidget {
                                 child: TaskCard(
                                     task: tasks,
                                     isDone: (val) {
-                                      taskProvider.updateTasks(tasks,
-                                          settingsProvider.isNotification);
+                                      taskProvider.updateTasks(tasks);
                                     },
                                     edit: () async {
                                       await Navigator.push(

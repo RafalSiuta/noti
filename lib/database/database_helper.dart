@@ -32,8 +32,6 @@ class DatabaseHelper {
       _noteBox = Hive.box<Note>('noteBox');
     }
 
-    // _taskBox = await Hive.openBox<Task>('taskBox');
-    // _noteBox = await Hive.openBox<Note>('noteBox');
   }
 
   Future<void> addTask(Task task) async {

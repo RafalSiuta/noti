@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:noti/providers/permission_provider.dart';
 import 'package:provider/provider.dart';
 import '../../providers/settings_provider.dart';
-import '../../styles/shapes/shapes.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/settings_card.dart';
@@ -16,8 +16,8 @@ class PermissionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
-    return Consumer<SettingsProvider>(
-        builder: (context, settingsProvider, child) {
+    return Consumer<PermissionProvider>(
+        builder: (context, permissionProvider, child) {
           return
             CustomScrollView(
               physics: const BouncingScrollPhysics(
@@ -41,10 +41,9 @@ class PermissionScreen extends StatelessWidget {
                         [
                           ColumnBuilder(
                             itemCount:
-                            settingsProvider.permissionSets.permissionSettingsListCounter,
+                            permissionProvider.permissionSettingsListCounter,
                             itemBuilder: (context, index) {
-                              final permissionSettings = settingsProvider
-                                  .permissionSets.permissionSettingsList[index];
+                              final permissionSettings = permissionProvider.permissionSettingsList[index];
                               return SettingsCard(
                                 title: permissionSettings.title!,
                                 description: permissionSettings.description!,
@@ -52,8 +51,7 @@ class PermissionScreen extends StatelessWidget {
                                     icon: Icons.circle,
                                     value: permissionSettings.isOn,
                                     onChanged: (val) {
-                                      settingsProvider
-                                          .onPermissionSettingsChange(permissionSettings);
+                                      permissionProvider.permissionHandler(permissionSettings);
                                     }),
                               );
                             },

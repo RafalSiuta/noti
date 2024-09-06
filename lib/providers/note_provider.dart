@@ -230,6 +230,7 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:noti/providers/settings_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 import '../database/database_helper.dart';
@@ -254,14 +255,19 @@ class NoteProvider extends ChangeNotifier {
   int monthsToDelete = 3;
   bool isDeleteNotesOnLoad = false;
 
+  SettingsProvider settings;
 
-  NoteProvider() {
+  NoteProvider(this.settings) {
     initNote();
   }
 
   Future<void> initNote() async {
-    _noteList = _dbHelper.getAllNotes();
-    _noteListByKeyword = await getNoteByKeyword();
+    // _noteList = _dbHelper.getAllNotes();
+    // _noteListByKeyword = await getNoteByKeyword();
+    await getSettingsValuesForNote().whenComplete((){
+      getNoteDbList();
+      getNoteByKeyword();
+    });
     notifyListeners();
   }
 
@@ -291,13 +297,15 @@ class NoteProvider extends ChangeNotifier {
 
   void addNote(Note note) async {
     await _dbHelper.addNote(note);
-    _noteList = _dbHelper.getAllNotes();
+     getNoteDbList();
+     getNoteByKeyword();
     notifyListeners();
   }
 
   void deleteNote(Note note) async {
     await _dbHelper.deleteNote(note);
-    _noteList = _dbHelper.getAllNotes();
+    getNoteDbList();
+    getNoteByKeyword();
     notifyListeners();
   }
 
@@ -310,11 +318,14 @@ class NoteProvider extends ChangeNotifier {
   Future<List<Note>> getNoteByKeyword() async {
     _noteList = _dbHelper.getAllNotes();
 
-
-    _noteListByKeyword = _noteList.where((note) {
-      return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-          note.description.toLowerCase().contains(keyword.toLowerCase());
-    }).toList();
+    if(keyword != ""){
+      _noteListByKeyword = _noteList.where((note) {
+        return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
+            note.description.toLowerCase().contains(keyword.toLowerCase());
+      }).toList();
+    }else{
+      _noteListByKeyword = _dbHelper.getAllNotes();
+    }
 
     notifyListeners();
     return _noteListByKeyword;

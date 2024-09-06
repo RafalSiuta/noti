@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:noti/providers/permission_provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../models/menu_model/nav_model.dart';
 import '../models/settings_model/settings_model/calendar_settings_model.dart';
 import '../models/settings_model/settings_model/notification_settings_model.dart';
-import '../models/settings_model/settings_model/permission_settings_model.dart';
 import '../models/settings_model/settings_model/settings_model.dart';
 import '../models/settings_model/social_items.dart';
 import '../models/settings_model/trash_settings_model/trash_model.dart';
@@ -16,7 +16,10 @@ import '../styles/shapes/shape_paths/shape1.dart';
 import '../utils/prefs/prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  SettingsProvider() {
+
+  PermissionProvider permissionProvider;
+
+  SettingsProvider(this.permissionProvider) {
     init();
   }
 
@@ -42,6 +45,8 @@ class SettingsProvider extends ChangeNotifier {
   bool isShapeTransparent = false;
 
   int currentMonthByTheme = DateTime.now().month;
+
+  StartingDayOfWeek? calendarStartDay;
 
   ///themes
   final Prefs _prefs = Prefs();
@@ -253,15 +258,28 @@ class SettingsProvider extends ChangeNotifier {
   onCalendarSettingsChange(SettingsModel sets) async {
     sets.onChange();
     await _prefs.storeList('calendarSettings', calendarSets.calendarSettings);
+    calendarStartingDay();
     isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn!;
     notifyListeners();
   }
 
+  StartingDayOfWeek? calendarStartingDay(){
+
+    if(calendarSets.calendarSettings[0].isOn == null || calendarSets.calendarSettings[0].isOn == false){
+      calendarStartDay = StartingDayOfWeek.monday;
+    }else{
+      calendarStartDay = StartingDayOfWeek.sunday;
+    }
+    return calendarStartDay;
+  }
+
   updateCalendarSettings() async {
+
     calendarSets.calendarSettings = await _prefs
         .restoreList('calendarSettings', calendarSets.calendarSettings)
         .then((value) {
       isThemeChangeMonthly = value[1].isOn!;
+      calendarStartingDay();
       return value;
     });
   }
@@ -320,113 +338,113 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  PermissionSettings permissionSets = PermissionSettings();
+  //PermissionSettings permissionSets = PermissionSettings();
 
-  onPermissionSettingsChange(SettingsModel sets) async {
-    sets.onChange();
-    await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-
-    //PERMISSIONS LIST:
-    // <uses-permission android:name="android.permission.VIBRATE" />
-    // <uses-permission android:name="android.permission.CAMERA" />
-    // <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    // <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    // <!--    <uses-feature android:name="android.permission.WAKE_LOCK" />-->
-    // <uses-permission android:name="android.permission.WAKE_LOCK" />
-    // <!--    <uses-permission android:name="android.permission.INTERNET" />-->
-   //todo: dependencies permissions https://pub.dev/packages/permission_handler/example
-    switch (sets.title){
-      case "File storage":
-        PermissionStatus status = await Permission.storage.request();
-        if (status.isGranted) {
-          print("Storage permission granted");
-          sets.isOn = true;
-        } else {
-          sets.isOn = false;
-          // await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-        }
-        break;
-      case "Camera access":
-        PermissionStatus status = await Permission.camera.request();
-        if (status.isGranted) {
-          print("Camera permission granted");
-          sets.isOn = true;
-        } else {
-          sets.isOn = false;
-        }
-
-        break;
-      case "Notifications":
-        PermissionStatus status = await Permission.notification.request();
-        if (status.isGranted) {
-          print("Notifications permission granted");
-          sets.isOn = true;
-        } else {
-          sets.isOn = false;
-        }
-
-        break;
-      case "Wake lock":
-        PermissionStatus status = await Permission.notification.request();
-        if (status.isGranted) {
-          print("Wake lock permission granted");
-          sets.isOn = true;
-        } else {
-          sets.isOn = false;
-        }
-
-        break;
-      case "Vibrate":
-        PermissionStatus status = await Permission.sensorsAlways.request();
-        if (status.isGranted) {
-          print("Wake lock permission granted");
-          sets.isOn = true;
-        } else {
-          sets.isOn = false;
-        }
-
-        break;
-    }
-    // if (sets.title == "File storage" && sets.isOn == true) {
-    //   PermissionStatus status = await Permission.storage.request();
-    //
-    //   if (status.isGranted) {
-    //     print("Storage permission granted");
-    //   } else {
-    //     // Jeśli użytkownik nie udzielił pozwolenia, ustaw isOn na false
-    //     sets.isOn = false;
-    //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-    //   }
-    // } else if (sets.title == "Camera access" && sets.isOn == true) {
-    //   PermissionStatus status = await Permission.camera.request();
-    //   if (status.isGranted) {
-    //     print("Camera permission granted");
-    //   } else {
-    //     sets.isOn = false;
-    //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-    //   }
-    // } else if (sets.title == "Notifications" && sets.isOn == true) {
-    //   PermissionStatus status = await Permission.notification.request();
-    //   if (status.isGranted) {
-    //     print("Notification permission granted");
-    //   } else {
-    //     sets.isOn = false;
-    //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-    //   }
-    // }
-
-    notifyListeners();
-  }
-
-  updatePermissionSettings() async {
-    permissionSets.permissionSettings = await _prefs
-        .restoreList('permissionSettings', permissionSets.permissionSettings);
-  }
+  // onPermissionSettingsChange(SettingsModel sets) async {
+  //   sets.onChange();
+  //   await _prefs.storeList('permissionSettings', permissionSets.permissionSettingsList);
+  //
+  //   //PERMISSIONS LIST:
+  //   // <uses-permission android:name="android.permission.VIBRATE" />
+  //   // <uses-permission android:name="android.permission.CAMERA" />
+  //   // <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  //   // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  //   // <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+  //   // <!--    <uses-feature android:name="android.permission.WAKE_LOCK" />-->
+  //   // <uses-permission android:name="android.permission.WAKE_LOCK" />
+  //   // <!--    <uses-permission android:name="android.permission.INTERNET" />-->
+  //  //todo: dependencies permissions https://pub.dev/packages/permission_handler/example
+  //   switch (sets.title){
+  //     case "File storage":
+  //       PermissionStatus status = await Permission.storage.request();
+  //       if (status.isGranted) {
+  //         print("Storage permission granted");
+  //         sets.isOn = true;
+  //       } else {
+  //         sets.isOn = false;
+  //         // await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
+  //       }
+  //       break;
+  //     case "Camera access":
+  //       PermissionStatus status = await Permission.camera.request();
+  //       if (status.isGranted) {
+  //         print("Camera permission granted");
+  //         sets.isOn = true;
+  //       } else {
+  //         sets.isOn = false;
+  //       }
+  //
+  //       break;
+  //     case "Notifications":
+  //       PermissionStatus status = await Permission.notification.request();
+  //       if (status.isGranted) {
+  //         print("Notifications permission granted");
+  //         sets.isOn = true;
+  //       } else {
+  //         sets.isOn = false;
+  //       }
+  //
+  //       break;
+  //     case "Wake lock":
+  //       PermissionStatus status = await Permission.notification.request();
+  //       if (status.isGranted) {
+  //         print("Wake lock permission granted");
+  //         sets.isOn = true;
+  //       } else {
+  //         sets.isOn = false;
+  //       }
+  //
+  //       break;
+  //     case "Vibrate":
+  //       PermissionStatus status = await Permission.sensorsAlways.request();
+  //       if (status.isGranted) {
+  //         print("Wake lock permission granted");
+  //         sets.isOn = true;
+  //       } else {
+  //         sets.isOn = false;
+  //       }
+  //
+  //       break;
+  //   }
+  //   // if (sets.title == "File storage" && sets.isOn == true) {
+  //   //   PermissionStatus status = await Permission.storage.request();
+  //   //
+  //   //   if (status.isGranted) {
+  //   //     print("Storage permission granted");
+  //   //   } else {
+  //   //     // Jeśli użytkownik nie udzielił pozwolenia, ustaw isOn na false
+  //   //     sets.isOn = false;
+  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
+  //   //   }
+  //   // } else if (sets.title == "Camera access" && sets.isOn == true) {
+  //   //   PermissionStatus status = await Permission.camera.request();
+  //   //   if (status.isGranted) {
+  //   //     print("Camera permission granted");
+  //   //   } else {
+  //   //     sets.isOn = false;
+  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
+  //   //   }
+  //   // } else if (sets.title == "Notifications" && sets.isOn == true) {
+  //   //   PermissionStatus status = await Permission.notification.request();
+  //   //   if (status.isGranted) {
+  //   //     print("Notification permission granted");
+  //   //   } else {
+  //   //     sets.isOn = false;
+  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
+  //   //   }
+  //   // }
+  //
+  //   notifyListeners();
+  // }
+  //
+  // updatePermissionSettings() async {
+  //    await _prefs.restoreList('permissionSettings', permissionSets.permissionSettingsList);
+  //    notifyListeners();
+  // }
 
   //loader in init function
   loadSets() async {
-    updatePermissionSettings();
+    //permissionProvider.updatePermissionSettings();
     updateCalendarSettings();
     themeData = await loadTheme();
     shapes = await loadShape();

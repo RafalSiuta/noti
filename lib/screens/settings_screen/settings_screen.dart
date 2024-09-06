@@ -3,7 +3,6 @@ import 'package:noti/screens/settings_screen/permission_screen.dart';
 import 'package:noti/screens/settings_screen/sets_screen.dart';
 import 'package:noti/screens/settings_screen/theme_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/menu_model/nav_model.dart';
 import '../../models/menu_model/screen_model.dart';
 import '../../providers/settings_provider.dart';
@@ -13,7 +12,7 @@ import '../../widgets/navigators/side_nav.dart';
 import 'about_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
