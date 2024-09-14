@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DefaultText extends StatelessWidget {
@@ -12,9 +13,9 @@ class DefaultText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: PlayAnimationBuilder(
-          tween: Tween<double>(begin: 0.5, end: 1.0),
-          duration: const Duration(milliseconds: 300),
-          delay: const Duration(milliseconds: 200),
+          tween: Tween<double>(begin: 0.8, end: 1.0),
+          duration: headerDuration,
+          delay: const Duration(milliseconds: 100),
           curve: Curves.easeOut,
         builder: (context, value, child){
           return Transform.scale(

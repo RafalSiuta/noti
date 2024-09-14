@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../providers/settings_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/screen_type.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/theme_card.dart';
@@ -11,7 +12,7 @@ import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
 
 class ThemeScreen extends StatelessWidget {
-  const ThemeScreen({Key? key}) : super(key: key);
+  const ThemeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +69,9 @@ class ThemeScreen extends StatelessWidget {
                     return AnimationConfiguration.staggeredGrid(
                       columnCount: columnCount,
                       position: index,
-                      duration: const Duration(milliseconds: 375),
+                      duration: headerDuration,
                       child: ScaleAnimation(
-                        scale: 0.5,
+                        scale: scaleStartValue,
                         child: FadeInAnimation(
                             child: ThemeCard(
                           onChangeTheme: () =>

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/db_model/note.dart';
@@ -18,8 +19,7 @@ import '../../widgets/navigators/creator_nav.dart';
 class NoteCreator extends StatefulWidget {
   final Note newNote;
   final bool editEnable;
-  const NoteCreator({Key? key, required this.newNote, this.editEnable = true})
-      : super(key: key);
+  const NoteCreator({super.key, required this.newNote, this.editEnable = true});
 
   @override
   _NoteCreatorState createState() => _NoteCreatorState();
@@ -158,10 +158,10 @@ class _NoteCreatorState extends State<NoteCreator>
             CurvedAnimation(
                 parent: _menuSlideInController!, curve: Curves.ease));
     editTextEnable = widget.editEnable;
-    titleVal.text = widget.newNote.title!;
-    subtitleVal.text = widget.newNote.subtitle!;
-    descVal.text = widget.newNote.description!;
-    keepInMind = widget.newNote.keep!;
+    titleVal.text = widget.newNote.title;
+    subtitleVal.text = widget.newNote.subtitle;
+    descVal.text = widget.newNote.description;
+    keepInMind = widget.newNote.keep;
 
     super.initState();
     Future.delayed(const Duration(milliseconds: 500))
@@ -185,9 +185,10 @@ class _NoteCreatorState extends State<NoteCreator>
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
     var verticalPadding = SizeInfo.verticalTextPadding;
     var descriptionFontSize = SizeInfo.taskCreatorDescription;
-    int maxTitleLength = 25;
-    int maxSubtitleLength = 25;
+    int maxTitleLength = 30;
+    int maxSubtitleLength = 30;
     int maxDescriptionLength = 4000;
+    double inputHeight = 50;
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -271,7 +272,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                       fontSize: helperTextSize),
                                             ),
                                             Switch(
-                                                value: widget.newNote.keep!,
+                                                value: widget.newNote.keep,
                                                 onChanged: (value) {
                                                   setState(() {
                                                     widget.newNote.keep = value;
@@ -299,7 +300,7 @@ class _NoteCreatorState extends State<NoteCreator>
                               },
                               child: SizedBox(
                                 key: widget.key,
-                                height: 35,
+                                height: inputHeight,
                                 child: TextField(
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
@@ -356,7 +357,7 @@ class _NoteCreatorState extends State<NoteCreator>
                               },
                               child: SizedBox(
                                 key: widget.key,
-                                height: 35,
+                                height: inputHeight,
                                 child: TextField(
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
@@ -435,7 +436,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 },
                                 cursorColor: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall!
+                                    .labelMedium!
                                     .color,
                                 keyboardType: TextInputType.multiline,
                                 controller: descVal,

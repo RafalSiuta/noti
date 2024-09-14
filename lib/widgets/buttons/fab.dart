@@ -54,7 +54,7 @@ class CustomFab extends StatelessWidget {
           ),
           Transform.translate(
             offset: Offset.fromDirection(getRadianFromDegree(270),
-                translationValueOne * (fabSize * 2 + 30)),
+                translationValueOne * (fabSize * 2 + 40)),
             child: Transform(
               transform: Matrix4.rotationZ(getRadianFromDegree(rotationValue))
                 ..scale(translationValueOne),
@@ -65,7 +65,14 @@ class CustomFab extends StatelessWidget {
                         .floatingActionButtonTheme
                         .backgroundColor,
                     shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(btnRadius))),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+                      offset: const Offset(0.5, 0.5),
+                      blurRadius: 0.2,
+                    ),
+                  ],
+                borderRadius: BorderRadius.all(Radius.circular(btnRadius)),),
                 width: fabSize,
                 height: fabSize,
                 child: IconButton(
@@ -93,6 +100,13 @@ class CustomFab extends StatelessWidget {
                     color: Theme.of(context)
                         .floatingActionButtonTheme
                         .backgroundColor,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+                        offset: const Offset(0.5, 0.5),
+                        blurRadius: 0.2,
+                      ),
+                    ],
                     shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(btnRadius))),
                 width: fabSize,
                 height: fabSize,
@@ -112,7 +126,7 @@ class CustomFab extends StatelessWidget {
             ),
           ),
           FloatingActionButton(
-            elevation: 3,
+            elevation: 2,
             isExtended: true,
             child: Icon(Icons.edit,
                 size: iconSize,

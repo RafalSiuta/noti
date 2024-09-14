@@ -5,11 +5,11 @@ import '../../utils/dimensions/size_info.dart';
 
 class CameraScreen extends StatelessWidget {
   const CameraScreen({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onPhoto,
     required this.scrollController,
-  }) : super(key: key);
+  });
   final CameraController controller;
   final Function onPhoto;
   final ScrollController scrollController;

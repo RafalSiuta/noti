@@ -236,12 +236,12 @@ class TaskCard extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         color: circleFromLeft == true ? Theme.of(context)
-                            .colorScheme.shadow.withOpacity(0.2) : Theme.of(context)
+                            .colorScheme.shadow.withOpacity(0.4) : Theme.of(context)
                             .unselectedWidgetColor
-                            .withOpacity(0.4),
-                        blurRadius: 3.0,
+                            .withOpacity(0.5),
+                        blurRadius: 1.5,
                         offset: const Offset(.0, .0),
-                        spreadRadius: 3.0),
+                        spreadRadius: 1.5),
                   ]),
             ),
           ), //ring

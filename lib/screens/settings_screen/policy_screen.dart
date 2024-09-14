@@ -7,7 +7,7 @@ import '../../widgets/headers/small_header.dart';
 import '../../widgets/responsive/column_row_builder.dart';
 
 class PolicyScreen extends StatelessWidget {
-  const PolicyScreen({Key? key}) : super(key: key);
+  const PolicyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

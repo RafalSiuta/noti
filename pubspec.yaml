@@ -46,7 +46,9 @@ dependencies:
   carousel_slider: ^4.2.1 #import 'package:carousel_slider/carousel_slider.dart';
   flutter_local_notifications: ^17.2.1+2 #import 'package:flutter_local_notifications/flutter_local_notifications.dart';
   #flutter_native_timezone: ^2.0.0 #import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-  photo_manager: ^3.2.2 #import 'package:photo_manager/photo_manager.dart';
+  photo_manager_image_provider: ^2.1.1 #import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
+  photo_manager: ^3.0.0
+  #photo_manager: ^3.3.0 #import 'package:photo_manager/photo_manager.dart'; 2.3.0
   camera: ^0.11.0+1 #import 'package:camera/camera.dart';
   flutter_staggered_animations: ^1.1.1 #import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
   simple_animations: ^5.0.2 #import 'package:simple_animations/simple_animations.dart';

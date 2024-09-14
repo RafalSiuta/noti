@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/note.dart';
-import '../../models/menu_model/category_icon_list.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../shapes/note_shape.dart';
 import 'image_card.dart';
@@ -17,7 +16,7 @@ class NoteCard extends StatelessWidget {
       {super.key, required this.edit, required this.note, this.isGrid = false});
   @override
   Widget build(BuildContext context) {
-    CategoryIconsList categoryIcons = CategoryIconsList();
+
     var titleFontSize = SizeInfo.noteCardTitle;
     var contentFontSize = SizeInfo.noteCardContent;
     var cardImageSize = SizeInfo.noteCardImageSize;
@@ -28,10 +27,12 @@ class NoteCard extends StatelessWidget {
         shadow: BoxShadow(
           color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
           offset: const Offset(0.5, 0.5),
-          blurRadius: 0.1,
+          blurRadius: 0.2,
         ),
         clipper: NoteCardShape(),
         child: ClipPath(
+          clipBehavior: Clip.hardEdge,
+          clipper: NoteCardShape(),
           child: Row(
             children: [
               Container(
@@ -69,18 +70,18 @@ class NoteCard extends StatelessWidget {
                               //   height: 5.0,
                               // ),
                               Text(
-                                note.title!, //capitalTitle,
+                                note.title, //capitalTitle,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
-                                        fontSize: titleFontSize,),
+                                  fontSize: titleFontSize,),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                               ),
                               Text(
-                                note.subtitle!,
+                                note.subtitle,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
@@ -90,7 +91,7 @@ class NoteCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
-                                note.description!,
+                                note.description,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -106,12 +107,12 @@ class NoteCard extends StatelessWidget {
                               ),
                               note.image != null && note.image!.isNotEmpty
                                   ? ImageCard(
-                                      img: note.image!,
-                                      size: isGrid
-                                          ? cardImageSize
-                                          : cardImageSize - 10,
-                                      cornerRadius: 8,
-                                    )
+                                img: note.image!,
+                                size: isGrid
+                                    ? cardImageSize
+                                    : cardImageSize - 10,
+                                cornerRadius: 8,
+                              )
                                   : Container(),
                               const SizedBox(
                                 height: 5.0,
@@ -139,8 +140,6 @@ class NoteCard extends StatelessWidget {
               ),
             ],
           ),
-          clipper: NoteCardShape(),
-          clipBehavior: Clip.hardEdge,
         ),
       ),
     );

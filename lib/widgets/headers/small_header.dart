@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class SmallHeader extends StatelessWidget {
-  const SmallHeader({Key? key, required this.title}) : super(key: key);
+  const SmallHeader({super.key, required this.title});
 
   final String title;
 
@@ -13,9 +14,9 @@ class SmallHeader extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: SizeInfo.verticalHeaderPadding),
       child: PlayAnimationBuilder(
-          tween: Tween<double>(begin: 0.5, end: 1.0),
-          duration: const Duration(milliseconds: 300),
-          delay: const Duration(milliseconds: 200),
+          tween: Tween<double>(begin: 0.9, end: 1.0),
+          duration: headerDuration,
+          delay: const Duration(milliseconds: 100),
           curve: Curves.easeOut,
         builder: (context, value, child){
           return Transform.scale(
@@ -32,28 +33,6 @@ class SmallHeader extends StatelessWidget {
           );
         },
       )
-
-      // PlayAnimation<double>(
-      //   tween: Tween<double>(begin: 0.5, end: 1.0),
-      //   duration: const Duration(milliseconds: 300),
-      //   delay: const Duration(milliseconds: 200),
-      //   curve: Curves.easeOut,
-      //   builder: (context, child, value) {
-      //     return Transform.scale(
-      //       scale: value,
-      //       child: Text(
-      //         title,
-      //         style: Theme.of(context)
-      //             .textTheme
-      //             .headline2!
-      //             .copyWith(fontSize: SizeInfo.headerSubtitleSize),
-      //         overflow: TextOverflow.ellipsis,
-      //         maxLines: 2,
-      //       ),
-      //     );
-      //   },
-      //   // child:
-      // ),
     );
   }
 }

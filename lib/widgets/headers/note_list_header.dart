@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../providers/note_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class NoteListHeader extends StatelessWidget {
-  const NoteListHeader({Key? key, required this.title}) : super(key: key);
+  const NoteListHeader({super.key, required this.title});
 
   final String title;
 
@@ -19,36 +20,27 @@ class NoteListHeader extends StatelessWidget {
               EdgeInsets.symmetric(vertical: SizeInfo.verticalHeaderPadding),
           child: Row(
             children: [
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(fontSize: SizeInfo.headerSubtitleSize),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              // DropdownButton<NoteCategory>(
-              //   icon: const Icon(Icons.arrow_downward),
-              //   iconSize: 24,
-              //   elevation: 16,
-              //   value: noteProvider.currentNoteCategory,
-              //   style: const TextStyle(color: Colors.deepPurple),
-              //   underline: Container(
-              //     height: 2,
-              //     color: Colors.deepPurpleAccent,
-              //   ),
-              //   onChanged: (category) {
-              //     noteProvider.selectNoteCategory(category);
-              //   },
-              //   items: noteProvider.categoryList
-              //       .map<DropdownMenuItem<NoteCategory>>((NoteCategory value) {
-              //     return DropdownMenuItem<NoteCategory>(
-              //       value: value,
-              //       child: Text(value.name!),
-              //     );
-              //   }).toList(),
-              // )
+              PlayAnimationBuilder(
+                tween: Tween<double>(begin: 0.9, end: 1.0),
+                duration: headerDuration,
+                delay: const Duration(milliseconds: 100),
+                curve: Curves.easeOut,
+                builder: (context, value, child){
+                  return Transform.scale(
+                    scale: value,
+                    child: Text(
+                      title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: SizeInfo.headerSubtitleSize),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  );
+                },
+              )
+
             ],
           ),
 

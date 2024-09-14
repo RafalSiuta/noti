@@ -44,10 +44,10 @@ class PermissionModel {
         return Permission.storage;
       case 'Permission.camera':
         return Permission.camera;
+      case 'Permission.accessMediaLocation':
+        return Permission.accessMediaLocation;
       case 'Permission.notification':
         return Permission.notification;
-      case 'Permission.reminders':
-        return Permission.reminders;
       case 'Permission.photos':
         return Permission.photos;
       case 'Permission.mediaLibrary':

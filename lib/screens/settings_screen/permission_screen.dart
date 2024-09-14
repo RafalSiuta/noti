@@ -36,28 +36,26 @@ class PermissionScreen extends StatelessWidget {
                           ))),
 
                 ),
-                SliverList(
-                    delegate: SliverChildListDelegate(
-                        [
-                          ColumnBuilder(
-                            itemCount:
-                            permissionProvider.permissionSettingsListCounter,
-                            itemBuilder: (context, index) {
-                              final permissionSettings = permissionProvider.permissionSettingsList[index];
-                              return SettingsCard(
-                                title: permissionSettings.title!,
-                                description: permissionSettings.description!,
-                                child: SwitchBtn(
-                                    icon: Icons.circle,
-                                    value: permissionSettings.isOn,
-                                    onChanged: (val) {
-                                      permissionProvider.permissionHandler(permissionSettings);
-                                    }),
-                              );
-                            },
-                          )
-                        ]
-                    ))
+                SliverList(delegate: SliverChildListDelegate(
+                  [
+                    ColumnBuilder(
+                        itemCount: permissionProvider.permissionSettingsListCounter,
+                        itemBuilder: (context, index){
+                          final permissionSettings = permissionProvider.permissionSettingsList[index];
+                          return SettingsCard(
+                            title: permissionSettings.title!,
+                            description: permissionSettings.description!,
+                            child: SwitchBtn(
+                                icon: Icons.circle,
+                                value: permissionSettings.isOn,
+                                onChanged: (val) {
+                                  permissionProvider.permissionHandler(permissionSettings);
+                                }),
+                          );
+                        }),
+                  ]
+                ))
+
               ],
             );
         }

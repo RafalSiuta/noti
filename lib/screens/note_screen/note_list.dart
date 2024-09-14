@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/note_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/note_card.dart';
@@ -55,9 +56,9 @@ class NoteList extends StatelessWidget {
                           return AnimationConfiguration.staggeredGrid(
                             columnCount: isGrid == true ? 2 : 1,
                             position: index,
-                            duration: const Duration(milliseconds: 375),
+                            duration: headerDuration,
                             child: ScaleAnimation(
-                              scale: 0.5,
+                              scale: 0.9,
                               child: FadeInAnimation(
                                   child: Transform.scale(
                                       scale: isGrid == true ? 0.9 : scaleCard,

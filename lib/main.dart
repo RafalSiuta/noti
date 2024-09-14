@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
 import 'package:noti/providers/permission_provider.dart';
@@ -50,9 +51,9 @@ class MyApp extends StatelessWidget {
             create: (context) => SettingsProvider(Provider.of<PermissionProvider>(context, listen: false)),
             update: (context, PermissionProvider permissions, calendar) => SettingsProvider(permissions),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => SettingsProvider(),
-          // ),
+          ChangeNotifierProvider(
+            create: (context) => GalleryImageProvider(),
+          ),
           ChangeNotifierProxyProvider(
             create: (context) => TaskProvider(Provider.of<SettingsProvider>(context, listen: false)),
             update: (context, SettingsProvider settings, calendar) => TaskProvider(settings),

@@ -20,11 +20,12 @@ class SwitchBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     var iconSize = SizeInfo.switchButtonIconSize;
     return IconButton(
+        padding: EdgeInsets.zero,
         alignment: align,
         onPressed: () {
           onChanged!(value!);
         },
-        splashRadius: 10,
+        splashRadius: 2,
         splashColor: Colors.transparent,
         disabledColor: Theme.of(context).shadowColor,
         icon: Icon(

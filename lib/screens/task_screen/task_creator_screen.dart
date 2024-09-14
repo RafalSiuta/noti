@@ -219,7 +219,7 @@ class _TaskCreatorState extends State<TaskCreator>
     var leftPadding = SizeInfo.edgePadding;
     var inputHeight = SizeInfo.searchBarHeight;
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
-    int maxTitleLength = 15;
+    int maxTitleLength = 30;
     int maxDescriptionLength = 4000;
     return Scaffold(
         //todo: check nav bar items shrink option
@@ -364,11 +364,13 @@ class _TaskCreatorState extends State<TaskCreator>
                                             });
                                           },
                                           cursorColor: Theme.of(context)
-                                              .indicatorColor,
+                                              .textTheme
+                                              .labelMedium!
+                                              .color,
                                           controller: titleVal,
                                           autofocus: true,
                                           style: widget
-                                              .newTask.isTaskDone! ?
+                                              .newTask.isTaskDone ?
                                           Theme.of(context)
                                               .textTheme
                                               .displayMedium!
@@ -431,7 +433,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                         },
                                         cursorColor: Theme.of(context)
                                             .textTheme
-                                            .headlineSmall!
+                                            .labelMedium!
                                             .color,
                                         keyboardType: TextInputType.multiline,
                                         controller: descVal,

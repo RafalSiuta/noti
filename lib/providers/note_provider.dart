@@ -246,13 +246,14 @@ class NoteProvider extends ChangeNotifier {
 
   List<Note> _noteListByKeyword = [];
 
-  List<AssetEntity> galleryImages = [];
-
-  AssetEntity? savedImage;
+  // List<AssetEntity> galleryImages = [];
+  //
+  // AssetEntity? savedImage;
 
   final Prefs _notePrefs = Prefs();
 
   int monthsToDelete = 3;
+
   bool isDeleteNotesOnLoad = false;
 
   SettingsProvider settings;
@@ -271,13 +272,13 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get imageListCounter {
-    return galleryImages.length;
-  }
-
-  UnmodifiableListView<AssetEntity> get imageList {
-    return UnmodifiableListView(galleryImages);
-  }
+  // int get imageListCounter {
+  //   return galleryImages.length;
+  // }
+  //
+  // UnmodifiableListView<AssetEntity> get imageList {
+  //   return UnmodifiableListView(galleryImages);
+  // }
 
   UnmodifiableListView<Note> get noteListByKeyword {
     return UnmodifiableListView(_noteListByKeyword);
@@ -295,8 +296,21 @@ class NoteProvider extends ChangeNotifier {
     return _noteList.length;
   }
 
+  void testNoteDb(Note note, String message){
+    print("####### $message -> NOTE ID: ${note.id}\nTITLE: ${note.title} KEEP ${note.keep}");
+  }
+
   void addNote(Note note) async {
-    await _dbHelper.addNote(note);
+
+    //todo: remove prints:
+    if(note.isInBox){
+      await _dbHelper.updateNote(note);
+      testNoteDb(note, "NOTE WAS UPDATED");
+    }else{
+      await _dbHelper.addNote(note);
+      testNoteDb(note, "NEW NOTE WAS ADDED");
+    }
+
      getNoteDbList();
      getNoteByKeyword();
     notifyListeners();
@@ -316,10 +330,10 @@ class NoteProvider extends ChangeNotifier {
 
 
   Future<List<Note>> getNoteByKeyword() async {
-    _noteList = _dbHelper.getAllNotes();
+    List<Note> list = _dbHelper.getAllNotes();
 
     if(keyword != ""){
-      _noteListByKeyword = _noteList.where((note) {
+      _noteListByKeyword = list.where((note) {
         return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
             note.description.toLowerCase().contains(keyword.toLowerCase());
       }).toList();
@@ -348,10 +362,6 @@ class NoteProvider extends ChangeNotifier {
         .where((note) => note.keep == true)
         .toList();
 
-    // // Jeśli chcesz dodatkowo posortować listę, np. według daty:
-    // _noteList.sort((a, b) => a.date.compareTo(b.date));
-    //
-    // notifyListeners();
     notifyListeners();
     return _noteList;
   }
@@ -374,70 +384,5 @@ class NoteProvider extends ChangeNotifier {
       });
     }
     notifyListeners();
-  }
-
-  bool isImageExist() {
-    if (savedImage!.id.isEmpty) {
-      return false;
-    }
-    return true;
-  }
-
-
-  void addTakenPictureToGallery(Uint8List value) async {
-    if (value != null && value.isNotEmpty) {
-      final AssetEntity? asset = await _saveImageToGallery(value);
-      if (asset != null) {
-        galleryImages.add(asset);
-        notifyListeners();
-      }
-    }
-  }
-
-  Future<AssetEntity?> _saveImageToGallery(Uint8List imageData) async {
-    final AssetEntity? asset = await PhotoManager.editor.saveImage(Uint8List.fromList(imageData),title: 'Image${imageData.length}');
-    return asset;
-  }
-
-  Future<List<AssetEntity>> getGalleryImages() async {
-    final permitted = await PhotoManager.requestPermissionExtend();
-    if (permitted.isAuth) {
-      try {
-        List<AssetPathEntity> albums = await PhotoManager.getAssetPathList(
-          //onlyAll: true,
-          type: RequestType.all,
-
-        );
-        print('ALBUMS NUMBERS IS: ${albums.length} FIRST ALBUM NAME IS: ${albums[1].name}');
-        final recentAlbum = albums[1];
-
-        await recentAlbum
-            .getAssetListRange(
-          start: 0, // start at index 0
-          end: 50, // end at
-        )
-            .then((gallery) {
-          //print("Get gallery images: $gallery");
-          for (var img in gallery) {
-            //print(img.file.runtimeType);
-            //galleryImages.add(img);
-            img.thumbnailData.then((value) async {
-              final AssetEntity? asset = await _saveImageToGallery(value!);
-              galleryImages.add(asset!);
-            });
-          }
-
-          return gallery;
-        });
-
-        notifyListeners();
-      } catch (error) {
-        return galleryImages;
-      }
-    } else {
-      PhotoManager.openSetting();
-    }
-    notifyListeners();
-    return galleryImages;
   }
 }

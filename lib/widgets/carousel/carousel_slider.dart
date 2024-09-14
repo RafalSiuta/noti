@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../providers/settings_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class Carousel extends StatelessWidget {
@@ -45,7 +46,7 @@ class Carousel extends StatelessWidget {
                     final carousel =
                         settingsProvider.shapesList.shapesList[index];
                     return PlayAnimationBuilder(
-                        tween: Tween<double>(begin: 0.5, end: 1.0), duration: const Duration(milliseconds: 300),
+                        tween: Tween<double>(begin: scaleStartValue, end: 1.0), duration: headerDuration,
                         builder: (context, value, child){
                       return Transform.scale(
                         scale: value,

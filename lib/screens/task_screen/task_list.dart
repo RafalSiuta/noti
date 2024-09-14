@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/task_card.dart';
@@ -51,9 +52,9 @@ class TaskList extends StatelessWidget {
                         final tasks = taskProvider.taskList[index];
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          duration: const Duration(milliseconds: 375),
+                          duration: headerDuration,
                           child: SlideAnimation(
-                            verticalOffset: 44.0,
+                            verticalOffset: 20.0,
                             child: FadeInAnimation(
                                 child: TaskCard(
                                     task: tasks,

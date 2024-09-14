@@ -104,6 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             .elementAt(index);
                                       }))),
                           SideNav(
+                            key: widget.key,
                             leading: IconButton(
                                 padding: const EdgeInsets.all(20),
                                 onPressed: () async {

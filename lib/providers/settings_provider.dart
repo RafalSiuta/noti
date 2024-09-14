@@ -84,15 +84,24 @@ class SettingsProvider extends ChangeNotifier {
     return themeData;
   }
 
+  void loadCurrentShape() async {
+    await _prefs
+        .restoreInt("shape", 0)
+        .then((shape) => setCustomShape(shape)
+     );
+    notifyListeners();
+  }
+
   Future<CustomClipper<Path>> loadShape() async {
     try {
       await updateCalendarSettings();
       if (isThemeChangeMonthly == true) {
         setCustomShape(currentMonthByTheme);
       } else {
-        currentShape = await _prefs
-            .restoreInt("shape", 0)
-            .then((shape) => currentShape = setCustomShape(shape));
+        loadCurrentShape();
+        // currentShape = await _prefs
+        //     .restoreInt("shape", 0)
+        //     .then((shape) => currentShape = setCustomShape(shape));
       }
     } catch (e) {
       currentShape = 0;
@@ -450,6 +459,7 @@ class SettingsProvider extends ChangeNotifier {
     shapes = await loadShape();
     updateNotificationSettings();
     updateTrashSettings();
+    loadCurrentShape();
   }
 
   //social links

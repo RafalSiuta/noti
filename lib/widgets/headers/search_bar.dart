@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/note_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchInput extends StatefulWidget {
+  const SearchInput({super.key});
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchInput> createState() => _SearchInputState();
 }
 
-class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
+class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin {
   bool editTextEnable = false;
   TextEditingController keywordVal = TextEditingController();
 
@@ -31,21 +32,21 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
+        vsync: this, duration: headerDuration);
 
     _controllerForSlide = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: headerDuration);
 
     _controllerForScale = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
+        vsync: this, duration: headerDuration);
 
-    _fadeAnim = Tween<double>(begin: 0.6, end: 1)
+    _fadeAnim = Tween<double>(begin: fadeStartValue, end: 1)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
-    _scaleAnim = Tween<double>(begin: 0.2, end: 1).animate(
+    _scaleAnim = Tween<double>(begin: scaleStartValue, end: 1).animate(
         CurvedAnimation(parent: _controllerForScale, curve: Curves.easeInBack));
 
-    _slideAnim = Tween<Offset>(begin: const Offset(-1.2, 0), end: Offset.zero)
+    _slideAnim = Tween<Offset>(begin: const Offset(-slideStartValue, 0), end: Offset.zero)
         .animate(CurvedAnimation(
             parent: _controllerForSlide, curve: Curves.easeInOut));
 
@@ -53,10 +54,10 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => _controller.forward());
 
-    Future.delayed(const Duration(milliseconds: 400))
+    Future.delayed(headerDuration)
         .then((value) => _controllerForSlide.forward());
 
-    Future.delayed(const Duration(milliseconds: 1000))
+    Future.delayed(headerDuration)
         .then((value) => _controllerForScale.forward());
   }
 
@@ -78,7 +79,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
         var searchBarFontSize = SizeInfo.headerSubtitleSize;
         var searchIconSize = SizeInfo.searchIconSize;
         var searchBarHeight = SizeInfo.searchBarHeight;
-        var topMargin = SizeInfo.menuTopMargin;
+        var topMargin = SizeInfo.menuTopMargin + 3;
         return FadeTransition(
           opacity: _fadeAnim,
           child: ScaleTransition(
@@ -94,14 +95,14 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Theme.of(context).unselectedWidgetColor,
+                    color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                     offset: const Offset(0.0, 0.0),
                   ),
                   BoxShadow(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     offset: const Offset(0.0, 0.0),
-                    spreadRadius: -3.0,
-                    blurRadius: 3.0,
+                    spreadRadius: -1.5,
+                    blurRadius: 1.5,
                   ),
                 ],
               ),
@@ -133,7 +134,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                     textAlign: TextAlign.start,
                     style: Theme.of(context)
                         .textTheme
-                        .headlineMedium!
+                        .bodyMedium!
                         .copyWith(fontSize: searchBarFontSize),
                     decoration: InputDecoration(
                         hintText: 'Search notes...',
@@ -155,7 +156,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
                               icon: Icon(
                                 Icons.search,
                                 size: searchIconSize,
-                                color: Theme.of(context).iconTheme.color,
+                                color: Theme.of(context).textTheme.headlineLarge!.color,
                               ),
                             ),
                           ),

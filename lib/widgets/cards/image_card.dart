@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
-
+import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 
 class ImageAssetCard extends StatelessWidget {
   const ImageAssetCard(
@@ -12,7 +12,7 @@ class ImageAssetCard extends StatelessWidget {
       this.onHold,
       this.cornerRadius = 15});
 
-  final Uint8List img;
+  final AssetEntity img;
   final double size;
   final Function()? onTap;
   final Function()? onHold;
@@ -30,50 +30,38 @@ class ImageAssetCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(cornerRadius - 1)),
-          child: Image.memory(
-            img,
-            fit: BoxFit.cover,
-            width: size,
+          child:
+          // Image.memory(
+          //   img,
+          //   fit: BoxFit.cover,
+          //   width: size,
+          //   height: size,
+          //   filterQuality: FilterQuality.medium,
+          // ),
+          // AssetEntityImage(
+          //   img,
+          //   isOriginal: false,
+          //   // thumbnailSize: option.size,
+          //   // thumbnailFormat: option.format,
+          //   fit: BoxFit.cover,
+          // ),
+          Image(
+            image: AssetEntityImageProvider(
+              img,
+              isOriginal: false,
+              thumbnailSize: ThumbnailSize.square(size.toInt()),
+              thumbnailFormat: ThumbnailFormat.jpeg,
+            ),
+            width:size,
             height: size,
-            filterQuality: FilterQuality.medium,
-          ),
-
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.high,
+          )
         ),
       ),
     );
   }
 }
-// Image.memory(
-//   image:
-//   AssetEntityImageProvider(
-//     img,
-//     isOriginal: false,
-//     thumbnailSize: const ThumbnailSize.square(200),
-//     thumbnailFormat: ThumbnailFormat.jpeg,
-//     fit: BoxFit.cover,
-//   ),
-//   filterQuality: FilterQuality.high,
-// ),
-// AssetEntityImageProvider(
-//   img,
-//   isOriginal: false,
-//   // thumbnailSize: option.size,
-//   // thumbnailFormat: option.format,
-//   fit: BoxFit.cover,
-// ),
-
-// SizedBox(
-//   width: 30,
-//   height: 30,
-// )
-//ImageItem()
-// Image.memory(
-//   img,
-//   fit: BoxFit.cover,
-//   width: size,
-//   height: size,
-//   filterQuality: FilterQuality.medium,
-// ),
 class ImageCard extends StatelessWidget {
   const ImageCard(
       {super.key,

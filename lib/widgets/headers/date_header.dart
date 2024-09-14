@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../../providers/home_provider.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DateHeader extends StatelessWidget {
@@ -27,7 +28,7 @@ class DateHeader extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: PlayAnimationBuilder(
-              tween: Tween<Offset>(begin: const Offset(-100.0, 0), end: Offset.zero), duration: const Duration(milliseconds: 300),
+              tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero), duration: headerDuration,
               builder: (context, value, child){
                 return Transform.translate(
                   offset: value,

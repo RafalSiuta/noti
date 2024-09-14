@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class AppIconCard extends StatelessWidget {
   const AppIconCard({
-    Key? key,
+    super.key,
     this.cardSize = 200.0,
     this.title = 'Noti',
     this.isLauncher = false,
-  }) : super(key: key);
+  });
 
   final double cardSize;
   final String title;
@@ -17,7 +18,7 @@ class AppIconCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var linearGradient  = LinearGradient(
+    var linearGradient  = const LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       stops: [0, 0.5, 1],
@@ -57,9 +58,9 @@ class AppIconCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: AnimationConfiguration.toStaggeredList(
-          duration: const Duration(milliseconds: 250),
+          duration: headerDuration,
           childAnimationBuilder: (widget) => ScaleAnimation(
-            scale: 0.5,
+            scale: scaleStartValue,
             child: FadeInAnimation(child: widget),
           ),
           children: [

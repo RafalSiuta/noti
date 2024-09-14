@@ -1,3 +1,7 @@
-const headerDuration = Duration(milliseconds: 300);
+const headerDuration = Duration(milliseconds: 350);
 
 const smallDelaysDurations = Duration(milliseconds: 100);
+
+const double slideStartValue = 0.3;
+const double fadeStartValue = 0.7;
+const double scaleStartValue = 0.8;

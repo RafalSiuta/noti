@@ -16,6 +16,7 @@ import '../calendar_screen/calendar_screen.dart';
 import '../note_screen/note_creator_screen.dart';
 import '../note_screen/note_screen.dart';
 import '../task_screen/task_creator_screen.dart';
+import '../welcome_screen/testing_screen.dart';
 import '../welcome_screen/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,7 +61,13 @@ class _HomeScreenState extends State<HomeScreen>
         page: const NoteScreen(),
         title: NavModel(
           title: 'Notes',
-        ))
+        )),
+    //todo: temp testing screen
+    // ScreenModel(
+    //     page: const TestingScreen(),
+    //     title: NavModel(
+    //       title: 'Images',
+    //     ))
   ];
 
   hideTrigger() {
@@ -154,6 +161,7 @@ class _HomeScreenState extends State<HomeScreen>
                               })),
                     ),
                     SideNav(
+                      key: widget.key,
                       leading: IconButton(
                         splashColor: Colors.transparent,
                         icon: Icon(

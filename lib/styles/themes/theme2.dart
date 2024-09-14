@@ -16,14 +16,14 @@ const theme_2baseTextColor = Color(0xff161616);
 const theme_2UnselectedTaskIcon = Color(0xFF5D5D5D);
 
 
-final theme_2PickersBaseTextStyle = GoogleFonts.robotoSlab(
+final theme_2PickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       color: theme_2baseTextColor,
       fontSize: 12,
       fontWeight: FontWeight.w500),
 );
 
-final theme_2PickersTitleTextStyle = GoogleFonts.robotoSlab(
+final theme_2PickersTitleTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
       color: theme_2baseTextColor,
       fontSize: 18,
@@ -32,14 +32,14 @@ final theme_2PickersTitleTextStyle = GoogleFonts.robotoSlab(
 //TEXT STYLES:
 //headers:
 //Large header:
-final TextStyle theme_2largeHeaderTextStyle  = GoogleFonts.robotoSlab(
+final TextStyle theme_2largeHeaderTextStyle  = GoogleFonts.inter(
     textStyle: const TextStyle(
         color: theme_2baseTextColor,
         fontSize: 32,
         fontWeight: FontWeight.w700
     ));
 //Subtitle header:
-final TextStyle theme_2subtitleHeaderTextStyle = GoogleFonts.robotoSlab(
+final TextStyle theme_2subtitleHeaderTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
       fontSize: 18,
       color: theme_2baseTextColor,
@@ -48,7 +48,7 @@ final TextStyle theme_2subtitleHeaderTextStyle = GoogleFonts.robotoSlab(
 );
 //task & note card style:
 //title text style:
-final TextStyle theme_2cardTitleTextStyle = GoogleFonts.robotoSlab(
+final TextStyle theme_2cardTitleTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme_2baseTextColor,
@@ -56,7 +56,7 @@ final TextStyle theme_2cardTitleTextStyle = GoogleFonts.robotoSlab(
       decoration: TextDecoration.none),
 );
 //content text:
-final TextStyle theme_2contentTextStyle = GoogleFonts.robotoSlab(
+final TextStyle theme_2contentTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme_2baseTextColor,
@@ -64,7 +64,7 @@ final TextStyle theme_2contentTextStyle = GoogleFonts.robotoSlab(
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
-final TextStyle theme_2unselectedTextStyle = GoogleFonts.robotoSlab(
+final TextStyle theme_2unselectedTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme_2unselectedColor,
@@ -74,7 +74,7 @@ final TextStyle theme_2unselectedTextStyle = GoogleFonts.robotoSlab(
 );
 //calendar text style:
 //day text style:
-final theme_2calendarDayWeekendTextStyle = GoogleFonts.robotoSlab(
+final theme_2calendarDayWeekendTextStyle = GoogleFonts.inter(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme_2unselectedColor,
@@ -82,14 +82,14 @@ final theme_2calendarDayWeekendTextStyle = GoogleFonts.robotoSlab(
         decorationColor: theme_2dividerColor));
 
 //next month text style:
-final theme_2calendarNextMonthTextStyle = GoogleFonts.robotoSlab(
+final theme_2calendarNextMonthTextStyle = GoogleFonts.inter(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme_2unselectedColor,
         fontWeight: FontWeight.w200,
         decorationColor: theme_2unselectedColor));
 
-final theme_2calendarWeekendTextStyle = GoogleFonts.robotoSlab(
+final theme_2calendarWeekendTextStyle = GoogleFonts.inter(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme_2unselectedColor,
@@ -231,7 +231,7 @@ final theme2 = ThemeData(
       confirmButtonStyle: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(theme_2indicatorColor.withOpacity(0.5)),
         foregroundColor: WidgetStateProperty.all(theme_2baseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.robotoSlab(
+        textStyle: WidgetStateProperty.all(GoogleFonts.inter(
           textStyle: const TextStyle(
               color: theme_2baseTextColor,
               fontSize: 12,
@@ -242,7 +242,7 @@ final theme2 = ThemeData(
       cancelButtonStyle: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(theme_2TitleBoxBcgColor),
           foregroundColor: WidgetStateProperty.all(theme_2unselectedColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.robotoSlab(
+          textStyle: WidgetStateProperty.all(GoogleFonts.inter(
             textStyle: const TextStyle(
                 color: theme_2baseTextColor,
                 fontSize: 12,
@@ -318,7 +318,7 @@ final theme2 = ThemeData(
       confirmButtonStyle: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(theme_2indicatorColor.withOpacity(0.5)),
         foregroundColor: WidgetStateProperty.all(theme_2baseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.robotoSlab(
+        textStyle: WidgetStateProperty.all(GoogleFonts.inter(
           textStyle: const TextStyle(
               color: theme_2baseTextColor,
               fontSize: 12,
@@ -329,7 +329,7 @@ final theme2 = ThemeData(
       cancelButtonStyle: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(theme_2TitleBoxBcgColor),
           foregroundColor: WidgetStateProperty.all(theme_2unselectedColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.robotoSlab(
+          textStyle: WidgetStateProperty.all(GoogleFonts.inter(
             textStyle: const TextStyle(
                 color: theme_2baseTextColor,
                 fontSize: 12,
@@ -389,14 +389,14 @@ final theme2 = ThemeData(
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
       labelColor: theme_2baseTextColor,
       unselectedLabelColor: theme_2unselectedColor,
-      unselectedLabelStyle: GoogleFonts.robotoSlab(
+      unselectedLabelStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme_2unselectedColor,
             fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
-      labelStyle: GoogleFonts.robotoSlab(
+      labelStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme_2baseTextColor,

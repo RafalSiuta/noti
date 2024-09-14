@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/headers/search_bar.dart';
 import 'note_list.dart';
 
 class NoteScreen extends StatelessWidget {
@@ -11,7 +12,8 @@ class NoteScreen extends StatelessWidget {
         key: key,
         child: Column(
           children: const [
-           // SearchBar(),
+
+            SearchInput(),
             Expanded(
               child: NoteList(
                 isGrid: true,

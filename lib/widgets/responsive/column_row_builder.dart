@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../utils/constans/durations.dart';
+
 class ColumnBuilder extends StatelessWidget {
   final IndexedWidgetBuilder itemBuilder;
   final MainAxisAlignment mainAxisAlignment;
@@ -10,23 +12,23 @@ class ColumnBuilder extends StatelessWidget {
   final int itemCount;
 
   const ColumnBuilder({
-    Key? key,
+    super.key,
     required this.itemBuilder,
     required this.itemCount,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.verticalDirection = VerticalDirection.down,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
         child: Column(
       children: AnimationConfiguration.toStaggeredList(
-        duration: const Duration(milliseconds: 375),
+        duration: headerDuration,
         childAnimationBuilder: (widget) => ScaleAnimation(
-          scale: 0.5,
+          scale: scaleStartValue,
           child: FadeInAnimation(child: widget),
         ),
         children:
@@ -45,13 +47,13 @@ class RowBuilder extends StatelessWidget {
   final int itemCount;
 
   const RowBuilder({
-    Key? key,
+    super.key,
     required this.itemBuilder,
     required this.itemCount,
     this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +63,9 @@ class RowBuilder extends StatelessWidget {
       mainAxisAlignment: mainAxisAlignment,
       crossAxisAlignment: crossAxisAlignment,
       children: AnimationConfiguration.toStaggeredList(
-        duration: const Duration(milliseconds: 375),
+        duration: headerDuration,
         childAnimationBuilder: (widget) => ScaleAnimation(
-          scale: 0.5,
+          scale: scaleStartValue,
           child: FadeInAnimation(child: widget),
         ),
         children:

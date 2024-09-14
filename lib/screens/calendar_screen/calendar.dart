@@ -68,10 +68,6 @@ class Calendar extends StatelessWidget {
                   headerVisible: isHeaderVisible,
                   startingDayOfWeek:
                   taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
-                  //taskProvider.startingDayOfWeek,
-                  // taskProvider.settings.calendarSets.calendarSettings[0].isOn == false
-                  //         ? StartingDayOfWeek.monday
-                  //         : StartingDayOfWeek.sunday,
                   daysOfWeekVisible: true,
                   onPageChanged: (day) => taskProvider.onMonthChange(day),
                   onDaySelected: taskProvider.onDaySelected,
@@ -82,7 +78,7 @@ class Calendar extends StatelessWidget {
                     headerTitleBuilder: (context, date) {
                       return Center(
                         child: PlayAnimationBuilder(
-                              tween: Tween<double>(begin: 0.2, end: 1.0),
+                              tween: Tween<double>(begin: 0.8, end: 1.0),
                               duration: const Duration(milliseconds: 300),
                               delay: const Duration(milliseconds: 200),
                               curve: Curves.easeOut,
@@ -107,7 +103,7 @@ class Calendar extends StatelessWidget {
                         position: date.day,
                         duration: const Duration(milliseconds: 200),
                         child: ScaleAnimation(
-                          scale: 0.5,
+                          scale: 0.8,
                           child: FadeInAnimation(
                               child: Center(
                                   child: Text(
@@ -134,7 +130,7 @@ class Calendar extends StatelessWidget {
                         position: date.day,
                         duration: const Duration(milliseconds: 200),
                         child: ScaleAnimation(
-                          scale: 0.5,
+                          scale: 0.8,
                           child: FadeInAnimation(
                               child: Center(
                                   child: Text(
