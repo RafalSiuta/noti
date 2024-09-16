@@ -83,7 +83,7 @@ class TaskCard extends StatelessWidget {
           ),
           child: Center(
             child: Icon(
-              iconPick.iconsList[task.icon],
+              iconPick.iconsList[task.icon].icon,
               size: iconSize,
               color: task.isTaskDone
                   ? Theme.of(context).colorScheme.onSecondary

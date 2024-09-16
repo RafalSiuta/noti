@@ -23,6 +23,7 @@ class SwitchBtn extends StatelessWidget {
         padding: EdgeInsets.zero,
         alignment: align,
         onPressed: () {
+
           onChanged!(value!);
         },
         splashRadius: 2,

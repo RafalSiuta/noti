@@ -1,4 +1,4 @@
-const headerDuration = Duration(milliseconds: 350);
+const headerDuration = Duration(milliseconds: 400);
 
 const smallDelaysDurations = Duration(milliseconds: 100);
 

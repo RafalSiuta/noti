@@ -11,6 +11,7 @@ import '../../models/menu_model/nav_model.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
@@ -29,8 +30,8 @@ class _TaskCreatorState extends State<TaskCreator>
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
 
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay dayTime = TimeOfDay.now();
+  // DateTime? selectedDate;// = DateTime.now();
+  // TimeOfDay? dayTime;// = TimeOfDay.now();
   bool editTextEnable = false;
 
   TextEditingController titleVal = TextEditingController();
@@ -81,6 +82,15 @@ class _TaskCreatorState extends State<TaskCreator>
     ),
   ];
 
+  void currentDate(DateTime date, TimeOfDay dayTime){
+    setState(() {
+      widget.newTask.date = DateTime(date.year,date.month,date.day,dayTime.hour,dayTime.minute);
+      // selectedDate = widget.newTask.date;
+      // dayTime = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
+      dateVal.text = DateFormat('dd MMM yy').format(widget.newTask.date);
+    });
+  }
+
   void editText() {
     setState(() {
       editTextEnable = !editTextEnable;
@@ -91,23 +101,28 @@ class _TaskCreatorState extends State<TaskCreator>
   _pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: widget.newTask.date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2050),
       locale: const Locale('pl'), useRootNavigator:false
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != widget.newTask.date) {
       setState(() {
-        selectedDate = picked;
-        widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-            selectedDate.day, dayTime.hour, dayTime.minute); //picked;
+        TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
+        currentDate(picked, time);
+        //selectedDate = picked;
+        // TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
+        // widget.newTask.date = DateTime(picked.year, picked.month,
+        //     picked.day,time.hour, time.minute ); //dayTime.hour, dayTime.minute picked;
+
       });
     }
   }
 
   _pickTime(BuildContext context) async {
+    TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
     final TimeOfDay? selectedTime = await showTimePicker(
-      initialTime: dayTime,
+      initialTime: time,
       context: context,
       useRootNavigator: false,
       builder: (context, child) {
@@ -118,12 +133,13 @@ class _TaskCreatorState extends State<TaskCreator>
       },
 
     );
-    if (selectedTime != null && selectedTime != dayTime) {
-      setState(() {
-        dayTime = selectedTime;
-        widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-            selectedDate.day, dayTime.hour, dayTime.minute);
-      });
+    if (selectedTime != null && selectedTime != time) {
+      currentDate(widget.newTask.date,selectedTime);
+      // setState(() {
+      //   //dayTime = selectedTime;
+      //   widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
+      //       selectedDate.day, dayTime.hour, dayTime.minute);
+      // });
     }
   }
 
@@ -146,20 +162,30 @@ class _TaskCreatorState extends State<TaskCreator>
                   children: List.generate(
                       categoryIcons.iconsList.length,
                       (index) =>
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                widget.newTask.icon = index;
-                              });
-                            },
-                            icon: Icon(
-                              categoryIcons.iconsList[index],
-                              color: categoryIcons.iconsList.length == index
-                                  ? Theme.of(context).indicatorColor
-                                  : Theme.of(context).unselectedWidgetColor,
-                              size: 13,
-                            ),
-                          )
+                          SwitchBtn(
+                              icon: categoryIcons.iconsList[index].icon,
+                              value: widget.newTask.icon == index ? true : false,
+                              onChanged: (val) {
+                                setState(() {
+                                  categoryIcons.iconsList[index].onPick();
+                                  //categoryIcons.iconsList[index].isPicked = val;
+                                  widget.newTask.icon = index;
+                                });
+                              }),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     setState(() {
+                          //       widget.newTask.icon = index;
+                          //     });
+                          //   },
+                          //   icon: Icon(
+                          //     categoryIcons.iconsList[index],
+                          //     color: categoryIcons.iconsList.length == index
+                          //         ? Theme.of(context).indicatorColor
+                          //         : Theme.of(context).unselectedWidgetColor,
+                          //     size: 13,
+                          //   ),
+                          // )
                   ),
                 ),
               ));
@@ -170,13 +196,15 @@ class _TaskCreatorState extends State<TaskCreator>
     setState(() {
       widget.newTask.isTaskDone
           ? descVal.text = "Task Finished. Well done!"
-          : descVal.text = widget.newTask.description!;
+          : descVal.text = widget.newTask.description;
     });
   }
 
   @override
   void initState() {
-    dayTime = TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+    TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
+    currentDate(widget.newTask.date,time);
+
     _menuSlideInController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
 
@@ -185,13 +213,13 @@ class _TaskCreatorState extends State<TaskCreator>
             CurvedAnimation(
                 parent: _menuSlideInController!, curve: Curves.ease));
 
-    selectedDate = widget.newTask.date;
+
     editTextEnable = widget.editEnable;
     titleVal.text = widget.newTask.title[0].toUpperCase() +
         widget.newTask.title.substring(1, widget.newTask.title.length);
     checkIsTaskDone();
     //descVal.text = widget.newTask.description!;
-    dateVal.text = DateFormat('dd MMM yy').format(widget.newTask.date);
+
     priorityRating = widget.newTask.priority;
 
     super.initState();
@@ -283,7 +311,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                       right: 5.0),
                                                   icon: Icon(
                                                     categoryIcons.iconsList[
-                                                    widget.newTask.icon ?? 1],
+                                                    widget.newTask.icon].icon,
                                                     size: navIconSize,
                                                   ),
                                                   onPressed: () {
@@ -297,7 +325,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   },
                                                   child: Text(
                                                     DateFormat('dd MMM yy')
-                                                        .format(selectedDate),
+                                                        .format(widget.newTask.date),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium!
@@ -313,7 +341,8 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   },
                                                   //widget.newTask.date
                                                   child: Text(
-                                                    DateFormat('HH:mm').format(selectedDate),
+                                                    //"${dayTime}",
+                                                    DateFormat('HH:mm').format(widget.newTask.date),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium!

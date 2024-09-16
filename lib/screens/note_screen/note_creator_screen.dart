@@ -11,6 +11,7 @@ import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../providers/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
@@ -77,21 +78,31 @@ class _NoteCreatorState extends State<NoteCreator>
                   crossAxisCount: 5,
                   children: List.generate(
                       categoryIcons.iconsList.length,
-                      (index) => IconButton(
-                            onPressed: () {
-                              setState(() {
-                                widget.newNote.icon = index;
-                              });
-                            },
-                            icon:
-                            Icon(
-                              categoryIcons.iconsList[index],
-                              color: categoryIcons.iconsList.length == index
-                                  ? Theme.of(context).indicatorColor
-                                  : Theme.of(context).unselectedWidgetColor,
-                              size: 13,
-                            ),
-                          )),
+                      (index) =>
+                          SwitchBtn(
+                              icon: categoryIcons.iconsList[index].icon,
+                              value: widget.newNote.icon == index ? true : false,
+                              onChanged: (val) {
+                                setState(() {
+                                  widget.newNote.icon = index;
+                                });
+                              }),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     setState(() {
+                          //       widget.newNote.icon = index;
+                          //     });
+                          //   },
+                          //   icon:
+                          //   Icon(
+                          //     categoryIcons.iconsList[index],
+                          //     color: categoryIcons.iconsList.length == index
+                          //         ? Theme.of(context).indicatorColor
+                          //         : Theme.of(context).unselectedWidgetColor,
+                          //     size: 13,
+                          //   ),
+                          // )
+                  ),
                 ),
               ));
         });
@@ -237,7 +248,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                         padding: const EdgeInsets.all(.0),
                                         icon: Icon(
                                           categoryIcons.iconsList[
-                                              widget.newNote.icon ?? 1],
+                                              widget.newNote.icon ?? 1].icon,
                                           size: navIconSize,
                                           color: Theme.of(context).indicatorColor,
                                         ),
