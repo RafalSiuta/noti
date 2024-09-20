@@ -7,18 +7,19 @@ class SwitchBtn extends StatelessWidget {
     super.key,
     this.value,
     this.onChanged,
-    required this.icon,
+    required this.iconData,
+    this.iconSize = 18,
     this.align = Alignment.center,
   });
 
   final bool? value;
   final ValueChanged<bool>? onChanged;
-  final IconData icon;
+  final IconData iconData;
+  final double iconSize;
   final Alignment align;
 
   @override
   Widget build(BuildContext context) {
-    var iconSize = SizeInfo.switchButtonIconSize;
     return IconButton(
         padding: EdgeInsets.zero,
         alignment: align,
@@ -26,11 +27,11 @@ class SwitchBtn extends StatelessWidget {
 
           onChanged!(value!);
         },
-        splashRadius: 2,
+        splashRadius: 1,
         splashColor: Colors.transparent,
         disabledColor: Theme.of(context).shadowColor,
         icon: Icon(
-          icon,
+          iconData,
           size: iconSize,
           color: value == true
               ? Theme.of(context).indicatorColor

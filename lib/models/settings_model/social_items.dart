@@ -8,11 +8,11 @@ class SocialList {
     SocialModel(
         title: "www",
         icon: Icons.web,
-        link: 'https://r85-noti.herokuapp.com/'),
+        link: 'https://www.google.com'),
     SocialModel(
         title: "youtube",
         icon: Icons.play_arrow,
-        link: 'https://www.youtube.com/channel/UC_gIXm89-OE4ghDUtAI9Ilg'),
+        link: 'https://www.youtube.com'),//https://www.youtube.com/channel/UC_gIXm89-OE4ghDUtAI9Ilg
     SocialModel(title: "share", icon: Icons.share, link: ''),
   ];
 

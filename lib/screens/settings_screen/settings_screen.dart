@@ -43,12 +43,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Settings',
       ),
     ),
-    ScreenModel(
-      page: const PermissionScreen(),
-      title: NavModel(
-        title: 'Permissions',
-      ),
-    ),
+    // ScreenModel(
+    //   page: const PermissionScreen(),
+    //   title: NavModel(
+    //     title: 'Permissions',
+    //   ),
+    // ),
     ScreenModel(
         page: const AboutScreen(),
         title: NavModel(

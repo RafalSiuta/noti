@@ -11,6 +11,7 @@ import '../../models/menu_model/nav_model.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/navigators/creator_nav.dart';
@@ -99,6 +100,7 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   _pickDate(BuildContext context) async {
+
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: widget.newTask.date,
@@ -144,51 +146,43 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   _pickIcon(BuildContext context) {
+    var switchBtnIconSize = SizeInfo.dialogIconSize;
     showDialog(
         context: context,
         builder: (context) {
-          return CustomDial(
-              title: 'Task category icon',
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width - 30,
-                height: 250,
-                child: GridView.count(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  crossAxisSpacing: 0.0,
-                  shrinkWrap: true,
-                  mainAxisSpacing: 0.0,
-                  crossAxisCount: 5,
-                  children: List.generate(
-                      categoryIcons.iconsList.length,
-                      (index) =>
-                          SwitchBtn(
-                              icon: categoryIcons.iconsList[index].icon,
-                              value: widget.newTask.icon == index ? true : false,
-                              onChanged: (val) {
-                                setState(() {
-                                  categoryIcons.iconsList[index].onPick();
-                                  //categoryIcons.iconsList[index].isPicked = val;
-                                  widget.newTask.icon = index;
-                                });
-                              }),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     setState(() {
-                          //       widget.newTask.icon = index;
-                          //     });
-                          //   },
-                          //   icon: Icon(
-                          //     categoryIcons.iconsList[index],
-                          //     color: categoryIcons.iconsList.length == index
-                          //         ? Theme.of(context).indicatorColor
-                          //         : Theme.of(context).unselectedWidgetColor,
-                          //     size: 13,
-                          //   ),
-                          // )
-                  ),
-                ),
-              ));
+          return
+            StatefulBuilder(builder: (ctx,setDialState){
+              return CustomDial(
+                  title: 'Task category icon',
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width - 30,
+                    height: 250,
+                    child: GridView.count(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      crossAxisSpacing: 2.0,
+                      shrinkWrap: true,
+                      mainAxisSpacing: 2.0,
+                      crossAxisCount: 5,
+                      children: List.generate(
+                        categoryIcons.iconsList.length,
+                            (index) => IconButtonWithText(
+                                iconData: categoryIcons.iconsList[index].icon,
+                                iconSize: switchBtnIconSize,
+                                iconName: categoryIcons.iconsList[index].name,
+                                value: widget.newTask.icon == index ? true : false,
+                                onChanged: (val) {
+                                  setState(() {
+                                    setDialState((){
+                                      widget.newTask.icon = index;
+                                    });
+                                  });
+                                }),
+                      ),
+                    ),
+                  ));
+            });
+
         });
   }
 

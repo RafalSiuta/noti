@@ -42,6 +42,7 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
   @override
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
+    var switchIconSize = SizeInfo.switchButtonIconSize;
     return  Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -82,7 +83,8 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
                                     title: permissionSettings.title!,
                                     description: permissionSettings.description!,
                                     child: SwitchBtn(
-                                        icon: Icons.circle,
+                                        iconData: Icons.circle,
+                                        iconSize: switchIconSize,
                                         value: permissionSettings.isOn,
                                         onChanged: (val) {
                                           permissionProvider.permissionHandler(permissionSettings);

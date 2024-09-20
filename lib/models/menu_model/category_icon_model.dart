@@ -4,11 +4,11 @@ class CategoryIconModel {
   IconData icon;
   String name;
   String category;
-  bool isPicked;
+  //bool isPicked;
 
-  CategoryIconModel({this.icon = Icons.circle, this.name= "" , this.isPicked = false,this.category = ""});
+  CategoryIconModel({this.icon = Icons.circle, this.name= "" ,this.category = ""});
 
-  void onPick(){
-    isPicked = !isPicked;
-  }
+  // void onPick(){
+  //   isPicked = !isPicked;
+  // }
 }

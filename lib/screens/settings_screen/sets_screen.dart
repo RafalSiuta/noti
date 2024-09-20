@@ -19,6 +19,7 @@ class SetsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
+    var switchIconSize = SizeInfo.switchButtonIconSize;
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
         return CustomScrollView(
@@ -50,7 +51,8 @@ class SetsScreen extends StatelessWidget {
                       title: calendarSettings.title!,
                       description: calendarSettings.description!,
                       child: SwitchBtn(
-                          icon: Icons.circle,
+                          iconData: Icons.circle,
+                          iconSize: switchIconSize,
                           value: calendarSettings.isOn,
                           onChanged: (val) {
                             settingsProvider
@@ -82,7 +84,8 @@ class SetsScreen extends StatelessWidget {
                       title: notificationSettings.title!,
                       description: notificationSettings.description!,
                       child: SwitchBtn(
-                          icon: Icons.circle,
+                          iconData: Icons.circle,
+                          iconSize: switchIconSize,
                           value: notificationSettings.isOn,
                           onChanged: (val) {
                             settingsProvider.onNotificationSettingsChange(
@@ -114,7 +117,8 @@ class SetsScreen extends StatelessWidget {
                       title: trashSets.title!,
                       description: trashSets.description!,
                       child: SwitchBtn(
-                          icon: Icons.circle,
+                          iconData: Icons.circle,
+                          iconSize: switchIconSize,
                           value: trashSets.isOn,
                           onChanged: (val) {
                             settingsProvider.onTrashSettingsChange(trashSets);

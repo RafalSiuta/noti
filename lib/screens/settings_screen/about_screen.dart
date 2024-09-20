@@ -33,11 +33,11 @@ class AboutScreen extends StatelessWidget {
           ),
           TextButton.icon(
             onPressed: () async {
-              await Navigator.push(
-                  context,
-                  CustomPageRoute(
-                      child: const LicenceScreen(),
-                      direction: AxisDirection.up));
+              // await Navigator.push(
+              //     context,
+              //     CustomPageRoute(
+              //         child: const LicenceScreen(),
+              //         direction: AxisDirection.up));
             },
             icon: Icon(
               Icons.copyright,
@@ -45,7 +45,7 @@ class AboutScreen extends StatelessWidget {
               size: textFontSize,
             ),
             label: Text(
-              "Licences",
+              "Privacy Policy",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: textFontSize,),
             ),

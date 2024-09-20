@@ -33,7 +33,7 @@ class TaskCard extends StatelessWidget {
     var smallIconSize = SizeInfo.smallIndicatorIconSize;
 
     CategoryIconsList iconPick = CategoryIconsList();
-
+    var switchBtnIconSize = SizeInfo.switchButtonIconSize;
     var height = SizeInfo.taskCardHeight;
     double radiusCircularMain = height - 35;
     double ringRadiusSize = height + 16;
@@ -174,7 +174,8 @@ class TaskCard extends StatelessWidget {
           Expanded(
             child: SwitchBtn(
               value: task.isTaskDone,
-              icon: Icons.check,
+              iconData: Icons.check,
+              iconSize: switchBtnIconSize,
               align: circleFromLeft == true
                   ? Alignment.bottomRight
                   : Alignment.bottomLeft,

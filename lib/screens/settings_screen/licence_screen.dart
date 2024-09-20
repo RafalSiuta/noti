@@ -10,7 +10,7 @@ import '../../widgets/responsive/column_row_builder.dart';
 import '../../widgets/web/web_link.dart';
 
 class LicenceScreen extends StatelessWidget {
-  const LicenceScreen({Key? key}) : super(key: key);
+  const LicenceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

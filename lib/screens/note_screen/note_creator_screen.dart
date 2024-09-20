@@ -11,6 +11,7 @@ import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../providers/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
@@ -64,47 +65,57 @@ class _NoteCreatorState extends State<NoteCreator>
     showDialog(
         context: context,
         builder: (context) {
-          return CustomDial(
-              title: 'Note icon',
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width - 30,
-                height: 250,
-                child: GridView.count(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  crossAxisSpacing: 0.0,
-                  shrinkWrap: true,
-                  mainAxisSpacing: 0.0,
-                  crossAxisCount: 5,
-                  children: List.generate(
+          return
+          StatefulBuilder(builder: (ctx,setDialCtx){
+            var switchIconSize = SizeInfo.dialogIconSize;
+            return CustomDial(
+                title: 'Note icon',
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 30,
+                  height: 250,
+                  child: GridView.count(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    crossAxisSpacing: 0.0,
+                    shrinkWrap: true,
+                    mainAxisSpacing: 0.0,
+                    crossAxisCount: 5,
+                    children: List.generate(
                       categoryIcons.iconsList.length,
-                      (index) =>
-                          SwitchBtn(
-                              icon: categoryIcons.iconsList[index].icon,
+                          (index) =>
+                              IconButtonWithText(
+                              iconData: categoryIcons.iconsList[index].icon,
+                              iconName: categoryIcons.iconsList[index].name,
+                              iconSize: switchIconSize,
                               value: widget.newNote.icon == index ? true : false,
                               onChanged: (val) {
                                 setState(() {
-                                  widget.newNote.icon = index;
+                                  setDialCtx((){
+                                    widget.newNote.icon = index;
+                                  });
+
                                 });
                               }),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     setState(() {
-                          //       widget.newNote.icon = index;
-                          //     });
-                          //   },
-                          //   icon:
-                          //   Icon(
-                          //     categoryIcons.iconsList[index],
-                          //     color: categoryIcons.iconsList.length == index
-                          //         ? Theme.of(context).indicatorColor
-                          //         : Theme.of(context).unselectedWidgetColor,
-                          //     size: 13,
-                          //   ),
-                          // )
+                      // IconButton(
+                      //   onPressed: () {
+                      //     setState(() {
+                      //       widget.newNote.icon = index;
+                      //     });
+                      //   },
+                      //   icon:
+                      //   Icon(
+                      //     categoryIcons.iconsList[index],
+                      //     color: categoryIcons.iconsList.length == index
+                      //         ? Theme.of(context).indicatorColor
+                      //         : Theme.of(context).unselectedWidgetColor,
+                      //     size: 13,
+                      //   ),
+                      // )
+                    ),
                   ),
-                ),
-              ));
+                ));
+          });
+
         });
   }
 

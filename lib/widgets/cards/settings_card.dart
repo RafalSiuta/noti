@@ -33,7 +33,7 @@ class SettingsCard extends StatelessWidget {
         child: Padding(
           padding: textPadding,
           child: RichText(
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             text: TextSpan(
                 text: '$title\n',

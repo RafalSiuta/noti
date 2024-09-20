@@ -14,17 +14,17 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Animation<double> _scaleAnimation;
 
-  final Prefs _prefs = Prefs();
+  //final Prefs _prefs = Prefs();
 
   Future<void> checkFirstRun() async {
-      bool isFirstRun = await _prefs.restoreBool("notiFirstRun", true);
+     // bool isFirstRun = await _prefs.restoreBool("notiFirstRun", true);
    // bool isFirstRun = _prefs.restoreBool("notiFirstRun", _isFirstRun!) ?? true;
       //todo remove before launch
-      if(isFirstRun == true){
-        print("NOTI FIRST RUN value: $isFirstRun");
-      }else{
-        print("NOTI NOT FIRST RUN value: $isFirstRun");
-      }
+      // if(isFirstRun == true){
+      //   print("NOTI FIRST RUN value: $isFirstRun");
+      // }else{
+      //   print("NOTI NOT FIRST RUN value: $isFirstRun");
+      // }
       _animationController.forward().then((_) async {
         await Future.delayed(const Duration(milliseconds: 350));
 
@@ -32,7 +32,9 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
-              pageBuilder: (context, anim, ani2) => isFirstRun ? const PermissionScreenLauncher() : HomeScreen(key: widget.key),
+              pageBuilder: (context, anim, ani2) =>
+              HomeScreen(key: widget.key),
+              //isFirstRun ? const PermissionScreenLauncher() : HomeScreen(key: widget.key),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 var slide = Tween<Offset>(
                     begin: const Offset(0.0, 1.0),
@@ -43,10 +45,11 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
                 return SlideTransition(position: slide, child: child);
               },
             ),
-          ).then((val){
-             isFirstRun = false;
-            _prefs.storeBool("notiFirstRun", isFirstRun);
-          });
+          );
+          //     .then((val){
+          //    isFirstRun = false;
+          //   _prefs.storeBool("notiFirstRun", isFirstRun);
+          // });
         }
 
       });

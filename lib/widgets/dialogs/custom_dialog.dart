@@ -73,44 +73,43 @@ class _CustomDialState extends State<CustomDial> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      color: Theme.of(context).indicatorColor),
-                  child: Center(
-                    child: Text(
-                      widget.title!,
-                      style: Theme.of(context).dialogTheme.titleTextStyle,
-                    ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                width: MediaQuery.of(context).size.width,
+                height: 60,
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    color: Theme.of(context).indicatorColor),
+                child: Center(
+                  child: Text(
+                    widget.title!,
+                    style: Theme.of(context).dialogTheme.titleTextStyle,
                   ),
                 ),
-                widget.child!,
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Visibility(
-                      visible: widget.isBtnVisible,
-                      child: Text(
-                        'Ok',
-                        style: Theme.of(context)
-                            .dialogTheme
-                            .contentTextStyle!
-                            .copyWith(fontSize: 18),
-                      ),
-                    ))
-              ],
-            ),
+              ),
+              widget.child!,
+              const SizedBox(height: 5.0,),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Visibility(
+                    visible: widget.isBtnVisible,
+                    child: Text(
+                      'Ok',
+                      style: Theme.of(context)
+                          .dialogTheme
+                          .contentTextStyle!
+                          .copyWith(fontSize: 18),
+                    ),
+                  ))
+            ],
           )),
     );
   }

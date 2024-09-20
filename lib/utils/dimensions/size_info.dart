@@ -31,6 +31,7 @@ class SizeInfo {
   static double topMargin = 24;
 
   static double switchButtonIconSize = 18;
+  static double dialogIconSize = 12;
 
   ///social bar:
   static double socialIcons = 18;
@@ -72,7 +73,7 @@ class SizeInfo {
   ///settings dimens:
   static double settingsCardTitleFontSize = 12;
   static double settingsCardDescriptionFontSize = 10;
-  static double settingsCardHeight = 60;
+  static double settingsCardHeight = 70;
 
   ///carousel height:
   static double carouselHeight = 4;

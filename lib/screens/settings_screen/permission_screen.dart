@@ -16,6 +16,7 @@ class PermissionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
+    var switchIconSize = SizeInfo.switchButtonIconSize;
     return Consumer<PermissionProvider>(
         builder: (context, permissionProvider, child) {
           return
@@ -46,7 +47,8 @@ class PermissionScreen extends StatelessWidget {
                             title: permissionSettings.title!,
                             description: permissionSettings.description!,
                             child: SwitchBtn(
-                                icon: Icons.circle,
+                                iconData: Icons.circle,
+                                iconSize: switchIconSize,
                                 value: permissionSettings.isOn,
                                 onChanged: (val) {
                                   permissionProvider.permissionHandler(permissionSettings);

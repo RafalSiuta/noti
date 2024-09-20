@@ -47,10 +47,11 @@ class CreatorNav extends StatelessWidget {
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               spacing: 10,
+              direction: Axis.vertical,
               children: List.generate(
                 itemCount,
                 (index) =>  IconButton(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                   onPressed: () {
                     onTap(index);
                   },
@@ -64,7 +65,7 @@ class CreatorNav extends StatelessWidget {
                   ),
                 ),
               ).toList(),
-              direction: Axis.vertical,
+
             ),
           ),
         ),
@@ -80,14 +81,15 @@ class CreatorNav extends StatelessWidget {
               BoxShadow(
                   color: Colors.black54.withOpacity(0.5),
                   blurRadius: 1.5,
-                  offset: Offset(.0, .0),
+                  offset: const Offset(.0, .0),
                   spreadRadius: 1.0)
             ]),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: Wrap(
             spacing: 10,
-            children: List.generate(
+            direction: Axis.vertical,
+            children:  List.generate(
               itemCount,
               (index) => IconButton(
                   onPressed: () {},
@@ -96,7 +98,7 @@ class CreatorNav extends StatelessWidget {
                     size: navDotIndicatorSize,
                   )),
             ).toList(),
-            direction: Axis.vertical,
+
           ),
         ),
       ),
