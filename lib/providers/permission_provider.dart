@@ -5,11 +5,12 @@ import '../models/permission_model/permission_model.dart';
 import '../models/settings_model/settings_model/settings_model.dart';
 import '../utils/prefs/prefs.dart';
 
+//todo futures in next version fix permission choices for user
 class PermissionProvider extends ChangeNotifier{
 
 
   PermissionProvider(){
-    initPermissions();
+    //initPermissions();
   }
 
   void initPermissions() async {
