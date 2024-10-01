@@ -93,7 +93,7 @@ class ImageCard extends StatelessWidget {
             img,
             fit: BoxFit.cover,
             width: size,
-            height: size,
+            height: size * 1.5,
             filterQuality: FilterQuality.medium,
           ),
         ),

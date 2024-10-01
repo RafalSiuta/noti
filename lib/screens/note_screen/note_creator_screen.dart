@@ -61,6 +61,9 @@ class _NoteCreatorState extends State<NoteCreator>
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+
+  IconData pickedIcon = Icons.circle;
+
   _pickIcon(BuildContext context) {
     showDialog(
         context: context,
@@ -87,30 +90,18 @@ class _NoteCreatorState extends State<NoteCreator>
                               iconData: categoryIcons.iconsList[index].icon,
                               iconName: categoryIcons.iconsList[index].name,
                               iconSize: switchIconSize,
-                              value: widget.newNote.icon == index ? true : false,
+                              value: widget.newNote.icon == categoryIcons.iconsList[index].id! ? true : false,
                               onChanged: (val) {
                                 setState(() {
                                   setDialCtx((){
-                                    widget.newNote.icon = index;
+                                    //widget.newNote.icon = index;
+
+                                    widget.newNote.icon = categoryIcons.iconsList[index].id!;
+                                    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon);
                                   });
 
                                 });
                               }),
-                      // IconButton(
-                      //   onPressed: () {
-                      //     setState(() {
-                      //       widget.newNote.icon = index;
-                      //     });
-                      //   },
-                      //   icon:
-                      //   Icon(
-                      //     categoryIcons.iconsList[index],
-                      //     color: categoryIcons.iconsList.length == index
-                      //         ? Theme.of(context).indicatorColor
-                      //         : Theme.of(context).unselectedWidgetColor,
-                      //     size: 13,
-                      //   ),
-                      // )
                     ),
                   ),
                 ));
@@ -171,6 +162,7 @@ class _NoteCreatorState extends State<NoteCreator>
 
   @override
   void initState() {
+    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon);
     selectedCategory = widget.newNote.fk!;
     _menuSlideInController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
@@ -258,8 +250,9 @@ class _NoteCreatorState extends State<NoteCreator>
                                       IconButton(
                                         padding: const EdgeInsets.all(.0),
                                         icon: Icon(
-                                          categoryIcons.iconsList[
-                                              widget.newNote.icon ?? 1].icon,
+                                          pickedIcon,
+                                          // categoryIcons.iconsList[
+                                          //     widget.newNote.icon ?? 1].icon,
                                           size: navIconSize,
                                           color: Theme.of(context).indicatorColor,
                                         ),
@@ -481,7 +474,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                     widget.newNote.image!.isNotEmpty
                                 ? ImageCard(
                                     img: widget.newNote.image!,
-                                    size: 200,
+                                    size: 100,
                                     onTap: () {
                                       _bottomDrawer(context);
                                     },

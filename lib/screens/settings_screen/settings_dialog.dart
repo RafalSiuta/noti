@@ -46,7 +46,7 @@ class SliderDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
 
                   text: TextSpan(
-                    text: "This setting keeps data for the last\n",
+                    text: "This setting delete data after\n",
                     style: Theme.of(context).textTheme.bodyMedium,
                     children: <TextSpan>[
                       TextSpan(

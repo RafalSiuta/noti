@@ -4,15 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
-import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/icon_button.dart';
-import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
@@ -51,13 +48,16 @@ class _TaskCreatorState extends State<TaskCreator>
 
   int priorityRating = 1;
 
-  selectOptions(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-    switch (selectedIndex) {
-    }
-  }
+
+  int _selectedIcon = 0;
+
+  // selectOptions(int index) {
+  //   setState(() {
+  //     selectedIndex = index;
+  //   });
+  //   switch (selectedIndex) {
+  //   }
+  // }
 
   List<NavModel> titles = [
     NavModel(
@@ -86,16 +86,16 @@ class _TaskCreatorState extends State<TaskCreator>
   void currentDate(DateTime date, TimeOfDay dayTime){
     setState(() {
       widget.newTask.date = DateTime(date.year,date.month,date.day,dayTime.hour,dayTime.minute);
-      // selectedDate = widget.newTask.date;
-      // dayTime = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
       dateVal.text = DateFormat('dd MMM yy').format(widget.newTask.date);
     });
   }
+
 
   void editText() {
     setState(() {
       editTextEnable = !editTextEnable;
       FocusScope.of(context).unfocus();
+
     });
   }
 
@@ -105,17 +105,13 @@ class _TaskCreatorState extends State<TaskCreator>
       context: context,
       initialDate: widget.newTask.date,
       firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
+      lastDate: DateTime(2070),
       locale: const Locale('pl'), useRootNavigator:false
     );
     if (picked != null && picked != widget.newTask.date) {
       setState(() {
         TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
         currentDate(picked, time);
-        //selectedDate = picked;
-        // TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
-        // widget.newTask.date = DateTime(picked.year, picked.month,
-        //     picked.day,time.hour, time.minute ); //dayTime.hour, dayTime.minute picked;
 
       });
     }
@@ -137,13 +133,11 @@ class _TaskCreatorState extends State<TaskCreator>
     );
     if (selectedTime != null && selectedTime != time) {
       currentDate(widget.newTask.date,selectedTime);
-      // setState(() {
-      //   //dayTime = selectedTime;
-      //   widget.newTask.date = DateTime(selectedDate.year, selectedDate.month,
-      //       selectedDate.day, dayTime.hour, dayTime.minute);
-      // });
+
     }
   }
+  IconData pickedIcon = Icons.circle;
+
 
   _pickIcon(BuildContext context) {
     var switchBtnIconSize = SizeInfo.dialogIconSize;
@@ -154,9 +148,8 @@ class _TaskCreatorState extends State<TaskCreator>
             StatefulBuilder(builder: (ctx,setDialState){
               return CustomDial(
                   title: 'Task category icon',
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 30,
-                    height: 250,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GridView.count(
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
@@ -170,11 +163,13 @@ class _TaskCreatorState extends State<TaskCreator>
                                 iconData: categoryIcons.iconsList[index].icon,
                                 iconSize: switchBtnIconSize,
                                 iconName: categoryIcons.iconsList[index].name,
-                                value: widget.newTask.icon == index ? true : false,
+                                value: widget.newTask.icon == categoryIcons.iconsList[index].id! ? true : false,
                                 onChanged: (val) {
                                   setState(() {
                                     setDialState((){
-                                      widget.newTask.icon = index;
+                                      //_selectedIcon  = index;
+                                       widget.newTask.icon = categoryIcons.iconsList[index].id!;
+                                       pickedIcon = categoryIcons.getPickedIcon(widget.newTask.icon);
                                     });
                                   });
                                 }),
@@ -196,6 +191,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
   @override
   void initState() {
+    pickedIcon = categoryIcons.getPickedIcon(widget.newTask.icon);
     TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
     currentDate(widget.newTask.date,time);
 
@@ -304,12 +300,15 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   padding: const EdgeInsets.only(
                                                       right: 5.0),
                                                   icon: Icon(
-                                                    categoryIcons.iconsList[
-                                                    widget.newTask.icon].icon,
+                                                    pickedIcon,
+                                                    // categoryIcons.iconsList[
+                                                    // widget.newTask.icon].icon,
                                                     size: navIconSize,
                                                   ),
                                                   onPressed: () {
                                                     _pickIcon(context);
+
+
                                                   },
                                                 ),
                                                 const VerticalDivider(),

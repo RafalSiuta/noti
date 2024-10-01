@@ -71,7 +71,7 @@ class _CustomDialState extends State<CustomDial> {
           elevation: 5.0,
           color: Theme.of(context).colorScheme.onSurface,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -83,8 +83,8 @@ class _CustomDialState extends State<CustomDial> {
                 height: 60,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
                     color: Theme.of(context).indicatorColor),
                 child: Center(
                   child: Text(
@@ -93,7 +93,8 @@ class _CustomDialState extends State<CustomDial> {
                   ),
                 ),
               ),
-              widget.child!,
+              Flexible(
+                  child: widget.child!),
               const SizedBox(height: 5.0,),
               TextButton(
                   onPressed: () {

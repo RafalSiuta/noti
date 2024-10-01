@@ -24,13 +24,13 @@ class AboutScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const AppIconCard(),
-          const SizedBox(
-            height: 50,
-          ),
-          const SocialsBar(),
-          const SizedBox(
-            height: 100,
-          ),
+          // const SizedBox(
+          //   height: 50,
+          // ),
+         // const SocialsBar(),
+         //  const SizedBox(
+         //    height: 100,
+         //  ),
           TextButton.icon(
             onPressed: () async {
               // await Navigator.push(

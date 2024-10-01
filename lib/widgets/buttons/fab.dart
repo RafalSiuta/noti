@@ -46,7 +46,7 @@ class CustomFab extends StatelessWidget {
             child: IgnorePointer(
               child: Container(
                 color: Colors.transparent,
-                height: fabSize * 3.0,
+                height: fabSize * 3.8,
                 width: fabSize,
                 margin: EdgeInsets.only(bottom: fabSize * 0.2),
               ),
