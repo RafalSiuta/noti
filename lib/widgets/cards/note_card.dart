@@ -108,7 +108,10 @@ class NoteCard extends StatelessWidget {
                               note.image != null && note.image!.isNotEmpty
                                   ? ImageCard(
                                 img: note.image!,
-                                size: isGrid
+                                width: isGrid
+                                    ? cardImageSize
+                                    : cardImageSize - 10,
+                                height: isGrid
                                     ? cardImageSize
                                     : cardImageSize - 10,
                                 cornerRadius: 8,

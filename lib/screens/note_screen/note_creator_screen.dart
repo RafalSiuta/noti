@@ -73,9 +73,9 @@ class _NoteCreatorState extends State<NoteCreator>
             var switchIconSize = SizeInfo.dialogIconSize;
             return CustomDial(
                 title: 'Note icon',
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 250,
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: GridView.count(
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
@@ -474,7 +474,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                     widget.newNote.image!.isNotEmpty
                                 ? ImageCard(
                                     img: widget.newNote.image!,
-                                    size: 100,
+                                    width: 100,
+                                    height: 130,
                                     onTap: () {
                                       _bottomDrawer(context);
                                     },

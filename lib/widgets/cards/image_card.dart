@@ -66,13 +66,15 @@ class ImageCard extends StatelessWidget {
   const ImageCard(
       {super.key,
       required this.img,
-      this.size = 100,
+      this.width = 100,
+      this.height = 120,
       this.onTap,
       this.onHold,
       this.cornerRadius = 15});
 
   final Uint8List img;
-  final double size;
+  final double width;
+  final double height;
   final Function()? onTap;
   final Function()? onHold;
   final double cornerRadius;
@@ -92,9 +94,9 @@ class ImageCard extends StatelessWidget {
           child: Image.memory(
             img,
             fit: BoxFit.cover,
-            width: size,
-            height: size * 1.5,
-            filterQuality: FilterQuality.medium,
+            width: width,
+            height: height,
+            filterQuality: FilterQuality.high,
           ),
         ),
       ),

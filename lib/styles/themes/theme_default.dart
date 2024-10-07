@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 const themeDefAMainBcgColor = Color(0xFFEEEEEE);
 const themeDefATitleBoxBcgColor = Color(0xFFf5f5f5);
-const themeDefAfirstGradientColor = Color(0xFF2592F0);//Color(0xFF00C3FF);//1389CD
-const themeDefAmiddleGradientColor = Color(0xFF335CCC);//Color(0xFF1B6BFF);//335CCC
-const themeDefAlastGradientColor = Color(0xFF2D32B3);//Color(0xFF2525FF);//2D32B3
+const themeDefAfirstGradientColor = Color(0xFF2592F0);//Color(0xFF00C3FF);//1389CD Color(0xFF448AFF);
+const themeDefAmiddleGradientColor = Color(0xFF335CCC);//Color(0xFF1B6BFF);//335CCC Color(0xFF2979FF);
+const themeDefAlastGradientColor = Color(0xFF2D32B3);//Color(0xFF2525FF);//2D32B3 Color(0xFF2962FF);
 const themeDefAdividerColor = Color(0xFF636363);
 const themeDefUnselectedColor = Color(0xFF9e9e9e); //595959
 const themeDefShadowColor = Color(0xFFe5e5e5);
@@ -350,6 +350,7 @@ final themeDefault = ThemeData(
       enabledBorder: UnderlineInputBorder(
           borderSide:
               BorderSide(width: .5, color: themeDefUnselectedColor)),
+      activeIndicatorBorder: BorderSide(width: .5, color: themeDefUnselectedColor),
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: InputBorder.none,

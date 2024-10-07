@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/custom_icon_helper/noti_system_icons_icons.dart';
 
 import '../../utils/dimensions/size_info.dart';
 
@@ -76,7 +77,7 @@ class CustomFab extends StatelessWidget {
                 width: fabSize,
                 height: fabSize,
                 child: IconButton(
-                  icon: Icon(Icons.note_add,
+                  icon: Icon(NotiSystemIcons.task,
                       color: Theme.of(context).textTheme.headlineMedium!.color,
                       size: iconSize),
                   onPressed: () {
@@ -112,7 +113,7 @@ class CustomFab extends StatelessWidget {
                 height: fabSize,
                 child: IconButton(
                   icon: Icon(
-                    Icons.task,
+                    NotiSystemIcons.note,
                     color: Theme.of(context).textTheme.headlineMedium!.color,
                     size: iconSize,
                   ),

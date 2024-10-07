@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen>
                       leading: IconButton(
                         splashColor: Colors.transparent,
                         icon: Icon(
-                          Icons.settings_outlined,
+                          Icons.settings,
                           color: Theme.of(context).textTheme.displayLarge!.color,
                           size: leadingIconSize,
                         ),

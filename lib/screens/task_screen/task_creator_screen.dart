@@ -148,7 +148,8 @@ class _TaskCreatorState extends State<TaskCreator>
             StatefulBuilder(builder: (ctx,setDialState){
               return CustomDial(
                   title: 'Task category icon',
-                  child: Padding(
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GridView.count(
                       physics: const BouncingScrollPhysics(
