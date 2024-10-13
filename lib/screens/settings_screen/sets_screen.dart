@@ -18,8 +18,11 @@ class SetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
+    var headerHeight = SizeInfo.sliverHeaderHeight;
+
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
         return CustomScrollView(
@@ -33,8 +36,8 @@ class SetsScreen extends StatelessWidget {
                   pinned: true,
                   delegate: SliverHeader(
                       paddingHorizontal: 8.0,
-                      maxHeight: 42,
-                      minHeight: 40,
+                      maxHeight: headerHeight,
+                      minHeight: headerHeight - 2,
                       child: const SmallHeader(
                         title: 'Calendar',
                       ))),
@@ -67,8 +70,8 @@ class SetsScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: 42,
-                    minHeight: 40,
+                    maxHeight: headerHeight,
+                    minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Notifications',
                     ))),
@@ -100,8 +103,8 @@ class SetsScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: 42,
-                    minHeight: 40,
+                    maxHeight: headerHeight,
+                    minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Trash',
                     ))),

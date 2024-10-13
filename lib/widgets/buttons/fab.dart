@@ -4,7 +4,7 @@ import 'package:noti/utils/custom_icon_helper/noti_system_icons_icons.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class CustomFab extends StatelessWidget {
-  final IconData icon;
+  //final IconData icon;
   final Function onTap;
   final Function addTask;
   final Function addNote;
@@ -18,7 +18,7 @@ class CustomFab extends StatelessWidget {
   const CustomFab(
       {super.key,
       required this.hideBtn,
-      required this.icon,
+     // required this.icon,
       required this.onTap,
       required this.addNote,
       required this.translationValueOne,
@@ -126,15 +126,21 @@ class CustomFab extends StatelessWidget {
               ),
             ),
           ),
-          FloatingActionButton(
-            elevation: 2,
-            isExtended: true,
-            child: Icon(Icons.edit,
-                size: iconSize,
-                color: Theme.of(context).textTheme.headlineMedium!.color),
-            onPressed: () {
-              onTap();
-            },
+          SizedBox(
+            width: fabSize,
+            height: fabSize,
+            child: FittedBox(
+              child: FloatingActionButton(
+                elevation: 2,
+                isExtended: true,
+                child: Icon(Icons.edit,
+                    size: iconSize,
+                    color: Theme.of(context).textTheme.headlineMedium!.color),
+                onPressed: () {
+                  onTap();
+                },
+              ),
+            ),
           ),
         ],
       ),

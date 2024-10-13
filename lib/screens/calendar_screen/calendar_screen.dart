@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions/size_info.dart';
 import '../task_screen/task_list.dart';
 import 'calendar.dart';
 
@@ -8,13 +9,14 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var spacingTop = SizeInfo.menuTopMargin;
     return CustomScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
         SliverList(
           delegate: SliverChildListDelegate([
-            Calendar(key: key),
+            Calendar(key: key,topSpacing: spacingTop,),
           ]),
         ),
         SliverPadding(

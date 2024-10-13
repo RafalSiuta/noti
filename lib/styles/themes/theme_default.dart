@@ -100,6 +100,7 @@ final calendarWeekendTextStyle = GoogleFonts.exo2(
 final themeDefault = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: themeDefAMainBcgColor,
+
     colorScheme: const ColorScheme(
       primary: Colors.white,
       secondary: themeDefATitleBoxBcgColor,
@@ -340,13 +341,26 @@ final themeDefault = ThemeData(
               borderRadius: BorderRadius.circular(20) ))
       ),
     ),
+    tooltipTheme:TooltipThemeData(
+      textStyle: GoogleFonts.exo2(
+          textStyle: const TextStyle(
+              fontSize: 8.0,
+              color: themeDefBaseTextColor,
+              fontWeight: FontWeight.w400,)),
+      decoration: BoxDecoration(
+        color: themeDefUnselectedColor
+      )
+    ),
+
     inputDecorationTheme: const InputDecorationTheme(
       border: InputBorder.none,
+
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
         width: .5,
-        color: themeDefATitleBoxBcgColor,
+        color: themeDefBaseTextColor,
       )),
+
       enabledBorder: UnderlineInputBorder(
           borderSide:
               BorderSide(width: .5, color: themeDefUnselectedColor)),
@@ -356,10 +370,15 @@ final themeDefault = ThemeData(
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: themeDefATitleBoxBcgColor, fontSize: 20),
+      hintStyle: TextStyle(color: themeDefBaseTextColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
         color: themeDefATitleBoxBcgColor,
+      ),
+      floatingLabelStyle: TextStyle(
+        color: themeDefBaseTextColor,
+        fontSize: 8.0,
+        backgroundColor: themeDefUnselectedColor
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(

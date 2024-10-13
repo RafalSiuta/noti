@@ -2,6 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import '../../utils/dimensions/size_info.dart';
+
 class CustomDialog {
   showDialog(context, title, child) => showModal(
       configuration: const FadeScaleTransitionConfiguration(
@@ -59,6 +61,7 @@ class CustomDial extends StatefulWidget {
 class _CustomDialState extends State<CustomDial> {
   @override
   Widget build(BuildContext context) {
+    var textSize = SizeInfo.headerSubtitleSize;
     return Dialog(
       backgroundColor: Colors.transparent,
       insetAnimationDuration: const Duration(milliseconds: 500),
@@ -73,14 +76,14 @@ class _CustomDialState extends State<CustomDial> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
+
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                padding: const EdgeInsets.all(8.0),
                 width: MediaQuery.of(context).size.width,
-                height: 60,
+                height: textSize * 3,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(15),
@@ -89,27 +92,33 @@ class _CustomDialState extends State<CustomDial> {
                 child: Center(
                   child: Text(
                     widget.title!,
-                    style: Theme.of(context).dialogTheme.titleTextStyle,
+                    style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                   ),
                 ),
               ),
               Flexible(
-                  child: widget.child!),
-              const SizedBox(height: 5.0,),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Visibility(
-                    visible: widget.isBtnVisible,
-                    child: Text(
-                      'Ok',
-                      style: Theme.of(context)
-                          .dialogTheme
-                          .contentTextStyle!
-                          .copyWith(fontSize: 18),
-                    ),
-                  ))
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    child: widget.child!,
+                  )),
+             // const SizedBox(height: 5.0,),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Visibility(
+                      visible: widget.isBtnVisible,
+                      child: Text(
+                        'Ok',
+                        style: Theme.of(context)
+                            .dialogTheme
+                            .contentTextStyle!
+                            .copyWith(fontSize: textSize),
+                      ),
+                    )),
+              )
             ],
           )),
     );

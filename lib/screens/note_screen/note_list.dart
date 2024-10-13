@@ -19,6 +19,7 @@ class NoteList extends StatelessWidget {
       builder: (context, noteProvider, child) {
         var columnCount = SizeInfo.gridColumnCount;
         var scaleCard = SizeInfo.scaleCard;
+        var  bottomSpacing = SizeInfo.noteListBottomSpacing;
         int counter = isGrid
             ? noteProvider.noteListByKeywordCounter
             : noteProvider.noteListCounter;
@@ -31,7 +32,7 @@ class NoteList extends StatelessWidget {
           );
         } else {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: bottomSpacing ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

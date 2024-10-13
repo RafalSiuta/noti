@@ -18,6 +18,7 @@ class ThemeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SettingsProvider>(
         builder: (context, settingsProvider, child) {
+          var headerHeight = SizeInfo.sliverHeaderHeight;
       var mediaQuery = MediaQuery.of(context);
       var sizeInfo = SizeInfo(
           screenType: getScreenType(mediaQuery), screenSize: mediaQuery.size);
@@ -34,8 +35,8 @@ class ThemeScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: 42,
-                    minHeight: 40,
+                    maxHeight: headerHeight,
+                    minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Shapes',
                     ))),
@@ -49,8 +50,8 @@ class ThemeScreen extends StatelessWidget {
               pinned: true,
               delegate: SliverHeader(
                   paddingHorizontal: 8.0,
-                  maxHeight: 42,
-                  minHeight: 40,
+                  maxHeight: headerHeight,
+                  minHeight: headerHeight - 2,
                   child: const SmallHeader(
                     title: 'Themes',
                   ))),

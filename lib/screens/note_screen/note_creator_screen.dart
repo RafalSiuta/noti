@@ -29,11 +29,30 @@ class NoteCreator extends StatefulWidget {
 
 class _NoteCreatorState extends State<NoteCreator>
     with TickerProviderStateMixin {
+
+  var topMargin = SizeInfo.menuTopMargin;//SizeInfo.topMargin;
+  var titleTextSize = SizeInfo.headerSubtitleSize;
+  var helperTextSize = SizeInfo.helpTextSize;
+  var navIconSize = SizeInfo.leadingAndTrailingIconSize;
+  var verticalPadding = SizeInfo.verticalTextPadding;
+  var descriptionFontSize = SizeInfo.taskCreatorDescription;
+  int maxTitleLength = 30;
+  int maxSubtitleLength = 30;
+  int maxDescriptionLength = 4000;
+  double inputHeight = 50;
+  var leftEdgePadding = SizeInfo.edgePadding;
+
+  var leftPadding = SizeInfo.edgePadding;
+
+  var dialogScale = SizeInfo.dialogScaleFactor;
+
+  var iconListCrossCount = SizeInfo.iconDialogListCrossAxisCount;
+
   bool editTextEnable = false;
   bool keepInMind = true;
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
-  DateTime currentDate = DateTime.now();
+  //DateTime currentDate = DateTime.now();
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController subtitleVal = TextEditingController();
@@ -61,8 +80,41 @@ class _NoteCreatorState extends State<NoteCreator>
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+  void currentDate(DateTime date,){
+    setState(() {
+      widget.newNote.date = DateTime(date.year,date.month,date.day);
+     // dateVal.text = DateFormat('dd MMM yy').format(widget.newNote.date);
+    });
+  }
+
+  _pickDate(BuildContext context) async {
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: widget.newNote.date,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2070),initialEntryMode: DatePickerEntryMode.calendarOnly,
+      locale: const Locale('pl'), useRootNavigator:false,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: dialogScale,
+          child: child,
+        );
+      },
+
+    );
+    if (picked != null && picked != widget.newNote.date) {
+      setState(() {
+        //TimeOfDay time = TimeOfDay(hour: widget.newNote.date.hour, minute: widget.newNote.date.minute);
+        currentDate(picked);
+
+      });
+    }
+  }
+
 
   IconData pickedIcon = Icons.circle;
+  String pickedIconText = "";
 
   _pickIcon(BuildContext context) {
     showDialog(
@@ -70,26 +122,26 @@ class _NoteCreatorState extends State<NoteCreator>
         builder: (context) {
           return
           StatefulBuilder(builder: (ctx,setDialCtx){
-            var switchIconSize = SizeInfo.dialogIconSize;
+
             return CustomDial(
                 title: 'Note icon',
                 child: Container(
                   constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                 // padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: GridView.count(
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
                     crossAxisSpacing: 0.0,
                     shrinkWrap: true,
                     mainAxisSpacing: 0.0,
-                    crossAxisCount: 5,
+                    crossAxisCount: iconListCrossCount,
                     children: List.generate(
                       categoryIcons.iconsList.length,
                           (index) =>
                               IconButtonWithText(
                               iconData: categoryIcons.iconsList[index].icon,
                               iconName: categoryIcons.iconsList[index].name,
-                              iconSize: switchIconSize,
+                              iconSize: navIconSize,
                               value: widget.newNote.icon == categoryIcons.iconsList[index].id! ? true : false,
                               onChanged: (val) {
                                 setState(() {
@@ -97,7 +149,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                     //widget.newNote.icon = index;
 
                                     widget.newNote.icon = categoryIcons.iconsList[index].id!;
-                                    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon);
+                                    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon).icon;
+                                    pickedIconText = categoryIcons.getPickedIcon(widget.newNote.icon).name;
                                   });
 
                                 });
@@ -130,39 +183,42 @@ class _NoteCreatorState extends State<NoteCreator>
 
   setImage(Uint8List img) {
     setState(() {
-      // img.file.then((value) {
-      //   if (value != null) {
-      //      return widget.newNote.image = value.readAsBytesSync();
-      //   }
-      // });
       widget.newNote.image = img;
     });
   }
 
   List<NavModel> noteNavTitles = [
-    // NavModel(
-    //   icon: FontAwesomeIcons.list,
-    // ),
     NavModel(
       icon: Icons.save,
+        title: 'save'
     ),
     NavModel(
       icon: Icons.edit,
+        title: 'edit text'
     ),
     NavModel(
-      icon: Icons.image,
+        icon: Icons.calendar_month,
+        title: 'set date'
+    ),
+    NavModel(
+      icon: Icons.add_photo_alternate_outlined,
+        title: 'add image'
     ),
     NavModel(
       icon: Icons.delete,
+        title: 'delete note'
     ),
     NavModel(
       icon: Icons.arrow_back,
+        title: 'back'
     ),
   ];
 
   @override
   void initState() {
-    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon);
+    currentDate(widget.newNote.date);
+    pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon).icon;
+    pickedIconText = categoryIcons.getPickedIcon(widget.newNote.icon).name;
     selectedCategory = widget.newNote.fk!;
     _menuSlideInController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
@@ -171,6 +227,7 @@ class _NoteCreatorState extends State<NoteCreator>
         Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
             CurvedAnimation(
                 parent: _menuSlideInController!, curve: Curves.ease));
+
     editTextEnable = widget.editEnable;
     titleVal.text = widget.newNote.title;
     subtitleVal.text = widget.newNote.subtitle;
@@ -193,16 +250,6 @@ class _NoteCreatorState extends State<NoteCreator>
 
   @override
   Widget build(BuildContext context) {
-    var topMargin = SizeInfo.topMargin;
-    var titleTextSize = SizeInfo.headerSubtitleSize;
-    var helperTextSize = SizeInfo.helpTextSize;
-    var navIconSize = SizeInfo.leadingAndTrailingIconSize;
-    var verticalPadding = SizeInfo.verticalTextPadding;
-    var descriptionFontSize = SizeInfo.taskCreatorDescription;
-    int maxTitleLength = 30;
-    int maxSubtitleLength = 30;
-    int maxDescriptionLength = 4000;
-    double inputHeight = 50;
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -228,7 +275,7 @@ class _NoteCreatorState extends State<NoteCreator>
                         collapsedHeight: 100,
                         expandedHeight: 110,
                         flexibleSpace: Padding(
-                          padding: EdgeInsets.only(top: topMargin, right: 8.0),
+                          padding: EdgeInsets.only(top: topMargin, right: leftPadding),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: IntrinsicHeight(
@@ -247,29 +294,52 @@ class _NoteCreatorState extends State<NoteCreator>
                                       ),
                                     ),
                                     children: [
-                                      IconButton(
-                                        padding: const EdgeInsets.all(.0),
-                                        icon: Icon(
-                                          pickedIcon,
-                                          // categoryIcons.iconsList[
-                                          //     widget.newNote.icon ?? 1].icon,
-                                          size: navIconSize,
-                                          color: Theme.of(context).indicatorColor,
-                                        ),
-                                        onPressed: () {
-                                          _pickIcon(context);
-                                        },
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.only(
+                                                bottom: .0),
+                                            icon: Icon(
+                                              pickedIcon,
+                                              size: navIconSize,
+                                            ),
+                                            onPressed: () {
+                                              _pickIcon(context);
+
+                                            },
+                                          ),
+                                          Text(pickedIconText,textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor, ),)
+                                        ],
                                       ),
                                       const VerticalDivider(),
-                                      Text(
-                                        DateFormat('dd MMM yy')
-                                            .format(widget.newNote.date),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: descriptionFontSize),
+                                      TextButton(
+                                        onPressed: () {
+                                          _pickDate(context);
+                                        },
+                                        child: Text(
+                                          DateFormat('dd MMM yy')
+                                              .format(widget.newNote.date),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                              fontSize:
+                                              descriptionFontSize),
+                                        ),
                                       ),
+                                      // Text(
+                                      //   DateFormat('dd MMM yy')
+                                      //       .format(widget.newNote.date),
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .headlineMedium!
+                                      //       .copyWith(
+                                      //           fontSize: descriptionFontSize),
+                                      // ),
                                       const VerticalDivider(),
                                       Padding(
                                         padding: const EdgeInsets.only(right: 24),
@@ -278,14 +348,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                               MainAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Text(
-                                              'On dash',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium!
-                                                  .copyWith(
-                                                      fontSize: helperTextSize),
-                                            ),
+
                                             Switch(
                                                 value: widget.newNote.keep,
                                                 onChanged: (value) {
@@ -293,6 +356,14 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     widget.newNote.keep = value;
                                                   });
                                                 }),
+                                            Text(
+                                              'On dash',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium!
+                                                  .copyWith(
+                                                  fontSize: helperTextSize),
+                                            ),
                                           ],
                                         ),
                                       )
@@ -303,7 +374,7 @@ class _NoteCreatorState extends State<NoteCreator>
                         ),
                       ),
                       SliverPadding(
-                        padding: const EdgeInsets.only(left: 12.0),
+                        padding:EdgeInsets.only(left: leftEdgePadding),
                         sliver: SliverList(
                           delegate: SliverChildListDelegate([
                             // SizedBox(
@@ -470,12 +541,14 @@ class _NoteCreatorState extends State<NoteCreator>
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: verticalPadding,
+                            ),
                             widget.newNote.image != null &&
                                     widget.newNote.image!.isNotEmpty
                                 ? ImageCard(
                                     img: widget.newNote.image!,
                                     width: 100,
-                                    height: 130,
                                     onTap: () {
                                       _bottomDrawer(context);
                                     },
@@ -511,21 +584,27 @@ class _NoteCreatorState extends State<NoteCreator>
                             break;
                           case 1:
                             editText();
-                            //_bottomDrawer(context);
                             break;
                           case 2:
-                            _bottomDrawer(context);
+
+                            _pickDate(context);
+
                             break;
                           case 3:
-                            noteProvider.deleteNote(widget.newNote);
-                            Navigator.pop(context, true);
+                            _bottomDrawer(context);
+
                             break;
                           case 4:
+                            noteProvider.deleteNote(widget.newNote);
+                            Navigator.pop(context, true);
+
+
+                            break;
+                          case 5:
                             setState(() {
                               editTextEnable = false;
                             });
                             Navigator.pop(context, true);
-
                             break;
                         }
                       });

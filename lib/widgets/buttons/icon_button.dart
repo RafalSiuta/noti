@@ -49,7 +49,7 @@ class IconButtonWithText extends StatelessWidget {
             const SizedBox(height: 5,),
             Text(iconName, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: selectedColor,
-                fontSize: iconSize - 4
+                fontSize: iconSize * 0.5
             ),)
           ],
         ));

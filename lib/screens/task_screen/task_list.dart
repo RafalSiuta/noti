@@ -32,7 +32,7 @@ class TaskList extends StatelessWidget {
           return SingleChildScrollView(
             child: Padding(
               padding:
-                  EdgeInsets.symmetric(horizontal: edgePadding, vertical: 10),
+                  EdgeInsets.only(left: edgePadding, top: 10, bottom: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

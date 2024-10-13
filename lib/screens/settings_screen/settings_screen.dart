@@ -70,13 +70,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var navIconSize = SizeInfo.leadingAndTrailingIconSize;
+
     return Scaffold(
         key: widget.key,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Consumer<SettingsProvider>(
           builder: (context, settingsProvider, child) {
+            var navIconSize = SizeInfo.leadingAndTrailingIconSize;
+            var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
             return Theme(
               data: settingsProvider.getTheme(),
               child: Stack(
@@ -89,20 +91,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                              child: Center(
-                                  child: PageView.builder(
-                                      physics: const BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _pages.length,
-                                      controller: _pageController,
-                                      onPageChanged: onPageChange,
-                                      itemBuilder: (context, index) {
-                                        return _pages
-                                            .map((e) => e.page!)
-                                            .toList()
-                                            .elementAt(index);
-                                      }))),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: leftEdgePadding ),
+                                child: Center(
+                                    child: PageView.builder(
+                                        physics: const BouncingScrollPhysics(
+                                            parent:
+                                                AlwaysScrollableScrollPhysics()),
+                                        itemCount: _pages.length,
+                                        controller: _pageController,
+                                        onPageChanged: onPageChange,
+                                        itemBuilder: (context, index) {
+                                          return _pages
+                                              .map((e) => e.page!)
+                                              .toList()
+                                              .elementAt(index);
+                                        })),
+                              )),
                           SideNav(
                             key: widget.key,
                             leading: IconButton(

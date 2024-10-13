@@ -91,12 +91,18 @@ class ImageCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(cornerRadius - 1)),
-          child: Image.memory(
-            img,
-            fit: BoxFit.cover,
+          child: SizedBox(
             width: width,
-            height: height,
-            filterQuality: FilterQuality.high,
+            child: AspectRatio(
+              aspectRatio: 3/5,
+              child: Image.memory(
+                img,
+                fit: BoxFit.cover,
+                // width: width,
+                // height: height,
+                filterQuality: FilterQuality.high,
+              ),
+            ),
           ),
         ),
       ),

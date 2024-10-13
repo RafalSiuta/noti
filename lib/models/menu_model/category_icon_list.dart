@@ -4,13 +4,22 @@ import 'package:noti/models/menu_model/category_icon_model.dart';
 class CategoryIconsList {
 
 
-  IconData pickedIcon = Icons.circle;
-
-  IconData getPickedIcon(int id){
-    IconData pickedIcon = Icons.circle;
+  CategoryIconModel getPickedIcon(int id){
+   // IconData pickedIcon = Icons.circle;
+    CategoryIconModel pickedIcon = CategoryIconModel(
+      icon: Icons.circle,
+      name: "",
+      category: "",
+    );
     for(var ico in iconsList){
       if(id == ico.id){
-        pickedIcon = ico.icon;
+       // pickedIcon = ico.icon;
+        pickedIcon = CategoryIconModel(
+          id: ico.id,
+          icon: ico.icon,
+          name: ico.name,
+          category: ico.category,
+        );
       }
     }
     return pickedIcon;

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:noti/utils/dimensions/screen_type.dart';
 
@@ -25,6 +26,11 @@ class SizeInfo {
   static double headerTitleSize = 32;
   static double headerSubtitleSize = 18;
   static double verticalHeaderPadding = 10;
+  static double leftEdgeMainPadding = .0;
+  ///search bar and headers:
+  static double searchBarHeight = 40;
+  static double searchIconSize = 18;
+  static double sliverHeaderHeight = 42;
 
   static double helpTextSize = 8.0;
 
@@ -49,18 +55,21 @@ class SizeInfo {
 
   static double leftEdgePadding = 12;
 
+  static double taskMarginRadius = 8.0;
+
+  static double taskRingLineWidth = 2.5;
+  static double taskContentPadding = 0.0;
+
+
   ///note dimens:
   static double noteCardImageSize = 50;
   static double noteCardTitle = 12;
   static double noteCardContent = 7.0;
   static double noteLeftPadding = 16;
-  static double scaleCard = 0.8;
+  static double scaleCard = 0.9;
   static double verticalTextPadding = 12.0;
   static double cameraIconButtonSize = 35;
-
-  ///search bar:
-  static double searchBarHeight = 40;
-  static double searchIconSize = 18;
+  static double noteListBottomSpacing = 8.0;
 
   ///calendar dimens:
   static double calendarDaySize = 12;
@@ -78,9 +87,14 @@ class SizeInfo {
   ///carousel height:
   static double carouselHeight = 4;
 
+  //dialog dimens:
+  static double dialogScaleFactor = 1.0;
+  static int iconDialogListCrossAxisCount = 4;
+
   void initDimensions() {
     print('DIMENSIONS INITIALIZED');
-    if (screenType == ScreenType.smallMobile) {}
+    if (screenType == ScreenType.smallMobile) {
+    }
     if (screenType == ScreenType.tablet) {
       tabletDimens();
     }
@@ -89,9 +103,16 @@ class SizeInfo {
     }
   }
 
+  void mobileDimens(){
+  }
+
   void tabletDimens() {
+
+    fabSize = 60.0;
+
     edgePadding = 12.0;
-    taskCardHeight = 100;
+    leftEdgeMainPadding  = 16;
+
     gridColumnCount = 3;
     calendarDaySize = 23;
     smallIndicatorIconSize = 15;
@@ -103,13 +124,16 @@ class SizeInfo {
     socialIcons = 23;
 
     ///nav rail:
-    leadingAndTrailingIconSize = 40;
+    leadingAndTrailingIconSize = 24;
+
     navSideTitleSize = 32;
 
     ///headers:
+    ///
     headerTitleSize = 42;
     headerSubtitleSize = 32;
     verticalHeaderPadding = 16;
+    sliverHeaderHeight = 60;
 
     ///calendar
     rowHeight = 72;
@@ -119,18 +143,23 @@ class SizeInfo {
     switchButtonIconSize = 23;
 
     ///task card:
+    taskCardHeight = 132;
     taskCardTitle = 23.0;
     taskCardDescription = 18;
     taskCreatorTitle = 32;
     taskCreatorDescription = 23;
+    taskMarginRadius = 16;
+    taskRingLineWidth = 5.0;
+    taskContentPadding = 5.0;
 
     ///note card:
     noteCardTitle = 18;
     noteCardContent = 15;
     noteLeftPadding = 27;
-    scaleCard = 0.9;
+    scaleCard = 1;
     verticalTextPadding = 15;
     cameraIconButtonSize = 52;
+    noteListBottomSpacing = 24;
 
     ///search bar
     searchBarHeight = 72;
@@ -144,5 +173,10 @@ class SizeInfo {
 
     ///carousel:
     carouselHeight = 3;
+
+    //dialog dimns:
+    dialogIconSize = 24.0;
+    dialogScaleFactor = 1.5;
+    iconDialogListCrossAxisCount = 5;
   }
 }

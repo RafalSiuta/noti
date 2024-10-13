@@ -131,10 +131,12 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenTypeLayout(
       mobile: Consumer<HomeProvider>(
         builder: (context, homeProvider, child) {
           var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
+          var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -145,20 +147,23 @@ class _HomeScreenState extends State<HomeScreen>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      child: Center(
-                          key: widget.key,
-                          child: PageView.builder(
-                              physics: const BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: _pages.length,
-                              controller: _pageController,
-                              onPageChanged: _onPageChange,
-                              itemBuilder: (context, index) {
-                                return _pages
-                                    .map((e) => e.page!)
-                                    .toList()
-                                    .elementAt(index);
-                              })),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: leftEdgePadding),
+                        child: Center(
+                            key: widget.key,
+                            child: PageView.builder(
+                                physics: const BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: _pages.length,
+                                controller: _pageController,
+                                onPageChanged: _onPageChange,
+                                itemBuilder: (context, index) {
+                                  return _pages
+                                      .map((e) => e.page!)
+                                      .toList()
+                                      .elementAt(index);
+                                })),
+                      ),
                     ),
                     SideNav(
                       key: widget.key,
@@ -186,7 +191,6 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ]),
             floatingActionButton: CustomFab(
-              icon: Icons.person,
               translationValueOne: _degOneTranslationAnimation.value,
               translationValueTwo: _degTwoTranslationAnimation.value,
               rotationValue: _animationRotation.value,

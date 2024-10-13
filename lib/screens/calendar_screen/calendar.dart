@@ -15,7 +15,8 @@ import '../task_screen/task_creator_screen.dart';
 //todo convert this to separate widget 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
-  const Calendar({super.key, this.isHeaderVisible = true});
+  final double topSpacing;
+  const Calendar({super.key, this.isHeaderVisible = true, this.topSpacing = 3.0});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class Calendar extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Padding(
-              padding: const EdgeInsets.all(3.0),
+              padding:  EdgeInsets.only(top: topSpacing,left: 3.0,right: 3.0,bottom: 3.0),
               child: AnimationLimiter(
                 child: TableCalendar<Task>(
                   focusedDay: taskProvider.focDay,
