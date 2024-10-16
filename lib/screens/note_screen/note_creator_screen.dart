@@ -17,6 +17,7 @@ import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
 import '../../widgets/navigators/creator_nav.dart';
+import '../../widgets/tooltip/custom_text_toolbar.dart';
 
 class NoteCreator extends StatefulWidget {
   final Note newNote;
@@ -67,6 +68,22 @@ class _NoteCreatorState extends State<NoteCreator>
   int selectedIndex = 0;
 
   int selectedCategory = 0;
+
+  void cursorPlace(TextEditingController textVal, String newText){
+
+    // Pobierz aktualną pozycję kursora
+    final cursorPosition = textVal.selection.baseOffset;
+
+    // Ustaw tekst, ale bez zmiany pozycji kursora
+    textVal.text = newText;
+
+    // Ustawienie kursora na poprzedniej pozycji (chyba że pozycja kursora jest poza zakresem nowego tekstu)
+    textVal.selection = TextSelection.fromPosition(
+      TextPosition(
+        offset: cursorPosition <= newText.length ? cursorPosition : newText.length,
+      ),
+    );
+  }
 
   void editText() {
     setState(() {
@@ -391,6 +408,9 @@ class _NoteCreatorState extends State<NoteCreator>
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
                                   focusNode: titleNode,
+                                  contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                  },
                                   cursorWidth: 1,
                                   maxLines: 1,
                                   maxLength: maxTitleLength,
@@ -406,11 +426,12 @@ class _NoteCreatorState extends State<NoteCreator>
                                   onChanged: (newText) {
                                     setState(() {
                                       widget.newNote.title = newText;
-                                      titleVal.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                        offset: titleVal.text.length,
-                                      ));
+                                      // titleVal.selection =
+                                      //     TextSelection.fromPosition(
+                                      //         TextPosition(
+                                      //   offset: titleVal.text.length,
+                                      // ));
+                                      cursorPlace(titleVal,newText);
                                     });
                                   },
                                   cursorColor: Theme.of(context)
@@ -448,6 +469,9 @@ class _NoteCreatorState extends State<NoteCreator>
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
                                   focusNode: subtitleNode,
+                                  contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                  },
                                   cursorWidth: 1,
                                   maxLines: 1,
                                   maxLength: maxSubtitleLength,
@@ -463,11 +487,12 @@ class _NoteCreatorState extends State<NoteCreator>
                                   onChanged: (newText) {
                                     setState(() {
                                       widget.newNote.subtitle = newText;
-                                      subtitleVal.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                                  offset:
-                                                      subtitleVal.text.length));
+                                      cursorPlace(subtitleVal,newText);
+                                      // subtitleVal.selection =
+                                      //     TextSelection.fromPosition(
+                                      //         TextPosition(
+                                      //             offset:
+                                      //                 subtitleVal.text.length));
                                     });
                                   },
                                   cursorColor: Theme.of(context)
@@ -502,6 +527,9 @@ class _NoteCreatorState extends State<NoteCreator>
                                 maxLengthEnforcement:
                                     MaxLengthEnforcement.enforced,
                                 focusNode: descriptionNode,
+                                contextMenuBuilder: (context, editableTextState) {
+                                  return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                },
                                 cursorWidth: 1,
                                 maxLength: maxDescriptionLength,
                                 maxLines: null,
@@ -515,9 +543,10 @@ class _NoteCreatorState extends State<NoteCreator>
                                 onChanged: (newText) {
                                   setState(() {
                                     widget.newNote.description = newText;
-                                    descVal.selection =
-                                        TextSelection.fromPosition(TextPosition(
-                                            offset: descVal.text.length));
+                                    cursorPlace(descVal,newText);
+                                    // descVal.selection =
+                                    //     TextSelection.fromPosition(TextPosition(
+                                    //         offset: descVal.text.length));
                                   });
                                 },
                                 cursorColor: Theme.of(context)

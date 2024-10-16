@@ -143,7 +143,9 @@ final themeDefault = ThemeData(
       labelMedium: calendarWeekendTextStyle,
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionHandleColor: Colors.transparent,
+      selectionHandleColor: themeDefIndicatorColor,
+      selectionColor: themeDefUnselectedColor,
+
     ),
     dividerTheme: const DividerThemeData(
       color: themeDefAdividerColor,
@@ -352,6 +354,17 @@ final themeDefault = ThemeData(
       )
     ),
 
+menuButtonTheme: MenuButtonThemeData(
+  style: ButtonStyle(
+    backgroundColor: WidgetStateProperty.all(themeDefUnselectedColor),
+    textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
+      textStyle: const TextStyle(
+          color: themeDefBaseTextColor,
+          fontSize: 10,
+          fontWeight: FontWeight.w200),
+    ),)
+  )
+),
     inputDecorationTheme: const InputDecorationTheme(
       border: InputBorder.none,
 

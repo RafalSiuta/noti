@@ -13,6 +13,7 @@ import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
+import '../../widgets/tooltip/custom_text_toolbar.dart';
 
 class TaskCreator extends StatefulWidget {
   final Task newTask;
@@ -62,6 +63,22 @@ class _TaskCreatorState extends State<TaskCreator>
 
   FocusNode titleNode = FocusNode();
   FocusNode descriptionNode = FocusNode();
+
+  void cursorPlace(TextEditingController textVal, String newText){
+
+    // Pobierz aktualną pozycję kursora
+    final cursorPosition = textVal.selection.baseOffset;
+
+    // Ustaw tekst, ale bez zmiany pozycji kursora
+    textVal.text = newText;
+
+    // Ustawienie kursora na poprzedniej pozycji (chyba że pozycja kursora jest poza zakresem nowego tekstu)
+    textVal.selection = TextSelection.fromPosition(
+      TextPosition(
+        offset: cursorPosition <= newText.length ? cursorPosition : newText.length,
+      ),
+    );
+  }
 
   int selectedIndex = 0;
 
@@ -380,17 +397,115 @@ class _TaskCreatorState extends State<TaskCreator>
                                       height: inputHeight,
                                       child: TextField(
                                         maxLengthEnforcement:
-                                            MaxLengthEnforcement.enforced,
-
-                                        // contextMenuBuilder: (context, editableText){
-                                        //   return AdaptiveTextSelectionToolbar(children: [
-                                        //     ContextMenuButtonItem(
-                                        //         'copy',
-                                        //         onPressed: (){
+                                            MaxLengthEnforcement.truncateAfterCompositionEnds,
+                                        //textInputAction: TextInputAction.continueAction,
+                                        contextMenuBuilder: (context, editableTextState) {
+                                          return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                        },
+                                        // contextMenuBuilder: (context, editableTextState){
+                                        //   return TextSelectionToolbar(
+                                        //     anchorAbove: Offset(5.0,2.0),
+                                        //     anchorBelow: Offset(5.0,-2.0),
                                         //
-                                        //     }),
-                                        //   ], anchors: anchors);
+                                        //     // toolbarBuilder: (context,child){
+                                        //     //   return Container(
+                                        //     //     width: 250,
+                                        //     //     height: 50,
+                                        //     //     padding: EdgeInsets.all(5.0),
+                                        //     //     color: Colors.red,
+                                        //     //     child: Row(
+                                        //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        //     //       children: [
+                                        //     //         TextButton(
+                                        //     //           onPressed: () {
+                                        //     //             // Funkcja kopiowania zaznaczonego tekstu
+                                        //     //             editableTextState.copySelection(SelectionChangedCause.toolbar);
+                                        //     //           },
+                                        //     //           child: Text('copy', style: Theme.of(context).textTheme.bodyMedium),
+                                        //     //         ),
+                                        //     //         TextButton(
+                                        //     //           onPressed: () {
+                                        //     //             // Funkcja zaznaczania całego tekstu
+                                        //     //             editableTextState.selectAll(SelectionChangedCause.toolbar);
+                                        //     //           },
+                                        //     //           child: Text('select all', style: Theme.of(context).textTheme.bodyMedium),
+                                        //     //         ),
+                                        //     //         TextButton(
+                                        //     //           onPressed: () {
+                                        //     //             // Funkcja wklejania tekstu ze schowka
+                                        //     //             editableTextState.pasteText(SelectionChangedCause.toolbar);
+                                        //     //           },
+                                        //     //           child: Text('paste', style: Theme.of(context).textTheme.bodyMedium),
+                                        //     //         ),
+                                        //     //       ],
+                                        //     //     ),
+                                        //     //   );
+                                        //     // },
+                                        //     children:  [
+                                        //       TextSelectionToolbarTextButton(
+                                        //         padding: EdgeInsets.all(5.0),
+                                        //         child: Text('copy', style: Theme.of(context).textTheme.bodyMedium),
+                                        //         onPressed: (){
+                                        //           editableTextState.copySelection(SelectionChangedCause.toolbar);
+                                        //         },
+                                        //       ),
+                                        //       TextSelectionToolbarTextButton(
+                                        //         padding: EdgeInsets.all(5.0),
+                                        //         child: Text('select all', style: Theme.of(context).textTheme.bodyMedium),
+                                        //         onPressed: (){
+                                        //           editableTextState.selectAll(SelectionChangedCause.toolbar);
+                                        //         },
+                                        //       ),
+                                        //       TextSelectionToolbarTextButton(
+                                        //         padding: EdgeInsets.all(5.0),
+                                        //         child: Text('paste', style: Theme.of(context).textTheme.bodyMedium),
+                                        //         onPressed: (){
+                                        //           editableTextState.pasteText(SelectionChangedCause.toolbar);
+                                        //         },
+                                        //       ),
+                                        //     ],
+                                        //
+                                        //   );
                                         // },
+                                        //   AdaptiveTextSelectionToolbar.buttonItems(
+                                        //     anchors: editableTextState.contextMenuAnchors,
+                                        //     buttonItems: <ContextMenuButtonItem>[
+                                        //       ContextMenuButtonItem(
+                                        //         onPressed: () {
+                                        //           editableTextState.cutSelection(SelectionChangedCause.toolbar);
+                                        //         },
+                                        //         label: 'cut',
+                                        //         type: ContextMenuButtonType.cut,
+                                        //       ),
+                                        //       ContextMenuButtonItem(
+                                        //         onPressed: () {
+                                        //           editableTextState.cutSelection(SelectionChangedCause.toolbar);
+                                        //         },
+                                        //         label: 'copy',
+                                        //         type: ContextMenuButtonType.copy,
+                                        //       ),
+                                        //     ]
+                                        //
+                                        // );
+//     AdaptiveTextSelectionToolbar.getAdaptiveButtons(
+                                        //   context,
+                                        //   editableTextState.contextMenuButtonItems,
+                                        // ).map((button) {
+                                        //   // Wrap the button in a theme to modify the style
+                                        //   return Theme(
+                                        //     data: Theme.of(context).copyWith(
+                                        //       textTheme: TextTheme(
+                                        //         // Customize the style of the toolbar text
+                                        //         bodyMedium: TextStyle(
+                                        //           color: Colors.red, // Change text color
+                                        //           fontSize: 16,      // Change font size
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //     child: button,
+                                        //   );
+                                        // }).toList(),
+
                                         cursorWidth: 1,
                                         focusNode: titleNode,
                                         maxLines: 1,
@@ -408,11 +523,12 @@ class _TaskCreatorState extends State<TaskCreator>
                                         onChanged: (newText) {
                                           setState(() {
                                             widget.newTask.title = newText;
-                                            titleVal.selection =
-                                                TextSelection.fromPosition(
-                                                    TextPosition(
-                                                        offset: titleVal
-                                                            .text.length));
+                                            cursorPlace(titleVal,newText);
+                                            // titleVal.selection =
+                                            //     TextSelection.fromPosition(
+                                            //         TextPosition(
+                                            //             offset: titleVal
+                                            //                 .text.length));
                                           });
                                         },
                                         cursorColor: Theme.of(context)
@@ -465,6 +581,9 @@ class _TaskCreatorState extends State<TaskCreator>
                                       maxLengthEnforcement:
                                           MaxLengthEnforcement.enforced,
                                       focusNode: descriptionNode,
+                                      contextMenuBuilder: (context, editableTextState) {
+                                        return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                      },
                                       cursorWidth: 1,
                                       maxLength: maxDescriptionLength,
                                       maxLines: null,
@@ -476,11 +595,12 @@ class _TaskCreatorState extends State<TaskCreator>
                                         setState(() {
                                           widget.newTask.description =
                                               newText;
-                                          descVal.selection =
-                                              TextSelection.fromPosition(
-                                                  TextPosition(
-                                                      offset: descVal
-                                                          .text.length));
+                                          cursorPlace(descVal,newText);
+                                          // descVal.selection =
+                                          //     TextSelection.fromPosition(
+                                          //         TextPosition(
+                                          //             offset: descVal
+                                          //                 .text.length));
                                         });
                                       },
                                       cursorColor: Theme.of(context)
