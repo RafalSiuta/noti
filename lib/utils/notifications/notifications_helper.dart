@@ -1,116 +1,125 @@
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:timezone/data/latest.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
 //
 // final FlutterLocalNotificationsPlugin notifications =
 //     FlutterLocalNotificationsPlugin();
 //
-// class NotificationHelper {
-//   static final NotificationHelper _notificationService =
-//       NotificationHelper._internal();
+// class NotificationsHelper {
+//
+//   static final NotificationsHelper _notificationService =
+//   NotificationsHelper._internal();
 //
 //   bool isSound = true;
 //
-//   factory NotificationHelper() {
+//   factory NotificationsHelper() {
 //     return _notificationService;
 //   }
 //
-//   NotificationHelper._internal();
+//   NotificationsHelper._internal();
 //
 //   Future<void> init() async {
-//     final launchDetails = await notifications.getNotificationAppLaunchDetails();
-//     if (launchDetails != null && launchDetails.didNotificationLaunchApp) {
-//       selectNotification(launchDetails.payload);
-//     }
 //
-//     const AndroidInitializationSettings initializationSettingsAndroid =
-//         AndroidInitializationSettings("@mipmap/ic_launcher");
-//
-//     final IOSInitializationSettings initializationSettingsIOS =
-//         IOSInitializationSettings(
-//             requestAlertPermission: true,
-//             requestBadgePermission: true,
-//             requestSoundPermission: true,
-//             onDidReceiveLocalNotification: (int id, String? title, String? body,
-//                 String? payload) async {});
-//
-//     final InitializationSettings initializationSettings =
-//         InitializationSettings(
-//             android: initializationSettingsAndroid,
-//             iOS: initializationSettingsIOS,
-//             macOS: null);
-//
-//     tz.initializeTimeZones();
-//
-//     await notifications.initialize(initializationSettings,
-//         onSelectNotification: selectNotification);
 //   }
 //
-//   Future selectNotification(payload) async {}
-//   Future<void> showNotification() {
-//     AndroidNotificationDetails androidPlatformChannelSpecifics =
-//         AndroidNotificationDetails(
-//       'channel id 1',
-//       'Noti',
-//       'Task notification',
-//       icon: '@mipmap/ic_launcher',
-//       playSound: isSound,
-//       // autoCancel: true,
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       sound: const RawResourceAndroidNotificationSound('sound'),
-//       largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-//     );
-//     //ios
-//     const iOSPlatformChannelSpecifics = IOSNotificationDetails(
-//         sound: 'sound.wav',
-//         presentAlert: true,
-//         presentBadge: true,
-//         presentSound: true);
-//     //platform
-//     NotificationDetails platformChannelSpecifics = NotificationDetails(
-//         android: androidPlatformChannelSpecifics,
-//         iOS: iOSPlatformChannelSpecifics);
-//     return notifications.show(1, 'Test notification', "Testing notification",
-//         platformChannelSpecifics);
-//   }
 //
-//   Future<void> addSchedule(Task task, DateTime date) async {
-//     var currentDateTime = tz.TZDateTime.from(
-//             DateTime(date.year, date.month, date.day, date.hour, date.minute),
-//             tz.local)
-//         .add(const Duration(seconds: 10));
-//     task.id ??= 1000234556 + 1;
-//
-//     //android
-//     AndroidNotificationDetails androidPlatformChannelSpecifics =
-//         AndroidNotificationDetails(
-//       'channel id 5',
-//       'Noti',
-//       'Task notification',
-//       icon: '@mipmap/ic_launcher',
-//       playSound: isSound,
-//       autoCancel: true,
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       sound: const RawResourceAndroidNotificationSound('sound'),
-//       largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-//     );
-//     //ios
-//     IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
-//         sound: 'sound.mp3',
-//         presentAlert: isSound,
-//         presentBadge: true,
-//         presentSound: true);
-//     //platform
-//     NotificationDetails platformChannelSpecifics = NotificationDetails(
-//         android: androidPlatformChannelSpecifics,
-//         iOS: iOSPlatformChannelSpecifics);
-//
-//     await notifications.zonedSchedule(task.id!, task.title, task.description,
-//         currentDateTime, platformChannelSpecifics,
-//         androidAllowWhileIdle: true,
-//         uiLocalNotificationDateInterpretation:
-//             UILocalNotificationDateInterpretation.wallClockTime);
-//   }
 // }
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
+
+import '../../models/db_model/task.dart';
+
+final FlutterLocalNotificationsPlugin notifications = FlutterLocalNotificationsPlugin();
+
+class NotificationsHelper {
+  static final NotificationsHelper _notificationService = NotificationsHelper._internal();
+
+  factory NotificationsHelper() {
+    return _notificationService;
+  }
+
+  NotificationsHelper._internal();
+
+  Future<void> init() async {
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher'); // Ikona aplikacji
+
+    final InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+
+    // Inicjalizacja powiadomień
+    await notifications.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
+        // Logika po kliknięciu powiadomienia
+        selectNotification(notificationResponse.payload);
+      },
+    );
+    //await requestNotificationPermissions();
+    // Inicjalizacja timezone dla powiadomień
+    tz.initializeTimeZones();
+  }
+
+  Future<void> scheduleNotification(Task task, DateTime scheduledDate) async {
+    print('Scheduling notification for task: ${task.title} at $scheduledDate');
+    int notificationId = task.id.hashCode;
+    await notifications.zonedSchedule(
+      notificationId, // Użyj ID zadania jako ID powiadomienia //ERROR: The argument type 'String' can't be assigned to the parameter type 'int'
+      task.title, // Tytuł powiadomienia (np. tytuł zadania)
+      task.description, // Treść powiadomienia (np. opis zadania)
+      tz.TZDateTime.from(scheduledDate, tz.local), // Konwersja daty do lokalnej strefy czasowej
+       NotificationDetails(
+        android: AndroidNotificationDetails(
+          'noti_channel', // Kanał powiadomień
+          'Task Notifications', // Nazwa kanału
+          channelDescription: 'This channel is used for task notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+            //dodać dźwięk
+            sound: isSoundOn == true ? RawResourceAndroidNotificationSound('sound') : null,
+        ),
+      ),
+      androidAllowWhileIdle: true, // depricated
+       // Pozwolenie na wyświetlanie w trybie uśpienia //DEPRICATED
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time, // Dopasowanie do dokładnego czasu
+    );
+  }
+
+  Future<void> cancelNotification(int taskId) async {
+    await notifications.cancel(taskId); // Anulowanie powiadomienia
+  }
+
+  Future<void> selectNotification(String? payload) async {
+    // Logika po kliknięciu powiadomienia (opcjonalnie)
+    print('Notification clicked with payload: $payload');
+  }
+
+  bool isSoundOn = false;
+  Future<void> requestNotificationSound(bool isOn) async {
+    //dodaj zapytanie o zgode na dźwięk
+
+    isSoundOn = isOn;
+    print('NOTIFICATION HELPER SOUND $isSoundOn');
+  }
+
+  Future<void> requestNotificationPermissions() async {
+    // Sprawdzanie i proszenie o uprawnienia do powiadomień na Androidzie 13+
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
+  }
+
+  Future<void> denyNotificationPermissions() async {
+    // Sprawdzanie i proszenie o uprawnienia do powiadomień na Androidzie 13+
+    //jak cofnąć pozwolenie?
+    await openAppSettings();
+  }
+
+  // Anulowanie wszystkich powiadomień
+  Future<void> cancelAllNotifications() async {
+    //odwołuje użytkownika do ustawień tel.
+    await notifications.cancelAll();
+  }
+}

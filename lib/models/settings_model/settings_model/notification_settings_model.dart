@@ -8,11 +8,11 @@ class NotificationSettings {
     SettingsModel(
         title: "Notifications",
         description: "Turn on/off notifications",
-        isOn: true),
+        isOn: false),
     SettingsModel(
         title: "Notification sound",
         description: "Turn on/off notification sound",
-        isOn: true),
+        isOn: false),
   ];
 
   UnmodifiableListView<SettingsModel> get notificationSettingsList {

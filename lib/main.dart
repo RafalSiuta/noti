@@ -10,6 +10,7 @@ import 'package:noti/providers/task_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
+import 'package:noti/utils/notifications/notifications_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -19,7 +20,7 @@ import 'database/database_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.databaseHelper.initializeHive();
-  //await NotificationHelper().init();
+  await NotificationsHelper().init();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);

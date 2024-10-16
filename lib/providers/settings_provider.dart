@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../models/settings_model/trash_settings_model/trash_settings_list.dart';
 import '../models/theme_model/shapes_list.dart';
 import '../models/theme_model/themes_list.dart';
 import '../styles/shapes/shape_paths/shape1.dart';
+import '../utils/notifications/notifications_helper.dart';
 import '../utils/prefs/prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
@@ -39,7 +41,8 @@ class SettingsProvider extends ChangeNotifier {
     )
   ];
 
-  bool isNotification = true;
+  bool isNotification = false;
+  bool isSoundOn = false;
   bool isThemeChangeMonthly = false;
   bool isNotificationSound = true;
   bool isShapeTransparent = false;
@@ -296,11 +299,45 @@ class SettingsProvider extends ChangeNotifier {
   //notification settings option
   NotificationSettings notificationSets = NotificationSettings();
 
-  onNotificationSettingsChange(SettingsModel sets) {
+  onNotificationSettingsChange(SettingsModel sets) async{
     sets.onChange();
     _prefs.storeList(
         'notificationSettings', notificationSets.notificationSettings);
+
+    if (sets.isOn == true) {
+      isNotification = true;
+      // Jeśli użytkownik włączył powiadomienia, poproś o uprawnienia
+      await NotificationsHelper().requestNotificationPermissions();
+    } else {
+      isNotification = false;
+      // Możesz również anulować wszystkie powiadomienia, jeśli wyłączono
+      NotificationsHelper().cancelAllNotifications();
+      //await NotificationsHelper().denyNotificationPermissions();
+    }
     notifyListeners();
+  }
+
+  onNotificationSound(SettingsModel sets){
+    sets.onChange();
+    _prefs.storeList(
+        'notificationSettings', notificationSets.notificationSettings);
+
+    if(sets.isOn == true){
+      NotificationsHelper().requestNotificationSound(sets.isOn!);
+      playSound();
+    }
+    notifyListeners();
+  }
+
+  Future<void> playSound() async {
+    try {
+      // Ścieżka do pliku dźwiękowego w folderze assets
+      //await audioPlayer.play(AssetSource('sounds/my_sound.wav'));
+      final player = AudioPlayer();
+      await player.play(AssetSource('sounds/sound.wav'));
+    } catch (e) {
+      print("Błąd podczas odtwarzania dźwięku: $e");
+    }
   }
 
   updateNotificationSettings() async {
@@ -309,7 +346,7 @@ class SettingsProvider extends ChangeNotifier {
             'notificationSettings', notificationSets.notificationSettings)
         .then((value) {
       isNotification = value[0].isOn!;
-     // NotificationHelper().isSound = value[1].isOn!;
+      isSoundOn = value[1].isOn!;
       return value;
     });
   }

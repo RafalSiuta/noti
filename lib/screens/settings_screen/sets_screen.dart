@@ -91,8 +91,13 @@ class SetsScreen extends StatelessWidget {
                           iconSize: switchIconSize,
                           value: notificationSettings.isOn,
                           onChanged: (val) {
-                            settingsProvider.onNotificationSettingsChange(
-                                notificationSettings);
+                            if(index == 0){
+                              settingsProvider.onNotificationSettingsChange(
+                                  notificationSettings);
+                            }else{
+                              settingsProvider.onNotificationSound(notificationSettings);
+                            }
+
                           }),
                     );
                   },
