@@ -60,6 +60,7 @@ dependencies:
   hive_flutter: ^1.1.0
   uuid: ^4.4.2 #import 'package:uuid/uuid.dart';
   audioplayers: ^6.1.0
+  #package_info_plus: ^7.0.0 #import 'package:package_info_plus/package_info_plus.dart';
 
 
 

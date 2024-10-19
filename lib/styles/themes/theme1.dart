@@ -150,7 +150,9 @@ final theme1 = ThemeData(
       labelMedium: theme_1calendarWeekendTextStyle,
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionHandleColor: Colors.transparent,
+      selectionHandleColor: theme_1indicatorColor,
+      selectionColor: theme_1unselectedColor,
+      cursorColor: theme_1indicatorColor,
     ),
     dividerTheme: const DividerThemeData(
       color: theme_1dividerColor,

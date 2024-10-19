@@ -145,7 +145,7 @@ final themeDefault = ThemeData(
     textSelectionTheme: const TextSelectionThemeData(
       selectionHandleColor: themeDefIndicatorColor,
       selectionColor: themeDefUnselectedColor,
-
+      cursorColor: themeDefIndicatorColor,
     ),
     dividerTheme: const DividerThemeData(
       color: themeDefAdividerColor,
