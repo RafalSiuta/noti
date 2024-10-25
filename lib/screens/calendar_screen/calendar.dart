@@ -172,7 +172,7 @@ class Calendar extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayLarge!
-                                          .copyWith(fontSize: markerFontSize)),
+                                          .copyWith(fontSize: markerFontSize,color: Theme.of(context).colorScheme.primary,)),
                                 ),
                               ))
                           : const Positioned(
@@ -263,8 +263,8 @@ class Calendar extends StatelessWidget {
                         .copyWith(fontSize: headerFontSize),
                     formatButtonTextStyle: Theme.of(context)
                         .textTheme
-                        .headlineMedium!
-                        .copyWith(fontSize: calendarButtonFontSize),
+                        .displayLarge!
+                        .copyWith(fontSize: calendarButtonFontSize,color: Theme.of(context).colorScheme.primary,),
                   ),
                   daysOfWeekStyle: DaysOfWeekStyle(
                     weekdayStyle: Theme.of(context)

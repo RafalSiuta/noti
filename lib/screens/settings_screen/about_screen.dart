@@ -4,6 +4,7 @@ import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/app_icon_card.dart';
 import '../../widgets/cards/socials_bar.dart';
+import '../policy_screen/policy_screen.dart';
 import 'licence_screen.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -33,11 +34,11 @@ class AboutScreen extends StatelessWidget {
          //  ),
           TextButton.icon(
             onPressed: () async {
-              // await Navigator.push(
-              //     context,
-              //     CustomPageRoute(
-              //         child: const LicenceScreen(),
-              //         direction: AxisDirection.up));
+              await Navigator.push(
+                  context,
+                  CustomPageRoute(
+                      child: const PolicyScreen(),
+                      direction: AxisDirection.up));
             },
             icon: Icon(
               Icons.copyright,

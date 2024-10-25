@@ -17,9 +17,9 @@ class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin
   TextEditingController keywordVal = TextEditingController();
 
   late AnimationController _controller;
-  late AnimationController _controllerForSlide;
+ // late AnimationController _controllerForSlide;
   late AnimationController _controllerForScale;
-  late Animation<Offset> _slideAnim;
+  //late Animation<Offset> _slideAnim;
   late Animation<double> _fadeAnim;
   late Animation<double> _scaleAnim;
 
@@ -34,8 +34,8 @@ class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin
     _controller = AnimationController(
         vsync: this, duration: headerDuration);
 
-    _controllerForSlide = AnimationController(
-        vsync: this, duration: headerDuration);
+    // _controllerForSlide = AnimationController(
+    //     vsync: this, duration: headerDuration);
 
     _controllerForScale = AnimationController(
         vsync: this, duration: headerDuration);
@@ -46,16 +46,16 @@ class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin
     _scaleAnim = Tween<double>(begin: scaleStartValue, end: 1).animate(
         CurvedAnimation(parent: _controllerForScale, curve: Curves.easeInBack));
 
-    _slideAnim = Tween<Offset>(begin: const Offset(-slideStartValue, 0), end: Offset.zero)
-        .animate(CurvedAnimation(
-            parent: _controllerForSlide, curve: Curves.easeInOut));
+    // _slideAnim = Tween<Offset>(begin: const Offset(-slideStartValue, 0), end: Offset.zero)
+    //     .animate(CurvedAnimation(
+    //         parent: _controllerForSlide, curve: Curves.easeInOut));
 
     super.initState();
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => _controller.forward());
 
-    Future.delayed(headerDuration)
-        .then((value) => _controllerForSlide.forward());
+    // Future.delayed(headerDuration)
+    //     .then((value) => _controllerForSlide.forward());
 
     Future.delayed(headerDuration)
         .then((value) => _controllerForScale.forward());
@@ -63,12 +63,12 @@ class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin
 
   @override
   void dispose() {
-    if (_controllerForSlide.isAnimating) {
-      _controllerForSlide.stop();
-    }
+    // if (_controllerForSlide.isAnimating) {
+    //   _controllerForSlide.stop();
+    // }
     _controller.dispose();
     _controllerForScale.dispose();
-    _controllerForSlide.dispose();
+   // _controllerForSlide.dispose();
     super.dispose();
   }
 
@@ -106,8 +106,8 @@ class _SearchInputState extends State<SearchInput> with TickerProviderStateMixin
                   ),
                 ],
               ),
-              child: SlideTransition(
-                position: _slideAnim,
+              child: ScaleTransition(
+                scale: _scaleAnim,
                 child: GestureDetector(
                   onTap: () {
                     editText();

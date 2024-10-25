@@ -78,7 +78,7 @@ class CustomFab extends StatelessWidget {
                 height: fabSize,
                 child: IconButton(
                   icon: Icon(NotiSystemIcons.task,
-                      color: Theme.of(context).textTheme.headlineMedium!.color,
+                      color: Theme.of(context).colorScheme.primary,
                       size: iconSize),
                   onPressed: () {
                     addTask();
@@ -114,7 +114,7 @@ class CustomFab extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                     NotiSystemIcons.note,
-                    color: Theme.of(context).textTheme.headlineMedium!.color,
+                    color: Theme.of(context).colorScheme.primary,
                     size: iconSize,
                   ),
                   onPressed: () {
@@ -135,7 +135,7 @@ class CustomFab extends StatelessWidget {
                 isExtended: true,
                 child: Icon(Icons.edit,
                     size: iconSize,
-                    color: Theme.of(context).textTheme.headlineMedium!.color),
+                    color: Theme.of(context).colorScheme.primary,),
                 onPressed: () {
                   onTap();
                 },

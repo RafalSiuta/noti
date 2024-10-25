@@ -63,6 +63,7 @@ class SettingsCard extends StatelessWidget {
           height: cardHeight,
           margin: marginContainer,
           decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
               borderRadius: radiusContainer,
               boxShadow: <BoxShadow>[
                 BoxShadow(

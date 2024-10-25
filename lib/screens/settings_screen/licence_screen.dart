@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noti/screens/settings_screen/policy_screen.dart';
+//import 'package:noti/screens/settings_screen/policy_screen.dart';
 
 import '../../models/settings_model/policy/librarys_list.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
@@ -8,6 +8,7 @@ import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
 import '../../widgets/responsive/column_row_builder.dart';
 import '../../widgets/web/web_link.dart';
+import '../policy_screen/policy_screen.dart';
 
 class LicenceScreen extends StatelessWidget {
   const LicenceScreen({super.key});

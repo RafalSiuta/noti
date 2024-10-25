@@ -242,12 +242,16 @@ class TaskProvider extends ChangeNotifier {
         DateTime now = DateTime.now();
 
         // Ustalmy granicę czasu (np. najbliższa godzina)
-        DateTime oneHourLater = now.add(Duration(hours: 1));
+        //DateTime oneHourLater = now.add(Duration(hours: 1));
 
         // Sprawdzamy, czy zadanie jest zaplanowane na przyszłość i czy ma się odbyć w najbliższym czasie
-        if (task.date.isAfter(now) && task.date.isBefore(oneHourLater)) {
-          NotificationsHelper().scheduleNotification(task, task.date);
-        }
+        // if (task.date.isAfter(now) && task.date.isBefore(oneHourLater)) {
+        //   NotificationsHelper().scheduleNotification(task, task.date);
+        // }
+        // if (task.date.day == now.day && task.date.hour == now.hour) {
+        //
+        // }
+        NotificationsHelper().scheduleNotification(task, task.date);
       }
     } else {
       // Powiadomienia są wyłączone, anulujemy istniejące powiadomienia

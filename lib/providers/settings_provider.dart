@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:noti/providers/permission_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../models/menu_model/nav_model.dart';
+import '../models/settings_model/policy/policy_rules_list.dart';
 import '../models/settings_model/settings_model/calendar_settings_model.dart';
 import '../models/settings_model/settings_model/notification_settings_model.dart';
 import '../models/settings_model/settings_model/settings_model.dart';
@@ -114,7 +115,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   setTransparency(int shape) {
-    if (shape == 0 || shape == 7) {
+    if (shape == 0 || shape == 5) {
       isShapeTransparent = true;
     } else {
       isShapeTransparent = false;
@@ -383,6 +384,8 @@ class SettingsProvider extends ChangeNotifier {
     _prefs.storeList('trashSettings', trashSets.trashSettings);
     notifyListeners();
   }
+
+  PolicyList policyList = PolicyList();
 
   //PermissionSettings permissionSets = PermissionSettings();
 

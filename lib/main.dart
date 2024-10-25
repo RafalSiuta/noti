@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
@@ -19,6 +20,8 @@ import 'database/database_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ // WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
+ //  FlutterNativeSplash.preserve(widgetsBinding: binding);
   await DatabaseHelper.databaseHelper.initializeHive();
   await NotificationsHelper().init();
   LicenseRegistry.addLicense(() async* {
@@ -26,7 +29,11 @@ void main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   runApp(const MyApp());
+
+ //FlutterNativeSplash.remove();
 }
+
+
 
 
 

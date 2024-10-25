@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const themeDefAMainBcgColor = Color(0xFFEEEEEE);
-const themeDefATitleBoxBcgColor = Color(0xFFf5f5f5);
-const themeDefAfirstGradientColor = Color(0xFF2592F0);//Color(0xFF00C3FF);//1389CD Color(0xFF448AFF);
-const themeDefAmiddleGradientColor = Color(0xFF335CCC);//Color(0xFF1B6BFF);//335CCC Color(0xFF2979FF);
-const themeDefAlastGradientColor = Color(0xFF2D32B3);//Color(0xFF2525FF);//2D32B3 Color(0xFF2962FF);
-const themeDefAdividerColor = Color(0xFF636363);
+const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
+
+const themeDefFirstGradientColor = Color(0xFF2592F0);//Color(0xFF00C3FF);//1389CD Color(0xFF448AFF);
+const themeDefMiddleGradientColor = Color(0xFF335CCC);//Color(0xFF1B6BFF);//335CCC Color(0xFF2979FF);
+const themeDefLastGradientColor = Color(0xFF2D32B3);//Color(0xFF2525FF);//2D32B3 Color(0xFF2962FF);
+const themeDefUnselectedTaskIcon = Color(0xFF1B3A7B);
+
+const themeDefDividerColor = Color(0xFF9e9e9e);//Color(0xFF636363);
 const themeDefUnselectedColor = Color(0xFF9e9e9e); //595959
 const themeDefShadowColor = Color(0xFFe5e5e5);
+
 const themeDefIndicatorColor = Color(0xFFffca28); // FEA735 f5f5f5
+
 const themeDefBaseTextColor = Color(0xff161616);
-const themeDefUnselectedTaskIcon = Color(0xFF1B3A7B);
+const themeDefBtnTextColor = Color(0xff161616);
+
 
 final themeDefPickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
@@ -19,8 +25,6 @@ final themeDefPickersBaseTextStyle = GoogleFonts.exo2(
       fontSize: 12,
       fontWeight: FontWeight.w500),
 );
-
-
 
 final themeDefPickersTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
@@ -68,7 +72,7 @@ final TextStyle unselectedTextStyle = GoogleFonts.exo2(
       fontSize: 12,
       color: themeDefUnselectedColor,
       fontWeight: FontWeight.w400,
-      decorationColor: themeDefAdividerColor,
+      decorationColor: themeDefDividerColor,
       decoration: TextDecoration.lineThrough),
 );
 //calendar text style:
@@ -78,7 +82,7 @@ final calendarDayWeekendTextStyle = GoogleFonts.exo2(
         fontSize: 12,
         color: themeDefUnselectedColor,
         fontWeight: FontWeight.w700,
-        decorationColor: themeDefAdividerColor));
+        decorationColor: themeDefDividerColor));
 
 //next month text style:
 final calendarNextMonthTextStyle = GoogleFonts.exo2(
@@ -102,27 +106,27 @@ final themeDefault = ThemeData(
     scaffoldBackgroundColor: themeDefAMainBcgColor,
 
     colorScheme: const ColorScheme(
-      primary: Colors.white,
-      secondary: themeDefATitleBoxBcgColor,
-      surface: themeDefATitleBoxBcgColor,
+      primary: themeDefBtnTextColor,
+      secondary: themeDefTitleBoxBcgColor,
+      surface: themeDefTitleBoxBcgColor,
       error: Colors.redAccent,
       onPrimary: Colors.white,
       onSecondary: themeDefUnselectedTaskIcon,
-      onSurface: themeDefATitleBoxBcgColor,
+      onSurface: themeDefTitleBoxBcgColor,
       onError: Colors.white,
       brightness: Brightness.light,
-        shadow: themeDefAlastGradientColor
+        shadow: themeDefLastGradientColor
     ),
-    canvasColor: themeDefATitleBoxBcgColor,
-    focusColor: themeDefAfirstGradientColor,
+    canvasColor: themeDefTitleBoxBcgColor,
+    focusColor: themeDefFirstGradientColor,
     unselectedWidgetColor: themeDefUnselectedColor,
-    primaryColor: themeDefAfirstGradientColor,
-    primaryColorLight: themeDefAmiddleGradientColor,
-    primaryColorDark: themeDefAlastGradientColor,
-    cardColor: themeDefATitleBoxBcgColor,
+    primaryColor: themeDefFirstGradientColor,
+    primaryColorLight: themeDefMiddleGradientColor,
+    primaryColorDark: themeDefLastGradientColor,
+    cardColor: themeDefTitleBoxBcgColor,
     indicatorColor: themeDefIndicatorColor,
     shadowColor: themeDefShadowColor,
-    dialogBackgroundColor: themeDefAlastGradientColor,
+    dialogBackgroundColor: themeDefLastGradientColor,
     primarySwatch: Colors.blue,
     textTheme: TextTheme(
       /// main big title
@@ -148,7 +152,7 @@ final themeDefault = ThemeData(
       cursorColor: themeDefIndicatorColor,
     ),
     dividerTheme: const DividerThemeData(
-      color: themeDefAdividerColor,
+      color: themeDefDividerColor,
       thickness: 0.5,
     ),
     navigationRailTheme: NavigationRailThemeData(
@@ -242,7 +246,7 @@ final themeDefault = ThemeData(
         padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(themeDefATitleBoxBcgColor),
+        backgroundColor: WidgetStateProperty.all(themeDefTitleBoxBcgColor),
         foregroundColor: WidgetStateProperty.all(themeDefUnselectedColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
@@ -296,7 +300,7 @@ final themeDefault = ThemeData(
       dialTextStyle: themeDefPickersBaseTextStyle,
       dialHandColor: themeDefIndicatorColor, // color handles
       hourMinuteTextColor: themeDefBaseTextColor, // text colors
-      backgroundColor: themeDefATitleBoxBcgColor, // background color
+      backgroundColor: themeDefTitleBoxBcgColor, // background color
       dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
       return themeDefBaseTextColor; // selected element text color
@@ -314,7 +318,7 @@ final themeDefault = ThemeData(
       if (states.contains(WidgetState.selected)) {
       return themeDefIndicatorColor.withOpacity(0.5); // selected hour/minute background color
       }
-      return  themeDefATitleBoxBcgColor; // unselected hour/minute background color
+      return  themeDefTitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
@@ -329,7 +333,7 @@ final themeDefault = ThemeData(
         padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(themeDefATitleBoxBcgColor),
+          backgroundColor: WidgetStateProperty.all(themeDefTitleBoxBcgColor),
           foregroundColor: WidgetStateProperty.all(themeDefUnselectedColor),
           textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
             textStyle: const TextStyle(
@@ -386,7 +390,7 @@ menuButtonTheme: MenuButtonThemeData(
       hintStyle: TextStyle(color: themeDefBaseTextColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: themeDefATitleBoxBcgColor,
+        color: themeDefTitleBoxBcgColor,
       ),
       floatingLabelStyle: TextStyle(
         color: themeDefBaseTextColor,

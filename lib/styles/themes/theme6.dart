@@ -1,154 +1,158 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const theme_6MainBcgColor = Color(0xFF292C35);
-const theme_6TitleBoxBcgColor = Color(0xFF323642);
-const theme_6firstGradientColor = Color(0xFF9EADC8);
-const theme_6middleGradientColor = Color(0xFF8d99b0);
-const theme_6lastGradientColor = Color(0xFF5B507A);
-const theme_6hintColor = Colors.pinkAccent;
-const theme_6dividerColor = Color(0xFF636363);
-const theme_6unselectedColor = Color(0xFF16181D);
-const theme_6shadowColor = Color(0xFF272A35);
-const theme_6indicatorColor = Colors.pinkAccent;
+const theme6MainBcgColor = Color(0xFF24262E);
+const theme6TitleBoxBcgColor = Color(0xFF2C303A);
 
+const theme6FirstGradientColor = Color(0xFF59647D);
+const theme6MiddleGradientColor = Color(0xFF444C5F);
+const theme6LastGradientColor = Color(0xFF2A2F3C);
+const theme6UnselectedTaskIcon = Color(0xFF222630);
 
-const theme_6baseTextColor = Color(0xFFD9D9D9);
-const theme_6UnselectedTaskIcon = Color(0xFF463D5D);
+const theme6DividerColor = Color(0xFF444C5F);
+const theme6UnselectedColor = Color(0xFF121317);
+const theme6ShadowColor = Color(0xFF1F2229);
 
-final theme_6PickersBaseTextStyle = GoogleFonts.raleway(
+const theme6IndicatorColor = Color(0xFFFBC02D);// 3F51B5 EF6C00
+
+const theme6BaseTextColor = Color(0xffA0A6B1);
+const theme6BtnTextColor = Color(0xff16181D);
+const theme6PickerTextColor = Color(0xffA0A6B1);
+
+final theme6PickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
-      color: theme_6baseTextColor,
+      color: theme6PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w500),
+      fontWeight: FontWeight.w300),
 );
 
-final theme_6PickersTitleTextStyle = GoogleFonts.raleway(
+final theme6PickersTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
-      color: theme_6baseTextColor,
+      color: theme6BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w700),
+      fontWeight: FontWeight.w300),
 );
 //TEXT STYLES:
 //headers:
 //Large header:
-final TextStyle theme_6largeHeaderTextStyle  = GoogleFonts.raleway(
+final TextStyle theme6LargeHeaderTextStyle  = GoogleFonts.exo2(
     textStyle: const TextStyle(
-        color: theme_6baseTextColor,
+        color: theme6BaseTextColor,
         fontSize: 32,
-        fontWeight: FontWeight.w700
+        fontWeight: FontWeight.w800
     ));
 //Subtitle header:
-final TextStyle theme_6subtitleHeaderTextStyle = GoogleFonts.raleway(
+final TextStyle theme6SubtitleHeaderTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 18,
-      color: theme_6baseTextColor,
-      fontWeight: FontWeight.w700,
+      color: theme6BaseTextColor,
+      fontWeight: FontWeight.w500,
       decoration: TextDecoration.none),
 );
 //task & note card style:
 //title text style:
-final TextStyle theme_6cardTitleTextStyle = GoogleFonts.raleway(
+final TextStyle theme6CardTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme_6baseTextColor,
-      fontWeight: FontWeight.w700,
+      color: theme6BaseTextColor,
+      fontWeight: FontWeight.w500,
       decoration: TextDecoration.none),
 );
 //content text:
-final TextStyle theme_6contentTextStyle = GoogleFonts.raleway(
+final TextStyle theme6ContentTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme_6baseTextColor,
-      fontWeight: FontWeight.w400,
+      color: theme6BaseTextColor,
+      fontWeight: FontWeight.w300,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
-final TextStyle theme_6unselectedTextStyle = GoogleFonts.raleway(
+final TextStyle theme6UnselectedTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme_6unselectedColor,
-      fontWeight: FontWeight.w400,
-      decorationColor: theme_6dividerColor,
+      color: theme6UnselectedColor,
+      fontWeight: FontWeight.w300,
+      decorationColor: theme6UnselectedColor,
       decoration: TextDecoration.lineThrough),
 );
 //calendar text style:
 //day text style:
-final theme_6calendarDayWeekendTextStyle = GoogleFonts.raleway(
+final theme6CalendarDayWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme_6unselectedColor,
-        fontWeight: FontWeight.w700,
-        decorationColor: theme_6dividerColor));
+        color: theme6IndicatorColor,
+        fontWeight: FontWeight.w300,
+        decorationColor: theme6DividerColor));
 
 //next month text style:
-final theme_6calendarNextMonthTextStyle = GoogleFonts.raleway(
+final theme6CalendarNextMonthTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme_6indicatorColor,//theme_6unselectedColor,
-        fontWeight: FontWeight.w200,
-        decorationColor: theme_6unselectedColor));
+        color: theme6BaseTextColor,
+        fontWeight: FontWeight.w100,
+        decorationColor: theme6UnselectedColor));
 
-final theme_6calendarWeekendTextStyle = GoogleFonts.raleway(
+final theme6CalendarWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme_6indicatorColor,//theme_6unselectedColor,
-        fontWeight: FontWeight.w400,
-        decorationColor: theme_6dividerColor));
+        color: theme6IndicatorColor,
+        fontWeight: FontWeight.w300,
+        decorationColor: theme6DividerColor));
 
 
 
 final theme6 = ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: theme_6MainBcgColor,
+    scaffoldBackgroundColor: theme6MainBcgColor,
     colorScheme: const ColorScheme(
-        primary: Colors.white,
-        secondary: theme_6baseTextColor,
-        surface: theme_6TitleBoxBcgColor,
-        error: Colors.redAccent,
-        onPrimary: Colors.white,
-        onSecondary: theme_6UnselectedTaskIcon,
-        onSurface: theme_6TitleBoxBcgColor,
-        onError: Colors.white,
-        brightness: Brightness.light,
-        shadow: theme_6UnselectedTaskIcon
+      primary: theme6BtnTextColor,
+      secondary: theme6IndicatorColor,
+      surface: theme6TitleBoxBcgColor,
+      error: Colors.redAccent,
+      onPrimary: Colors.white,
+      onSecondary: theme6UnselectedTaskIcon,
+      onSurface: theme6TitleBoxBcgColor,
+      onError: Colors.white,
+      brightness: Brightness.light,
+      shadow: theme6LastGradientColor,
+      // outline: theme6IndicatorColor
     ),
-    canvasColor: theme_6TitleBoxBcgColor,
-    focusColor: theme_6firstGradientColor,
-    unselectedWidgetColor: theme_6unselectedColor,
-    primaryColor: theme_6firstGradientColor,
-    primaryColorLight: theme_6middleGradientColor,
-    primaryColorDark: theme_6lastGradientColor,
-    cardColor: theme_6TitleBoxBcgColor,
-    indicatorColor: theme_6indicatorColor,
-    shadowColor: theme_6shadowColor,
-    dialogBackgroundColor: theme_6lastGradientColor,
+    canvasColor: theme6TitleBoxBcgColor,
+    focusColor: theme6FirstGradientColor,
+    unselectedWidgetColor: theme6UnselectedColor,
+    primaryColor: theme6FirstGradientColor,
+    primaryColorLight: theme6MiddleGradientColor,
+    primaryColorDark: theme6LastGradientColor,
+    cardColor: theme6TitleBoxBcgColor,
+    indicatorColor: theme6IndicatorColor,
+    shadowColor: theme6ShadowColor,
+    dialogBackgroundColor: theme6LastGradientColor,
     primarySwatch: Colors.blue,
     textTheme: TextTheme(
       /// main big title
-      headlineLarge: theme_6largeHeaderTextStyle,
+      headlineLarge: theme6LargeHeaderTextStyle,
       /// list title & small headers
-      headlineMedium: theme_6subtitleHeaderTextStyle,
+      headlineMedium: theme6SubtitleHeaderTextStyle,
       ///note & task description text style date header style
-      displayLarge: theme_6cardTitleTextStyle,
+      displayLarge: theme6CardTitleTextStyle,
       ///unselected text
-      displayMedium: theme_6unselectedTextStyle,
+      displayMedium: theme6UnselectedTextStyle,
       //content text style
-      bodyMedium: theme_6contentTextStyle,
+      bodyMedium: theme6ContentTextStyle,
       ///calendar default text style
-      labelLarge: theme_6calendarDayWeekendTextStyle,
+      labelLarge: theme6CalendarDayWeekendTextStyle,
       //calendar next month text style:
-      labelSmall: theme_6calendarNextMonthTextStyle,
+      labelSmall: theme6CalendarNextMonthTextStyle,
       ///calendar weekend text style:
-      labelMedium: theme_6calendarWeekendTextStyle,
+      labelMedium: theme6CalendarWeekendTextStyle,
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionHandleColor: theme_6indicatorColor,
-      selectionColor: theme_6unselectedColor,
-      cursorColor: theme_6indicatorColor,
+      selectionHandleColor: theme6IndicatorColor,
+      selectionColor: theme6UnselectedColor,
+      cursorColor: theme6IndicatorColor,
     ),
     dividerTheme: const DividerThemeData(
-      color: theme_6dividerColor,
+      color: theme6DividerColor,
       thickness: 0.5,
     ),
     navigationRailTheme: NavigationRailThemeData(
@@ -157,189 +161,186 @@ final theme6 = ThemeData(
       useIndicator: true,
       indicatorColor: Colors.transparent,
       selectedIconTheme: const IconThemeData(
-          color: theme_6indicatorColor,
+          color: theme6IndicatorColor,
           fill: 0.0
       ),
       unselectedIconTheme: const IconThemeData(
-          color: theme_6unselectedColor,fill: 0.0),
-      selectedLabelTextStyle: GoogleFonts.openSans(
+          color: theme6UnselectedColor,fill: 0.0),
+      selectedLabelTextStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
-          color: theme_6baseTextColor, fontSize: 18, fontWeight: FontWeight.w900,
+          color: theme6BaseTextColor, fontSize: 18, fontWeight: FontWeight.w800,
           backgroundColor: Colors.transparent,
         ),
       ),
-      unselectedLabelTextStyle: GoogleFonts.openSans(
+      unselectedLabelTextStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
-          color: theme_6unselectedColor,
+          color: theme6UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w500,
 
         ),
       ),
     ),
-    iconTheme: const IconThemeData(color: theme_6indicatorColor, size: 18),
+    iconTheme: const IconThemeData(color: theme6IndicatorColor, size: 18),
     cardTheme: const CardTheme(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        shadowColor: theme_6unselectedColor,
+        shadowColor: theme6UnselectedColor,
         elevation: 5),
     switchTheme: SwitchThemeData(
       trackOutlineWidth:WidgetStateProperty.all(0.5),
       trackOutlineColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme_6unselectedColor;
+            return theme6UnselectedColor;
           } else {
-            return theme_6shadowColor;
+            return theme6ShadowColor;
           }
         },
       ),
       thumbColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme_6indicatorColor;
+            return theme6IndicatorColor;
           } else {
-            return theme_6unselectedColor;
+            return theme6UnselectedColor;
           }
         },
       ),
       trackColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme_6unselectedColor;
+            return theme6UnselectedColor;
           } else {
-            return theme_6shadowColor;
+            return theme6ShadowColor;
           }
         },
       ),),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
-        backgroundColor: theme_6indicatorColor),
+        backgroundColor: theme6IndicatorColor),
     dialogTheme: DialogTheme(
         elevation: 5.0,
-        titleTextStyle: theme_6subtitleHeaderTextStyle,
-        contentTextStyle: theme_6contentTextStyle,
-        backgroundColor: theme_6MainBcgColor,
+        titleTextStyle: theme6SubtitleHeaderTextStyle,
+        contentTextStyle: theme6ContentTextStyle,
+        backgroundColor: theme6MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     datePickerTheme: DatePickerThemeData(
-      inputDecorationTheme: InputDecorationTheme(
-
-      ),
-      headerBackgroundColor: theme_6indicatorColor,
-      headerHeadlineStyle: theme_6PickersTitleTextStyle,
-      headerForegroundColor: theme_6baseTextColor,
-      weekdayStyle: theme_6PickersBaseTextStyle,
-      dayStyle: theme_6PickersBaseTextStyle,
+      headerBackgroundColor: theme6MiddleGradientColor,
+      headerHeadlineStyle: theme6PickersTitleTextStyle,
+      headerForegroundColor: theme6BaseTextColor,
+      weekdayStyle: theme6PickersBaseTextStyle,
+      dayStyle: theme6PickersBaseTextStyle,
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme_6indicatorColor.withOpacity(0.5)),
-        foregroundColor: WidgetStateProperty.all(theme_6unselectedColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme6BaseTextColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
-              color: theme_6baseTextColor,
+              color: theme6BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w100),
         ),),
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(theme_6TitleBoxBcgColor),
-          foregroundColor: WidgetStateProperty.all(theme_6firstGradientColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+          backgroundColor: WidgetStateProperty.all(theme6TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme6PickerTextColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
             textStyle: const TextStyle(
-                color: theme_6baseTextColor,
+                color: theme6BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w200),
+                fontWeight: FontWeight.w100),
           ),),
-          padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+          padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              side: BorderSide(color: theme_6firstGradientColor, width: 0.5),
+              side: const BorderSide(color: theme6UnselectedColor, width: 0.5),
               borderRadius: BorderRadius.circular(20) ))
       ),
-      todayBorder: const BorderSide(color: theme_6baseTextColor, style:BorderStyle.solid, width: 0.5),
+      todayBorder: const BorderSide(color: theme6BaseTextColor, style:BorderStyle.solid, width: 0.5),
       todayForegroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6baseTextColor; // selected element text color
+          return theme6UnselectedColor; // selected element text color
         }
-        return  theme_6firstGradientColor; // unselected element text color
+        return  theme6PickerTextColor; // unselected element text color
       }),
       todayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6indicatorColor.withOpacity(0.5);
+          return theme6IndicatorColor.withOpacity(0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayOverlayColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6indicatorColor.withOpacity(0.5);
+          return theme6IndicatorColor.withOpacity(0.5);
         }
-        return theme_6firstGradientColor; // unselected element text color
+        return  theme6UnselectedColor; // unselected element text color
       }),
       dayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6indicatorColor.withOpacity(0.5);
+          return theme6IndicatorColor.withOpacity(0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayForegroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6baseTextColor; // selected element text color
+          return theme6IndicatorColor; // selected element text color
         }
-        return  theme_6firstGradientColor; // unselected element text color
+        return  theme6PickerTextColor; // unselected element text color
       }),
 
     ),
     timePickerTheme: TimePickerThemeData(
       elevation: 0.2,
-      dayPeriodColor: theme_6indicatorColor.withOpacity(0.5),
-      dayPeriodTextStyle: theme_6PickersBaseTextStyle,
-      hourMinuteTextStyle: theme_6PickersBaseTextStyle,
-      dialTextStyle: theme_6PickersBaseTextStyle,
-      dialHandColor: theme_6indicatorColor, // color handles
-      hourMinuteTextColor: theme_6baseTextColor, // text colors
-      backgroundColor: theme_6TitleBoxBcgColor, // background color
+      dayPeriodColor: theme6IndicatorColor.withOpacity(0.5),
+      dayPeriodTextStyle: theme6PickersBaseTextStyle,
+      hourMinuteTextStyle: theme6PickersBaseTextStyle,
+      dialTextStyle: theme6PickersBaseTextStyle,
+      dialHandColor: theme6IndicatorColor, // color handles
+      hourMinuteTextColor: theme6BaseTextColor, // text colors
+      backgroundColor: theme6TitleBoxBcgColor, // background color
       dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6baseTextColor; // selected element text color
+          return theme6BaseTextColor; // selected element text color
         }
-        return  theme_6firstGradientColor; // unselected element text color
+        return  theme6PickerTextColor; // unselected element text color
       }),
       dialTextColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6baseTextColor; // selected element text color
+          return theme6UnselectedColor; // selected element text color
         }
-        return  theme_6firstGradientColor; // unselected element text color
+        return  theme6PickerTextColor; // unselected element text color
       }),
-      entryModeIconColor: theme_6baseTextColor, // entry mode icon color
+      entryModeIconColor: theme6BaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme_6indicatorColor.withOpacity(0.5); // selected hour/minute background color
+          return theme6IndicatorColor.withOpacity(0.5); // selected hour/minute background color
         }
-        return  theme_6TitleBoxBcgColor; // unselected hour/minute background color
+        return  theme6TitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme_6indicatorColor.withOpacity(0.5)),
-        foregroundColor: WidgetStateProperty.all(theme_6baseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme6BaseTextColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
-              color: theme_6baseTextColor,
+              color: theme6BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w100),
         ),),
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(theme_6TitleBoxBcgColor),
-          foregroundColor: WidgetStateProperty.all(theme_6firstGradientColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.raleway(
+          backgroundColor: WidgetStateProperty.all(theme6TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme6PickerTextColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
             textStyle: const TextStyle(
-                color: theme_6baseTextColor,
+                color: theme6BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w200),
+                fontWeight: FontWeight.w100),
           ),),
-          padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
+          padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              side: BorderSide(color: theme_6firstGradientColor, width: 0.5),
+              side: const BorderSide(color: theme6UnselectedColor, width: 0.5),
               borderRadius: BorderRadius.circular(20) ))
       ),
     ),
@@ -348,37 +349,37 @@ final theme6 = ThemeData(
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: .5,
-            color: theme_6TitleBoxBcgColor,
+            color: theme6TitleBoxBcgColor,
           )),
       enabledBorder: UnderlineInputBorder(
           borderSide:
-          BorderSide(width: .5, color: theme_6unselectedColor)),
+          BorderSide(width: .5, color: theme6UnselectedColor)),
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: theme_6TitleBoxBcgColor, fontSize: 20),
+      hintStyle: TextStyle(color: theme6TitleBoxBcgColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme_6TitleBoxBcgColor,
+        color: theme6TitleBoxBcgColor,
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme_6unselectedColor,
+        color: theme6UnselectedColor,
         fontSize: 8.0,
       ),
       labelStyle: TextStyle(
-        color: theme_6unselectedColor,
+        color: theme6UnselectedColor,
         fontSize: 20,
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(
-        color: theme_6unselectedColor,
+        color: theme6UnselectedColor,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // theme_6TitleBoxBcgColor,
+      backgroundColor: Colors.transparent, // theme_2TitleBoxBcgColor,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
@@ -387,29 +388,29 @@ final theme6 = ThemeData(
     ),
     tabBarTheme: TabBarTheme(
       indicator: const UnderlineTabIndicator(
-          borderSide: BorderSide(width: 2.0, color: theme_6indicatorColor),
+          borderSide: BorderSide(width: 2.0, color: theme6IndicatorColor),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
-      labelColor: theme_6baseTextColor,
-      unselectedLabelColor: theme_6unselectedColor,
-      unselectedLabelStyle: GoogleFonts.raleway(
+      labelColor: theme6BaseTextColor,
+      unselectedLabelColor: theme6UnselectedColor,
+      unselectedLabelStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme_6unselectedColor,
-            fontWeight: FontWeight.w200,
+            color: theme6UnselectedColor,
+            fontWeight: FontWeight.w100,
             decoration: TextDecoration.none),
       ),
-      labelStyle: GoogleFonts.raleway(
+      labelStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme_6baseTextColor,
-            fontWeight: FontWeight.w500,
+            color: theme6BaseTextColor,
+            fontWeight: FontWeight.w100,
             decoration: TextDecoration.none),
       ),
     ),
     sliderTheme: const SliderThemeData(
         trackHeight:1.5,
-        activeTrackColor: theme_6indicatorColor,
-        inactiveTrackColor: theme_6unselectedColor,
+        activeTrackColor: theme6IndicatorColor,
+        inactiveTrackColor: theme6UnselectedColor,
         trackShape: RoundedRectSliderTrackShape(),
         thumbColor: Colors.white)
 );

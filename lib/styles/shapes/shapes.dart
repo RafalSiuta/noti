@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/settings_provider.dart';
 
 class BackgroundShape extends StatelessWidget {
-  const BackgroundShape({Key? key}) : super(key: key);
+  const BackgroundShape({super.key});
 
   @override
   Widget build(BuildContext context) {

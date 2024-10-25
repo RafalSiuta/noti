@@ -26,8 +26,8 @@ class NoteCard extends StatelessWidget {
       child: CsShadow(
         shadow: BoxShadow(
           color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
-          offset: const Offset(0.5, 0.5),
-          blurRadius: 0.2,
+          offset: const Offset(1, 1),
+          blurRadius: 0.5,
         ),
         clipper: NoteCardShape(),
         child: ClipPath(
@@ -37,7 +37,8 @@ class NoteCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
+                  color: Theme.of(context).primaryColor,
+
                 ),
                 width: isGrid ? leftPadding : leftPadding - 8,
               ),
@@ -47,6 +48,7 @@ class NoteCard extends StatelessWidget {
                       left: 2, top: isGrid ? 12 : 8.0, right: 5.0, bottom: 3.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
+
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

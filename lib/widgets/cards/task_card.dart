@@ -82,7 +82,7 @@ class TaskCard extends StatelessWidget {
 
     List<Widget> _items = [
       Padding(
-        padding: EdgeInsets.only(top: 4.0,bottom: 4.0),
+        padding: const EdgeInsets.only(top: 4.0,bottom: 4.0),
         child: Container(
           width: iconCircleSize,
           height: iconCircleSize,
@@ -218,12 +218,15 @@ class TaskCard extends StatelessWidget {
             margin: marginContainer,
             decoration: BoxDecoration(
                 borderRadius: radiusContainer,
+                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Theme.of(context)
                         .unselectedWidgetColor
                         .withOpacity(0.8),
                     offset: const Offset(0.0, 0.0),
+
                   ),
                   BoxShadow(
                     color: Theme.of(context).shadowColor,
@@ -254,8 +257,8 @@ class TaskCard extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                        color: circleFromLeft == true ? Theme.of(context)
-                            .colorScheme.shadow.withOpacity(0.4) : Theme.of(context)
+
+                        color: circleFromLeft == true ? Theme.of(context).unselectedWidgetColor.withOpacity(0.2) : Theme.of(context)
                             .unselectedWidgetColor
                             .withOpacity(0.5),
                         blurRadius: 1.5,
@@ -271,7 +274,10 @@ class TaskCard extends StatelessWidget {
               width: height,
               height: height,
               margin: marginContainer,
-              decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                  boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).unselectedWidgetColor,
                   offset: const Offset(0.0, 0.0),
@@ -279,8 +285,8 @@ class TaskCard extends StatelessWidget {
                 BoxShadow(
                   color: Theme.of(context).shadowColor,
                   offset: const Offset(0.0, 0.0),
-                  spreadRadius: -5.0,
-                  blurRadius: 6.0,
+                  spreadRadius: -2.0,
+                  blurRadius: 2.0,
                 ),
               ]),
             ),
@@ -296,6 +302,9 @@ class TaskCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.onSurface,
                     borderRadius: radiusContainer,
+                    // border: Border(
+                    //   bottom: BorderSide(width: 0.5, color: Theme.of(context).colorScheme.outline.withOpacity(0.2)),
+                    // ),
                     boxShadow: [
                       BoxShadow(
                           color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
