@@ -36,7 +36,7 @@ class _TaskCreatorState extends State<TaskCreator>
   var leftPadding = SizeInfo.edgePadding;
   var inputHeight = SizeInfo.searchBarHeight;
   var navIconSize = SizeInfo.leadingAndTrailingIconSize;
-  var leftEdgePadding = SizeInfo.edgePadding;
+  var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
   var iconListCrossCount = SizeInfo.iconDialogListCrossAxisCount;
 
 
@@ -277,7 +277,7 @@ class _TaskCreatorState extends State<TaskCreator>
     return Scaffold(
         //todo: check nav bar items shrink option
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: Theme.of(context).cardColor,
         body: Container(
           padding: EdgeInsets.only(top: topMargin, left: leftEdgePadding),
           key: widget.key,
@@ -287,7 +287,6 @@ class _TaskCreatorState extends State<TaskCreator>
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
@@ -328,22 +327,25 @@ class _TaskCreatorState extends State<TaskCreator>
                                                 ),
                                             children: [
                                               InkWell(
-                                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      pickedIcon,
-                                                      size: navIconSize,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
+                                                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(right: leftEdgePadding),
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        pickedIcon,
+                                                        size: navIconSize,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
 
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                                 onTap: (){
                                                   _pickIcon(context);

@@ -82,7 +82,7 @@ class SettingsProvider extends ChangeNotifier {
         currentTheme =
         await _prefs
             .restoreInt('theme', currentTheme)
-            .then((theme) => currentTheme = setCustomTheme(theme));
+            .then((theme)=> currentTheme = setCustomTheme(theme));
       }
     } catch (e) {
       currentTheme = 0;
@@ -183,6 +183,10 @@ class SettingsProvider extends ChangeNotifier {
       // default:
       //   themeData = themes.themesList[0].themeData!;
    // }
+   print("CURRENT THEME IS: $theme");
+    if(theme >= 0 && theme <= 12){
+      theme = themes.themesList.first.id;
+    }
     for (var item in themes.themesList) {
       if(item.id == theme){
         themeData = item.themeData!;

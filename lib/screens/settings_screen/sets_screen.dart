@@ -160,12 +160,9 @@ class SetsScreen extends StatelessWidget {
           return CustomDial(
               title: 'Delete old ${index == 0 ? "note" : "task"} after:',
               isBtnVisible: false,
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 250,
-                  child: SliderDialog(
-                    index: index,
-                  )));
+              child: SliderDialog(
+                index: index,
+              ));
         });
   }
 }

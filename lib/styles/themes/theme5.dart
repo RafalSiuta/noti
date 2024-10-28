@@ -8,7 +8,7 @@ const theme6FirstGradientColor = Color(0xFF59647D);
 const theme6MiddleGradientColor = Color(0xFF444C5F);
 const theme6LastGradientColor = Color(0xFF2A2F3C);
 const theme6UnselectedTaskIcon = Color(0xFF222630);
-const theme6OutlineColor = Color(0xFF737EA0);
+const theme6OutlineColor = Color(0xFF24262E);
 
 const theme6DividerColor = Color(0xFF444C5F);
 const theme6UnselectedColor = Color(0xFF121317);

@@ -27,6 +27,7 @@ class SizeInfo {
   static double headerSubtitleSize = 18;
   static double verticalHeaderPadding = 10;
   static double leftEdgeMainPadding = .0;
+  static double leftEdgeCreatorPadding = 8.0;
   ///search bar and headers:
   static double searchBarHeight = 40;
   static double searchIconSize = 18;
@@ -36,7 +37,7 @@ class SizeInfo {
 
   static double topMargin = 24;
 
-  static double switchButtonIconSize = 18;
+  static double switchButtonIconSize = 15;
   static double dialogIconSize = 12;
 
   ///social bar:
@@ -70,6 +71,7 @@ class SizeInfo {
   static double verticalTextPadding = 12.0;
   static double cameraIconButtonSize = 35;
   static double noteListBottomSpacing = 8.0;
+  static double noteGridSpacing = 5.0;
 
   ///calendar dimens:
   static double calendarDaySize = 12;
@@ -111,7 +113,8 @@ class SizeInfo {
     fabSize = 60.0;
 
     edgePadding = 12.0;
-    leftEdgeMainPadding  = 16;
+    leftEdgeMainPadding  = 18;
+    leftEdgeCreatorPadding = 24.0;
 
     gridColumnCount = 3;
     calendarDaySize = 23;
@@ -140,7 +143,7 @@ class SizeInfo {
     calendarMarkerSize = 23;
     calendarMarkerFontSize = 15;
     calendarCellMargin = 12;
-    switchButtonIconSize = 23;
+    switchButtonIconSize = 18;
 
     ///task card:
     taskCardHeight = 132;
@@ -160,6 +163,7 @@ class SizeInfo {
     verticalTextPadding = 15;
     cameraIconButtonSize = 52;
     noteListBottomSpacing = 24;
+    noteGridSpacing = 12.0;
 
     ///search bar
     searchBarHeight = 72;

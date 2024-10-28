@@ -32,7 +32,7 @@ class TaskProvider extends ChangeNotifier {
   CalendarFormat format = CalendarFormat.month;
   late final PageController pageController;
 
-  int taskMonthsToDelete = 5;
+  int taskMonthsToDelete = 0;
   bool isTaskToDelete = false;
 
   final Prefs _prefs = Prefs();
@@ -161,8 +161,10 @@ class TaskProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
-    //startingDayOfWeek = settings.calendarStartingDay();
+
     taskMonthsToDelete = month;
     isTaskToDelete = toDelete;
     _prefs.storeBool("isTaskToDelete", isTaskToDelete);
@@ -172,7 +174,7 @@ class TaskProvider extends ChangeNotifier {
 
     if (isTaskToDelete == true) {
       await getAllTasksToDelete(currentMonth).whenComplete(() {
-        final date = DateTime(focDay.year, focDay.month, focDay.day);
+        //final date = DateTime(focDay.year, focDay.month, focDay.day);
         _taskList = _dbHelper.getAllTasks();
       });
     }
@@ -186,8 +188,7 @@ class TaskProvider extends ChangeNotifier {
       refreshNotification(task);
     } else {
       await _dbHelper.addTask(task);
-      //TESTING FUNCTION: todo: remove before launch app:
-     //await NotificationsHelper().scheduleNotification(task, DateTime.now().add(Duration(minutes: 1)));
+
       refreshNotification(task);
     }
     // Po dodaniu lub aktualizacji zadania, odśwież listę zadań i markerów
@@ -203,6 +204,7 @@ class TaskProvider extends ChangeNotifier {
     _taskList = getCalendarValues(focDay);
     notifyListeners();
   }
+
   void deleteTask(Task task) async {
     await _dbHelper.deleteTask(task);
 
@@ -229,33 +231,13 @@ class TaskProvider extends ChangeNotifier {
 
 
     if (settings.isNotification) {
-      // Sprawdzamy, czy zadanie jest ukończone
       if (task.isTaskDone) {
-        print("NOTIFICATION WAS CANCELED");
         NotificationsHelper().cancelNotification(task.id.hashCode);
       } else {
-        // Dodajemy powiadomienie, jeśli zadanie jest zaplanowane na przyszłość i nie jest ukończone
-        // if (task.date.isAfter(DateTime.now())) {
-        //   NotificationsHelper().scheduleNotification(task, task.date);
-        // }
-        // Pobieramy aktualny czas
-        DateTime now = DateTime.now();
 
-        // Ustalmy granicę czasu (np. najbliższa godzina)
-        //DateTime oneHourLater = now.add(Duration(hours: 1));
-
-        // Sprawdzamy, czy zadanie jest zaplanowane na przyszłość i czy ma się odbyć w najbliższym czasie
-        // if (task.date.isAfter(now) && task.date.isBefore(oneHourLater)) {
-        //   NotificationsHelper().scheduleNotification(task, task.date);
-        // }
-        // if (task.date.day == now.day && task.date.hour == now.hour) {
-        //
-        // }
         NotificationsHelper().scheduleNotification(task, task.date);
       }
     } else {
-      // Powiadomienia są wyłączone, anulujemy istniejące powiadomienia
-      print("NOTIFICATION WAS CANCELED");
       NotificationsHelper().cancelNotification(task.id.hashCode);
     }
 
@@ -264,20 +246,16 @@ class TaskProvider extends ChangeNotifier {
 
 
   Future<List<Task>> getAllTasksToDelete(DateTime date) async {
-    // await _dbHelper.getAllTasks().where((element) {
-    //   _taskList = value
-    //       .where((element) =>
-    //           DateTime(element.date.year, element.date.month, 1).isBefore(date))
-    //       .toList();
-    //   for (var task in taskList) {
-    //     deleteTask(task);
-    //   }
-    //   notifyListeners();
-    //   return value;
-    // });
+
+    List<Task> tempList = _dbHelper.getAllTasks();
+       for (var taskItem in tempList) {
+         if(DateTime(taskItem.date.year, taskItem.date.month, 1).isBefore(date)){
+           deleteTask(taskItem);
+         }
+       }
 
     notifyListeners();
-    return _taskList;
+    return tempList;
   }
 
   Future<List<Task>> getTaskDbList() async {

@@ -18,9 +18,6 @@ class NoteProvider extends ChangeNotifier {
 
   List<Note> _noteListByKeyword = [];
 
-  // List<AssetEntity> galleryImages = [];
-  //
-  // AssetEntity? savedImage;
 
   final Prefs _notePrefs = Prefs();
 
@@ -35,8 +32,6 @@ class NoteProvider extends ChangeNotifier {
   }
 
   Future<void> initNote() async {
-    // _noteList = _dbHelper.getAllNotes();
-    // _noteListByKeyword = await getNoteByKeyword();
     await getSettingsValuesForNote().whenComplete((){
       getNoteDbList();
       getNoteByKeyword();

@@ -20,6 +20,7 @@ class NoteList extends StatelessWidget {
         var columnCount = SizeInfo.gridColumnCount;
         var scaleCard = SizeInfo.scaleCard;
         var  bottomSpacing = SizeInfo.noteListBottomSpacing;
+        var noteSpacing = SizeInfo.noteGridSpacing;
         int counter = isGrid
             ? noteProvider.noteListByKeywordCounter
             : noteProvider.noteListCounter;
@@ -47,9 +48,9 @@ class NoteList extends StatelessWidget {
                             parent: AlwaysScrollableScrollPhysics()),
                         scrollDirection:
                             isGrid == true ? Axis.vertical : Axis.horizontal,
-                        crossAxisSpacing: 0.0,
+                        crossAxisSpacing: noteSpacing,
                         shrinkWrap: true,
-                        mainAxisSpacing: 0.0,
+                        mainAxisSpacing: noteSpacing,
                         crossAxisCount: isGrid == true ? columnCount : 1,
                         childAspectRatio: isGrid == true ? 2.3 / 3 : 2.5 / 2,
                         children: List.generate(counter, (index) {
@@ -59,7 +60,7 @@ class NoteList extends StatelessWidget {
                             position: index,
                             duration: headerDuration,
                             child: ScaleAnimation(
-                              scale: 0.9,
+                              scale: 1.0,
                               child: FadeInAnimation(
                                   child: Transform.scale(
                                       scale: isGrid == true ? 0.9 : scaleCard,
