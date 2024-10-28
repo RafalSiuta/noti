@@ -67,6 +67,7 @@ class ThemeScreen extends StatelessWidget {
                   childAspectRatio: 2 / 2,
                   children: List.generate(
                       settingsProvider.themes.themesListCounter, (index) {
+                        var theme = settingsProvider.themes.themesList[index];
                     return AnimationConfiguration.staggeredGrid(
                       columnCount: columnCount,
                       position: index,
@@ -76,7 +77,7 @@ class ThemeScreen extends StatelessWidget {
                         child: FadeInAnimation(
                             child: ThemeCard(
                           onChangeTheme: () =>
-                              settingsProvider.setCustomTheme(index),
+                              settingsProvider.setCustomTheme(theme.id),
                           themeData: settingsProvider.themes.themesList[index],
                         )),
                       ),

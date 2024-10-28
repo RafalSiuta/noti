@@ -57,9 +57,11 @@ class SettingsProvider extends ChangeNotifier {
   ThemeData themeData = ThemeData();
   ThemeMode themeMode = ThemeMode.system;
 
-  int currentTheme = 0;
+
 
   ThemesList themes = ThemesList();
+
+  int currentTheme = 0;
 
   getTheme() {
     return themeData;
@@ -77,7 +79,8 @@ class SettingsProvider extends ChangeNotifier {
         setCustomTheme(currentMonthByTheme);
         setCustomShape(currentMonthByTheme);
       } else {
-        currentTheme = await _prefs
+        currentTheme =
+        await _prefs
             .restoreInt('theme', currentTheme)
             .then((theme) => currentTheme = setCustomTheme(theme));
       }
@@ -125,62 +128,69 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   setCustomTheme(int theme) async {
-    switch (theme) {
-      case 0:
-        themeData = themes.themesList[0].themeData!;
-        break;
-      //january
-      case 1:
-        themeData = themes.themesList[1].themeData!;
-        break;
-      //febuary
-      case 2:
-        themeData = themes.themesList[2].themeData!;
-        break;
-      //march
-      case 3:
-        themeData = themes.themesList[3].themeData!;
-        break;
-      //april
-      case 4:
-        themeData = themes.themesList[4].themeData!;
-        break;
-      //may
-      case 5:
-        themeData = themes.themesList[5].themeData!;
-        break;
-      //june
-      case 6:
-        themeData = themes.themesList[6].themeData!;
-        break;
-      //july
-      case 7:
-        themeData = themes.themesList[7].themeData!;
-        break;
+    // switch (theme) {
+    //   case 0:
+    //     themeData = themes.themesList[0].themeData!;
+    //     break;
+    //   //january
+    //   case 1:
+    //     themeData = themes.themesList[1].themeData!;
+    //     break;
+    //   //febuary
+    //   case 2:
+    //     themeData = themes.themesList[2].themeData!;
+    //     break;
+    //   //march
+    //   case 3:
+    //     themeData = themes.themesList[3].themeData!;
+    //     break;
+    //   //april
+    //   case 4:
+    //     themeData = themes.themesList[4].themeData!;
+    //     break;
+    //   //may
+    //   case 5:
+    //     themeData = themes.themesList[5].themeData!;
+    //     break;
+    //   //june
+    //   case 6:
+    //     themeData = themes.themesList[6].themeData!;
+    //     break;
+    //   //july
+    //   case 7:
+    //     themeData = themes.themesList[7].themeData!;
+    //     break;
       //august
-      case 8:
-        themeData = themes.themesList[8].themeData!;
-        break;
-      //september
-      case 9:
-        themeData = themes.themesList[9].themeData!;
-        break;
-      //october
-      case 10:
-        themeData = themes.themesList[10].themeData!;
-        break;
-      //november
-      case 11:
-        themeData = themes.themesList[11].themeData!;
-        break;
-      //december
-      case 12:
-        themeData = themes.themesList[12].themeData!;
-        break;
-      default:
-        themeData = themes.themesList[0].themeData!;
+      // case 8:
+      //   themeData = themes.themesList[8].themeData!;
+      //   break;
+      // //september
+      // case 9:
+      //   themeData = themes.themesList[9].themeData!;
+      //   break;
+      // //october
+      // case 10:
+      //   themeData = themes.themesList[10].themeData!;
+      //   break;
+      // //november
+      // case 11:
+      //   themeData = themes.themesList[11].themeData!;
+      //   break;
+      // //december
+      // case 12:
+      //   themeData = themes.themesList[12].themeData!;
+      //   break;
+      // default:
+      //   themeData = themes.themesList[0].themeData!;
+   // }
+    for (var item in themes.themesList) {
+      if(item.id == theme){
+        themeData = item.themeData!;
+        currentTheme = theme;
+      }
     }
-    currentTheme = theme;
+    //themeData = themes.themesList[0].themeData!;
+    //currentTheme = theme;
     await _prefs.storeInt('theme', theme);
     notifyListeners();
   }
@@ -387,113 +397,9 @@ class SettingsProvider extends ChangeNotifier {
 
   PolicyList policyList = PolicyList();
 
-  //PermissionSettings permissionSets = PermissionSettings();
-
-  // onPermissionSettingsChange(SettingsModel sets) async {
-  //   sets.onChange();
-  //   await _prefs.storeList('permissionSettings', permissionSets.permissionSettingsList);
-  //
-  //   //PERMISSIONS LIST:
-  //   // <uses-permission android:name="android.permission.VIBRATE" />
-  //   // <uses-permission android:name="android.permission.CAMERA" />
-  //   // <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-  //   // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  //   // <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-  //   // <!--    <uses-feature android:name="android.permission.WAKE_LOCK" />-->
-  //   // <uses-permission android:name="android.permission.WAKE_LOCK" />
-  //   // <!--    <uses-permission android:name="android.permission.INTERNET" />-->
-  //  //todo: dependencies permissions https://pub.dev/packages/permission_handler/example
-  //   switch (sets.title){
-  //     case "File storage":
-  //       PermissionStatus status = await Permission.storage.request();
-  //       if (status.isGranted) {
-  //         print("Storage permission granted");
-  //         sets.isOn = true;
-  //       } else {
-  //         sets.isOn = false;
-  //         // await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-  //       }
-  //       break;
-  //     case "Camera access":
-  //       PermissionStatus status = await Permission.camera.request();
-  //       if (status.isGranted) {
-  //         print("Camera permission granted");
-  //         sets.isOn = true;
-  //       } else {
-  //         sets.isOn = false;
-  //       }
-  //
-  //       break;
-  //     case "Notifications":
-  //       PermissionStatus status = await Permission.notification.request();
-  //       if (status.isGranted) {
-  //         print("Notifications permission granted");
-  //         sets.isOn = true;
-  //       } else {
-  //         sets.isOn = false;
-  //       }
-  //
-  //       break;
-  //     case "Wake lock":
-  //       PermissionStatus status = await Permission.notification.request();
-  //       if (status.isGranted) {
-  //         print("Wake lock permission granted");
-  //         sets.isOn = true;
-  //       } else {
-  //         sets.isOn = false;
-  //       }
-  //
-  //       break;
-  //     case "Vibrate":
-  //       PermissionStatus status = await Permission.sensorsAlways.request();
-  //       if (status.isGranted) {
-  //         print("Wake lock permission granted");
-  //         sets.isOn = true;
-  //       } else {
-  //         sets.isOn = false;
-  //       }
-  //
-  //       break;
-  //   }
-  //   // if (sets.title == "File storage" && sets.isOn == true) {
-  //   //   PermissionStatus status = await Permission.storage.request();
-  //   //
-  //   //   if (status.isGranted) {
-  //   //     print("Storage permission granted");
-  //   //   } else {
-  //   //     // Jeśli użytkownik nie udzielił pozwolenia, ustaw isOn na false
-  //   //     sets.isOn = false;
-  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-  //   //   }
-  //   // } else if (sets.title == "Camera access" && sets.isOn == true) {
-  //   //   PermissionStatus status = await Permission.camera.request();
-  //   //   if (status.isGranted) {
-  //   //     print("Camera permission granted");
-  //   //   } else {
-  //   //     sets.isOn = false;
-  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-  //   //   }
-  //   // } else if (sets.title == "Notifications" && sets.isOn == true) {
-  //   //   PermissionStatus status = await Permission.notification.request();
-  //   //   if (status.isGranted) {
-  //   //     print("Notification permission granted");
-  //   //   } else {
-  //   //     sets.isOn = false;
-  //   //     await _prefs.storeList('permissionSettings', permissionSets.permissionSettings);
-  //   //   }
-  //   // }
-  //
-  //   notifyListeners();
-  // }
-  //
-  // updatePermissionSettings() async {
-  //    await _prefs.restoreList('permissionSettings', permissionSets.permissionSettingsList);
-  //    notifyListeners();
-  // }
-
-  //loader in init function
   loadSets() async {
     //permissionProvider.updatePermissionSettings();
+
     updateCalendarSettings();
     themeData = await loadTheme();
     shapes = await loadShape();

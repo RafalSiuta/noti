@@ -327,26 +327,27 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   ),
                                                 ),
                                             children: [
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(
-                                                    alignment: Alignment.center,
-                                                    padding: const EdgeInsets.only(
-                                                        right: 5.0),
-                                                    icon: Icon(
+                                              InkWell(
+                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
                                                       pickedIcon,
                                                       size: navIconSize,
                                                     ),
-                                                    onPressed: () {
-                                                      _pickIcon(context);
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
 
-                                                    },
-                                                  ),
-                                                  Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
-                                                ],
+                                                  ],
+                                                ),
+                                                onTap: (){
+                                                  _pickIcon(context);
+                                                },
                                               ),
                                               const VerticalDivider(),
                                               TextButton(
@@ -398,114 +399,9 @@ class _TaskCreatorState extends State<TaskCreator>
                                       child: TextField(
                                         maxLengthEnforcement:
                                             MaxLengthEnforcement.truncateAfterCompositionEnds,
-                                        //textInputAction: TextInputAction.continueAction,
                                         contextMenuBuilder: (context, editableTextState) {
                                           return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
                                         },
-                                        // contextMenuBuilder: (context, editableTextState){
-                                        //   return TextSelectionToolbar(
-                                        //     anchorAbove: Offset(5.0,2.0),
-                                        //     anchorBelow: Offset(5.0,-2.0),
-                                        //
-                                        //     // toolbarBuilder: (context,child){
-                                        //     //   return Container(
-                                        //     //     width: 250,
-                                        //     //     height: 50,
-                                        //     //     padding: EdgeInsets.all(5.0),
-                                        //     //     color: Colors.red,
-                                        //     //     child: Row(
-                                        //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        //     //       children: [
-                                        //     //         TextButton(
-                                        //     //           onPressed: () {
-                                        //     //             // Funkcja kopiowania zaznaczonego tekstu
-                                        //     //             editableTextState.copySelection(SelectionChangedCause.toolbar);
-                                        //     //           },
-                                        //     //           child: Text('copy', style: Theme.of(context).textTheme.bodyMedium),
-                                        //     //         ),
-                                        //     //         TextButton(
-                                        //     //           onPressed: () {
-                                        //     //             // Funkcja zaznaczania całego tekstu
-                                        //     //             editableTextState.selectAll(SelectionChangedCause.toolbar);
-                                        //     //           },
-                                        //     //           child: Text('select all', style: Theme.of(context).textTheme.bodyMedium),
-                                        //     //         ),
-                                        //     //         TextButton(
-                                        //     //           onPressed: () {
-                                        //     //             // Funkcja wklejania tekstu ze schowka
-                                        //     //             editableTextState.pasteText(SelectionChangedCause.toolbar);
-                                        //     //           },
-                                        //     //           child: Text('paste', style: Theme.of(context).textTheme.bodyMedium),
-                                        //     //         ),
-                                        //     //       ],
-                                        //     //     ),
-                                        //     //   );
-                                        //     // },
-                                        //     children:  [
-                                        //       TextSelectionToolbarTextButton(
-                                        //         padding: EdgeInsets.all(5.0),
-                                        //         child: Text('copy', style: Theme.of(context).textTheme.bodyMedium),
-                                        //         onPressed: (){
-                                        //           editableTextState.copySelection(SelectionChangedCause.toolbar);
-                                        //         },
-                                        //       ),
-                                        //       TextSelectionToolbarTextButton(
-                                        //         padding: EdgeInsets.all(5.0),
-                                        //         child: Text('select all', style: Theme.of(context).textTheme.bodyMedium),
-                                        //         onPressed: (){
-                                        //           editableTextState.selectAll(SelectionChangedCause.toolbar);
-                                        //         },
-                                        //       ),
-                                        //       TextSelectionToolbarTextButton(
-                                        //         padding: EdgeInsets.all(5.0),
-                                        //         child: Text('paste', style: Theme.of(context).textTheme.bodyMedium),
-                                        //         onPressed: (){
-                                        //           editableTextState.pasteText(SelectionChangedCause.toolbar);
-                                        //         },
-                                        //       ),
-                                        //     ],
-                                        //
-                                        //   );
-                                        // },
-                                        //   AdaptiveTextSelectionToolbar.buttonItems(
-                                        //     anchors: editableTextState.contextMenuAnchors,
-                                        //     buttonItems: <ContextMenuButtonItem>[
-                                        //       ContextMenuButtonItem(
-                                        //         onPressed: () {
-                                        //           editableTextState.cutSelection(SelectionChangedCause.toolbar);
-                                        //         },
-                                        //         label: 'cut',
-                                        //         type: ContextMenuButtonType.cut,
-                                        //       ),
-                                        //       ContextMenuButtonItem(
-                                        //         onPressed: () {
-                                        //           editableTextState.cutSelection(SelectionChangedCause.toolbar);
-                                        //         },
-                                        //         label: 'copy',
-                                        //         type: ContextMenuButtonType.copy,
-                                        //       ),
-                                        //     ]
-                                        //
-                                        // );
-//     AdaptiveTextSelectionToolbar.getAdaptiveButtons(
-                                        //   context,
-                                        //   editableTextState.contextMenuButtonItems,
-                                        // ).map((button) {
-                                        //   // Wrap the button in a theme to modify the style
-                                        //   return Theme(
-                                        //     data: Theme.of(context).copyWith(
-                                        //       textTheme: TextTheme(
-                                        //         // Customize the style of the toolbar text
-                                        //         bodyMedium: TextStyle(
-                                        //           color: Colors.red, // Change text color
-                                        //           fontSize: 16,      // Change font size
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //     child: button,
-                                        //   );
-                                        // }).toList(),
-
                                         cursorWidth: 1,
                                         focusNode: titleNode,
                                         maxLines: 1,
@@ -515,7 +411,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                             titleNode.unfocus();
                                             FocusScope.of(context)
                                                 .requestFocus(
-                                                    descriptionNode);
+                                                    titleNode);
                                           });
                                         },
                                         keyboardType: TextInputType.text,
@@ -524,11 +420,6 @@ class _TaskCreatorState extends State<TaskCreator>
                                           setState(() {
                                             widget.newTask.title = newText;
                                             cursorPlace(titleVal,newText);
-                                            // titleVal.selection =
-                                            //     TextSelection.fromPosition(
-                                            //         TextPosition(
-                                            //             offset: titleVal
-                                            //                 .text.length));
                                           });
                                         },
                                         cursorColor: Theme.of(context)
@@ -596,11 +487,6 @@ class _TaskCreatorState extends State<TaskCreator>
                                           widget.newTask.description =
                                               newText;
                                           cursorPlace(descVal,newText);
-                                          // descVal.selection =
-                                          //     TextSelection.fromPosition(
-                                          //         TextPosition(
-                                          //             offset: descVal
-                                          //                 .text.length));
                                         });
                                       },
                                       cursorColor: Theme.of(context)

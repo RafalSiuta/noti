@@ -4,20 +4,22 @@ import 'package:google_fonts/google_fonts.dart';
 const themeDefAMainBcgColor = Color(0xFFEEEEEE);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
-const themeDefFirstGradientColor = Color(0xFF2592F0);//Color(0xFF00C3FF);//1389CD Color(0xFF448AFF);
-const themeDefMiddleGradientColor = Color(0xFF335CCC);//Color(0xFF1B6BFF);//335CCC Color(0xFF2979FF);
-const themeDefLastGradientColor = Color(0xFF2D32B3);//Color(0xFF2525FF);//2D32B3 Color(0xFF2962FF);
+const themeDefFirstGradientColor = Color(0xFF2592F0);
+const themeDefMiddleGradientColor = Color(0xFF335CCC);
+const themeDefLastGradientColor = Color(0xFF2D32B3);
 const themeDefUnselectedTaskIcon = Color(0xFF1B3A7B);
+const themeDefOutlineColor = Color(0xFF222783);
 
-const themeDefDividerColor = Color(0xFF9e9e9e);//Color(0xFF636363);
-const themeDefUnselectedColor = Color(0xFF9e9e9e); //595959
+const themeDefDividerColor = Color(0xFF9e9e9e);
+const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
-const themeDefIndicatorColor = Color(0xFFffca28); // FEA735 f5f5f5
+const themeDefIndicatorColor = Color(0xFFffca28);
 
 const themeDefBaseTextColor = Color(0xff161616);
 const themeDefBtnTextColor = Color(0xff161616);
 
+const themeDefSplashColor = Colors.transparent;
 
 final themeDefPickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
@@ -115,8 +117,12 @@ final themeDefault = ThemeData(
       onSurface: themeDefTitleBoxBcgColor,
       onError: Colors.white,
       brightness: Brightness.light,
-        shadow: themeDefLastGradientColor
+        shadow: themeDefLastGradientColor,
+      outline: themeDefOutlineColor
     ),
+    highlightColor:Colors.transparent,
+    splashColor: themeDefSplashColor,
+    splashFactory: NoSplash.splashFactory,
     canvasColor: themeDefTitleBoxBcgColor,
     focusColor: themeDefFirstGradientColor,
     unselectedWidgetColor: themeDefUnselectedColor,
@@ -159,11 +165,16 @@ final themeDefault = ThemeData(
       labelType: NavigationRailLabelType.all,
       groupAlignment: -0.5,
       useIndicator: true,
+
       indicatorColor: Colors.transparent,
       selectedIconTheme: const IconThemeData(
         color: themeDefIndicatorColor,
-        fill: 0.0
+        fill: 0.0,
       ),
+      // indicatorShape: RoundedRectangleBorder(
+      //     side: BorderSide(
+      //         color: Colors.red),
+      //     borderRadius: BorderRadius.all(Radius.circular(10))),
       unselectedIconTheme: const IconThemeData(
           color: themeDefUnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.openSans(
@@ -225,7 +236,7 @@ final themeDefault = ThemeData(
         contentTextStyle: contentTextStyle,
         backgroundColor: themeDefAMainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-        datePickerTheme: DatePickerThemeData(
+    datePickerTheme: DatePickerThemeData(
       inputDecorationTheme: InputDecorationTheme(
 
       ),

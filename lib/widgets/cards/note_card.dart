@@ -45,7 +45,7 @@ class NoteCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: 2, top: isGrid ? 12 : 8.0, right: 5.0, bottom: 3.0),
+                      left: 5.0, top: isGrid ? 12 : 8.0, right: 5.0, bottom: 3.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
 

@@ -1,156 +1,164 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const theme4MainBcgColor = Color(0xFFE6E6E6);
-const theme4TitleBoxBcgColor = Color(0xFFF8F8F8);
+const theme5MainBcgColor = Color(0xFFEAE7E1);
+const theme5TitleBoxBcgColor = Color(0xFFF7F5F3);
 
-const theme4FirstGradientColor = Color(0xFF979696);
-const theme4MiddleGradientColor = Color(0xFF7B7B7B);
-const theme4LastGradientColor = Color(0xFF575757);
-const theme4UnselectedTaskIcon = Color(0xFF5D5D5D);
+const theme5FirstGradientColor = Color(0xFF9C8A6D);
+const theme5MiddleGradientColor = Color(0xFFB5A892);
+const theme5LastGradientColor = Color(0xFFC1B7A4);
+const theme5UnselectedTaskIcon = Color(0xFF807157);
+const theme5OutlineColor = Color(0xFF675C46);
 
-const theme4DividerColor = Color(0xFF636363);
-const theme4UnselectedColor = Color(0xFF666666);
-const theme4ShadowColor = Color(0xFFC0C0C0);
+const theme5DividerColor = Color(0xFF9F9A93);
+const theme5UnselectedColor = Color(0xFF9F9A93);
+const theme5ShadowColor = Color(0xFFE6E2DB);
 
-const theme4IndicatorColor = Color(0xFFEDBB4C);
+const theme5IndicatorColor = Color(0xFFCCA533);
 
-const theme4BaseTextColor = Color(0xff161616);
-const theme4BtnTextColor = Color(0xff161616);
+const theme5BaseTextColor = Color(0xff2E260F);
+const theme5BtnTextColor = Color(0xffF7F5F3);
 
-final theme4PickersBaseTextStyle = GoogleFonts.exo2(
+const theme5PickerTextColor = Color(0xFF2E260F);
+
+
+final theme5PickersBaseTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
-      color: theme4BaseTextColor,
+      color: theme5PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w500),
+      fontWeight: FontWeight.w200),
 );
 
-final theme4PickersTitleTextStyle = GoogleFonts.inter(
+final theme5PickersTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
-      color: theme4BaseTextColor,
+      color: theme5BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w700),
+      fontWeight: FontWeight.w200),
 );
 //TEXT STYLES:
 //headers:
 //Large header:
-final TextStyle theme4LargeHeaderTextStyle  = GoogleFonts.inter(
+final TextStyle theme5LargeHeaderTextStyle  = GoogleFonts.poppins(
     textStyle: const TextStyle(
-        color: theme4BaseTextColor,
+        color: theme5BaseTextColor,
         fontSize: 32,
-        fontWeight: FontWeight.w700
+        fontWeight: FontWeight.w200
     ));
 //Subtitle header:
-final TextStyle theme4SubtitleHeaderTextStyle = GoogleFonts.inter(
+final TextStyle theme5SubtitleHeaderTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 18,
-      color: theme4BaseTextColor,
-      fontWeight: FontWeight.w700,
+      color: theme5BaseTextColor,
+      fontWeight: FontWeight.w200,
       decoration: TextDecoration.none),
 );
 //task & note card style:
 //title text style:
-final TextStyle theme4CardTitleTextStyle = GoogleFonts.inter(
+final TextStyle theme5CardTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme4BaseTextColor,
-      fontWeight: FontWeight.w700,
+      color: theme5BaseTextColor,
+      fontWeight: FontWeight.w200,
       decoration: TextDecoration.none),
 );
 //content text:
-final TextStyle theme4ContentTextStyle = GoogleFonts.inter(
+final TextStyle theme5ContentTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme4BaseTextColor,
-      fontWeight: FontWeight.w400,
+      color: theme5BaseTextColor,
+      fontWeight: FontWeight.w200,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
-final TextStyle theme4UnselectedTextStyle = GoogleFonts.inter(
+final TextStyle theme5UnselectedTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
-      color: theme4UnselectedColor,
-      fontWeight: FontWeight.w400,
-      decorationColor: theme4DividerColor,
+      color: theme5UnselectedColor,
+      fontWeight: FontWeight.w200,
+      decorationColor: theme5DividerColor,
       decoration: TextDecoration.lineThrough),
 );
 //calendar text style:
 //day text style:
-final theme4CalendarDayWeekendTextStyle = GoogleFonts.inter(
+final theme5CalendarDayWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme4UnselectedColor,
-        fontWeight: FontWeight.w700,
-        decorationColor: theme4DividerColor));
+        color: theme5IndicatorColor,
+        fontWeight: FontWeight.w200,
+        decorationColor: theme5DividerColor));
 
 //next month text style:
-final theme4CalendarNextMonthTextStyle = GoogleFonts.inter(
+final theme5CalendarNextMonthTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme4UnselectedColor,
+        color: theme5UnselectedColor,
         fontWeight: FontWeight.w200,
-        decorationColor: theme4UnselectedColor));
+        decorationColor: theme5UnselectedColor));
 
-final theme4CalendarWeekendTextStyle = GoogleFonts.inter(
+final theme5CalendarWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme4UnselectedColor,
-        fontWeight: FontWeight.w400,
-        decorationColor: theme4DividerColor));
+        color: theme5IndicatorColor,
+        fontWeight: FontWeight.w200,
+        decorationColor: theme5DividerColor));
 
 
 
-final theme4 = ThemeData(
+final theme5 = ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: theme4MainBcgColor,
+    scaffoldBackgroundColor: theme5MainBcgColor,
     colorScheme: const ColorScheme(
-        primary: theme4BtnTextColor,
-        secondary: theme4TitleBoxBcgColor,
-        surface: theme4TitleBoxBcgColor,
+        primary: theme5BtnTextColor,
+        secondary: theme5TitleBoxBcgColor,
+        surface: theme5TitleBoxBcgColor,
         error: Colors.redAccent,
         onPrimary: Colors.white,
-        onSecondary: theme4UnselectedTaskIcon,
-        onSurface: theme4TitleBoxBcgColor,
+        onSecondary: theme5UnselectedTaskIcon,
+        onSurface: theme5TitleBoxBcgColor,
         onError: Colors.white,
         brightness: Brightness.light,
-        shadow: theme4LastGradientColor
+        shadow: theme5LastGradientColor,
+      outline: theme5OutlineColor
     ),
-    canvasColor: theme4TitleBoxBcgColor,
-    focusColor: theme4FirstGradientColor,
-    unselectedWidgetColor: theme4UnselectedColor,
-    primaryColor: theme4FirstGradientColor,
-    primaryColorLight: theme4MiddleGradientColor,
-    primaryColorDark: theme4LastGradientColor,
-    cardColor: theme4TitleBoxBcgColor,
-    indicatorColor: theme4IndicatorColor,
-    shadowColor: theme4ShadowColor,
-    dialogBackgroundColor: theme4LastGradientColor,
+    canvasColor: theme5TitleBoxBcgColor,
+    focusColor: theme5FirstGradientColor,
+    unselectedWidgetColor: theme5UnselectedColor,
+    primaryColor: theme5FirstGradientColor,
+    primaryColorLight: theme5MiddleGradientColor,
+    primaryColorDark: theme5LastGradientColor,
+    cardColor: theme5TitleBoxBcgColor,
+    indicatorColor: theme5IndicatorColor,
+    shadowColor: theme5ShadowColor,
+    dialogBackgroundColor: theme5LastGradientColor,
     primarySwatch: Colors.blue,
+    highlightColor:Colors.transparent,
+    splashColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
     textTheme: TextTheme(
       /// main big title
-      headlineLarge: theme4LargeHeaderTextStyle,
+      headlineLarge: theme5LargeHeaderTextStyle,
       /// list title & small headers
-      headlineMedium: theme4SubtitleHeaderTextStyle,
+      headlineMedium: theme5SubtitleHeaderTextStyle,
       ///note & task description text style date header style
-      displayLarge: theme4CardTitleTextStyle,
+      displayLarge: theme5CardTitleTextStyle,
       ///unselected text
-      displayMedium: theme4UnselectedTextStyle,
+      displayMedium: theme5UnselectedTextStyle,
       //content text style
-      bodyMedium: theme4ContentTextStyle,
+      bodyMedium: theme5ContentTextStyle,
       ///calendar default text style
-      labelLarge: theme4CalendarDayWeekendTextStyle,
+      labelLarge: theme5CalendarDayWeekendTextStyle,
       //calendar next month text style:
-      labelSmall: theme4CalendarNextMonthTextStyle,
+      labelSmall: theme5CalendarNextMonthTextStyle,
       ///calendar weekend text style:
-      labelMedium: theme4CalendarWeekendTextStyle,
+      labelMedium: theme5CalendarWeekendTextStyle,
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionHandleColor: theme4IndicatorColor,
-      selectionColor: theme4UnselectedColor,
-      cursorColor: theme4IndicatorColor,
+      selectionHandleColor: theme5IndicatorColor,
+      selectionColor: theme5UnselectedColor,
+      cursorColor: theme5IndicatorColor,
     ),
     dividerTheme: const DividerThemeData(
-      color: theme4DividerColor,
+      color: theme5DividerColor,
       thickness: 0.5,
     ),
     navigationRailTheme: NavigationRailThemeData(
@@ -159,186 +167,186 @@ final theme4 = ThemeData(
       useIndicator: true,
       indicatorColor: Colors.transparent,
       selectedIconTheme: const IconThemeData(
-          color: theme4IndicatorColor,
+          color: theme5IndicatorColor,
           fill: 0.0
       ),
       unselectedIconTheme: const IconThemeData(
-          color: theme4UnselectedColor,fill: 0.0),
-      selectedLabelTextStyle: GoogleFonts.openSans(
+          color: theme5UnselectedColor,fill: 0.0),
+      selectedLabelTextStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
-          color: theme4BaseTextColor, fontSize: 18, fontWeight: FontWeight.w900,
+          color: theme5IndicatorColor, fontSize: 18, fontWeight: FontWeight.w200,
           backgroundColor: Colors.transparent,
         ),
       ),
-      unselectedLabelTextStyle: GoogleFonts.openSans(
+      unselectedLabelTextStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
-          color: theme4UnselectedColor,
+          color: theme5UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w200,
 
         ),
       ),
     ),
-    iconTheme: const IconThemeData(color: theme4IndicatorColor, size: 18),
+    iconTheme: const IconThemeData(color: theme5IndicatorColor, size: 18),
     cardTheme: const CardTheme(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        shadowColor: theme4UnselectedColor,
+        shadowColor: theme5UnselectedColor,
         elevation: 5),
     switchTheme: SwitchThemeData(
       trackOutlineWidth:WidgetStateProperty.all(0.5),
       trackOutlineColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme4UnselectedColor;
+            return theme5UnselectedColor;
           } else {
-            return theme4ShadowColor;
+            return theme5ShadowColor;
           }
         },
       ),
       thumbColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme4IndicatorColor;
+            return theme5IndicatorColor;
           } else {
-            return theme4UnselectedColor;
+            return theme5UnselectedColor;
           }
         },
       ),
       trackColor: WidgetStateProperty.resolveWith(
             (states) {
           if (states.contains(WidgetState.selected)) {
-            return theme4UnselectedColor;
+            return theme5UnselectedColor;
           } else {
-            return theme4ShadowColor;
+            return theme5ShadowColor;
           }
         },
       ),),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
-        backgroundColor: theme4IndicatorColor),
+        backgroundColor: theme5IndicatorColor),
     dialogTheme: DialogTheme(
         elevation: 5.0,
-        titleTextStyle: theme4SubtitleHeaderTextStyle,
-        contentTextStyle: theme4ContentTextStyle,
-        backgroundColor: theme4MainBcgColor,
+        titleTextStyle: theme5SubtitleHeaderTextStyle,
+        contentTextStyle: theme5ContentTextStyle,
+        backgroundColor: theme5MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     datePickerTheme: DatePickerThemeData(
-      headerBackgroundColor: theme4IndicatorColor,
-      headerHeadlineStyle: theme4PickersTitleTextStyle,
-      headerForegroundColor: theme4BaseTextColor,
-      weekdayStyle: theme4PickersBaseTextStyle,
-      dayStyle: theme4PickersBaseTextStyle,
+      headerBackgroundColor: theme5MiddleGradientColor,
+      headerHeadlineStyle: theme5PickersTitleTextStyle,
+      headerForegroundColor: theme5BaseTextColor,
+      weekdayStyle: theme5PickersBaseTextStyle,
+      dayStyle: theme5PickersBaseTextStyle,
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme4IndicatorColor.withOpacity(0.5)),
-        foregroundColor: WidgetStateProperty.all(theme4BaseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.inter(
+        backgroundColor: WidgetStateProperty.all(theme5IndicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme5BaseTextColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.poppins(
           textStyle: const TextStyle(
-              color: theme4BaseTextColor,
+              color: theme5BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(theme4TitleBoxBcgColor),
-          foregroundColor: WidgetStateProperty.all(theme4UnselectedColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.inter(
+          backgroundColor: WidgetStateProperty.all(theme5TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme5UnselectedColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.poppins(
             textStyle: const TextStyle(
-                color: theme4BaseTextColor,
+                color: theme5BaseTextColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              side: const BorderSide(color: theme4UnselectedColor, width: 0.5),
+              side: const BorderSide(color: theme5UnselectedColor, width: 0.5),
               borderRadius: BorderRadius.circular(20) ))
       ),
-      todayBorder: const BorderSide(color: theme4BaseTextColor, style:BorderStyle.solid, width: 0.5),
+      todayBorder: const BorderSide(color: theme5BaseTextColor, style:BorderStyle.solid, width: 0.5),
       todayForegroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4BaseTextColor; // selected element text color
+          return theme5BaseTextColor; // selected element text color
         }
-        return  theme4UnselectedColor; // unselected element text color
+        return  theme5UnselectedColor; // unselected element text color
       }),
       todayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4IndicatorColor.withOpacity(0.5);
+          return theme5IndicatorColor.withOpacity(0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayOverlayColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4IndicatorColor.withOpacity(0.5);
+          return theme5IndicatorColor.withOpacity(0.5);
         }
-        return  theme4UnselectedColor; // unselected element text color
+        return  theme5UnselectedColor; // unselected element text color
       }),
       dayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4IndicatorColor.withOpacity(0.5);
+          return theme5IndicatorColor.withOpacity(0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayForegroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4BaseTextColor; // selected element text color
+          return theme5BaseTextColor; // selected element text color
         }
-        return  theme4UnselectedColor; // unselected element text color
+        return  theme5UnselectedColor; // unselected element text color
       }),
 
     ),
     timePickerTheme: TimePickerThemeData(
       elevation: 0.2,
-      dayPeriodColor: theme4IndicatorColor.withOpacity(0.5),
-      dayPeriodTextStyle: theme4PickersBaseTextStyle,
-      hourMinuteTextStyle: theme4PickersBaseTextStyle,
-      dialTextStyle: theme4PickersBaseTextStyle,
-      dialHandColor: theme4IndicatorColor, // color handles
-      hourMinuteTextColor: theme4BaseTextColor, // text colors
-      backgroundColor: theme4TitleBoxBcgColor, // background color
+      dayPeriodColor: theme5IndicatorColor.withOpacity(0.5),
+      dayPeriodTextStyle: theme5PickersBaseTextStyle,
+      hourMinuteTextStyle: theme5PickersBaseTextStyle,
+      dialTextStyle: theme5PickersBaseTextStyle,
+      dialHandColor: theme5IndicatorColor, // color handles
+      hourMinuteTextColor: theme5BaseTextColor, // text colors
+      backgroundColor: theme5TitleBoxBcgColor, // background color
       dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4BaseTextColor; // selected element text color
+          return theme5BaseTextColor; // selected element text color
         }
-        return  theme4UnselectedColor; // unselected element text color
+        return  theme5UnselectedColor; // unselected element text color
       }),
       dialTextColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4BaseTextColor; // selected element text color
+          return theme5BaseTextColor; // selected element text color
         }
-        return  theme4UnselectedColor; // unselected element text color
+        return  theme5UnselectedColor; // unselected element text color
       }),
-      entryModeIconColor: theme4BaseTextColor, // entry mode icon color
+      entryModeIconColor: theme5BaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme4IndicatorColor.withOpacity(0.5); // selected hour/minute background color
+          return theme5IndicatorColor.withOpacity(0.5); // selected hour/minute background color
         }
-        return  theme4TitleBoxBcgColor; // unselected hour/minute background color
+        return  theme5TitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme4IndicatorColor.withOpacity(0.5)),
-        foregroundColor: WidgetStateProperty.all(theme4BaseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.inter(
+        backgroundColor: WidgetStateProperty.all(theme5IndicatorColor.withOpacity(0.5)),
+        foregroundColor: WidgetStateProperty.all(theme5BaseTextColor),
+        textStyle: WidgetStateProperty.all(GoogleFonts.poppins(
           textStyle: const TextStyle(
-              color: theme4BaseTextColor,
+              color: theme5BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(theme4TitleBoxBcgColor),
-          foregroundColor: WidgetStateProperty.all(theme4UnselectedColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.inter(
+          backgroundColor: WidgetStateProperty.all(theme5TitleBoxBcgColor),
+          foregroundColor: WidgetStateProperty.all(theme5UnselectedColor),
+          textStyle: WidgetStateProperty.all(GoogleFonts.poppins(
             textStyle: const TextStyle(
-                color: theme4BaseTextColor,
+                color: theme5BaseTextColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              side: const BorderSide(color: theme4UnselectedColor, width: 0.5),
+              side: const BorderSide(color: theme5UnselectedColor, width: 0.5),
               borderRadius: BorderRadius.circular(20) ))
       ),
     ),
@@ -347,33 +355,33 @@ final theme4 = ThemeData(
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: .5,
-            color: theme4TitleBoxBcgColor,
+            color: theme5TitleBoxBcgColor,
           )),
       enabledBorder: UnderlineInputBorder(
           borderSide:
-          BorderSide(width: .5, color: theme4UnselectedColor)),
+          BorderSide(width: .5, color: theme5UnselectedColor)),
       errorBorder: InputBorder.none,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: theme4TitleBoxBcgColor, fontSize: 20),
+      hintStyle: TextStyle(color: theme5TitleBoxBcgColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
-        color: theme4TitleBoxBcgColor,
+        color: theme5TitleBoxBcgColor,
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme4UnselectedColor,
+        color: theme5UnselectedColor,
         fontSize: 8.0,
       ),
       labelStyle: TextStyle(
-        color: theme4UnselectedColor,
+        color: theme5UnselectedColor,
         fontSize: 20,
       ),
       alignLabelWithHint: true,
       prefixStyle: TextStyle(
-        color: theme4UnselectedColor,
+        color: theme5UnselectedColor,
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
@@ -386,29 +394,29 @@ final theme4 = ThemeData(
     ),
     tabBarTheme: TabBarTheme(
       indicator: const UnderlineTabIndicator(
-          borderSide: BorderSide(width: 2.0, color: theme4IndicatorColor),
+          borderSide: BorderSide(width: 2.0, color: theme5IndicatorColor),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
-      labelColor: theme4BaseTextColor,
-      unselectedLabelColor: theme4UnselectedColor,
-      unselectedLabelStyle: GoogleFonts.inter(
+      labelColor: theme5BaseTextColor,
+      unselectedLabelColor: theme5UnselectedColor,
+      unselectedLabelStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme4UnselectedColor,
+            color: theme5UnselectedColor,
             fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
-      labelStyle: GoogleFonts.inter(
+      labelStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
             fontSize: 12,
-            color: theme4BaseTextColor,
-            fontWeight: FontWeight.w500,
+            color: theme5BaseTextColor,
+            fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
     ),
     sliderTheme: const SliderThemeData(
         trackHeight:1.5,
-        activeTrackColor: theme4IndicatorColor,
-        inactiveTrackColor: theme4UnselectedColor,
+        activeTrackColor: theme5IndicatorColor,
+        inactiveTrackColor: theme5UnselectedColor,
         trackShape: RoundedRectSliderTrackShape(),
         thumbColor: Colors.white)
 );

@@ -88,7 +88,7 @@ class _CustomDialState extends State<CustomDial> {
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15)),
-                    color: Theme.of(context).indicatorColor),
+                    color: Theme.of(context).datePickerTheme.headerBackgroundColor),
                 child: Center(
                   child: Text(
                     widget.title!,
@@ -101,6 +101,7 @@ class _CustomDialState extends State<CustomDial> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                     child: widget.child!,
                   )),
+             const Divider(),
              // const SizedBox(height: 5.0,),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),

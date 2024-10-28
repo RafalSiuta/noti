@@ -311,26 +311,27 @@ class _NoteCreatorState extends State<NoteCreator>
                                       ),
                                     ),
                                     children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(
-                                            alignment: Alignment.center,
-                                            padding: const EdgeInsets.only(
-                                                bottom: .0),
-                                            icon: Icon(
+                                      InkWell(
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
                                               pickedIcon,
                                               size: navIconSize,
                                             ),
-                                            onPressed: () {
-                                              _pickIcon(context);
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
 
-                                            },
-                                          ),
-                                          Text(pickedIconText,textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor, ),)
-                                        ],
+                                          ],
+                                        ),
+                                        onTap: (){
+                                          _pickIcon(context);
+                                        },
                                       ),
                                       const VerticalDivider(),
                                       TextButton(

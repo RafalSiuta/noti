@@ -8,7 +8,7 @@ const theme2FirstGradientColor = Color(0xFF979696);
 const theme2MiddleGradientColor = Color(0xFF7B7B7B);
 const theme2LastGradientColor = Color(0xFF575757);
 const theme2UnselectedTaskIcon = Color(0xFF5D5D5D);
-
+const theme2OutlineColor = Colors.transparent;
 const theme2DividerColor = Color(0xFF636363);
 const theme2UnselectedColor = Color(0xFF666666);
 const theme2ShadowColor = Color(0xFFC0C0C0);
@@ -116,7 +116,8 @@ final theme2 = ThemeData(
       onSurface: theme2TitleBoxBcgColor,
       onError: Colors.white,
       brightness: Brightness.light,
-        shadow: theme2LastGradientColor
+        shadow: theme2LastGradientColor,
+        outline: theme2OutlineColor
     ),
     canvasColor: theme2TitleBoxBcgColor,
     focusColor: theme2FirstGradientColor,
@@ -129,6 +130,9 @@ final theme2 = ThemeData(
     shadowColor: theme2ShadowColor,
     dialogBackgroundColor: theme2LastGradientColor,
     primarySwatch: Colors.blue,
+    highlightColor:Colors.transparent,
+    splashColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
     textTheme: TextTheme(
       /// main big title
       headlineLarge: theme2LargeHeaderTextStyle,

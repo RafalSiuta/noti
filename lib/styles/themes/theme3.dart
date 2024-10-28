@@ -8,6 +8,7 @@ const theme3FirstGradientColor = Color(0xFF28313E);
 const theme3MiddleGradientColor = Color(0xFF222A35);
 const theme3LastGradientColor = Color(0xFF1C232C);
 const theme3UnselectedTaskIcon = Color(0xFF101418);
+const theme3OutlineColor = Color(0xFF0B0F11);
 
 const theme3DividerColor = Color(0xFF222A35);
 const theme3UnselectedColor = Color(0xFF101518);
@@ -114,7 +115,8 @@ final theme3 = ThemeData(
         onSurface: theme3TitleBoxBcgColor,
         onError: Colors.white,
         brightness: Brightness.light,
-        shadow: theme3LastGradientColor
+        shadow: theme3LastGradientColor,
+        outline: theme3OutlineColor
     ),
     canvasColor: theme3TitleBoxBcgColor,
     focusColor: theme3FirstGradientColor,
@@ -127,6 +129,9 @@ final theme3 = ThemeData(
     shadowColor: theme3ShadowColor,
     dialogBackgroundColor: theme3LastGradientColor,
     primarySwatch: Colors.blue,
+    highlightColor:Colors.transparent,
+    splashColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
     textTheme: TextTheme(
       /// main big title
       headlineLarge: theme3LargeHeaderTextStyle,

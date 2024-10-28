@@ -25,33 +25,34 @@ class IconButtonWithText extends StatelessWidget {
     var selectedColor = value == true
         ? Theme.of(context).indicatorColor
         : Theme.of(context).unselectedWidgetColor;
-    return IconButton(
-        padding:  EdgeInsets.zero,//only(bottom: 5.0,left: 5.0, right: 5.0),
-        alignment: align,
-        onPressed: () {
+    return
+      InkWell(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+                  Icon(
+                    iconData,
+                    size: iconSize,
+                    color: selectedColor
+                  ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              iconName,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: selectedColor,
+                      fontSize: iconSize * 0.5
+                  ),)
 
+          ],
+        ),
+        onTap: (){
           onChanged!(value!);
         },
-        isSelected: value,
-        splashRadius: 1,
-        splashColor: Colors.transparent,
-        disabledColor: Theme.of(context).shadowColor,
-        icon: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              iconData,
-              size: iconSize,
-              color: selectedColor
-            ),
-            const SizedBox(height: 5,),
-            Text(iconName, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: selectedColor,
-                fontSize: iconSize * 0.5
-            ),)
-          ],
-        ));
+      );
   }
 }

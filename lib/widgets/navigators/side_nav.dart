@@ -33,16 +33,6 @@ class SideNav extends StatelessWidget {
       mobile: Container(
         key: key,
         margin: EdgeInsets.zero,
-        // decoration: BoxDecoration(
-        //     color: Colors.transparent,
-        //     borderRadius: BorderRadius.zero,
-        //     boxShadow: [
-        //       const BoxShadow(
-        //           color: Colors.transparent,
-        //           blurRadius: 0.0,
-        //           offset: Offset(.0, .0),
-        //           spreadRadius: 0.0),
-        //     ]),
         child: NavigationRail(
             minWidth: 40,
             leading: leading,
@@ -55,13 +45,13 @@ class SideNav extends StatelessWidget {
                     titles[index].icon,
                     size: navDotIndicatorSize,
                     fill: 0.0,
-
                   ),
                   selectedIcon: Icon(
                     titles[index].icon,
                     size: navDotIndicatorSize,
                     fill: 0.0,
                   ),
+
                       label: RotatedBox(
                           quarterTurns: -1,
                           child: Text(

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:noti/screens/task_screen/task_creator_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
-import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/constans/durations.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
@@ -32,7 +30,7 @@ class TaskList extends StatelessWidget {
           return SingleChildScrollView(
             child: Padding(
               padding:
-                  EdgeInsets.only(left: edgePadding, top: 10, bottom: 10),
+                  EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +41,7 @@ class TaskList extends StatelessWidget {
                   ),
                   AnimationLimiter(
                     child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 2),
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       shrinkWrap: true,

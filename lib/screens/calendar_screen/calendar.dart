@@ -216,11 +216,13 @@ class Calendar extends StatelessWidget {
                       color: Theme.of(context).focusColor,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.2)
                     ),
                     selectedDecoration: BoxDecoration(
                       color: Theme.of(context).primaryColorLight,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.5)
                     ),
                     defaultDecoration: BoxDecoration(
                       color: Colors.transparent,
