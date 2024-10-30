@@ -19,6 +19,8 @@ class SizeInfo {
   static double menuTopMargin = 8.0;
   static double pageTopMargin = 12.0;
 
+  static double appBarCollapsedHeight = 70.0;
+
   ///corner radius
   static double cornerRadius = 15.0;
 
@@ -120,6 +122,8 @@ class SizeInfo {
     calendarDaySize = 23;
     smallIndicatorIconSize = 15;
     menuTopMargin = 32;
+
+    appBarCollapsedHeight = 100.0;
 
     helpTextSize = 13;
 

@@ -38,6 +38,8 @@ class _TaskCreatorState extends State<TaskCreator>
   var navIconSize = SizeInfo.leadingAndTrailingIconSize;
   var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
   var iconListCrossCount = SizeInfo.iconDialogListCrossAxisCount;
+  var appBarHeight = SizeInfo.appBarCollapsedHeight;
+  var verticalPadding = SizeInfo.verticalTextPadding;
 
 
   int maxTitleLength = 30;
@@ -92,7 +94,7 @@ class _TaskCreatorState extends State<TaskCreator>
     ),
     NavModel(
       icon: Icons.edit,
-        title: 'edit text'
+        title: 'edit'
     ),
     NavModel(
       icon: Icons.access_time,
@@ -289,235 +291,472 @@ class _TaskCreatorState extends State<TaskCreator>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: AnimationLimiter(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children:
-                                  AnimationConfiguration.toStaggeredList(
-                                duration: const Duration(milliseconds: 300),
-                                childAnimationBuilder: (widget) =>
-                                    ScaleAnimation(
+                      child: CustomScrollView(
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        slivers: [
+                          SliverAppBar(
+                            backgroundColor: Theme.of(context).cardColor,
+                            shadowColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent,
+                            //scrolledUnderElevation: 0,
+                            automaticallyImplyLeading: false,
+                            elevation: 0,
+                            floating: true,
+                            snap: true,
+                            pinned: true,
+                            collapsedHeight: appBarHeight,
+                            expandedHeight: appBarHeight + 5,
+                            flexibleSpace: Padding(
+                              padding: EdgeInsets.only(top: topMargin, right: leftPadding),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: AnimationConfiguration
+                                      .toStaggeredList(
+                                  duration: const Duration(
+                                  milliseconds: 300),
+                                  delay: const Duration(
+                                  milliseconds: 200),
+                                  childAnimationBuilder: (widget) =>
+                                  ScaleAnimation(
                                   scale: 0.5,
                                   child: FadeInAnimation(
-                                    child: widget,
+                                  child: widget,
                                   ),
-                                ),
-                                children: [
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: AnimationConfiguration
-                                              .toStaggeredList(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            delay: const Duration(
-                                                milliseconds: 200),
-                                            childAnimationBuilder: (widget) =>
-                                                ScaleAnimation(
-                                                  scale: 0.5,
-                                                  child: FadeInAnimation(
-                                                    child: widget,
-                                                  ),
-                                                ),
-                                            children: [
-                                              InkWell(
-                                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(right: leftEdgePadding),
-                                                  child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Icon(
-                                                        pickedIcon,
-                                                        size: navIconSize,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
+                                  ),
+                                  children: [
+                                  InkWell(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                  child: Padding(
+                                  padding: EdgeInsets.only(right: leftEdgePadding),
+                                  child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                  Icon(
+                                  pickedIcon,
+                                  size: navIconSize,
+                                  ),
+                                  const SizedBox(
+                                  height: 5,
+                                  ),
+                                  Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
 
-                                                    ],
-                                                  ),
-                                                ),
-                                                onTap: (){
-                                                  _pickIcon(context);
-                                                },
-                                              ),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickDate(context);
-                                                },
-                                                child: Text(
-                                                  DateFormat('dd MMM yy')
-                                                      .format(widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                      fontSize:
-                                                      descriptionFontSize),
-                                                ),
-                                              ),
-                                              const VerticalDivider(),
-                                              TextButton(
-                                                onPressed: () {
-                                                  _pickTime(context);
-                                                },
-                                                //widget.newTask.date
-                                                child: Text(
-                                                  //"${dayTime}",
-                                                  DateFormat('HH:mm').format(widget.newTask.date),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                      fontSize:
-                                                      descriptionFontSize),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                    ),
+                                  ],
                                   ),
-                                  SizedBox(
-                                    height: topMargin,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      editText();
-                                    },
-                                    child: SizedBox(
-                                      key: widget.key,
-                                      height: inputHeight,
-                                      child: TextField(
-                                        maxLengthEnforcement:
-                                            MaxLengthEnforcement.truncateAfterCompositionEnds,
-                                        contextMenuBuilder: (context, editableTextState) {
-                                          return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                        },
-                                        cursorWidth: 1,
-                                        focusNode: titleNode,
-                                        maxLines: 1,
-                                        maxLength: maxTitleLength,
-                                        onSubmitted: (val) {
-                                          setState(() {
-                                            titleNode.unfocus();
-                                            FocusScope.of(context)
-                                                .requestFocus(
-                                                    titleNode);
-                                          });
-                                        },
-                                        keyboardType: TextInputType.text,
-                                        enabled: editTextEnable,
-                                        onChanged: (newText) {
-                                          setState(() {
-                                            widget.newTask.title = newText;
-                                            cursorPlace(titleVal,newText);
-                                          });
-                                        },
-                                        cursorColor: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium!
-                                            .color,
-                                        controller: titleVal,
-                                        autofocus: true,
-                                        style: widget
-                                            .newTask.isTaskDone ?
-                                        Theme.of(context)
-                                            .textTheme
-                                            .displayMedium!
-                                            .copyWith(
-                                            fontSize: titleFontSize):
-                                        Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                                fontSize: titleFontSize,
-                                                decoration:TextDecoration.none),
-                                        textAlign: TextAlign.start,
-                                        decoration: InputDecoration(
-                                          helperText: 'Enter title',
-                                          helperStyle: Theme.of(context)
-                                              .inputDecorationTheme
-                                              .helperStyle!
-                                              .copyWith(
-                                                  fontSize: helpTextFontSize),
-                                        ),
-                                      ),
-                                    ),
+                                  onTap: (){
+                                  _pickIcon(context);
+                                  },
                                   ),
-                                  Rater(
-                                    size: raterIconSize,
-                                    helperTextSize: helpTextFontSize,
-                                    starCount: 3,
-                                    rating: priorityRating,
-                                    onRatingChanged: (rating) => setState(() {
-                                      priorityRating = rating.toInt();
-                                      widget.newTask.priority =
-                                          rating.toInt();
-                                    }),
+                                  const VerticalDivider(),
+                                  TextButton(
+                                  onPressed: () {
+                                  _pickDate(context);
+                                  },
+                                  child: Text(
+                                  DateFormat('dd MMM yy')
+                                      .format(widget.newTask.date),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .copyWith(
+                                  fontSize:
+                                  descriptionFontSize),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      editText();
-                                    },
+                                  ),
+                                  const VerticalDivider(),
+                                  TextButton(
+                                  onPressed: () {
+                                  _pickTime(context);
+                                  },
+                                  //widget.newTask.date
+                                  child: Text(
+                                  //"${dayTime}",
+                                  DateFormat('HH:mm').format(widget.newTask.date),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .copyWith(
+                                  fontSize:
+                                  descriptionFontSize),
+                                  ),
+                                  )
+                                  ],
+                                  )),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SliverPadding(padding:EdgeInsets.only( top: topMargin ,),
+                            sliver: SliverList(
+                              delegate:  SliverChildListDelegate([
+                                GestureDetector(
+                                  onTap: () {
+                                    editText();
+                                  },
+                                  child: SizedBox(
+                                    key: widget.key,
+                                    height: inputHeight,
                                     child: TextField(
                                       maxLengthEnforcement:
-                                          MaxLengthEnforcement.enforced,
-                                      focusNode: descriptionNode,
+                                      MaxLengthEnforcement.truncateAfterCompositionEnds,
                                       contextMenuBuilder: (context, editableTextState) {
                                         return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
                                       },
                                       cursorWidth: 1,
-                                      maxLength: maxDescriptionLength,
-                                      maxLines: null,
-                                      enabled: editTextEnable,
+                                      focusNode: titleNode,
+                                      maxLines: 1,
+                                      maxLength: maxTitleLength,
                                       onSubmitted: (val) {
-                                        descriptionNode.unfocus();
+                                        setState(() {
+                                          titleNode.unfocus();
+                                          FocusScope.of(context)
+                                              .requestFocus(
+                                              titleNode);
+                                        });
                                       },
+                                      keyboardType: TextInputType.text,
+                                      enabled: editTextEnable,
                                       onChanged: (newText) {
                                         setState(() {
-                                          widget.newTask.description =
-                                              newText;
-                                          cursorPlace(descVal,newText);
+                                          widget.newTask.title = newText;
+                                          cursorPlace(titleVal,newText);
                                         });
                                       },
                                       cursorColor: Theme.of(context)
                                           .textTheme
                                           .labelMedium!
                                           .color,
-                                      keyboardType: TextInputType.multiline,
-                                      controller: descVal,
+                                      controller: titleVal,
                                       autofocus: true,
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
+                                      style: widget
+                                          .newTask.isTaskDone ?
+                                      Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                          fontSize: titleFontSize):
+                                      Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
                                           .copyWith(
-                                              fontSize: descriptionFontSize),
+                                          fontSize: titleFontSize,
+                                          decoration:TextDecoration.none),
+                                      textAlign: TextAlign.start,
                                       decoration: InputDecoration(
-                                        helperText: 'Enter description',
+                                        helperText: 'Enter title',
                                         helperStyle: Theme.of(context)
                                             .inputDecorationTheme
                                             .helperStyle!
                                             .copyWith(
-                                                fontSize: helpTextFontSize),
+                                            fontSize: helpTextFontSize),
                                       ),
                                     ),
                                   ),
-                                ],
-                              )),
-                        ),
-                      ),
+                                ),
+                                SizedBox(height: verticalPadding,),
+                                Rater(
+                                  size: raterIconSize,
+                                  helperTextSize: helpTextFontSize,
+                                  starCount: 3,
+                                  rating: priorityRating,
+                                  onRatingChanged: (rating) => setState(() {
+                                    priorityRating = rating.toInt();
+                                    widget.newTask.priority =
+                                        rating.toInt();
+                                  }),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    editText();
+                                  },
+                                  child: TextField(
+                                    maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                    focusNode: descriptionNode,
+                                    contextMenuBuilder: (context, editableTextState) {
+                                      return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                    },
+                                    cursorWidth: 1,
+                                    maxLength: maxDescriptionLength,
+                                    maxLines: null,
+                                    enabled: editTextEnable,
+                                    onSubmitted: (val) {
+                                      descriptionNode.unfocus();
+                                    },
+                                    onChanged: (newText) {
+                                      setState(() {
+                                        widget.newTask.description =
+                                            newText;
+                                        cursorPlace(descVal,newText);
+                                      });
+                                    },
+                                    cursorColor: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .color,
+                                    keyboardType: TextInputType.multiline,
+                                    controller: descVal,
+                                    autofocus: true,
+                                    textAlign: TextAlign.start,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                        fontSize: descriptionFontSize),
+                                    decoration: InputDecoration(
+                                      helperText: 'Enter description',
+                                      helperStyle: Theme.of(context)
+                                          .inputDecorationTheme
+                                          .helperStyle!
+                                          .copyWith(
+                                          fontSize: helpTextFontSize),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ),
+                          )
+                        ],
+
+                      )
+
+                      //###### OLD VIEWS:
+                      // SingleChildScrollView(
+                      //   child: AnimationLimiter(
+                      //     child: Column(
+                      //         mainAxisAlignment: MainAxisAlignment.start,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         mainAxisSize: MainAxisSize.max,
+                      //         children:
+                      //             AnimationConfiguration.toStaggeredList(
+                      //           duration: const Duration(milliseconds: 300),
+                      //           childAnimationBuilder: (widget) =>
+                      //               ScaleAnimation(
+                      //             scale: 0.5,
+                      //             child: FadeInAnimation(
+                      //               child: widget,
+                      //             ),
+                      //           ),
+                      //           children: [
+                      //             SingleChildScrollView(
+                      //               scrollDirection: Axis.horizontal,
+                      //               child: IntrinsicHeight(
+                      //                 child: Row(
+                      //                     mainAxisAlignment:
+                      //                     MainAxisAlignment.spaceBetween,
+                      //                     children: AnimationConfiguration
+                      //                         .toStaggeredList(
+                      //                       duration: const Duration(
+                      //                           milliseconds: 300),
+                      //                       delay: const Duration(
+                      //                           milliseconds: 200),
+                      //                       childAnimationBuilder: (widget) =>
+                      //                           ScaleAnimation(
+                      //                             scale: 0.5,
+                      //                             child: FadeInAnimation(
+                      //                               child: widget,
+                      //                             ),
+                      //                           ),
+                      //                       children: [
+                      //                         InkWell(
+                      //                           borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      //                           child: Padding(
+                      //                             padding: EdgeInsets.only(right: leftEdgePadding),
+                      //                             child: Column(
+                      //                               mainAxisSize: MainAxisSize.min,
+                      //                               crossAxisAlignment: CrossAxisAlignment.center,
+                      //                               mainAxisAlignment: MainAxisAlignment.center,
+                      //                               children: [
+                      //                                 Icon(
+                      //                                   pickedIcon,
+                      //                                   size: navIconSize,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 5,
+                      //                                 ),
+                      //                                 Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
+                      //
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                           onTap: (){
+                      //                             _pickIcon(context);
+                      //                           },
+                      //                         ),
+                      //                         const VerticalDivider(),
+                      //                         TextButton(
+                      //                           onPressed: () {
+                      //                             _pickDate(context);
+                      //                           },
+                      //                           child: Text(
+                      //                             DateFormat('dd MMM yy')
+                      //                                 .format(widget.newTask.date),
+                      //                             style: Theme.of(context)
+                      //                                 .textTheme
+                      //                                 .headlineMedium!
+                      //                                 .copyWith(
+                      //                                 fontSize:
+                      //                                 descriptionFontSize),
+                      //                           ),
+                      //                         ),
+                      //                         const VerticalDivider(),
+                      //                         TextButton(
+                      //                           onPressed: () {
+                      //                             _pickTime(context);
+                      //                           },
+                      //                           //widget.newTask.date
+                      //                           child: Text(
+                      //                             //"${dayTime}",
+                      //                             DateFormat('HH:mm').format(widget.newTask.date),
+                      //                             style: Theme.of(context)
+                      //                                 .textTheme
+                      //                                 .headlineMedium!
+                      //                                 .copyWith(
+                      //                                 fontSize:
+                      //                                 descriptionFontSize),
+                      //                           ),
+                      //                         )
+                      //                       ],
+                      //                     )),
+                      //               ),
+                      //             ),
+                      //             SizedBox(
+                      //               height: topMargin,
+                      //             ),
+                      //             GestureDetector(
+                      //               onTap: () {
+                      //                 editText();
+                      //               },
+                      //               child: SizedBox(
+                      //                 key: widget.key,
+                      //                 height: inputHeight,
+                      //                 child: TextField(
+                      //                   maxLengthEnforcement:
+                      //                       MaxLengthEnforcement.truncateAfterCompositionEnds,
+                      //                   contextMenuBuilder: (context, editableTextState) {
+                      //                     return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                      //                   },
+                      //                   cursorWidth: 1,
+                      //                   focusNode: titleNode,
+                      //                   maxLines: 1,
+                      //                   maxLength: maxTitleLength,
+                      //                   onSubmitted: (val) {
+                      //                     setState(() {
+                      //                       titleNode.unfocus();
+                      //                       FocusScope.of(context)
+                      //                           .requestFocus(
+                      //                               titleNode);
+                      //                     });
+                      //                   },
+                      //                   keyboardType: TextInputType.text,
+                      //                   enabled: editTextEnable,
+                      //                   onChanged: (newText) {
+                      //                     setState(() {
+                      //                       widget.newTask.title = newText;
+                      //                       cursorPlace(titleVal,newText);
+                      //                     });
+                      //                   },
+                      //                   cursorColor: Theme.of(context)
+                      //                       .textTheme
+                      //                       .labelMedium!
+                      //                       .color,
+                      //                   controller: titleVal,
+                      //                   autofocus: true,
+                      //                   style: widget
+                      //                       .newTask.isTaskDone ?
+                      //                   Theme.of(context)
+                      //                       .textTheme
+                      //                       .displayMedium!
+                      //                       .copyWith(
+                      //                       fontSize: titleFontSize):
+                      //                   Theme.of(context)
+                      //                       .textTheme
+                      //                       .bodyMedium!
+                      //                       .copyWith(
+                      //                           fontSize: titleFontSize,
+                      //                           decoration:TextDecoration.none),
+                      //                   textAlign: TextAlign.start,
+                      //                   decoration: InputDecoration(
+                      //                     helperText: 'Enter title',
+                      //                     helperStyle: Theme.of(context)
+                      //                         .inputDecorationTheme
+                      //                         .helperStyle!
+                      //                         .copyWith(
+                      //                             fontSize: helpTextFontSize),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             Rater(
+                      //               size: raterIconSize,
+                      //               helperTextSize: helpTextFontSize,
+                      //               starCount: 3,
+                      //               rating: priorityRating,
+                      //               onRatingChanged: (rating) => setState(() {
+                      //                 priorityRating = rating.toInt();
+                      //                 widget.newTask.priority =
+                      //                     rating.toInt();
+                      //               }),
+                      //             ),
+                      //             GestureDetector(
+                      //               onTap: () {
+                      //                 editText();
+                      //               },
+                      //               child: TextField(
+                      //                 maxLengthEnforcement:
+                      //                     MaxLengthEnforcement.enforced,
+                      //                 focusNode: descriptionNode,
+                      //                 contextMenuBuilder: (context, editableTextState) {
+                      //                   return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                      //                 },
+                      //                 cursorWidth: 1,
+                      //                 maxLength: maxDescriptionLength,
+                      //                 maxLines: null,
+                      //                 enabled: editTextEnable,
+                      //                 onSubmitted: (val) {
+                      //                   descriptionNode.unfocus();
+                      //                 },
+                      //                 onChanged: (newText) {
+                      //                   setState(() {
+                      //                     widget.newTask.description =
+                      //                         newText;
+                      //                     cursorPlace(descVal,newText);
+                      //                   });
+                      //                 },
+                      //                 cursorColor: Theme.of(context)
+                      //                     .textTheme
+                      //                     .labelMedium!
+                      //                     .color,
+                      //                 keyboardType: TextInputType.multiline,
+                      //                 controller: descVal,
+                      //                 autofocus: true,
+                      //                 textAlign: TextAlign.start,
+                      //                 style: Theme.of(context)
+                      //                     .textTheme
+                      //                     .bodyMedium!
+                      //                     .copyWith(
+                      //                         fontSize: descriptionFontSize),
+                      //                 decoration: InputDecoration(
+                      //                   helperText: 'Enter description',
+                      //                   helperStyle: Theme.of(context)
+                      //                       .inputDecorationTheme
+                      //                       .helperStyle!
+                      //                       .copyWith(
+                      //                           fontSize: helpTextFontSize),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         )),
+                      //   ),
+                      // ),
                     ),
                     SlideTransition(
                       position: _menuAnimation,
@@ -572,3 +811,4 @@ class _TaskCreatorState extends State<TaskCreator>
         ));
   }
 }
+

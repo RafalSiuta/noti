@@ -34,6 +34,7 @@ class _NoteCreatorState extends State<NoteCreator>
   var navIconSize = SizeInfo.leadingAndTrailingIconSize;
   var verticalPadding = SizeInfo.verticalTextPadding;
   var descriptionFontSize = SizeInfo.taskCreatorDescription;
+  var appBarHeight = SizeInfo.appBarCollapsedHeight;
   int maxTitleLength = 30;
   int maxSubtitleLength = 30;
   int maxDescriptionLength = 4000;
@@ -208,7 +209,7 @@ class _NoteCreatorState extends State<NoteCreator>
     ),
     NavModel(
       icon: Icons.edit,
-        title: 'edit text'
+        title: 'edit'
     ),
     NavModel(
         icon: Icons.calendar_month,
@@ -216,11 +217,11 @@ class _NoteCreatorState extends State<NoteCreator>
     ),
     NavModel(
       icon: Icons.add_photo_alternate_outlined,
-        title: 'add image'
+        title: 'image'
     ),
     NavModel(
       icon: Icons.delete,
-        title: 'delete note'
+        title: 'delete'
     ),
     NavModel(
       icon: Icons.arrow_back,
@@ -285,14 +286,18 @@ class _NoteCreatorState extends State<NoteCreator>
                       slivers: [
                         SliverAppBar(
                           backgroundColor: Theme.of(context).cardColor,
+                          shadowColor: Colors.transparent,
+                          surfaceTintColor: Colors.transparent,
+                          //scrolledUnderElevation: 0,
                           automaticallyImplyLeading: false,
                           elevation: 0,
                           floating: true,
                           snap: true,
                           pinned: true,
-                          collapsedHeight: 100,
-                          expandedHeight: 110,
-                          flexibleSpace: Padding(
+                          collapsedHeight: appBarHeight,
+                          expandedHeight: appBarHeight + 5,
+                          flexibleSpace:
+                          Padding(
                             padding: EdgeInsets.only(top: topMargin, right: leftPadding),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -362,13 +367,16 @@ class _NoteCreatorState extends State<NoteCreator>
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
 
-                                              Switch(
-                                                  value: widget.newNote.keep,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      widget.newNote.keep = value;
-                                                    });
-                                                  }),
+                                              Transform.scale(
+                                                scale: 0.8,
+                                                child: Switch(
+                                                    value: widget.newNote.keep,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        widget.newNote.keep = value;
+                                                      });
+                                                    }),
+                                              ),
                                               Text(
                                                 'On dash',
                                                 style: Theme.of(context)
