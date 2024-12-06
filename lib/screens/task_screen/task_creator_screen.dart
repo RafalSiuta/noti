@@ -400,63 +400,59 @@ class _TaskCreatorState extends State<TaskCreator>
                                   onTap: () {
                                     editText();
                                   },
-                                  child: SizedBox(
-                                    key: widget.key,
-                                    height: inputHeight,
-                                    child: TextField(
-                                      maxLengthEnforcement:
-                                      MaxLengthEnforcement.truncateAfterCompositionEnds,
-                                      contextMenuBuilder: (context, editableTextState) {
-                                        return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                      },
-                                      cursorWidth: 1,
-                                      focusNode: titleNode,
-                                      maxLines: 1,
-                                      maxLength: maxTitleLength,
-                                      onSubmitted: (val) {
-                                        setState(() {
-                                          titleNode.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(
-                                              titleNode);
-                                        });
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      enabled: editTextEnable,
-                                      onChanged: (newText) {
-                                        setState(() {
-                                          widget.newTask.title = newText;
-                                          cursorPlace(titleVal,newText);
-                                        });
-                                      },
-                                      cursorColor: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .color,
-                                      controller: titleVal,
-                                      autofocus: true,
-                                      style: widget
-                                          .newTask.isTaskDone ?
-                                      Theme.of(context)
-                                          .textTheme
-                                          .displayMedium!
+                                  child: TextField(
+                                    maxLengthEnforcement:
+                                    MaxLengthEnforcement.truncateAfterCompositionEnds,
+                                    contextMenuBuilder: (context, editableTextState) {
+                                      return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                    },
+                                    cursorWidth: 1,
+                                    focusNode: titleNode,
+                                    maxLines: null,
+                                    maxLength: maxTitleLength,
+                                    onSubmitted: (val) {
+                                      setState(() {
+                                        titleNode.unfocus();
+                                        FocusScope.of(context)
+                                            .requestFocus(
+                                            titleNode);
+                                      });
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    enabled: editTextEnable,
+                                    onChanged: (newText) {
+                                      setState(() {
+                                        widget.newTask.title = newText;
+                                        cursorPlace(titleVal,newText);
+                                      });
+                                    },
+                                    cursorColor: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .color,
+                                    controller: titleVal,
+                                    autofocus: true,
+                                    style: widget
+                                        .newTask.isTaskDone ?
+                                    Theme.of(context)
+                                        .textTheme
+                                        .displayMedium!
+                                        .copyWith(
+                                        fontSize: titleFontSize):
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                        fontSize: titleFontSize,
+                                        decoration:TextDecoration.none),
+                                    textAlign: TextAlign.start,
+                                    decoration: InputDecoration(
+                                      helperText: 'Enter title',
+                                      helperStyle: Theme.of(context)
+                                          .inputDecorationTheme
+                                          .helperStyle!
                                           .copyWith(
-                                          fontSize: titleFontSize):
-                                      Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                          fontSize: titleFontSize,
-                                          decoration:TextDecoration.none),
-                                      textAlign: TextAlign.start,
-                                      decoration: InputDecoration(
-                                        helperText: 'Enter title',
-                                        helperStyle: Theme.of(context)
-                                            .inputDecorationTheme
-                                            .helperStyle!
-                                            .copyWith(
-                                            fontSize: helpTextFontSize),
-                                      ),
+                                          fontSize: helpTextFontSize),
                                     ),
                                   ),
                                 ),
