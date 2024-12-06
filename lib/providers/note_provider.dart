@@ -3,7 +3,6 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:noti/providers/settings_provider.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 import '../database/database_helper.dart';
 import '../models/db_model/note.dart';

@@ -1,27 +1,4 @@
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-//
-// final FlutterLocalNotificationsPlugin notifications =
-//     FlutterLocalNotificationsPlugin();
-//
-// class NotificationsHelper {
-//
-//   static final NotificationsHelper _notificationService =
-//   NotificationsHelper._internal();
-//
-//   bool isSound = true;
-//
-//   factory NotificationsHelper() {
-//     return _notificationService;
-//   }
-//
-//   NotificationsHelper._internal();
-//
-//   Future<void> init() async {
-//
-//   }
-//
-//
-// }
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -61,31 +38,65 @@ class NotificationsHelper {
   }
 
   Future<void> scheduleNotification(Task task, DateTime scheduledDate) async {
+    if (scheduledDate.isBefore(DateTime.now())) {
+      print("Cannot schedule a notification in the past: $scheduledDate");
+      return; // Nie planuj powiadomień w przeszłości
+    }
     print('Scheduling notification for task: ${task.title} at $scheduledDate');
+
+    // Identyfikator powiadomienia
     int notificationId = task.id.hashCode;
+
     await notifications.zonedSchedule(
-      notificationId, // Użyj ID zadania jako ID powiadomienia //ERROR: The argument type 'String' can't be assigned to the parameter type 'int'
-      task.title, // Tytuł powiadomienia (np. tytuł zadania)
-      task.description, // Treść powiadomienia (np. opis zadania)
-      tz.TZDateTime.from(scheduledDate, tz.local), // Konwersja daty do lokalnej strefy czasowej
-       NotificationDetails(
+      notificationId,
+      task.title,
+      task.description,
+      tz.TZDateTime.from(scheduledDate, tz.local),
+      NotificationDetails(
         android: AndroidNotificationDetails(
-          'noti_channel', // Kanał powiadomień
-          'Task Notifications', // Nazwa kanału
+          'noti_channel',
+          'Task Notifications',
           channelDescription: 'This channel is used for task notifications',
           importance: Importance.max,
           priority: Priority.high,
-            //dodać dźwięk
-            sound: isSoundOn == true ? RawResourceAndroidNotificationSound('sound') : null,
+          sound: isSoundOn ? RawResourceAndroidNotificationSound('sound') : null,
         ),
       ),
-      androidAllowWhileIdle: true, // depricated
-       // Pozwolenie na wyświetlanie w trybie uśpienia //DEPRICATED
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
       UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time, // Dopasowanie do dokładnego czasu
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
+
+  // Future<void> scheduleNotification(Task task, DateTime scheduledDate) async {
+  //   print('Scheduling notification for task: ${task.title} at $scheduledDate');
+  //   int notificationId = task.id.hashCode;
+  //   await notifications.zonedSchedule(
+  //     notificationId, // Użyj ID zadania jako ID powiadomienia //ERROR: The argument type 'String' can't be assigned to the parameter type 'int'
+  //     task.title, // Tytuł powiadomienia (np. tytuł zadania)
+  //     task.description, // Treść powiadomienia (np. opis zadania)
+  //     tz.TZDateTime.from(scheduledDate, tz.local), // Konwersja daty do lokalnej strefy czasowej
+  //      NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         'noti_channel', // Kanał powiadomień
+  //         'Task Notifications', // Nazwa kanału
+  //         channelDescription: 'This channel is used for task notifications',
+  //         importance: Importance.max,
+  //         priority: Priority.high,
+  //           //dodać dźwięk
+  //           sound: isSoundOn == true ? RawResourceAndroidNotificationSound('sound') : null,
+  //       ),
+  //     ),
+  //     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+  //     //androidAllowWhileIdle: true, // depricated
+  //      // Pozwolenie na wyświetlanie w trybie uśpienia //DEPRICATED
+  //     uiLocalNotificationDateInterpretation:
+  //     UILocalNotificationDateInterpretation.absoluteTime,
+  //     matchDateTimeComponents: DateTimeComponents.time, // Dopasowanie do dokładnego czasu
+  //   );
+  //
+  // }
 
   Future<void> cancelNotification(int taskId) async {
     await notifications.cancel(taskId); // Anulowanie powiadomienia

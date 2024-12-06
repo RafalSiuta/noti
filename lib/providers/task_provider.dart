@@ -121,6 +121,7 @@ class TaskProvider extends ChangeNotifier {
       } else {
         tasks[taskDate] = [task];
       }
+      refreshNotification(task);
     }
 
     // Sortowanie zadań w każdym dniu
@@ -202,6 +203,7 @@ class TaskProvider extends ChangeNotifier {
 
 
     _taskList = getCalendarValues(focDay);
+    await refreshTasks();
     notifyListeners();
   }
 
@@ -222,6 +224,7 @@ class TaskProvider extends ChangeNotifier {
 
     // Anulowanie powiadomienia
     NotificationsHelper().cancelNotification(task.id.hashCode);
+    await refreshTasks();
 
     notifyListeners();
   }
@@ -234,8 +237,10 @@ class TaskProvider extends ChangeNotifier {
       if (task.isTaskDone) {
         NotificationsHelper().cancelNotification(task.id.hashCode);
       } else {
-
-        NotificationsHelper().scheduleNotification(task, task.date);
+        if (task.date.isAfter(DateTime.now())) { // Sprawdź, czy data powiadomienia jest w przyszłości
+          NotificationsHelper().scheduleNotification(task, task.date);
+        }
+       // NotificationsHelper().scheduleNotification(task, task.date);
       }
     } else {
       NotificationsHelper().cancelNotification(task.id.hashCode);
@@ -267,6 +272,7 @@ class TaskProvider extends ChangeNotifier {
           var addDate =
               DateTime(element.date.year, element.date.month, element.date.day);
           addTaskMarker(element, addDate);
+
     }
 
     notifyListeners();
@@ -287,8 +293,4 @@ class TaskProvider extends ChangeNotifier {
     });
   }
 
-  // void getAllTasks() {
-  //   _taskList = _dbHelper.getAllTasks();
-  //   notifyListeners();
-  // }
 }

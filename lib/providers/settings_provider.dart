@@ -106,9 +106,6 @@ class SettingsProvider extends ChangeNotifier {
         setCustomShape(currentMonthByTheme);
       } else {
         loadCurrentShape();
-        // currentShape = await _prefs
-        //     .restoreInt("shape", 0)
-        //     .then((shape) => currentShape = setCustomShape(shape));
       }
     } catch (e) {
       currentShape = 0;
@@ -128,61 +125,6 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   setCustomTheme(int theme) async {
-    // switch (theme) {
-    //   case 0:
-    //     themeData = themes.themesList[0].themeData!;
-    //     break;
-    //   //january
-    //   case 1:
-    //     themeData = themes.themesList[1].themeData!;
-    //     break;
-    //   //febuary
-    //   case 2:
-    //     themeData = themes.themesList[2].themeData!;
-    //     break;
-    //   //march
-    //   case 3:
-    //     themeData = themes.themesList[3].themeData!;
-    //     break;
-    //   //april
-    //   case 4:
-    //     themeData = themes.themesList[4].themeData!;
-    //     break;
-    //   //may
-    //   case 5:
-    //     themeData = themes.themesList[5].themeData!;
-    //     break;
-    //   //june
-    //   case 6:
-    //     themeData = themes.themesList[6].themeData!;
-    //     break;
-    //   //july
-    //   case 7:
-    //     themeData = themes.themesList[7].themeData!;
-    //     break;
-      //august
-      // case 8:
-      //   themeData = themes.themesList[8].themeData!;
-      //   break;
-      // //september
-      // case 9:
-      //   themeData = themes.themesList[9].themeData!;
-      //   break;
-      // //october
-      // case 10:
-      //   themeData = themes.themesList[10].themeData!;
-      //   break;
-      // //november
-      // case 11:
-      //   themeData = themes.themesList[11].themeData!;
-      //   break;
-      // //december
-      // case 12:
-      //   themeData = themes.themesList[12].themeData!;
-      //   break;
-      // default:
-      //   themeData = themes.themesList[0].themeData!;
-   // }
    print("CURRENT THEME IS: $theme");
     if(theme >= 0 && theme <= 12){
       theme = themes.themesList.first.id;

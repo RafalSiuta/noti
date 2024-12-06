@@ -492,11 +492,6 @@ class _NoteCreatorState extends State<NoteCreator>
                                       setState(() {
                                         widget.newNote.subtitle = newText;
                                         cursorPlace(subtitleVal,newText);
-                                        // subtitleVal.selection =
-                                        //     TextSelection.fromPosition(
-                                        //         TextPosition(
-                                        //             offset:
-                                        //                 subtitleVal.text.length));
                                       });
                                     },
                                     cursorColor: Theme.of(context)
