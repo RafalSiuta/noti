@@ -42,6 +42,7 @@ class NotificationsHelper {
       print("Cannot schedule a notification in the past: $scheduledDate");
       return; // Nie planuj powiadomień w przeszłości
     }
+
     print('Scheduling notification for task: ${task.title} at $scheduledDate');
 
     // Identyfikator powiadomienia
@@ -63,11 +64,42 @@ class NotificationsHelper {
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time, // Dopasowanie dokładnego czasu
     );
   }
+
+  // Future<void> scheduleNotification(Task task, DateTime scheduledDate) async {
+  //   if (scheduledDate.isBefore(DateTime.now())) {
+  //     print("Cannot schedule a notification in the past: $scheduledDate");
+  //     return; // Nie planuj powiadomień w przeszłości
+  //   }
+  //   print('Scheduling notification for task: ${task.title} at $scheduledDate');
+  //
+  //   // Identyfikator powiadomienia
+  //   int notificationId = task.id.hashCode;
+  //
+  //   await notifications.zonedSchedule(
+  //     notificationId,
+  //     task.title,
+  //     task.description,
+  //     tz.TZDateTime.from(scheduledDate, tz.local),
+  //     NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         'noti_channel',
+  //         'Task Notifications',
+  //         channelDescription: 'This channel is used for task notifications',
+  //         importance: Importance.max,
+  //         priority: Priority.high,
+  //         sound: isSoundOn ? RawResourceAndroidNotificationSound('sound') : null,
+  //       ),
+  //     ),
+  //     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+  //     uiLocalNotificationDateInterpretation:
+  //     UILocalNotificationDateInterpretation.absoluteTime,
+  //     matchDateTimeComponents: DateTimeComponents.time,
+  //   );
+  // }
 
   // Future<void> scheduleNotification(Task task, DateTime scheduledDate) async {
   //   print('Scheduling notification for task: ${task.title} at $scheduledDate');

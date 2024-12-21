@@ -36,7 +36,7 @@ class _NoteCreatorState extends State<NoteCreator>
   var descriptionFontSize = SizeInfo.taskCreatorDescription;
   var appBarHeight = SizeInfo.appBarCollapsedHeight;
   int maxTitleLength = 30;
-  int maxSubtitleLength = 30;
+  int maxSubtitleLength = 50;
   int maxDescriptionLength = 4000;
   double inputHeight = 50;
   var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
@@ -405,57 +405,53 @@ class _NoteCreatorState extends State<NoteCreator>
                                 onTap: () {
                                   editText();
                                 },
-                                child: SizedBox(
-                                  key: widget.key,
-                                  height: inputHeight,
-                                  child: TextField(
-                                    maxLengthEnforcement:
-                                        MaxLengthEnforcement.enforced,
-                                    focusNode: titleNode,
-                                    contextMenuBuilder: (context, editableTextState) {
-                                      return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                    },
-                                    cursorWidth: 1,
-                                    maxLines: 1,
-                                    maxLength: maxTitleLength,
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.text,
-                                    enabled: editTextEnable,
-                                    onSubmitted: (val) {
-                                      setState(() {
-                                        fieldFocusChange(
-                                            context, titleNode, subtitleNode);
-                                      });
-                                    },
-                                    onChanged: (newText) {
-                                      setState(() {
-                                        widget.newNote.title = newText;
-                                        // titleVal.selection =
-                                        //     TextSelection.fromPosition(
-                                        //         TextPosition(
-                                        //   offset: titleVal.text.length,
-                                        // ));
-                                        cursorPlace(titleVal,newText);
-                                      });
-                                    },
-                                    cursorColor: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .color,
-                                    controller: titleVal,
-                                    autofocus: true,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(fontSize: titleTextSize),
-                                    textAlign: TextAlign.start,
-                                    decoration: InputDecoration(
-                                      helperText: 'Enter title',
-                                      helperStyle: Theme.of(context)
-                                          .inputDecorationTheme
-                                          .helperStyle!
-                                          .copyWith(fontSize: helperTextSize),
-                                    ),
+                                child: TextField(
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
+                                  focusNode: titleNode,
+                                  contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                  },
+                                  cursorWidth: 1,
+                                  maxLines: null,
+                                  maxLength: maxTitleLength,
+                                  textInputAction: TextInputAction.done,
+                                  keyboardType: TextInputType.text,
+                                  enabled: editTextEnable,
+                                  onSubmitted: (val) {
+                                    setState(() {
+                                      fieldFocusChange(
+                                          context, titleNode, subtitleNode);
+                                    });
+                                  },
+                                  onChanged: (newText) {
+                                    setState(() {
+                                      widget.newNote.title = newText;
+                                      // titleVal.selection =
+                                      //     TextSelection.fromPosition(
+                                      //         TextPosition(
+                                      //   offset: titleVal.text.length,
+                                      // ));
+                                      cursorPlace(titleVal,newText);
+                                    });
+                                  },
+                                  cursorColor: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .color,
+                                  controller: titleVal,
+                                  autofocus: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(fontSize: titleTextSize),
+                                  textAlign: TextAlign.start,
+                                  decoration: InputDecoration(
+                                    helperText: 'Enter title',
+                                    helperStyle: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .helperStyle!
+                                        .copyWith(fontSize: helperTextSize),
                                   ),
                                 ),
                               ),
@@ -466,52 +462,48 @@ class _NoteCreatorState extends State<NoteCreator>
                                 onTap: () {
                                   editText();
                                 },
-                                child: SizedBox(
-                                  key: widget.key,
-                                  height: inputHeight,
-                                  child: TextField(
-                                    maxLengthEnforcement:
-                                        MaxLengthEnforcement.enforced,
-                                    focusNode: subtitleNode,
-                                    contextMenuBuilder: (context, editableTextState) {
-                                      return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                    },
-                                    cursorWidth: 1,
-                                    maxLines: 1,
-                                    maxLength: maxSubtitleLength,
-                                    textInputAction: TextInputAction.done,
-                                    onSubmitted: (val) {
-                                      setState(() {
-                                        fieldFocusChange(context, subtitleNode,
-                                            descriptionNode);
-                                      });
-                                    },
-                                    keyboardType: TextInputType.text,
-                                    enabled: editTextEnable,
-                                    onChanged: (newText) {
-                                      setState(() {
-                                        widget.newNote.subtitle = newText;
-                                        cursorPlace(subtitleVal,newText);
-                                      });
-                                    },
-                                    cursorColor: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .color,
-                                    controller: subtitleVal,
-                                    autofocus: false,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(fontSize: titleTextSize,height: 1.5),
-                                    textAlign: TextAlign.start,
-                                    decoration: InputDecoration(
-                                      helperText: 'Enter subtitle',
-                                      helperStyle: Theme.of(context)
-                                          .inputDecorationTheme
-                                          .helperStyle!
-                                          .copyWith(fontSize: helperTextSize),
-                                    ),
+                                child: TextField(
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
+                                  focusNode: subtitleNode,
+                                  contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
+                                  },
+                                  cursorWidth: 1,
+                                  maxLines: null,
+                                  maxLength: maxSubtitleLength,
+                                  textInputAction: TextInputAction.done,
+                                  onSubmitted: (val) {
+                                    setState(() {
+                                      fieldFocusChange(context, subtitleNode,
+                                          descriptionNode);
+                                    });
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  enabled: editTextEnable,
+                                  onChanged: (newText) {
+                                    setState(() {
+                                      widget.newNote.subtitle = newText;
+                                      cursorPlace(subtitleVal,newText);
+                                    });
+                                  },
+                                  cursorColor: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .color,
+                                  controller: subtitleVal,
+                                  autofocus: false,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .copyWith(fontSize: titleTextSize,height: 1.5),
+                                  textAlign: TextAlign.start,
+                                  decoration: InputDecoration(
+                                    helperText: 'Enter subtitle',
+                                    helperStyle: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .helperStyle!
+                                        .copyWith(fontSize: helperTextSize),
                                   ),
                                 ),
                               ),

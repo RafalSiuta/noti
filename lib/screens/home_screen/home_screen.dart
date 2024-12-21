@@ -6,6 +6,7 @@ import '../../models/db_model/task.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../models/menu_model/screen_model.dart';
 import '../../providers/home_provider.dart';
+import '../../providers/task_provider.dart';
 import '../../styles/shapes/shapes.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -133,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
 
     return ScreenTypeLayout(
-      mobile: Consumer<HomeProvider>(
-        builder: (context, homeProvider, child) {
+      mobile: Consumer2<HomeProvider,TaskProvider>(
+        builder: (context, homeProvider, taskProvider, child) {
           var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
           var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
           return Scaffold(
@@ -182,6 +183,10 @@ class _HomeScreenState extends State<HomeScreen>
                       titles: _pages.map((e) => e.title!).toList(),
                       selectedItem: _currentPage,
                       onTap: (int sel) {
+                        if(_currentPage == sel){
+                          print("SELECTED MENU ITEM IS ${sel}");
+                          //taskProvider.onDaySelected(DateTime.now(), DateTime.now());
+                        }
                         _onPageChange(sel);
                         hideTrigger();
                       },

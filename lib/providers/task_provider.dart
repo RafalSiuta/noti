@@ -4,11 +4,9 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:noti/providers/settings_provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../database/database_helper.dart';
-import '../database/task_db.dart';
 import '../models/db_model/task.dart';
 import '../utils/notifications/notifications_helper.dart';
 import '../utils/prefs/prefs.dart';
@@ -17,7 +15,7 @@ class TaskProvider extends ChangeNotifier {
 
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
   //tmp sql database to gt old user tasks
-  final TaskDB _dbTempTask = TaskDB();
+  //final TaskDB _dbTempTask = TaskDB();
 
     int selectedIndex = 0;
   DateTime focDay =
@@ -47,7 +45,7 @@ class TaskProvider extends ChangeNotifier {
     _taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
-    await reloadDatabase();
+   // await reloadDatabase();
     getSettingsValuesForTask().whenComplete(() => getTaskDbList());
     notifyListeners();
   }
@@ -134,35 +132,35 @@ class TaskProvider extends ChangeNotifier {
   }
 
   // Funkcja, która sprawdza istnienie bazy danych i migruje dane do Hive
-  Future<void> reloadDatabase() async {
-    // Sprawdzamy, czy baza danych SQLite istnieje
-    final dbPath = await getDatabasesPath();
-    String path = '$dbPath/note_database.db';
-    bool dbExists = await databaseFactory.databaseExists(path);
-
-    if (!dbExists) {
-      print('No SQLite database found. Skipping migration.');
-      return;
-    }
-
-    // Pobieranie wszystkich zadań ze starej bazy danych SQLite
-    try {
-      List<Task> tasks = await _dbTempTask.getAllTasks();
-      for (Task task in tasks) {
-        // Dodawanie zadania do bazy Hive
-        await _dbHelper.addTask(task);
-      }
-
-      // Po pomyślnej migracji, usunięcie danych z SQLite
-      await _dbTempTask.deleteAllTasks();
-      print('Migration completed successfully.');
-    } catch (e) {
-      print('Error during migration: $e');
-    }
-
-    notifyListeners();
-  }
-
+  // Future<void> reloadDatabase() async {
+  //   // Sprawdzamy, czy baza danych SQLite istnieje
+  //   final dbPath = await getDatabasesPath();
+  //   String path = '$dbPath/note_database.db';
+  //   bool dbExists = await databaseFactory.databaseExists(path);
+  //
+  //   if (!dbExists) {
+  //     print('No SQLite database found. Skipping migration.');
+  //     return;
+  //   }
+  //
+  //   // Pobieranie wszystkich zadań ze starej bazy danych SQLite
+  //   try {
+  //     List<Task> tasks = await _dbTempTask.getAllTasks();
+  //     for (Task task in tasks) {
+  //       // Dodawanie zadania do bazy Hive
+  //       await _dbHelper.addTask(task);
+  //     }
+  //
+  //     // Po pomyślnej migracji, usunięcie danych z SQLite
+  //     await _dbTempTask.deleteAllTasks();
+  //     print('Migration completed successfully.');
+  //   } catch (e) {
+  //     print('Error during migration: $e');
+  //   }
+  //
+  //   notifyListeners();
+  // }
+  //
 
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
 
@@ -186,11 +184,9 @@ class TaskProvider extends ChangeNotifier {
   void addTask(Task task) async {
     if (task.isInBox) {
       await _dbHelper.updateTask(task);
-      refreshNotification(task);
     } else {
       await _dbHelper.addTask(task);
 
-      refreshNotification(task);
     }
     // Po dodaniu lub aktualizacji zadania, odśwież listę zadań i markerów
     await refreshTasks();
@@ -229,26 +225,58 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void refreshNotification(Task task) {
-
+    print("NOTIFICATIONS DATES ${task.date}");
 
     if (settings.isNotification) {
       if (task.isTaskDone) {
+        // Anuluj powiadomienie dla wykonanych zadań
         NotificationsHelper().cancelNotification(task.id.hashCode);
       } else {
-        if (task.date.isAfter(DateTime.now())) { // Sprawdź, czy data powiadomienia jest w przyszłości
+        // Pobierz aktualny czas
+        final now = DateTime.now();
+
+        // Sprawdź, czy zadanie ma datę i czas w przyszłości dla TEGO SAMEGO DNIA
+        if (task.date.year == now.year &&
+            task.date.month == now.month &&
+            task.date.day == now.day &&
+            task.date.isAfter(DateTime(now.year, now.month, now.day, now.hour, now.minute))) {
+          // Harmonogramuj powiadomienie dokładnie dla godziny i minuty
           NotificationsHelper().scheduleNotification(task, task.date);
+        } else if (task.date.isBefore(now)) {
+          // Anuluj powiadomienie, jeśli zadanie jest w przeszłości
+          NotificationsHelper().cancelNotification(task.id.hashCode);
         }
-       // NotificationsHelper().scheduleNotification(task, task.date);
       }
     } else {
+      // Anuluj powiadomienie, jeśli powiadomienia są wyłączone w ustawieniach
       NotificationsHelper().cancelNotification(task.id.hashCode);
     }
 
     notifyListeners();
   }
 
+  // void refreshNotification(Task task) {
+  //   print("NOTIFICATIONS DATES ${task.date}");
+  //
+  //   if (settings.isNotification) {
+  //     if (task.isTaskDone) {
+  //       // Anuluj powiadomienie dla wykonanych zadań
+  //       NotificationsHelper().cancelNotification(task.id.hashCode);
+  //     } else {
+  //       // Sprawdź, czy zadanie ma datę i czas zgodne z aktualnym czasem
+  //       final now = DateTime.now();
+  //       if(task.date.isAfter(now)){
+  //         NotificationsHelper().scheduleNotification(task, task.date);
+  //       }
+  //     }
+  //   } else {
+  //     // Anuluj powiadomienie, jeśli powiadomienia są wyłączone w ustawieniach
+  //     NotificationsHelper().cancelNotification(task.id.hashCode);
+  //   }
+  //
+  //   notifyListeners();
+  // }
 
   Future<List<Task>> getAllTasksToDelete(DateTime date) async {
 

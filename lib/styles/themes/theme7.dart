@@ -16,34 +16,34 @@ const theme9ShadowColor = Color(0xFF111518);
 
 const theme9IndicatorColor = Color(0xFF89B800);
 
-const theme9BaseTextColor = Color(0xff8F96A3);
+const theme9BaseTextColor = Color(0xffb6bcca);
 const theme9BtnTextColor = Color(0xff161616);
-const theme9PickerTextColor = Color(0xff8F96A3);
+const theme9PickerTextColor = Color(0xffb6bcca);
 
-final theme9PickersBaseTextStyle = GoogleFonts.rajdhani(
+final theme9PickersBaseTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       color: theme9PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w100),
+      fontWeight: FontWeight.w200),
 );
 
-final theme9PickersTitleTextStyle = GoogleFonts.rajdhani(
+final theme9PickersTitleTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       color: theme9BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w100),
+      fontWeight: FontWeight.w200),
 );
 //TEXT STYLES:
 //headers:
 //Large header:
-final TextStyle theme9LargeHeaderTextStyle  = GoogleFonts.rajdhani(
+final TextStyle theme9LargeHeaderTextStyle  = GoogleFonts.chakraPetch(
     textStyle: const TextStyle(
         color: theme9BaseTextColor,
         fontSize: 32,
         fontWeight: FontWeight.w300
     ));
 //Subtitle header:
-final TextStyle theme9SubtitleHeaderTextStyle = GoogleFonts.rajdhani(
+final TextStyle theme9SubtitleHeaderTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       fontSize: 18,
       color: theme9BaseTextColor,
@@ -52,7 +52,7 @@ final TextStyle theme9SubtitleHeaderTextStyle = GoogleFonts.rajdhani(
 );
 //task & note card style:
 //title text style:
-final TextStyle theme9CardTitleTextStyle = GoogleFonts.rajdhani(
+final TextStyle theme9CardTitleTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme9BaseTextColor,
@@ -60,44 +60,44 @@ final TextStyle theme9CardTitleTextStyle = GoogleFonts.rajdhani(
       decoration: TextDecoration.none),
 );
 //content text:
-final TextStyle theme9ContentTextStyle = GoogleFonts.rajdhani(
+final TextStyle theme9ContentTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme9BaseTextColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w200,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
-final TextStyle theme9UnselectedTextStyle = GoogleFonts.rajdhani(
+final TextStyle theme9UnselectedTextStyle = GoogleFonts.chakraPetch(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme9UnselectedColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w200,
       decorationColor: theme9UnselectedColor,
       decoration: TextDecoration.lineThrough),
 );
 //calendar text style:
 //day text style:
-final theme9CalendarDayWeekendTextStyle = GoogleFonts.rajdhani(
+final theme9CalendarDayWeekendTextStyle = GoogleFonts.chakraPetch(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme9IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme9DividerColor));
 
 //next month text style:
-final theme9CalendarNextMonthTextStyle = GoogleFonts.rajdhani(
+final theme9CalendarNextMonthTextStyle = GoogleFonts.chakraPetch(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme9BaseTextColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme9UnselectedColor));
 
-final theme9CalendarWeekendTextStyle = GoogleFonts.rajdhani(
+final theme9CalendarWeekendTextStyle = GoogleFonts.chakraPetch(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme9IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme9DividerColor));
 
 
@@ -170,17 +170,17 @@ final theme9 = ThemeData(
       ),
       unselectedIconTheme: const IconThemeData(
           color: theme9UnselectedColor,fill: 0.0),
-      selectedLabelTextStyle: GoogleFonts.rajdhani(
+      selectedLabelTextStyle: GoogleFonts.chakraPetch(
         textStyle: const TextStyle(
           color: theme9BaseTextColor, fontSize: 18, fontWeight: FontWeight.w300,
           backgroundColor: Colors.transparent,
         ),
       ),
-      unselectedLabelTextStyle: GoogleFonts.rajdhani(
+      unselectedLabelTextStyle: GoogleFonts.chakraPetch(
         textStyle: const TextStyle(
           color: theme9UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w200,
+          fontWeight: FontWeight.w300,
 
         ),
       ),
@@ -238,22 +238,22 @@ final theme9 = ThemeData(
       confirmButtonStyle: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(theme9IndicatorColor.withOpacity(0.5)),
         foregroundColor: WidgetStateProperty.all(theme9BaseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.rajdhani(
+        textStyle: WidgetStateProperty.all(GoogleFonts.chakraPetch(
           textStyle: const TextStyle(
               color: theme9BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(theme9TitleBoxBcgColor),
           foregroundColor: WidgetStateProperty.all(theme9PickerTextColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.rajdhani(
+          textStyle: WidgetStateProperty.all(GoogleFonts.chakraPetch(
             textStyle: const TextStyle(
                 color: theme9BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -325,22 +325,22 @@ final theme9 = ThemeData(
       confirmButtonStyle: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(theme9IndicatorColor.withOpacity(0.5)),
         foregroundColor: WidgetStateProperty.all(theme9BaseTextColor),
-        textStyle: WidgetStateProperty.all(GoogleFonts.rajdhani(
+        textStyle: WidgetStateProperty.all(GoogleFonts.chakraPetch(
           textStyle: const TextStyle(
               color: theme9BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
       cancelButtonStyle: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(theme9TitleBoxBcgColor),
           foregroundColor: WidgetStateProperty.all(theme9PickerTextColor),
-          textStyle: WidgetStateProperty.all(GoogleFonts.rajdhani(
+          textStyle: WidgetStateProperty.all(GoogleFonts.chakraPetch(
             textStyle: const TextStyle(
                 color: theme9BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -396,18 +396,18 @@ final theme9 = ThemeData(
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
       labelColor: theme9BaseTextColor,
       unselectedLabelColor: theme9UnselectedColor,
-      unselectedLabelStyle: GoogleFonts.rajdhani(
+      unselectedLabelStyle: GoogleFonts.chakraPetch(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme9UnselectedColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
-      labelStyle: GoogleFonts.rajdhani(
+      labelStyle: GoogleFonts.chakraPetch(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme9BaseTextColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
     ),
