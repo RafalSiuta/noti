@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 const theme9MainBcgColor = Color(0xFF111518);
 const theme9TitleBoxBcgColor = Color(0xFF191F24);
 
-const theme9FirstGradientColor = Color(0xFF192024);
-const theme9MiddleGradientColor = Color(0xFF15231D);
+const theme9FirstGradientColor = Color(0xFF1B2327);
+const theme9MiddleGradientColor = Color(0xFF1B2D25);
 const theme9LastGradientColor = Color(0xFF465936);
 const theme9UnselectedTaskIcon = Color(0xFF151B1E);
 const theme9OutlineColor = Color(0xFF89B800);

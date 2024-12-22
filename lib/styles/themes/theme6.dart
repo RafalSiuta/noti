@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const theme8MainBcgColor = Color(0xFF423D33);
+const theme8MainBcgColor = Color(0xFF3C372E);
 const theme8TitleBoxBcgColor = Color(0xFF4B4639);
 
-const theme8FirstGradientColor = Color(0xFF65462C);
-const theme8MiddleGradientColor = Color(0xFF9A6B45);
-const theme8LastGradientColor = Color(0xFFC0885B);
+const theme8FirstGradientColor = Color(0xFF4B3321);
+const theme8MiddleGradientColor = Color(0xFF835B3B);
+const theme8LastGradientColor = Color(0xFFAA7850);
 const theme8UnselectedTaskIcon = Color(0xFF523824);
-const theme8OutlineColor = Color(0xFFEAAC7B);
+const theme8OutlineColor = Color(0xFFD89E71);
 
 const theme8DividerColor = Color(0xFF65462C);
-const theme8UnselectedColor = Color(0xFF2F2B24);
-const theme8ShadowColor = Color(0xFF474237);
+const theme8UnselectedColor = Color(0xFF2A2620);
+const theme8ShadowColor = Color(0xFF433E34);
 
 const theme8IndicatorColor = Color(0xFFFFA726);// 3F51B5 EF6C00
 

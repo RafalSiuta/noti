@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
 
     return ScreenTypeLayout(
-      mobile: Consumer2<HomeProvider,TaskProvider>(
-        builder: (context, homeProvider, taskProvider, child) {
+      mobile: Consumer<HomeProvider>(
+        builder: (context, homeProvider, child) {
           var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
           var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
           return Scaffold(
@@ -183,10 +183,6 @@ class _HomeScreenState extends State<HomeScreen>
                       titles: _pages.map((e) => e.title!).toList(),
                       selectedItem: _currentPage,
                       onTap: (int sel) {
-                        if(_currentPage == sel){
-                          print("SELECTED MENU ITEM IS ${sel}");
-                          //taskProvider.onDaySelected(DateTime.now(), DateTime.now());
-                        }
                         _onPageChange(sel);
                         hideTrigger();
                       },

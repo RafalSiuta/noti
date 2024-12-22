@@ -76,6 +76,18 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void onCurrentSelected(selectedDay, focusedDay) async {
+    if (!isSameDay(selDay, selectedDay)) {
+      selDay = selectedDay;
+      focDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
+      _rangeStart = null;
+      _rangeEnd = null;
+      rangeSelectionMode = RangeSelectionMode.toggledOff;
+    }
+    _taskList = getCalendarValues(selDay);
+    notifyListeners();
+  }
+
   void onDaySelected(selectedDay, focusedDay) async {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;

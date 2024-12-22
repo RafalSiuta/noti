@@ -11,6 +11,7 @@ import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
+import '../../widgets/dialogs/date_picker.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/tooltip/custom_text_toolbar.dart';
@@ -101,31 +102,57 @@ class _NoteCreatorState extends State<NoteCreator>
      // dateVal.text = DateFormat('dd MMM yy').format(widget.newNote.date);
     });
   }
-
   _pickDate(BuildContext context) async {
+    DateTime? picked;
 
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.newNote.date,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2070),initialEntryMode: DatePickerEntryMode.calendarOnly,
-      locale: const Locale('pl'), useRootNavigator:false,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: dialogScale,
-          child: child,
-        );
-      },
-
+    await showDialog<DateTime>(
+        context: context,
+        builder: (context) {
+          return DatePickerDial(
+            initialDate: widget.newNote.date,
+            onDateSelected: (DateTime date, TimeOfDay time) {
+              setState(() {
+                currentDate(date); // Ustaw datę i czas tylko raz wewnątrz setState
+                picked = date; // Ustaw wybraną datę
+              });
+            },
+            onMonthChange: (date) {
+              // Logika dla zmiany miesiąca, jeśli jest potrzebna
+            },
+          );
+        }
     );
+
     if (picked != null && picked != widget.newNote.date) {
       setState(() {
-        //TimeOfDay time = TimeOfDay(hour: widget.newNote.date.hour, minute: widget.newNote.date.minute);
-        currentDate(picked);
-
+        currentDate(picked!); // Aktualizuj tylko raz, gdy faktycznie potrzebujesz
       });
     }
   }
+  // _pickDate(BuildContext context) async {
+  //
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: widget.newNote.date,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2070),initialEntryMode: DatePickerEntryMode.calendarOnly,
+  //     locale: const Locale('pl'), useRootNavigator:false,
+  //     builder: (context, child) {
+  //       return Transform.scale(
+  //         scale: dialogScale,
+  //         child: child,
+  //       );
+  //     },
+  //
+  //   );
+  //   if (picked != null && picked != widget.newNote.date) {
+  //     setState(() {
+  //       //TimeOfDay time = TimeOfDay(hour: widget.newNote.date.hour, minute: widget.newNote.date.minute);
+  //       currentDate(picked);
+  //
+  //     });
+  //   }
+  // }
 
 
   IconData pickedIcon = Icons.circle;
@@ -137,7 +164,6 @@ class _NoteCreatorState extends State<NoteCreator>
         builder: (context) {
           return
           StatefulBuilder(builder: (ctx,setDialCtx){
-
             return CustomDial(
                 title: 'Note icon',
                 child: Container(

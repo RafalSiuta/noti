@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
@@ -11,9 +12,11 @@ import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
+import '../../widgets/dialogs/date_picker.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
 import '../../widgets/tooltip/custom_text_toolbar.dart';
+import '../../widgets/calendar/calendar.dart';
 
 class TaskCreator extends StatefulWidget {
   final Task newTask;
@@ -135,29 +138,92 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   _pickDate(BuildContext context) async {
+    DateTime? picked;
 
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.newTask.date,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2070),initialEntryMode: DatePickerEntryMode.calendarOnly,
-      locale: const Locale('pl'), useRootNavigator:false,
-      builder: (context, child) {
-      return Transform.scale(
-        scale: dialogScale,
-        child: child,
-      );
-    },
-
+    await showDialog<DateTime>(
+        context: context,
+        builder: (context) {
+          return DatePickerDial(
+            initialDate: widget.newTask.date,
+            onDateSelected: (DateTime date, TimeOfDay time) {
+              setState(() {
+                currentDate(date, time); // Ustaw datę i czas tylko raz wewnątrz setState
+                picked = date; // Ustaw wybraną datę
+              });
+            },
+            onMonthChange: (date) {
+              // Logika dla zmiany miesiąca, jeśli jest potrzebna
+            },
+          );
+        }
     );
+
     if (picked != null && picked != widget.newTask.date) {
       setState(() {
         TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
-        currentDate(picked, time);
-
+        currentDate(picked!, time); // Aktualizuj tylko raz, gdy faktycznie potrzebujesz
       });
     }
   }
+
+  // _pickDate(BuildContext context) async {
+  //   DateTime? picked;
+  //
+  //   await showDialog<DateTime>(
+  //       context: context,
+  //       builder: (context) {
+  //         return StatefulBuilder(
+  //           builder: (BuildContext context, StateSetter setDialState) {
+  //             DateTime focDay = widget.newTask.date;
+  //             DateTime selDay = widget.newTask.date;
+  //             return Container(
+  //               constraints: BoxConstraints(
+  //                   maxHeight: MediaQuery.of(context).size.height / 2),
+  //               child: CustomDial(
+  //                 title:DateFormat('dd MMM yy')
+  //                     .format(widget.newTask.date),
+  //                 child: Calendar(
+  //                   isHeaderVisible: false,
+  //                   focDay: focDay,
+  //                   selDay: selDay,
+  //                   onDaySelected: (selectedDay, focusedDay) {
+  //                     setDialState(() {
+  //                       focDay = focusedDay;
+  //                       selDay = selectedDay;
+  //                       picked = selectedDay; // Ustaw wybraną datę
+  //                       if (picked != null && picked != widget.newTask.date) {
+  //                         setState(() {
+  //                           TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
+  //                           currentDate(picked!, time);
+  //                         });
+  //                       }
+  //                     });
+  //                   },
+  //             onMonthChange: (DateTime date){
+  //
+  //                               },
+  //                               onFormatChanged: (format) {
+  //                               }, // Zmiana formatu kalendarza
+  //                   startingDayOfWeek: StartingDayOfWeek.monday,
+  //                   calendarFormat: CalendarFormat.month,
+  //                   taskEvents: (DateTime date) {
+  //                     // Logika do pobierania wydarzeń dla danego dnia
+  //                     return [];
+  //                   },
+  //                 ),
+  //               ),
+  //             );
+  //           },
+  //         );
+  //       }
+  //   );
+  //
+  //
+  // }
+
+
+
+
 
   _pickTime(BuildContext context) async {
     TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
@@ -189,37 +255,34 @@ class _TaskCreatorState extends State<TaskCreator>
     showDialog(
         context: context,
         builder: (context) {
-          return
-            StatefulBuilder(builder: (ctx,setDialState){
+          return StatefulBuilder(builder: (ctx,setDialState){
+              //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
               return CustomDial(
                   title: 'Task category icon',
-                  child: Container(
-                    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
-                   // padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: GridView.count(
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      crossAxisSpacing: 4.0,
-                      shrinkWrap: true,
-                      mainAxisSpacing: 4.0,
-                      crossAxisCount: iconListCrossCount,
-                      children: List.generate(
-                        categoryIcons.iconsList.length,
-                            (index) => IconButtonWithText(
-                                iconData: categoryIcons.iconsList[index].icon,
-                                iconSize: navIconSize,
-                                iconName: categoryIcons.iconsList[index].name,
-                                value: widget.newTask.icon == categoryIcons.iconsList[index].id! ? true : false,
-                                onChanged: (val) {
-                                  setState(() {
-                                    setDialState((){
-                                       widget.newTask.icon = categoryIcons.iconsList[index].id!;
-                                       pickedIcon = categoryIcons.getPickedIcon(widget.newTask.icon).icon;
-                                       pickedIconText = categoryIcons.getPickedIcon(widget.newTask.icon).name;
-                                    });
+                  child: 
+                  GridView.count(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    crossAxisSpacing: 4.0,
+                    shrinkWrap: true,
+                    mainAxisSpacing: 4.0,
+                    crossAxisCount: iconListCrossCount,
+                    children: List.generate(
+                      categoryIcons.iconsList.length,
+                          (index) => IconButtonWithText(
+                              iconData: categoryIcons.iconsList[index].icon,
+                              iconSize: navIconSize,
+                              iconName: categoryIcons.iconsList[index].name,
+                              value: widget.newTask.icon == categoryIcons.iconsList[index].id! ? true : false,
+                              onChanged: (val) {
+                                setState(() {
+                                  setDialState((){
+                                     widget.newTask.icon = categoryIcons.iconsList[index].id!;
+                                     pickedIcon = categoryIcons.getPickedIcon(widget.newTask.icon).icon;
+                                     pickedIconText = categoryIcons.getPickedIcon(widget.newTask.icon).name;
                                   });
-                                }),
-                      ),
+                                });
+                              }),
                     ),
                   ));
             });

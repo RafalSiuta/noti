@@ -62,66 +62,126 @@ class _CustomDialState extends State<CustomDial> {
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      insetAnimationDuration: const Duration(milliseconds: 500),
-      insetAnimationCurve: Curves.easeIn,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Card(
-          elevation: 5.0,
-          color: Theme.of(context).colorScheme.onSurface,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: textSize * 3,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15)),
-                    color: Theme.of(context).datePickerTheme.headerBackgroundColor),
-                child: Center(
-                  child: Text(
-                    widget.title!,
-                    style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
-                  ),
+    return
+      Card(
+              elevation: 5.0,
+              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/14, vertical: MediaQuery.of(context).size.height/6),
+              color: Theme.of(context).colorScheme.onSurface,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: textSize * 3,
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
+                  color: Theme.of(context).datePickerTheme.headerBackgroundColor),
+              child: Center(
+                child: Text(
+                  widget.title!,
+                  style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                 ),
               ),
-              Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                    child: widget.child!,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                child: widget.child!,
+              ),
+            ),
+            const Divider(),
+            // const SizedBox(height: 5.0,),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  //Navigator.of(context).pop(),
+                  child: Visibility(
+                    visible: widget.isBtnVisible,
+                    child: Text(
+                      'Ok',
+                      style: Theme.of(context)
+                          .dialogTheme
+                          .contentTextStyle!
+                          .copyWith(fontSize: textSize),
+                    ),
                   )),
-             const Divider(),
-             // const SizedBox(height: 5.0,),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Visibility(
-                      visible: widget.isBtnVisible,
-                      child: Text(
-                        'Ok',
-                        style: Theme.of(context)
-                            .dialogTheme
-                            .contentTextStyle!
-                            .copyWith(fontSize: textSize),
-                      ),
-                    )),
-              )
-            ],
-          )),
-    );
+            )
+          ],
+        ),
+      );
+    //   Dialog(
+    //   backgroundColor: Colors.transparent,
+    //   insetAnimationDuration: const Duration(milliseconds: 500),
+    //   insetAnimationCurve: Curves.easeIn,
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    //   child:
+    //
+    //
+    //   // Card(
+    //   //     elevation: 5.0,
+    //   //     margin: EdgeInsets.zero,
+    //   //     color: Theme.of(context).colorScheme.onSurface,
+    //   //     shape: RoundedRectangleBorder(
+    //   //       borderRadius: BorderRadius.circular(15),
+    //   //     ),
+    //   //     child: Column(
+    //   //       mainAxisSize: MainAxisSize.min,
+    //   //       crossAxisAlignment: CrossAxisAlignment.end,
+    //   //       children: [
+    //   //         Container(
+    //   //           width: MediaQuery.of(context).size.width,
+    //   //           height: textSize * 3,
+    //   //           decoration: BoxDecoration(
+    //   //               borderRadius: const BorderRadius.only(
+    //   //                   topLeft: Radius.circular(15),
+    //   //                   topRight: Radius.circular(15)),
+    //   //               color: Theme.of(context).datePickerTheme.headerBackgroundColor),
+    //   //           child: Center(
+    //   //             child: Text(
+    //   //               widget.title!,
+    //   //               style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+    //   //             ),
+    //   //           ),
+    //   //         ),
+    //   //         Flexible(
+    //   //             child: Padding(
+    //   //               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    //   //               child: widget.child!,
+    //   //             )),
+    //   //        const Divider(),
+    //   //        // const SizedBox(height: 5.0,),
+    //   //         Padding(
+    //   //           padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
+    //   //           child: TextButton(
+    //   //               onPressed: () {
+    //   //                 Navigator.pop(context);
+    //   //               },
+    //   //               //Navigator.of(context).pop(),
+    //   //               child: Visibility(
+    //   //                 visible: widget.isBtnVisible,
+    //   //                 child: Text(
+    //   //                   'Ok',
+    //   //                   style: Theme.of(context)
+    //   //                       .dialogTheme
+    //   //                       .contentTextStyle!
+    //   //                       .copyWith(fontSize: textSize),
+    //   //                 ),
+    //   //               )),
+    //   //         )
+    //   //       ],
+    //   //     )),
+    // );
   }
 }

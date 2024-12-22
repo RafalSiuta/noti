@@ -1,25 +1,23 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
-import '../../providers/task_provider.dart';
-import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../task_screen/task_creator_screen.dart';
 
 
 //todo convert this to separate widget 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
+  final bool gesturesEnable;
   final double topSpacing;
   final DateTime focDay;
   final DateTime selDay;
   final StartingDayOfWeek startingDayOfWeek;
   final Function(DateTime, DateTime)? onDaySelected;
+  final Function(DateTime, DateTime)? onDayLongPressed;
   final Function(DateTime) onMonthChange;
   final CalendarFormat calendarFormat;
   final Function(CalendarFormat)? onFormatChanged;
@@ -29,9 +27,10 @@ class Calendar extends StatelessWidget {
     required this.startingDayOfWeek,
     required this.selDay,
     required this.onDaySelected,
+    this.onDayLongPressed,
     required this.calendarFormat,
     required this.onFormatChanged,
-    required this.taskEvents,super.key, this.isHeaderVisible = true, this.topSpacing = 3.0});
+    required this.taskEvents,super.key, this.isHeaderVisible = true,this.gesturesEnable = true, this.topSpacing = 3.0});
 
   @override
   Widget build(BuildContext context) {
@@ -50,30 +49,33 @@ class Calendar extends StatelessWidget {
           padding:  EdgeInsets.only(top: topSpacing,left: 3.0,right: 3.0,bottom: 3.0),
           child: AnimationLimiter(
             child: TableCalendar<Task>(
+
               focusedDay: focDay,
-              availableGestures: isHeaderVisible
+              availableGestures: gesturesEnable
                   ? AvailableGestures.all
                   : AvailableGestures.none,
               firstDay: DateTime(1990),
               lastDay: DateTime(DateTime.now().year + 2),
               calendarFormat: calendarFormat,
+
               onFormatChanged: onFormatChanged,
-              onDayLongPressed: (DateTime date, list) async {
-                await Navigator.push(
-                    context,
-                    CustomPageRoute(
-                        child: TaskCreator(
-                            editEnable: true,
-                            newTask: Task(
-                                date: DateTime(
-                                    date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-                                icon: 1,
-                                description: " ",
-                                title: " ",
-                                priority: 1,
-                                isTaskDone: false)),
-                        direction: AxisDirection.right));
-              },
+              onDayLongPressed: onDayLongPressed ?? (date,dateTime){},
+              //     (DateTime date, dateTime) async {
+              //   await Navigator.push(
+              //       context,
+              //       CustomPageRoute(
+              //           child: TaskCreator(
+              //               editEnable: true,
+              //               newTask: Task(
+              //                   date: DateTime(
+              //                       date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
+              //                   icon: 1,
+              //                   description: " ",
+              //                   title: " ",
+              //                   priority: 1,
+              //                   isTaskDone: false)),
+              //           direction: AxisDirection.right));
+              // },
               rowHeight: rowHeight,
               daysOfWeekHeight: rowHeight,
               headerVisible: isHeaderVisible,
