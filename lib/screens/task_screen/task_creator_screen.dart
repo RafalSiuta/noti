@@ -139,7 +139,6 @@ class _TaskCreatorState extends State<TaskCreator>
 
   _pickDate(BuildContext context) async {
     DateTime? picked;
-
     await showDialog<DateTime>(
         context: context,
         builder: (context) {
@@ -165,64 +164,6 @@ class _TaskCreatorState extends State<TaskCreator>
       });
     }
   }
-
-  // _pickDate(BuildContext context) async {
-  //   DateTime? picked;
-  //
-  //   await showDialog<DateTime>(
-  //       context: context,
-  //       builder: (context) {
-  //         return StatefulBuilder(
-  //           builder: (BuildContext context, StateSetter setDialState) {
-  //             DateTime focDay = widget.newTask.date;
-  //             DateTime selDay = widget.newTask.date;
-  //             return Container(
-  //               constraints: BoxConstraints(
-  //                   maxHeight: MediaQuery.of(context).size.height / 2),
-  //               child: CustomDial(
-  //                 title:DateFormat('dd MMM yy')
-  //                     .format(widget.newTask.date),
-  //                 child: Calendar(
-  //                   isHeaderVisible: false,
-  //                   focDay: focDay,
-  //                   selDay: selDay,
-  //                   onDaySelected: (selectedDay, focusedDay) {
-  //                     setDialState(() {
-  //                       focDay = focusedDay;
-  //                       selDay = selectedDay;
-  //                       picked = selectedDay; // Ustaw wybraną datę
-  //                       if (picked != null && picked != widget.newTask.date) {
-  //                         setState(() {
-  //                           TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
-  //                           currentDate(picked!, time);
-  //                         });
-  //                       }
-  //                     });
-  //                   },
-  //             onMonthChange: (DateTime date){
-  //
-  //                               },
-  //                               onFormatChanged: (format) {
-  //                               }, // Zmiana formatu kalendarza
-  //                   startingDayOfWeek: StartingDayOfWeek.monday,
-  //                   calendarFormat: CalendarFormat.month,
-  //                   taskEvents: (DateTime date) {
-  //                     // Logika do pobierania wydarzeń dla danego dnia
-  //                     return [];
-  //                   },
-  //                 ),
-  //               ),
-  //             );
-  //           },
-  //         );
-  //       }
-  //   );
-  //
-  //
-  // }
-
-
-
 
 
   _pickTime(BuildContext context) async {

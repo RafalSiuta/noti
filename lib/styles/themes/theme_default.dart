@@ -227,6 +227,20 @@ final themeDefault = ThemeData(
           }
         },
       ),),
+    // outlinedButtonTheme: OutlinedButtonThemeData(
+    //   style: ButtonStyle(
+    //     textStyle: WidgetStateProperty.all(
+    //         subtitleHeaderTextStyle
+    //     ),
+    //     padding: WidgetStateProperty.all(EdgeInsets.zero),
+    //     side: WidgetStateProperty.all(
+    //       BorderSide(
+    //         width: 0.5,
+    //           color: themeDefBaseTextColor
+    //       )
+    //     )
+    //   )
+    // ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: themeDefIndicatorColor),

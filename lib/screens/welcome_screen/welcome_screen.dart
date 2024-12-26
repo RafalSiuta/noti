@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
     //final taskProvider = Provider.of<TaskProvider>(context, listen: false);
 
     DateTime focDay = DateTime.now();
-    DateTime selDay = DateTime.now();
+    //DateTime selDay = DateTime.now();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
@@ -41,9 +41,16 @@ class WelcomeScreen extends StatelessWidget {
               isHeaderVisible: false,
               gesturesEnable: false,
               focDay: focDay, // Bieżący dzień wybrany w kalendarzu
-              selDay: selDay, // Aktualnie zaznaczony dzień
+              selDay: taskProvider.selDay, // Aktualnie zaznaczony dzień
               startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
               onDaySelected: taskProvider.onDaySelected,
+              //     (selectedDay,focusedDay){
+              //   if (!isSameDay(selDay, selectedDay)) {
+              //     selDay = selectedDay;
+              //     focDay = focusedDay;
+              //   }
+              //   taskProvider.onDaySelected;
+              // },
               onMonthChange: (day) {
                 //taskProvider.onMonthChange(day);
               }, // Reakcja na zmianę miesiąca
