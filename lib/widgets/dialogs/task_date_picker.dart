@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../buttons/switch_btn.dart';
 import '../calendar/calendar.dart';
+import '../calendar/date_calendar.dart';
 
-class DatePickerDial extends StatefulWidget {
+class TaskDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
+  final Function(DateTime startDate, DateTime endDate, int daysToScope) generateDateScopeList;
   final Function(DateTime, TimeOfDay) onDateSelected;
   final StartingDayOfWeek startingDayOfWeek;
   final CalendarFormat calendarFormat;
@@ -14,7 +15,7 @@ class DatePickerDial extends StatefulWidget {
   final Function(CalendarFormat)? onFormatChanged;
 
 
-  const DatePickerDial({
+  const TaskDatePickerDial({
     super.key,
     required this.initialDate,
     required this.onDateSelected,
@@ -22,13 +23,14 @@ class DatePickerDial extends StatefulWidget {
     this.calendarFormat = CalendarFormat.month,
     this.onMonthChange,
     this.onFormatChanged,
+    required this.generateDateScopeList,
   });
 
   @override
-  _DatePickerDialState createState() => _DatePickerDialState();
+  _TaskDatePickerDialState createState() => _TaskDatePickerDialState();
 }
 
-class _DatePickerDialState extends State<DatePickerDial> {
+class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   late DateTime focDay;
   late DateTime selDay;
 
@@ -37,6 +39,25 @@ class _DatePickerDialState extends State<DatePickerDial> {
   late DateTime startDate;
   late DateTime endDate;
   int daysToScope = 1;
+
+  List<DateTime> dates = [];
+  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
+  //
+  //   DateTime currentDate = startDate;
+  //   if(daysToScope > 0){
+  //   while (currentDate.isBefore(endDate.add(Duration(days: 1)))) {
+  //     // Dodajemy jeden dzień, aby uwzględnić endDate
+  //
+  //       scopeDatesList.add(currentDate);
+  //       currentDate = currentDate.add(Duration(days: daysToScope));
+  //     }
+  //   }
+  //   scopeDatesList.forEach((item){
+  //     print("DATES SCOPE: ${item}");
+  //   });
+  //   return scopeDatesList;
+  // }
+
 
   void onExpanded(){
     setState(() {
@@ -51,6 +72,7 @@ class _DatePickerDialState extends State<DatePickerDial> {
       }else{
         endDate = selDay;
       }
+      widget.generateDateScopeList(startDate, endDate,  daysToScope);
     });
   }
 
@@ -65,6 +87,8 @@ class _DatePickerDialState extends State<DatePickerDial> {
           daysToScope--;
         }
       }
+      widget.generateDateScopeList(startDate, endDate,  daysToScope);
+
     });
 
   }
@@ -76,6 +100,7 @@ class _DatePickerDialState extends State<DatePickerDial> {
     focDay = widget.initialDate;
     selDay = widget.initialDate;
     endDate = widget.initialDate;
+
   }
 
   @override
@@ -147,29 +172,51 @@ class _DatePickerDialState extends State<DatePickerDial> {
 
               //calendar
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 0),
-                child: Calendar(
-                          isHeaderVisible: false,
-                          focDay: focDay,
-                          selDay: selDay,
-                          topSpacing: 0,
-                          onDaySelected: (selectedDay, focusedDay) {
-                            setDialState(() {
-                              focDay = focusedDay;
-                              selDay = selectedDay;
-                              if (selectedDay != widget.initialDate) {
-                                TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
-                                widget.onDateSelected(selectedDay, time);
-                              }
-                              onScopeDateSelected();
-                            });
-                          },
-                          onMonthChange: widget.onMonthChange ?? (_){}, // Dodaj domyślną funkcję, gdy onMonthChange jest null
-                          onFormatChanged: widget.onFormatChanged ?? (_){},
-                          startingDayOfWeek: widget.startingDayOfWeek,
-                          calendarFormat: widget.calendarFormat,
-                          taskEvents: (DateTime date) => [],
-                        ),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                child:
+                DateCalendar(
+                  focDay: focDay,
+                  selDay: selDay,
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setDialState(() {
+                      focDay = focusedDay;
+                      selDay = selectedDay;
+                      if (selectedDay != widget.initialDate) {
+                        TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
+                        widget.onDateSelected(selectedDay, time);
+                      }
+                      onScopeDateSelected();
+                    });
+                  },
+                  onMonthChange: widget.onMonthChange ?? (_){}, // Dodaj domyślną funkcję, gdy onMonthChange jest null
+                  onFormatChanged: widget.onFormatChanged ?? (_){},
+                  startingDayOfWeek: widget.startingDayOfWeek,
+                  calendarFormat: widget.calendarFormat,
+                  dateList:[],
+                ),
+                // Calendar(
+                //           isHeaderVisible: false,
+                //           focDay: focDay,
+                //           selDay: selDay,
+                //           topSpacing: 0,
+                //           onDaySelected: (selectedDay, focusedDay) {
+                //             setDialState(() {
+                //               focDay = focusedDay;
+                //               selDay = selectedDay;
+                //               if (selectedDay != widget.initialDate) {
+                //                 TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
+                //                 widget.onDateSelected(selectedDay, time);
+                //               }
+                //               onScopeDateSelected();
+                //             });
+                //           },
+                //           onMonthChange: widget.onMonthChange ?? (_){}, // Dodaj domyślną funkcję, gdy onMonthChange jest null
+                //           onFormatChanged: widget.onFormatChanged ?? (_){},
+                //           startingDayOfWeek: widget.startingDayOfWeek,
+                //           calendarFormat: widget.calendarFormat,
+                //           taskEvents: (DateTime date) => [],
+                //         ),
+
               ),
               const Divider(),
               GestureDetector(

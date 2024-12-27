@@ -12,7 +12,7 @@ import '../../providers/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
-import '../../widgets/dialogs/date_picker.dart';
+import '../../widgets/dialogs/task_date_picker.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/raters/priority_rater.dart';
 import '../../widgets/tooltip/custom_text_toolbar.dart';
@@ -136,13 +136,31 @@ class _TaskCreatorState extends State<TaskCreator>
 
     });
   }
+  List<DateTime> scopeDatesList = [];
+  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
+
+    DateTime currentDate = startDate;
+    if(daysToScope > 0){
+      while (currentDate.isBefore(endDate.add(Duration(days: 1)))) {
+        // Dodajemy jeden dzień, aby uwzględnić endDate
+
+        scopeDatesList.add(currentDate);
+        currentDate = currentDate.add(Duration(days: daysToScope));
+      }
+    }
+    scopeDatesList.forEach((item){
+      print("DATES SCOPE: ${item}");
+    });
+    return scopeDatesList;
+  }
 
   _pickDate(BuildContext context) async {
     DateTime? picked;
     await showDialog<DateTime>(
         context: context,
         builder: (context) {
-          return DatePickerDial(
+          return TaskDatePickerDial(
+            generateDateScopeList:generateDateScopeList,
             initialDate: widget.newTask.date,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {

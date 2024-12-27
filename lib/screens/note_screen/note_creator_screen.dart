@@ -11,7 +11,7 @@ import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/icon_button.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
-import '../../widgets/dialogs/date_picker.dart';
+import '../../widgets/dialogs/note_date_picker.dart';
 import '../../widgets/dialogs/gallery_sheet.dart';
 import '../../widgets/navigators/creator_nav.dart';
 import '../../widgets/tooltip/custom_text_toolbar.dart';
@@ -108,7 +108,7 @@ class _NoteCreatorState extends State<NoteCreator>
     await showDialog<DateTime>(
         context: context,
         builder: (context) {
-          return DatePickerDial(
+          return NoteDatePickerDial(
             initialDate: widget.newNote.date,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {

@@ -7,8 +7,6 @@ import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
 import '../../utils/dimensions/size_info.dart';
 
-
-//todo convert this to separate widget 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
   final bool gesturesEnable;
