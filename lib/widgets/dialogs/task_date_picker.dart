@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../calendar/calendar.dart';
 import '../calendar/date_calendar.dart';
 
 class TaskDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
-  final Function(DateTime startDate, DateTime endDate, int daysToScope) generateDateScopeList;
+  final List<DateTime> scopeDatesList;
   final Function(DateTime, TimeOfDay) onDateSelected;
   final StartingDayOfWeek startingDayOfWeek;
   final CalendarFormat calendarFormat;
@@ -23,7 +22,7 @@ class TaskDatePickerDial extends StatefulWidget {
     this.calendarFormat = CalendarFormat.month,
     this.onMonthChange,
     this.onFormatChanged,
-    required this.generateDateScopeList,
+    required this.scopeDatesList,
   });
 
   @override
@@ -38,25 +37,21 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   bool isDateScopeSelected = true;
   late DateTime startDate;
   late DateTime endDate;
-  int daysToScope = 1;
+  int daysToScope = 0;
 
-  List<DateTime> dates = [];
-  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
-  //
-  //   DateTime currentDate = startDate;
-  //   if(daysToScope > 0){
-  //   while (currentDate.isBefore(endDate.add(Duration(days: 1)))) {
-  //     // Dodajemy jeden dzień, aby uwzględnić endDate
-  //
-  //       scopeDatesList.add(currentDate);
-  //       currentDate = currentDate.add(Duration(days: daysToScope));
-  //     }
-  //   }
-  //   scopeDatesList.forEach((item){
-  //     print("DATES SCOPE: ${item}");
-  //   });
-  //   return scopeDatesList;
-  // }
+  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
+    // Clear the existing date scope list
+    widget.scopeDatesList.clear();
+
+    DateTime currentDate = startDate;
+    if(daysToScope > 0){
+      while (currentDate.isBefore(endDate.add(const Duration(days: 1)))) {
+        widget.scopeDatesList.add(currentDate);
+        currentDate = currentDate.add(Duration(days: daysToScope));
+      }
+    }
+    return widget.scopeDatesList;
+  }
 
 
   void onExpanded(){
@@ -72,7 +67,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
       }else{
         endDate = selDay;
       }
-      widget.generateDateScopeList(startDate, endDate,  daysToScope);
+      generateDateScopeList(startDate, endDate, daysToScope);
     });
   }
 
@@ -80,18 +75,35 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     setState(() {
       if(operator == "+"){
         daysToScope++;
-      }else {
+      } else {
         if(daysToScope <= 1){
           daysToScope = 0;
-        }else{
+        } else {
           daysToScope--;
         }
       }
-      widget.generateDateScopeList(startDate, endDate,  daysToScope);
-
+      // Reset and generate the new date scope list
+      generateDateScopeList(startDate, endDate, daysToScope);
     });
-
   }
+
+  void onDayLongPressed(DateTime selectedDay, DateTime focusedDay) {
+    setState(() {
+      if (!widget.scopeDatesList.any((day) => isSameDay(day, selectedDay))) {
+        widget.scopeDatesList.add(selectedDay); // Dodaj wybraną datę tylko jeśli nie istnieje
+      }
+    });
+  }
+
+  List<DateTime> getCalendarDates(DateTime date) {
+
+    return widget.scopeDatesList.where((item) {
+      print("DATE PICKER DATES:  ${item}");
+      return isSameDay(item, date);
+    }).toList();
+  }
+
+
 
   @override
   void initState() {
@@ -99,7 +111,8 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     startDate = widget.initialDate;
     focDay = widget.initialDate;
     selDay = widget.initialDate;
-    endDate = widget.initialDate;
+    endDate = DateTime.now().add(const Duration(days: 2));
+    getCalendarDates(focDay);
 
   }
 
@@ -150,7 +163,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                           size: textSize,
                         )),
                     Text(
-                      DateFormat('dd MMM yy').format(selDay),
+                      DateFormat('MMMM yy').format(focDay),
                       style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                     ),
 
@@ -178,45 +191,33 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                   focDay: focDay,
                   selDay: selDay,
                   onDaySelected: (selectedDay, focusedDay) {
-                    setDialState(() {
-                      focDay = focusedDay;
-                      selDay = selectedDay;
-                      if (selectedDay != widget.initialDate) {
-                        TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
-                        widget.onDateSelected(selectedDay, time);
-                      }
-                      onScopeDateSelected();
-                    });
+                      setDialState(() {
+                        selDay = selectedDay;
+                        focDay = focusedDay;
+                        if (isDateScopeSelected) {
+                          startDate = selectedDay;
+                        } else {
+                          endDate = selectedDay;
+                        }
+
+                            if (selectedDay != widget.initialDate) {
+                              TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
+                              widget.onDateSelected(startDate, time);
+                            }
+                        onScopeDateSelected();
+                      });
+                    },
+                  onMonthChange: (focusedDay) {
+                      setState(() {
+                        focDay = focusedDay;
+                      });
                   },
-                  onMonthChange: widget.onMonthChange ?? (_){}, // Dodaj domyślną funkcję, gdy onMonthChange jest null
                   onFormatChanged: widget.onFormatChanged ?? (_){},
                   startingDayOfWeek: widget.startingDayOfWeek,
                   calendarFormat: widget.calendarFormat,
-                  dateList:[],
+                  onDayLongPressed: onDayLongPressed,
+                  events:getCalendarDates
                 ),
-                // Calendar(
-                //           isHeaderVisible: false,
-                //           focDay: focDay,
-                //           selDay: selDay,
-                //           topSpacing: 0,
-                //           onDaySelected: (selectedDay, focusedDay) {
-                //             setDialState(() {
-                //               focDay = focusedDay;
-                //               selDay = selectedDay;
-                //               if (selectedDay != widget.initialDate) {
-                //                 TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
-                //                 widget.onDateSelected(selectedDay, time);
-                //               }
-                //               onScopeDateSelected();
-                //             });
-                //           },
-                //           onMonthChange: widget.onMonthChange ?? (_){}, // Dodaj domyślną funkcję, gdy onMonthChange jest null
-                //           onFormatChanged: widget.onFormatChanged ?? (_){},
-                //           startingDayOfWeek: widget.startingDayOfWeek,
-                //           calendarFormat: widget.calendarFormat,
-                //           taskEvents: (DateTime date) => [],
-                //         ),
-
               ),
               const Divider(),
               GestureDetector(
@@ -262,7 +263,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
 
                       TextButton(onPressed: (){
                         setDialState((){
-                          isDateScopeSelected = !isDateScopeSelected;
+                          isDateScopeSelected = true;
                         });
                       }, child: RichText(
                         text: TextSpan(
@@ -286,7 +287,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                       )),
                       TextButton(onPressed: (){
                         setDialState((){
-                          isDateScopeSelected = !isDateScopeSelected;
+                          isDateScopeSelected = false;
                         });
                       }, child: RichText(
                         text: TextSpan(

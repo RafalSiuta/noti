@@ -268,28 +268,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void refreshNotification(Task task) {
-  //   print("NOTIFICATIONS DATES ${task.date}");
-  //
-  //   if (settings.isNotification) {
-  //     if (task.isTaskDone) {
-  //       // Anuluj powiadomienie dla wykonanych zadań
-  //       NotificationsHelper().cancelNotification(task.id.hashCode);
-  //     } else {
-  //       // Sprawdź, czy zadanie ma datę i czas zgodne z aktualnym czasem
-  //       final now = DateTime.now();
-  //       if(task.date.isAfter(now)){
-  //         NotificationsHelper().scheduleNotification(task, task.date);
-  //       }
-  //     }
-  //   } else {
-  //     // Anuluj powiadomienie, jeśli powiadomienia są wyłączone w ustawieniach
-  //     NotificationsHelper().cancelNotification(task.id.hashCode);
-  //   }
-  //
-  //   notifyListeners();
-  // }
-
   Future<List<Task>> getAllTasksToDelete(DateTime date) async {
 
     List<Task> tempList = _dbHelper.getAllTasks();

@@ -137,22 +137,9 @@ class _TaskCreatorState extends State<TaskCreator>
     });
   }
   List<DateTime> scopeDatesList = [];
-  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
 
-    DateTime currentDate = startDate;
-    if(daysToScope > 0){
-      while (currentDate.isBefore(endDate.add(Duration(days: 1)))) {
-        // Dodajemy jeden dzień, aby uwzględnić endDate
 
-        scopeDatesList.add(currentDate);
-        currentDate = currentDate.add(Duration(days: daysToScope));
-      }
-    }
-    scopeDatesList.forEach((item){
-      print("DATES SCOPE: ${item}");
-    });
-    return scopeDatesList;
-  }
+
 
   _pickDate(BuildContext context) async {
     DateTime? picked;
@@ -160,7 +147,7 @@ class _TaskCreatorState extends State<TaskCreator>
         context: context,
         builder: (context) {
           return TaskDatePickerDial(
-            generateDateScopeList:generateDateScopeList,
+            scopeDatesList:scopeDatesList,
             initialDate: widget.newTask.date,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {

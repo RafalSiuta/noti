@@ -19,7 +19,7 @@ class DateCalendar extends StatelessWidget {
   final Function(DateTime) onMonthChange;
   final CalendarFormat calendarFormat;
   final Function(CalendarFormat)? onFormatChanged;
-  final List<DateTime>?  dateList;
+  final List<DateTime> Function(DateTime)  events;
   const DateCalendar({required this.focDay,
     required this.onMonthChange,
     required this.startingDayOfWeek,
@@ -28,7 +28,7 @@ class DateCalendar extends StatelessWidget {
     this.onDayLongPressed,
     required this.calendarFormat,
     required this.onFormatChanged,
-    this.dateList,super.key,
+    required this.events,super.key,
   });
 
   @override
@@ -55,7 +55,7 @@ class DateCalendar extends StatelessWidget {
         onDaySelected: onDaySelected,
         selectedDayPredicate: (day) =>
             isSameDay(selDay, day),
-        eventLoader: (day) =>  dateList ?? [],
+        eventLoader: events,
         calendarBuilders: CalendarBuilders(
           dowBuilder: (context, date) {
             return AnimationConfiguration.staggeredGrid(
@@ -112,16 +112,24 @@ class DateCalendar extends StatelessWidget {
           },
           markerBuilder: (context, date, notes) {
             return notes.isNotEmpty
-                ? Container(
-                  margin: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Theme.of(context).indicatorColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.all(Radius.circular(4))
-                  ),
-                  //width: markerRadius,
-                  height: rowHeight,
+                ? Positioned(
+                right: 5,
+                bottom: 2,
+                child: Icon(
+                    Icons.circle,
+                    size: 8,
+                    color: Theme.of(context).indicatorColor,
                 )
+                // Container(
+                //   decoration: BoxDecoration(
+                //       shape: BoxShape.rectangle,
+                //       color: Theme.of(context).indicatorColor,
+                //       borderRadius: BorderRadius.all(Radius.circular(4))
+                //   ),
+                //   width: markerRadius,
+                //   height: markerRadius,
+                // )
+            )
                 : const Positioned(
               right: 1,
               bottom: 1,

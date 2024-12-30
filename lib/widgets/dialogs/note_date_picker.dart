@@ -129,7 +129,9 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                           onFormatChanged: widget.onFormatChanged ?? (_){},
                           startingDayOfWeek: widget.startingDayOfWeek,
                           calendarFormat: widget.calendarFormat,
-                          dateList: [],
+                          events:(day) {
+                            return [];
+                          },
                         ),
               ),
               const Divider(),
