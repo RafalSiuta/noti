@@ -38,16 +38,37 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   late DateTime startDate;
   late DateTime endDate;
   int daysToScope = 0;
+  String durationCategory = "day";
 
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
     // Clear the existing date scope list
     widget.scopeDatesList.clear();
+    //todo important add variable switchDurations
+    Duration durationStep = Duration(days: daysToScope);
+    switch(durationCategory){
+      case "day":
+        durationStep = Duration(days: daysToScope);
+        break;
+      case "month":
+        durationStep = Duration(days: daysToScope);
+        break;
+      case "year":
+        durationStep = Duration(days: daysToScope);
+        break;
+      case "hour":
+        durationStep = Duration(hours: daysToScope);
+        break;
+      case "minute":
+        durationStep = Duration(minutes: daysToScope);
+        break;
+      default: "day";
+    }
 
     DateTime currentDate = startDate;
     if(daysToScope > 0){
       while (currentDate.isBefore(endDate.add(const Duration(days: 1)))) {
         widget.scopeDatesList.add(currentDate);
-        currentDate = currentDate.add(Duration(days: daysToScope));
+        currentDate = currentDate.add(durationStep);
       }
     }
     return widget.scopeDatesList;

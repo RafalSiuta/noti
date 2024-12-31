@@ -205,6 +205,30 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addMultipleTasks(Task task, List<DateTime> dates) async {
+
+    for(int i = 0;i < dates.length; i++){
+      Task newTask = Task(
+        id: task.id,
+        icon: task.icon,
+        priority: task.priority,
+        title: task.title,
+        description: task.description,
+        isTaskDone: task.isTaskDone,
+        items: task.items,
+        image: task.image,
+        date: dates[i]
+      );
+      if (newTask.isInBox) {
+        await _dbHelper.updateTask(newTask);
+      } else {
+        await _dbHelper.addTask(newTask);
+      }
+    }
+    await refreshTasks();
+    notifyListeners();
+  }
+
   void updateTasks(Task task) async {
     task.toggleTask();
     await _dbHelper.updateTask(task);

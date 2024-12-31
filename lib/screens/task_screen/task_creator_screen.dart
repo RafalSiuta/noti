@@ -405,6 +405,54 @@ class _TaskCreatorState extends State<TaskCreator>
                           SliverPadding(padding:EdgeInsets.only( top: topMargin ,),
                             sliver: SliverList(
                               delegate:  SliverChildListDelegate([
+                                scopeDatesList.isNotEmpty ?
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Optional dates to repeat task:",
+                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                      fontSize: descriptionFontSize)
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 5.0),
+                                      height: 45,
+                                      child: ListView.builder(
+                                          itemCount: scopeDatesList.length,
+                                          itemBuilder: (context,index){
+                                            DateTime date = scopeDatesList[index];
+                                        return Container(
+                                          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                                          padding: const EdgeInsets.all(5.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                                            color: Theme.of(context).scaffoldBackgroundColor
+                                          ),
+                                          child: RichText(
+                                              textAlign: TextAlign.center,
+                                              text: TextSpan(
+                                                text:"${ DateFormat('dd').format(date)}\n",
+                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                    fontSize: descriptionFontSize
+                                                ),
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    text: DateFormat('MMM yy').format(date),
+                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                        fontSize: helpTextFontSize
+                                                    ),
+                                                  )
+                                                ]
+                                              ),
+                                          ),
+                                        );
+                                      },
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap:true,
+                                      ),
+                                    ),
+                                  ],
+                                ) : Container(),
                                 GestureDetector(
                                   onTap: () {
                                     editText();
@@ -547,7 +595,15 @@ class _TaskCreatorState extends State<TaskCreator>
                             selectedIndex = index;
                             switch (selectedIndex) {
                               case 0:
-                                taskProvider.addTask(widget.newTask);
+                                if(scopeDatesList.isEmpty){
+                                  taskProvider.addTask(widget.newTask);
+
+                                }else{
+                                  taskProvider.addMultipleTasks(widget.newTask,scopeDatesList);
+
+
+                                }
+
                                 Navigator.pop(context, true);
                                 break;
                               case 1:
