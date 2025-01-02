@@ -71,8 +71,7 @@ class Rater extends StatelessWidget {
           ),
           Text('Priority',
               textAlign: TextAlign.left,
-              style:
-                  Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+              style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                         fontSize: helperTextSize,
                       )),
         ],

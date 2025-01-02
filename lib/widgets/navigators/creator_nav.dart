@@ -74,7 +74,8 @@ class CreatorNav extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(titles[index].title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:selectedItem == index
+                            Text(titles[index].title,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                              fontSize:navDotIndicatorSize * 0.52, color:selectedItem == index
                                     ? Theme.of(context).indicatorColor
                                     : Theme.of(context).unselectedWidgetColor,),)
 
@@ -85,30 +86,6 @@ class CreatorNav extends StatelessWidget {
                         },
                       ),
                     )
-                //     Column(
-                //   mainAxisSize: MainAxisSize.min,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     IconButton(
-                //       padding: const EdgeInsets.only(left: 5.0,right: 5.0,top: 5.0),
-                //       onPressed: () {
-                //         onTap(index);
-                //       },
-                //       disabledColor: Theme.of(context).unselectedWidgetColor,
-                //       icon: Icon(
-                //         titles[index].icon,
-                //         size: navDotIndicatorSize,
-                //         color: selectedItem == index
-                //             ? Theme.of(context).indicatorColor
-                //             : Theme.of(context).unselectedWidgetColor,
-                //       ),
-                //     ),
-                //     Text(titles[index].title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:selectedItem == index
-                //         ? Theme.of(context).indicatorColor
-                //         : Theme.of(context).unselectedWidgetColor,),)
-                //   ],
-                // ),
               ).toList(),
 
             ),

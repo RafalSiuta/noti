@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
+import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class Calendar extends StatelessWidget {
@@ -52,8 +53,8 @@ class Calendar extends StatelessWidget {
               availableGestures: gesturesEnable
                   ? AvailableGestures.all
                   : AvailableGestures.none,
-              firstDay: DateTime(1990),
-              lastDay: DateTime(DateTime.now().year + 2),
+              firstDay: calendarMinDate,
+              lastDay: calendarMaxDate,
               calendarFormat: calendarFormat,
 
               onFormatChanged: onFormatChanged,

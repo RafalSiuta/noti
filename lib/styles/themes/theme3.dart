@@ -10,13 +10,14 @@ const theme3LastGradientColor = Color(0xFF1C232C);
 const theme3UnselectedTaskIcon = Color(0xFF101418);
 const theme3OutlineColor = Color(0xFF0B0F11);
 
-const theme3DividerColor = Color(0xFF222A35);
-const theme3UnselectedColor = Color(0xFF101518);
+const theme3DividerColor = Color(0xFF070A0B);
+const theme3UnselectedColor = Color(0xFF070A0B);
 const theme3ShadowColor = Color(0xFF192026);
 
 const theme3IndicatorColor = Color(0xFFAA8657);
 
 const theme3BaseTextColor = Color(0xffA9A9A9);
+const theme3HelperTextColor = Color(0xff696969);
 const theme3BtnTextColor = Color(0xff161616);
 const theme3PickerTextColor = Color(0xffA9A9A9);
 
@@ -172,7 +173,7 @@ final theme3 = ThemeData(
           color: theme3UnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
-          color: theme3BaseTextColor, fontSize: 18, fontWeight: FontWeight.w300,
+          color: theme3BaseTextColor, fontSize: 18, fontWeight: FontWeight.w500,
           backgroundColor: Colors.transparent,
         ),
       ),
@@ -180,7 +181,7 @@ final theme3 = ThemeData(
         textStyle: const TextStyle(
           color: theme3UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w200,
+          fontWeight: FontWeight.w400,
 
         ),
       ),
@@ -370,8 +371,9 @@ final theme3 = ThemeData(
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme3UnselectedColor,
+        color: theme3HelperTextColor,
         fontSize: 8.0,
+        fontWeight: FontWeight.bold
       ),
       labelStyle: TextStyle(
         color: theme3UnselectedColor,

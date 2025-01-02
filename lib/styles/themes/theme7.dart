@@ -172,7 +172,8 @@ final theme9 = ThemeData(
           color: theme9UnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.chakraPetch(
         textStyle: const TextStyle(
-          color: theme9BaseTextColor, fontSize: 18, fontWeight: FontWeight.w300,
+          color: theme9BaseTextColor, fontSize: 18, fontWeight: FontWeight.w800,
+          letterSpacing: 2.0,
           backgroundColor: Colors.transparent,
         ),
       ),
@@ -180,7 +181,8 @@ final theme9 = ThemeData(
         textStyle: const TextStyle(
           color: theme9UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w300,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 1.0
 
         ),
       ),
@@ -370,8 +372,11 @@ final theme9 = ThemeData(
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme9UnselectedColor,
+        color: theme9BaseTextColor,
         fontSize: 8.0,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.8
+
       ),
       labelStyle: TextStyle(
         color: theme9UnselectedColor,

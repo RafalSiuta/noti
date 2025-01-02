@@ -229,7 +229,7 @@ final theme1 = ThemeData(
         backgroundColor: theme1MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     datePickerTheme: DatePickerThemeData(
-      headerBackgroundColor: theme1IndicatorColor,
+      headerBackgroundColor: theme1FirstGradientColor,
       headerHeadlineStyle: theme1PickersTitleTextStyle,
       headerForegroundColor: theme1BaseTextColor,
       weekdayStyle: theme1PickersBaseTextStyle,

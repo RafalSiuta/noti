@@ -37,42 +37,72 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   bool isDateScopeSelected = true;
   late DateTime startDate;
   late DateTime endDate;
-  int daysToScope = 0;
-  String durationCategory = "day";
+  double daysToScope = 0;
+  int durationCategoryCounter = 0;
+  List<String> durationCategory = ["day","week","month","year"];
 
-  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
-    // Clear the existing date scope list
+
+  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
-    //todo important add variable switchDurations
-    Duration durationStep = Duration(days: daysToScope);
-    switch(durationCategory){
-      case "day":
-        durationStep = Duration(days: daysToScope);
-        break;
-      case "month":
-        durationStep = Duration(days: daysToScope);
-        break;
-      case "year":
-        durationStep = Duration(days: daysToScope);
-        break;
-      case "hour":
-        durationStep = Duration(hours: daysToScope);
-        break;
-      case "minute":
-        durationStep = Duration(minutes: daysToScope);
-        break;
-      default: "day";
-    }
-
     DateTime currentDate = startDate;
     if(daysToScope > 0){
-      while (currentDate.isBefore(endDate.add(const Duration(days: 1)))) {
+      while (currentDate.isBefore(endDate)) {
         widget.scopeDatesList.add(currentDate);
-        currentDate = currentDate.add(durationStep);
+        switch (durationCategory[durationCategoryCounter]) {
+          case "day":
+            currentDate = currentDate.add(Duration(days: interval));
+            break;
+          case "week":
+            currentDate = currentDate.add(Duration(days: 7 * interval));
+            break;
+          case "month":
+            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day);
+            break;
+          case "year":
+            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day);
+            break;
+          default:
+            throw Exception("Invalid duration category");
+        }
       }
     }
     return widget.scopeDatesList;
   }
+  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
+  //   // Clear the existing date scope list
+  //   widget.scopeDatesList.clear();
+  //   Duration durationStep = Duration(days: daysToScope);
+  //   switch(durationCategory.length){
+  //     case 0:
+  //       //repeat task for daysToScope days
+  //       durationStep = Duration(days: daysToScope);
+  //       break;
+  //     case 1:
+  //       //repeat task for daysToScope weeks
+  //       durationStep = Duration(days: 7 * daysToScope);
+  //       break;
+  //     case 2:
+  //       //repeat task for daysToScope months
+  //       durationStep = Duration(days: daysToScope);
+  //       break;
+  //     case 3:
+  //       //repeat task for daysToScope years
+  //       durationStep = Duration(days: daysToScope);
+  //       break;
+  //
+  //     default: 1;
+  //   }
+  //
+  //   DateTime currentDate = startDate;
+  //   if(daysToScope > 0){
+  //     while (currentDate.isBefore(endDate.add(const Duration(days: 1)))) {
+  //       widget.scopeDatesList.add(currentDate);
+  //       currentDate = currentDate.add(durationStep);
+  //     }
+  //   }
+  //
+  //   return widget.scopeDatesList;
+  // }
 
 
   void onExpanded(){
@@ -88,7 +118,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
       }else{
         endDate = selDay;
       }
-      generateDateScopeList(startDate, endDate, daysToScope);
+      generateDateScopeList(startDate, endDate, daysToScope.toInt());
     });
   }
 
@@ -104,7 +134,28 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
         }
       }
       // Reset and generate the new date scope list
-      generateDateScopeList(startDate, endDate, daysToScope);
+      generateDateScopeList(startDate, endDate, daysToScope.toInt());
+    });
+  }
+
+  void switchCategoryDuration(String operator){
+    setState(() {
+      if(operator == "+"){
+        if(durationCategoryCounter == durationCategory.length-1){
+          durationCategoryCounter = durationCategory.length-1;
+        }else{
+          durationCategoryCounter++;
+        }
+
+      } else {
+        if(durationCategoryCounter <= 1){
+          durationCategoryCounter = 0;
+        } else {
+          durationCategoryCounter--;
+        }
+      }
+      // Reset and generate the new date scope list
+      generateDateScopeList(startDate, endDate, daysToScope.toInt());
     });
   }
 
@@ -123,6 +174,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
       return isSameDay(item, date);
     }).toList();
   }
+
 
 
 
@@ -147,9 +199,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
       builder: (BuildContext context, StateSetter setDialState) {
         return Card(
           elevation: 5.0,
-          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/14,
-              vertical: MediaQuery.of(context).size.height/6.5
-          ),
+          margin: EdgeInsets.all( MediaQuery.of(context).size.width/14,),
 
           color: Theme.of(context).colorScheme.onSurface,
           shape: RoundedRectangleBorder(
@@ -277,94 +327,212 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                   ),
 
                   width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Select dates scope to repeat task: ',style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                          height: 1.5,
+                          fontSize:pickerSubtitle,
+                          color: baseColor,
+                        ),),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical:
+                          8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
 
-                      TextButton(onPressed: (){
-                        setDialState((){
-                          isDateScopeSelected = true;
-                        });
-                      }, child: RichText(
-                        text: TextSpan(
-                            text: DateFormat('dd MMM yy').format(startDate),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                height: 1.5,
-                                color: isDateScopeSelected ? selectedDateColor : baseColor,
-                                fontSize:pickerSubtitle),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "\ndate from",
-                                  style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                                    color: isDateScopeSelected ? selectedDateColor : baseColor,
-                                  )
-                              )
-                            ]
+                              TextButton(
+
+                                  style: ButtonStyle(
+                                      shape:WidgetStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                      ) ,
+                                      side: WidgetStateProperty.all(BorderSide(
+                                          width: 0.5,
+                                          color: isDateScopeSelected ? selectedDateColor : baseColor!,
+                                      ))
+                                  ),
+                                  onPressed: (){
+                                setDialState((){
+                                  isDateScopeSelected = true;
+                                });
+                              }, child: RichText(
+                                text: TextSpan(
+                                    text: "date from: \n",
+                                    style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                      color: isDateScopeSelected ? selectedDateColor : baseColor,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: DateFormat('dd MMM yy').format(startDate),
+                                        style: Theme.of(context).textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                          height: 1.5,
+                                          color: isDateScopeSelected ? selectedDateColor : baseColor,
+                                          fontSize:pickerSubtitle),
+
+                                      )
+                                    ]
+                                ),
+                              )),
+                              TextButton(
+                                  style: ButtonStyle(
+                                      shape:WidgetStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                      ) ,
+                                      side: WidgetStateProperty.all(BorderSide(
+                                        width: 0.5,
+                                        color: isDateScopeSelected ? baseColor! : selectedDateColor,
+                                      ))
+                                  ),
+                                  onPressed: (){
+                                setDialState((){
+                                  isDateScopeSelected = false;
+                                });
+                              }, child: RichText(
+                                text: TextSpan(
+                                    text: "date to: \n",
+                                    style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                      color: !isDateScopeSelected ? selectedDateColor : baseColor,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                              text: DateFormat('dd MMM yy').format(endDate),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .copyWith(
+                                    height: 1.5,
+                                    fontSize:pickerSubtitle,
+                                    color: !isDateScopeSelected ? selectedDateColor : baseColor,)
+
+                                      )
+                                    ]
+                                ),
+                              )),
+
+                            ],
+                          ),
                         ),
-                      )),
-                      TextButton(onPressed: (){
-                        setDialState((){
-                          isDateScopeSelected = false;
-                        });
-                      }, child: RichText(
-                        text: TextSpan(
-                            text: DateFormat('dd MMM yy').format(endDate),
-                            style: Theme.of(context)
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Repeat any: ',style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!
                                 .copyWith(
                               height: 1.5,
                               fontSize:pickerSubtitle,
-                              color: !isDateScopeSelected ? selectedDateColor : baseColor,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "\ndate to",
-                                  style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                                    color: !isDateScopeSelected ? selectedDateColor : baseColor,
-                                  )
-                              )
-                            ]
-                        ),
-                      )),
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              dayCounter("-");
-                            });
-                          },
-                          icon: Icon(
-                            Icons.remove_circle_outline,
-                            size: textSize,
-                            color: baseColor,
-                          )),
-                      Text(daysToScope.toString(),style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(
-                        height: 1.5,
-                        fontSize:pickerSubtitle,
-                        color: baseColor,
-                      ),),
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              dayCounter("+");
-                            });
-                          },
-                          icon: Icon(
-                            Icons.add_circle_outline,
-                            size: textSize,
-                            color: baseColor,
-                          )),
+                              color: baseColor,
+                            ),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            dayCounter("-");
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                    Text('${daysToScope.toInt()}',style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                      height: 1.5,
+                                      fontSize:pickerSubtitle,
+                                      color: baseColor,
+                                    ),),
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            dayCounter("+");
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                  ],
+                                ),
 
-                    ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+
+                                        onPressed: (){
+                                          setDialState(() {
+                                            switchCategoryDuration("-");
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_left,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                    Text(durationCategory[durationCategoryCounter],style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                      height: 1.5,
+                                      fontSize:pickerSubtitle,
+                                      color: baseColor,
+                                    ),),
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        onPressed: (){
+                                          setDialState(() {
+                                              switchCategoryDuration("+");
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_right,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

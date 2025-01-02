@@ -14,7 +14,7 @@ const theme5DividerColor = Color(0xFF9F9A93);
 const theme5UnselectedColor = Color(0xFF9F9A93);
 const theme5ShadowColor = Color(0xFFE6E2DB);
 
-const theme5IndicatorColor = Color(0xFFCCA533);
+const theme5IndicatorColor = Color(0xFFDBB136);
 
 const theme5BaseTextColor = Color(0xff2E260F);
 const theme5BtnTextColor = Color(0xffF7F5F3);
@@ -26,14 +26,14 @@ final theme5PickersBaseTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       color: theme5PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w200),
+      fontWeight: FontWeight.w300),
 );
 
 final theme5PickersTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       color: theme5BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w200),
+      fontWeight: FontWeight.w300),
 );
 //TEXT STYLES:
 //headers:
@@ -42,14 +42,14 @@ final TextStyle theme5LargeHeaderTextStyle  = GoogleFonts.poppins(
     textStyle: const TextStyle(
         color: theme5BaseTextColor,
         fontSize: 32,
-        fontWeight: FontWeight.w200
+        fontWeight: FontWeight.w300
     ));
 //Subtitle header:
 final TextStyle theme5SubtitleHeaderTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 18,
       color: theme5BaseTextColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w300,
       decoration: TextDecoration.none),
 );
 //task & note card style:
@@ -58,7 +58,7 @@ final TextStyle theme5CardTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme5BaseTextColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w300,
       decoration: TextDecoration.none),
 );
 //content text:
@@ -66,7 +66,7 @@ final TextStyle theme5ContentTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme5BaseTextColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w300,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
@@ -84,14 +84,14 @@ final theme5CalendarDayWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme5IndicatorColor,
-        fontWeight: FontWeight.w200,
+        fontWeight: FontWeight.w300,
         decorationColor: theme5DividerColor));
 
 //next month text style:
 final theme5CalendarNextMonthTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
-        color: theme5UnselectedColor,
+        color: theme5OutlineColor,
         fontWeight: FontWeight.w200,
         decorationColor: theme5UnselectedColor));
 
@@ -174,7 +174,7 @@ final theme5 = ThemeData(
           color: theme5UnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
-          color: theme5IndicatorColor, fontSize: 18, fontWeight: FontWeight.w200,
+          color: theme5IndicatorColor, fontSize: 18, fontWeight: FontWeight.w300,
           backgroundColor: Colors.transparent,
         ),
       ),
@@ -222,6 +222,7 @@ final theme5 = ThemeData(
           }
         },
       ),),
+
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: theme5IndicatorColor),
@@ -232,7 +233,7 @@ final theme5 = ThemeData(
         backgroundColor: theme5MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     datePickerTheme: DatePickerThemeData(
-      headerBackgroundColor: theme5MiddleGradientColor,
+      headerBackgroundColor: theme5FirstGradientColor,
       headerHeadlineStyle: theme5PickersTitleTextStyle,
       headerForegroundColor: theme5BaseTextColor,
       weekdayStyle: theme5PickersBaseTextStyle,

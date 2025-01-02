@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const themeDefAMainBcgColor = Color(0xFFEEEEEE);
+const themeDefAMainBcgColor = Color(0xFFE9E9E9);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
 const themeDefFirstGradientColor = Color(0xFF2592F0);
@@ -14,7 +14,7 @@ const themeDefDividerColor = Color(0xFF9e9e9e);
 const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
-const themeDefIndicatorColor = Color(0xFFffca28);
+const themeDefIndicatorColor = Color(0xfffbc720);
 
 const themeDefBaseTextColor = Color(0xff161616);
 const themeDefBtnTextColor = Color(0xff161616);
@@ -32,7 +32,7 @@ final themeDefPickersTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       color: themeDefBaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w700),
+      fontWeight: FontWeight.w600),
 );
 //TEXT STYLES:
 //headers:
@@ -41,14 +41,14 @@ final TextStyle largeHeaderTextStyle  = GoogleFonts.exo2(
     textStyle: const TextStyle(
         color: themeDefBaseTextColor,
         fontSize: 32,
-        fontWeight: FontWeight.w700
+        fontWeight: FontWeight.w600
     ));
 //Subtitle header:
 final TextStyle subtitleHeaderTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 18,
       color: themeDefBaseTextColor,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
       decoration: TextDecoration.none),
 );
 //task & note card style:
@@ -57,7 +57,7 @@ final TextStyle cardTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: themeDefBaseTextColor,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
       decoration: TextDecoration.none),
 );
 //content text:
@@ -65,7 +65,7 @@ final TextStyle contentTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: themeDefBaseTextColor,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
@@ -73,7 +73,7 @@ final TextStyle unselectedTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: themeDefUnselectedColor,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       decorationColor: themeDefDividerColor,
       decoration: TextDecoration.lineThrough),
 );
@@ -83,7 +83,7 @@ final calendarDayWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
         color: themeDefUnselectedColor,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
         decorationColor: themeDefDividerColor));
 
 //next month text style:
@@ -91,14 +91,14 @@ final calendarNextMonthTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: themeDefUnselectedColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w500,
       decorationColor: themeDefUnselectedColor));
 
 final calendarWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
         color: themeDefIndicatorColor,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         decorationColor: themeDefIndicatorColor));
 
 
@@ -254,7 +254,7 @@ final themeDefault = ThemeData(
       inputDecorationTheme: InputDecorationTheme(
 
       ),
-      headerBackgroundColor: themeDefIndicatorColor,
+      headerBackgroundColor: themeDefMiddleGradientColor,
       headerHeadlineStyle: themeDefPickersTitleTextStyle,
       headerForegroundColor: themeDefBaseTextColor,
       weekdayStyle: themeDefPickersBaseTextStyle,

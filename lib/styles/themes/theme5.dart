@@ -11,7 +11,7 @@ const theme6UnselectedTaskIcon = Color(0xFF222630);
 const theme6OutlineColor = Color(0xFF24262E);
 
 const theme6DividerColor = Color(0xFF444C5F);
-const theme6UnselectedColor = Color(0xFF121317);
+const theme6UnselectedColor = Color(0xFF101015);
 const theme6ShadowColor = Color(0xFF1F2229);
 
 const theme6IndicatorColor = Color(0xFFFBC02D);// 3F51B5 EF6C00
@@ -181,7 +181,7 @@ final theme6 = ThemeData(
         textStyle: const TextStyle(
           color: theme6UnselectedColor,
           fontSize: 17,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
 
         ),
       ),
@@ -371,7 +371,7 @@ final theme6 = ThemeData(
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme6UnselectedColor,
+        color: theme6BaseTextColor,
         fontSize: 8.0,
       ),
       labelStyle: TextStyle(

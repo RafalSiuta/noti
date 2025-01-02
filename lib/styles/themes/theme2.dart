@@ -231,7 +231,7 @@ final theme2 = ThemeData(
         backgroundColor: theme2MainBcgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
     datePickerTheme: DatePickerThemeData(
-      headerBackgroundColor: theme2IndicatorColor,
+      headerBackgroundColor: theme2FirstGradientColor,
       headerHeadlineStyle: theme2PickersTitleTextStyle,
       headerForegroundColor: theme2BaseTextColor,
       weekdayStyle: theme2PickersBaseTextStyle,

@@ -36,8 +36,8 @@ class _NoteCreatorState extends State<NoteCreator>
   var verticalPadding = SizeInfo.verticalTextPadding;
   var descriptionFontSize = SizeInfo.taskCreatorDescription;
   var appBarHeight = SizeInfo.appBarCollapsedHeight;
-  int maxTitleLength = 30;
-  int maxSubtitleLength = 50;
+  int maxTitleLength = 100;
+  int maxSubtitleLength = 100;
   int maxDescriptionLength = 4000;
   double inputHeight = 50;
   var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
@@ -129,30 +129,7 @@ class _NoteCreatorState extends State<NoteCreator>
       });
     }
   }
-  // _pickDate(BuildContext context) async {
-  //
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: widget.newNote.date,
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2070),initialEntryMode: DatePickerEntryMode.calendarOnly,
-  //     locale: const Locale('pl'), useRootNavigator:false,
-  //     builder: (context, child) {
-  //       return Transform.scale(
-  //         scale: dialogScale,
-  //         child: child,
-  //       );
-  //     },
-  //
-  //   );
-  //   if (picked != null && picked != widget.newNote.date) {
-  //     setState(() {
-  //       //TimeOfDay time = TimeOfDay(hour: widget.newNote.date.hour, minute: widget.newNote.date.minute);
-  //       currentDate(picked);
-  //
-  //     });
-  //   }
-  // }
+
 
 
   IconData pickedIcon = Icons.circle;
@@ -359,7 +336,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
+                                                Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor),)
 
                                               ],
                                             ),
@@ -409,7 +386,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     .textTheme
                                                     .headlineMedium!
                                                     .copyWith(
-                                                    fontSize: helperTextSize),
+                                                    fontSize: navIconSize * 0.52 ),
                                               ),
                                             ],
                                           ),

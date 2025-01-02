@@ -45,7 +45,7 @@ class _TaskCreatorState extends State<TaskCreator>
   var verticalPadding = SizeInfo.verticalTextPadding;
 
 
-  int maxTitleLength = 30;
+  int maxTitleLength = 100;
   int maxDescriptionLength = 4000;
 
   var dialogScale = SizeInfo.dialogScaleFactor;
@@ -354,7 +354,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                   const SizedBox(
                                   height: 5,
                                   ),
-                                  Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 8.0, color:Theme.of(context).indicatorColor),)
+                                  Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor),)
 
                                   ],
                                   ),

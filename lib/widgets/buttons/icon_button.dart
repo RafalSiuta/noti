@@ -43,10 +43,10 @@ class IconButtonWithText extends StatelessWidget {
             ),
             Text(
               iconName,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              textAlign: TextAlign.center,
+              style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                       color: selectedColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: iconSize * 0.5
+                      fontSize: iconSize * 0.52
                   ),)
 
           ],

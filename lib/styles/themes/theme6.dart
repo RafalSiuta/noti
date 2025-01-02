@@ -10,13 +10,14 @@ const theme8LastGradientColor = Color(0xFFAA7850);
 const theme8UnselectedTaskIcon = Color(0xFF523824);
 const theme8OutlineColor = Color(0xFFD89E71);
 
-const theme8DividerColor = Color(0xFF65462C);
-const theme8UnselectedColor = Color(0xFF2A2620);
+const theme8DividerColor = Color(0xFF23201B);
+const theme8UnselectedColor = Color(0xFF23201B);
 const theme8ShadowColor = Color(0xFF433E34);
 
 const theme8IndicatorColor = Color(0xFFFFA726);// 3F51B5 EF6C00
 
 const theme8BaseTextColor = Color(0xffC6C4BD);
+const theme8HelperTextColor = Color(0xff8e8d87);
 const theme8BtnTextColor = Color(0xff27241D);
 const theme8PickerTextColor = Color(0xffC6C4BD);
 
@@ -370,8 +371,9 @@ final theme8 = ThemeData(
       ),
       helperMaxLines: 1,
       helperStyle: TextStyle(
-        color: theme8UnselectedColor,
+        color: theme8HelperTextColor,
         fontSize: 8.0,
+        fontWeight: FontWeight.bold
       ),
       labelStyle: TextStyle(
         color: theme8UnselectedColor,

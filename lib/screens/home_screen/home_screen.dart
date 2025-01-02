@@ -17,7 +17,6 @@ import '../calendar_screen/calendar_screen.dart';
 import '../note_screen/note_creator_screen.dart';
 import '../note_screen/note_screen.dart';
 import '../task_screen/task_creator_screen.dart';
-import '../welcome_screen/testing_screen.dart';
 import '../welcome_screen/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -134,8 +133,8 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
 
     return ScreenTypeLayout(
-      mobile: Consumer<HomeProvider>(
-        builder: (context, homeProvider, child) {
+      mobile: Consumer2<HomeProvider,TaskProvider>(
+        builder: (context, homeProvider, taskProvider, child) {
           var leadingIconSize = SizeInfo.leadingAndTrailingIconSize;
           var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
           return Scaffold(
@@ -209,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: TaskCreator(
                             editEnable: true,
                             newTask: Task(
-                                date: DateTime.now(),
+                                date: taskProvider.selDay,
                                 icon: 1,
                                 description: " ",
                                 title: " ",
