@@ -78,8 +78,8 @@ class SizeInfo {
   ///calendar dimens:
   static double calendarDaySize = 12;
   static double smallIndicatorIconSize = 10;
-  static double calendarMarkerSize = 15;
-  static double calendarMarkerFontSize = 10.0;
+  static double calendarMarkerSize = 12;//15
+  static double calendarMarkerFontSize = 8.0;//10
   static double calendarCellMargin = 8.0;
   static double rowHeight = 42;
 

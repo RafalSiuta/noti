@@ -10,6 +10,7 @@ class ColumnBuilder extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final VerticalDirection verticalDirection;
   final int itemCount;
+  final bool isReversed;
 
   const ColumnBuilder({
     super.key,
@@ -19,6 +20,7 @@ class ColumnBuilder extends StatelessWidget {
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.verticalDirection = VerticalDirection.down,
+    this.isReversed = false
   });
 
   @override
@@ -31,9 +33,14 @@ class ColumnBuilder extends StatelessWidget {
           scale: scaleStartValue,
           child: FadeInAnimation(child: widget),
         ),
-        children:
-            List.generate(itemCount, (index) => itemBuilder(context, index))
-                .toList(),
+        children: isReversed ?
+            List.generate(
+                itemCount, (index) =>
+                itemBuilder(context, index)).reversed
+                .toList() :  List.generate(
+            itemCount, (index) =>
+            itemBuilder(context, index))
+            .toList(),
       ),
     ));
   }

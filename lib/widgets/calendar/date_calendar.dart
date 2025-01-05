@@ -23,6 +23,7 @@ class DateCalendar extends StatelessWidget {
   final CalendarFormat calendarFormat;
   final Function(CalendarFormat)? onFormatChanged;
   final List<DateTime> Function(DateTime)  events;
+  final Color? markerColor;
   const DateCalendar({required this.focDay,
     required this.onMonthChange,
     required this.startingDayOfWeek,
@@ -32,6 +33,7 @@ class DateCalendar extends StatelessWidget {
     required this.calendarFormat,
     required this.onFormatChanged,
     required this.events,super.key,
+    required this.markerColor,
   });
 
   @override
@@ -122,7 +124,7 @@ class DateCalendar extends StatelessWidget {
                   child: Icon(
                     Icons.circle,
                     size: 8,
-                    color: Theme.of(context).indicatorColor,
+                    color: markerColor ?? Theme.of(context).indicatorColor,
                   )
                 // Container(
                 //   decoration: BoxDecoration(

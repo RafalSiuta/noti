@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
+import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/switch_btn.dart';
 import '../responsive/column_row_builder.dart';
@@ -178,13 +179,15 @@ class TaskCard extends StatelessWidget {
                 key: key,
                 itemCount: task.priority,
                 itemBuilder: (context, index) {
+                  var markerColor = priorityColor(context,task.priority);
+
                   return Padding(
                     padding: const EdgeInsets.only(left: 3.0, top: 3.0),
                     child: Icon(
                       Icons.circle,
                       color: task.isTaskDone
                           ? Theme.of(context).unselectedWidgetColor
-                          : Theme.of(context).indicatorColor,
+                          : markerColor,
                       size: smallIconSize,
                     ),
                   );

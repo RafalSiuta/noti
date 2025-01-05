@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
 import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
+import 'calendar_marker.dart';
 
 class Calendar extends StatelessWidget {
   final bool isHeaderVisible;
@@ -38,7 +39,7 @@ class Calendar extends StatelessWidget {
     var headerFontSize = SizeInfo.headerSubtitleSize;
     var calendarButtonFontSize = SizeInfo.taskCardTitle;
     var chevronIconSize = SizeInfo.switchButtonIconSize;
-    var markerRadius = SizeInfo.calendarMarkerSize;
+    var markerRadius = SizeInfo.rowHeight / 3.2;//SizeInfo.calendarMarkerSize;
     var markerFontSize = SizeInfo.calendarMarkerFontSize;
     var cellMargin = SizeInfo.calendarCellMargin;
     return ClipRect(
@@ -163,34 +164,18 @@ class Calendar extends StatelessWidget {
                 },
                 markerBuilder: (context, date, notes) {
                   return notes.isNotEmpty
-                      ? Positioned(
-                      right: 1,
+                      ?
+                  Positioned(
+                      //top: 2.5,
+                      right: 0,
                       bottom: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: Theme.of(context).indicatorColor,
-                            borderRadius: BorderRadius.all(Radius.circular(4))
-                        ),
-                        width: markerRadius,
-                        height: markerRadius,
-                        child: Center(
-                          child: Text('${notes.length}',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: markerFontSize,color: Theme.of(context).colorScheme.primary,)),
-                        ),
-                      ))
-                      : const Positioned(
-                    right: 1,
-                    bottom: 1,
-                    child: SizedBox(
-                      width: 5,
-                      height: 5,
-                    ),
-                  );
+                      child: CalendarMarker(
+                        tasks: notes,
+                        markerRadius: markerRadius,
+                        markerFontSize: markerFontSize,
+                      )
+                  )
+                      : Container();
                 },
               ),
               calendarStyle: CalendarStyle(

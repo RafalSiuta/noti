@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/colors/priority_color.dart';
+
 typedef RatingChangeCallback = void Function(double rating);
 
 class Rater extends StatelessWidget {
@@ -22,6 +24,14 @@ class Rater extends StatelessWidget {
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
+    var markerColor = priorityColor(context,rating);
+    // if(rating == 1){
+    //   markerColor = Theme.of(context).indicatorColor;
+    // }else if(rating == 2){
+    //   markerColor = Theme.of(context).colorScheme.secondaryFixed;
+    // }else{
+    //   markerColor = Theme.of(context).colorScheme.primaryFixed;
+    // }
     if (index >= rating) {
       icon = Icon(
         Icons.circle,
@@ -31,13 +41,13 @@ class Rater extends StatelessWidget {
     } else if (index > rating - 1 && index < rating) {
       icon = Icon(
         Icons.circle,
-        color: Theme.of(context).indicatorColor,
+        color: markerColor,
         size: size,
       );
     } else {
       icon = Icon(
         Icons.circle,
-        color: Theme.of(context).indicatorColor,
+        color:markerColor,
         size: size,
       );
     }

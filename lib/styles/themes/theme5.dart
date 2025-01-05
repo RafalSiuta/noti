@@ -15,8 +15,10 @@ const theme6UnselectedColor = Color(0xFF101015);
 const theme6ShadowColor = Color(0xFF1F2229);
 
 const theme6IndicatorColor = Color(0xFFFBC02D);// 3F51B5 EF6C00
+const theme6CalendarMarkerColorOne = Color(0xFFDD4822);// 3F51B5 EF6C00
+const theme6CalendarMarkerColorTwo = Color(0xFFFD842E);// 3F51B5 EF6C00
 
-const theme6BaseTextColor = Color(0xffA0A6B1);
+const theme6BaseTextColor = Color(0xffb1b6c4);
 const theme6BtnTextColor = Color(0xff16181D);
 const theme6PickerTextColor = Color(0xffA0A6B1);
 
@@ -107,7 +109,9 @@ final theme6 = ThemeData(
     scaffoldBackgroundColor: theme6MainBcgColor,
     colorScheme: const ColorScheme(
       primary: theme6BtnTextColor,
-      secondary: theme6IndicatorColor,
+      secondary: theme6BaseTextColor,
+      primaryFixed: theme6CalendarMarkerColorOne,
+      secondaryFixed: theme6CalendarMarkerColorTwo,
       surface: theme6TitleBoxBcgColor,
       error: Colors.redAccent,
       onPrimary: Colors.white,

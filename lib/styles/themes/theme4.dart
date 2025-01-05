@@ -15,6 +15,8 @@ const theme5UnselectedColor = Color(0xFF9F9A93);
 const theme5ShadowColor = Color(0xFFE6E2DB);
 
 const theme5IndicatorColor = Color(0xFFDBB136);
+const theme5CalendarMarkerColorOne = Color(0xFFCD5033);// 3F51B5 EF6C00
+const theme5CalendarMarkerColorTwo = Color(0xFFCD7633);// 3F51B5 EF6C00
 
 const theme5BaseTextColor = Color(0xff2E260F);
 const theme5BtnTextColor = Color(0xffF7F5F3);
@@ -110,6 +112,8 @@ final theme5 = ThemeData(
     colorScheme: const ColorScheme(
         primary: theme5BtnTextColor,
         secondary: theme5TitleBoxBcgColor,
+        primaryFixed:  theme5CalendarMarkerColorOne,
+        secondaryFixed:  theme5CalendarMarkerColorTwo,
         surface: theme5TitleBoxBcgColor,
         error: Colors.redAccent,
         onPrimary: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../calendar/date_calendar.dart';
 
@@ -12,6 +13,7 @@ class TaskDatePickerDial extends StatefulWidget {
   final CalendarFormat calendarFormat;
   final Function(DateTime)? onMonthChange;
   final Function(CalendarFormat)? onFormatChanged;
+  final int priority;
 
 
   const TaskDatePickerDial({
@@ -23,6 +25,7 @@ class TaskDatePickerDial extends StatefulWidget {
     this.onMonthChange,
     this.onFormatChanged,
     required this.scopeDatesList,
+    this.priority = 0,
   });
 
   @override
@@ -40,7 +43,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   double daysToScope = 0;
   int durationCategoryCounter = 0;
   List<String> durationCategory = ["day","week","month","year"];
-
 
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
@@ -68,42 +70,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     }
     return widget.scopeDatesList;
   }
-  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int daysToScope) {
-  //   // Clear the existing date scope list
-  //   widget.scopeDatesList.clear();
-  //   Duration durationStep = Duration(days: daysToScope);
-  //   switch(durationCategory.length){
-  //     case 0:
-  //       //repeat task for daysToScope days
-  //       durationStep = Duration(days: daysToScope);
-  //       break;
-  //     case 1:
-  //       //repeat task for daysToScope weeks
-  //       durationStep = Duration(days: 7 * daysToScope);
-  //       break;
-  //     case 2:
-  //       //repeat task for daysToScope months
-  //       durationStep = Duration(days: daysToScope);
-  //       break;
-  //     case 3:
-  //       //repeat task for daysToScope years
-  //       durationStep = Duration(days: daysToScope);
-  //       break;
-  //
-  //     default: 1;
-  //   }
-  //
-  //   DateTime currentDate = startDate;
-  //   if(daysToScope > 0){
-  //     while (currentDate.isBefore(endDate.add(const Duration(days: 1)))) {
-  //       widget.scopeDatesList.add(currentDate);
-  //       currentDate = currentDate.add(durationStep);
-  //     }
-  //   }
-  //
-  //   return widget.scopeDatesList;
-  // }
-
 
   void onExpanded(){
     setState(() {
@@ -195,6 +161,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     var pickerSubtitle = SizeInfo.calendarDaySize;
     var baseColor = Theme.of(context).textTheme.headlineMedium!.color;
     var selectedDateColor = Theme.of(context).indicatorColor;
+    var markerColor = priorityColor(context,widget.priority);
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setDialState) {
         return Card(
@@ -225,7 +192,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     IconButton(
                         splashColor: Colors.transparent,
                         onPressed: (){
-                          setState(() {
+                          setDialState(() {
                             focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
                           });
                         },
@@ -242,7 +209,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     IconButton(
                         splashColor: Colors.transparent,
                         onPressed: (){
-                          setState(() {
+                          setDialState(() {
                             focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
                           });
                         },
@@ -261,6 +228,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                 DateCalendar(
                   focDay: focDay,
                   selDay: selDay,
+                  markerColor:markerColor,
                   onDaySelected: (selectedDay, focusedDay) {
                       setDialState(() {
                         selDay = selectedDay;
@@ -279,7 +247,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                       });
                     },
                   onMonthChange: (focusedDay) {
-                      setState(() {
+                    setDialState(() {
                         focDay = focusedDay;
                       });
                   },

@@ -15,6 +15,8 @@ const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
 const themeDefIndicatorColor = Color(0xfffbc720);
+const themeDefCalendarMarkerColorOne = Color(0xFFFF5722);// 3F51B5 EF6C00
+const themeDefCalendarMarkerColorTwo = Color(0xFFFD842E);// 3F51B5 EF6C00
 
 const themeDefBaseTextColor = Color(0xff161616);
 const themeDefBtnTextColor = Color(0xff161616);
@@ -109,6 +111,8 @@ final themeDefault = ThemeData(
 
     colorScheme: const ColorScheme(
       primary: themeDefBtnTextColor,
+      primaryFixed: themeDefCalendarMarkerColorOne,
+      secondaryFixed: themeDefCalendarMarkerColorTwo,
       secondary: themeDefTitleBoxBcgColor,
       surface: themeDefTitleBoxBcgColor,
       error: Colors.redAccent,
