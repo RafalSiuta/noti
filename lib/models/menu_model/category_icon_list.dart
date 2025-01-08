@@ -78,7 +78,7 @@ class CategoryIconsList {
 
     // audio
     CategoryIconModel(id: 32, icon: Icons.audiotrack, name: "audiotrack", category: "audio"),
-    CategoryIconModel(id: 33, icon: Icons.volume_up, name: "volume_up", category: "audio"),
+    CategoryIconModel(id: 33, icon: Icons.volume_up, name: "volume up", category: "audio"),
     CategoryIconModel(id: 34, icon: Icons.headset, name: "headset", category: "audio"),
     CategoryIconModel(id: 35, icon: Icons.mic, name: "microphone", category: "audio"),
     CategoryIconModel(id: 36, icon: Icons.speaker, name: "speaker", category: "audio"),
@@ -91,29 +91,29 @@ class CategoryIconsList {
     //CategoryIconModel(id: 41, icon: Icons.whatsapp, name: "whatsapp", category: "brand"),
 
     // business
-    CategoryIconModel(id: 42, icon: Icons.business_center, name: "business_center", category: "business & payments"),
+    CategoryIconModel(id: 42, icon: Icons.business_center, name: "business center", category: "business & payments"),
     CategoryIconModel(id: 43, icon: Icons.monetization_on, name: "money", category: "business & payments"),
-    CategoryIconModel(id: 44, icon: Icons.account_balance, name: "account_balance", category: "business & payments"),
-    CategoryIconModel(id: 45, icon: Icons.credit_card, name: "credit_card", category: "business & payments"),
+    CategoryIconModel(id: 44, icon: Icons.account_balance, name: "account balance", category: "business & payments"),
+    CategoryIconModel(id: 45, icon: Icons.credit_card, name: "credit card", category: "business & payments"),
     CategoryIconModel(id: 46, icon: Icons.receipt, name: "receipt", category: "business & payments"),
 
     // text formatting
     CategoryIconModel(id: 47, icon: Icons.format_bold, name: "bold", category: "text formatting"),
     CategoryIconModel(id: 48, icon: Icons.format_italic, name: "italic", category: "text formatting"),
     CategoryIconModel(id: 49, icon: Icons.format_underlined, name: "underlined", category: "text formatting"),
-    CategoryIconModel(id: 50, icon: Icons.format_list_bulleted, name: "list_bulleted", category: "text formatting"),
+    CategoryIconModel(id: 50, icon: Icons.format_list_bulleted, name: "list bulleted", category: "text formatting"),
     CategoryIconModel(id: 51, icon: Icons.format_quote, name: "quote", category: "text formatting"),
 
     // communication
     CategoryIconModel(id: 52, icon: Icons.message, name: "message", category: "communication"),
     CategoryIconModel(id: 53, icon: Icons.chat, name: "chat", category: "communication"),
     CategoryIconModel(id: 54, icon: Icons.call, name: "call", category: "communication"),
-    CategoryIconModel(id: 55, icon: Icons.video_call, name: "video_call", category: "communication"),
-    CategoryIconModel(id: 56, icon: Icons.contact_phone, name: "contact_phone", category: "communication"),
+    CategoryIconModel(id: 55, icon: Icons.video_call, name: "video call", category: "communication"),
+    CategoryIconModel(id: 56, icon: Icons.contact_phone, name: "contact phone", category: "communication"),
 
     // social
     CategoryIconModel(id: 57, icon: Icons.share, name: "share", category: "social"),
-    CategoryIconModel(id: 58, icon: Icons.thumb_up, name: "thumb_up", category: "social"),
+    CategoryIconModel(id: 58, icon: Icons.thumb_up, name: "thumb up", category: "social"),
     CategoryIconModel(id: 59, icon: Icons.group, name: "group", category: "social"),
     CategoryIconModel(id: 60, icon: Icons.public, name: "public", category: "social"),
     CategoryIconModel(id: 61, icon: Icons.notifications, name: "notifications", category: "social"),
@@ -137,14 +137,14 @@ class CategoryIconsList {
     CategoryIconModel(id: 73, icon: Icons.image, name: "image", category: "photo & image"),
     CategoryIconModel(id: 74, icon: Icons.slideshow, name: "slideshow", category: "photo & image"),
     CategoryIconModel(id: 75, icon: Icons.filter, name: "filter", category: "photo & image"),
-    CategoryIconModel(id: 76, icon: Icons.photo_album, name: "photo_album", category: "photo & image"),
+    CategoryIconModel(id: 76, icon: Icons.photo_album, name: "photo album", category: "photo & image"),
 
     // security
     CategoryIconModel(id: 77, icon: Icons.security, name: "security", category: "security"),
     CategoryIconModel(id: 78, icon: Icons.lock, name: "lock", category: "security"),
     CategoryIconModel(id: 79, icon: Icons.fingerprint, name: "fingerprint", category: "security"),
-    CategoryIconModel(id: 80, icon: Icons.vpn_key, name: "vpn_key", category: "security"),
-    CategoryIconModel(id: 81, icon: Icons.verified_user, name: "verified_user", category: "security"),
+    CategoryIconModel(id: 80, icon: Icons.vpn_key, name: "vpn key", category: "security"),
+    CategoryIconModel(id: 81, icon: Icons.verified_user, name: "verified user", category: "security"),
 
     // transport
     CategoryIconModel(id: 82, icon: Icons.airport_shuttle, name: "shuttle", category: "transport"),

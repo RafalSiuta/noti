@@ -134,9 +134,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   }
 
   List<DateTime> getCalendarDates(DateTime date) {
-
     return widget.scopeDatesList.where((item) {
-      print("DATE PICKER DATES:  ${item}");
       return isSameDay(item, date);
     }).toList();
   }
@@ -164,363 +162,366 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     var markerColor = priorityColor(context,widget.priority);
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setDialState) {
-        return Card(
-          elevation: 5.0,
-          margin: EdgeInsets.all( MediaQuery.of(context).size.width/14,),
-
-          color: Theme.of(context).colorScheme.onSurface,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //calendar picker header
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: textSize * 3,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15)),
-                    color: Theme.of(context).datePickerTheme.headerBackgroundColor),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        splashColor: Colors.transparent,
-                        onPressed: (){
-                          setDialState(() {
-                            focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-                          });
-                        },
-                        icon: Icon(
-                          Icons.arrow_left,
-                          size: textSize,
-                        )),
-                    Text(
-                      DateFormat('MMMM yy').format(focDay),
-                      style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
-                    ),
-
-
-                    IconButton(
-                        splashColor: Colors.transparent,
-                        onPressed: (){
-                          setDialState(() {
-                            focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-                          });
-                        },
-                        icon: Icon(
-                          Icons.arrow_right,
-                          size: textSize,
-                        )),
-                  ],
-                ),
-              ),
-
-              //calendar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
-                child:
-                DateCalendar(
-                  focDay: focDay,
-                  selDay: selDay,
-                  markerColor:markerColor,
-                  onDaySelected: (selectedDay, focusedDay) {
-                      setDialState(() {
-                        selDay = selectedDay;
-                        focDay = focusedDay;
-                        if (isDateScopeSelected) {
-                          startDate = selectedDay;
-                        } else {
-                          endDate = selectedDay;
-                        }
-
-                            if (selectedDay != widget.initialDate) {
-                              TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
-                              widget.onDateSelected(startDate, time);
-                            }
-                        onScopeDateSelected();
-                      });
-                    },
-                  onMonthChange: (focusedDay) {
-                    setDialState(() {
-                        focDay = focusedDay;
-                      });
-                  },
-                  onFormatChanged: widget.onFormatChanged ?? (_){},
-                  startingDayOfWeek: widget.startingDayOfWeek,
-                  calendarFormat: widget.calendarFormat,
-                  onDayLongPressed: onDayLongPressed,
-                  events:getCalendarDates
-                ),
-              ),
-              const Divider(),
-              GestureDetector(
-                onTap: (){
-                  setDialState((){
-                    isExpanded = !isExpanded;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+        return Center(
+          child: Card(
+            elevation: 5.0,
+            margin: EdgeInsets.all(
+              MediaQuery.of(context).size.width / 14,
+            ),
+            color: Theme.of(context).colorScheme.onSurface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //calendar picker header
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: textSize * 3,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)),
+                      color: Theme.of(context).datePickerTheme.headerBackgroundColor),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('more options',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                          //height: 1.5,
-                            color: isExpanded ? selectedDateColor : baseColor,
-                            fontSize:pickerSubtitle),
-                      ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
+                      IconButton(
+                          splashColor: Colors.transparent,
+                          onPressed: (){
+                            setDialState(() {
+                              focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_left,
+                            size: textSize,
+                          )),
+                      Text(
+                        DateFormat('MMMM yy').format(focDay),
+                        style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                      ),
+            
+            
+                      IconButton(
+                          splashColor: Colors.transparent,
+                          onPressed: (){
+                            setDialState(() {
+                              focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_right,
+                            size: textSize,
+                          )),
                     ],
                   ),
                 ),
-              ),
-              Visibility(
-                visible: isExpanded,
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 8.0,horizontal: 5.0),
-                  decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(
-                        width: 0.5,
-                        color: Theme.of(context).dividerTheme.color!,))
+            
+                //calendar
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                  child:
+                  DateCalendar(
+                    focDay: focDay,
+                    selDay: selDay,
+                    markerColor:markerColor,
+                    onDaySelected: (selectedDay, focusedDay) {
+                        setDialState(() {
+                          selDay = selectedDay;
+                          focDay = focusedDay;
+                          if (isDateScopeSelected) {
+                            startDate = selectedDay;
+                          } else {
+                            endDate = selectedDay;
+                          }
+            
+                              if (selectedDay != widget.initialDate) {
+                                TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
+                                widget.onDateSelected(startDate, time);
+                              }
+                          onScopeDateSelected();
+                        });
+                      },
+                    onMonthChange: (focusedDay) {
+                      setDialState(() {
+                          focDay = focusedDay;
+                        });
+                    },
+                    onFormatChanged: widget.onFormatChanged ?? (_){},
+                    startingDayOfWeek: widget.startingDayOfWeek,
+                    calendarFormat: widget.calendarFormat,
+                    onDayLongPressed: onDayLongPressed,
+                    events:getCalendarDates
                   ),
-
-                  width: MediaQuery.of(context).size.width,
+                ),
+                const Divider(),
+                GestureDetector(
+                  onTap: (){
+                    setDialState((){
+                      isExpanded = !isExpanded;
+                    });
+                  },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Select dates scope to repeat task: ',style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                          height: 1.5,
-                          fontSize:pickerSubtitle,
-                          color: baseColor,
-                        ),),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical:
-                          8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-
-                              TextButton(
-
-                                  style: ButtonStyle(
-                                      shape:WidgetStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                        ),
-                                      ) ,
-                                      side: WidgetStateProperty.all(BorderSide(
-                                          width: 0.5,
-                                          color: isDateScopeSelected ? selectedDateColor : baseColor!,
-                                      ))
-                                  ),
-                                  onPressed: (){
-                                setDialState((){
-                                  isDateScopeSelected = true;
-                                });
-                              }, child: RichText(
-                                text: TextSpan(
-                                    text: "date from: \n",
-                                    style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                                      color: isDateScopeSelected ? selectedDateColor : baseColor,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: DateFormat('dd MMM yy').format(startDate),
-                                        style: Theme.of(context).textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                          height: 1.5,
-                                          color: isDateScopeSelected ? selectedDateColor : baseColor,
-                                          fontSize:pickerSubtitle),
-
-                                      )
-                                    ]
-                                ),
-                              )),
-                              TextButton(
-                                  style: ButtonStyle(
-                                      shape:WidgetStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                        ),
-                                      ) ,
-                                      side: WidgetStateProperty.all(BorderSide(
-                                        width: 0.5,
-                                        color: isDateScopeSelected ? baseColor! : selectedDateColor,
-                                      ))
-                                  ),
-                                  onPressed: (){
-                                setDialState((){
-                                  isDateScopeSelected = false;
-                                });
-                              }, child: RichText(
-                                text: TextSpan(
-                                    text: "date to: \n",
-                                    style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                                      color: !isDateScopeSelected ? selectedDateColor : baseColor,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                              text: DateFormat('dd MMM yy').format(endDate),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium!
-                                      .copyWith(
-                                    height: 1.5,
-                                    fontSize:pickerSubtitle,
-                                    color: !isDateScopeSelected ? selectedDateColor : baseColor,)
-
-                                      )
-                                    ]
-                                ),
-                              )),
-
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Repeat any: ',style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                              height: 1.5,
-                              fontSize:pickerSubtitle,
-                              color: baseColor,
-                            ),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-                                        padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        onPressed: (){
-                                          setDialState(() {
-                                            dayCounter("-");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove_circle_outline,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                    Text('${daysToScope.toInt()}',style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                      height: 1.5,
-                                      fontSize:pickerSubtitle,
-                                      color: baseColor,
-                                    ),),
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-                                        padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        onPressed: (){
-                                          setDialState(() {
-                                            dayCounter("+");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.add_circle_outline,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                  ],
-                                ),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-
-                                        onPressed: (){
-                                          setDialState(() {
-                                            switchCategoryDuration("-");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_left,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                    Text(durationCategory[durationCategoryCounter],style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                      height: 1.5,
-                                      fontSize:pickerSubtitle,
-                                      color: baseColor,
-                                    ),),
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-                                        onPressed: (){
-                                          setDialState(() {
-                                              switchCategoryDuration("+");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_right,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                  ],
-                                ),
-
-                              ],
-                            ),
-
-                          ],
-                        ),
+                        Text('more options',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                            //height: 1.5,
+                              color: isExpanded ? selectedDateColor : baseColor,
+                              fontSize:pickerSubtitle),
+                        ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
                       ],
                     ),
                   ),
                 ),
-              ),
-              // const SizedBox(height: 5.0,),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    //Navigator.of(context).pop(),
-                    child: Text(
-                      'Ok',
-                      style: Theme.of(context)
-                          .dialogTheme
-                          .contentTextStyle!
-                          .copyWith(fontSize: textSize),
-                    )),
-              )
-            ],
+                Visibility(
+                  visible: isExpanded,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 5.0),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(
+                          width: 0.5,
+                          color: Theme.of(context).dividerTheme.color!,))
+                    ),
+            
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Select dates scope to repeat task: ',style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                            height: 1.5,
+                            fontSize:pickerSubtitle,
+                            color: baseColor,
+                          ),),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical:
+                            8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+            
+                                TextButton(
+            
+                                    style: ButtonStyle(
+                                        shape:WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                        ) ,
+                                        side: WidgetStateProperty.all(BorderSide(
+                                            width: 0.5,
+                                            color: isDateScopeSelected ? selectedDateColor : baseColor!,
+                                        ))
+                                    ),
+                                    onPressed: (){
+                                  setDialState((){
+                                    isDateScopeSelected = true;
+                                  });
+                                }, child: RichText(
+                                  text: TextSpan(
+                                      text: "date from: \n",
+                                      style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                        color: isDateScopeSelected ? selectedDateColor : baseColor,
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: DateFormat('dd MMM yy').format(startDate),
+                                          style: Theme.of(context).textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                            height: 1.5,
+                                            color: isDateScopeSelected ? selectedDateColor : baseColor,
+                                            fontSize:pickerSubtitle),
+            
+                                        )
+                                      ]
+                                  ),
+                                )),
+                                TextButton(
+                                    style: ButtonStyle(
+                                        shape:WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                        ) ,
+                                        side: WidgetStateProperty.all(BorderSide(
+                                          width: 0.5,
+                                          color: isDateScopeSelected ? baseColor! : selectedDateColor,
+                                        ))
+                                    ),
+                                    onPressed: (){
+                                  setDialState((){
+                                    isDateScopeSelected = false;
+                                  });
+                                }, child: RichText(
+                                  text: TextSpan(
+                                      text: "date to: \n",
+                                      style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                        color: !isDateScopeSelected ? selectedDateColor : baseColor,
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                text: DateFormat('dd MMM yy').format(endDate),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                      height: 1.5,
+                                      fontSize:pickerSubtitle,
+                                      color: !isDateScopeSelected ? selectedDateColor : baseColor,)
+            
+                                        )
+                                      ]
+                                  ),
+                                )),
+            
+                              ],
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Repeat any: ',style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                height: 1.5,
+                                fontSize:pickerSubtitle,
+                                color: baseColor,
+                              ),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                          splashColor: Colors.transparent,
+                                          padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints(),
+                                          onPressed: (){
+                                            setDialState(() {
+                                              dayCounter("-");
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_circle_outline,
+                                            size: textSize,
+                                            color: baseColor,
+                                          )),
+                                      Text('${daysToScope.toInt()}',style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                        height: 1.5,
+                                        fontSize:pickerSubtitle,
+                                        color: baseColor,
+                                      ),),
+                                      IconButton(
+                                          splashColor: Colors.transparent,
+                                          padding: EdgeInsets.zero,
+                                          constraints: BoxConstraints(),
+                                          onPressed: (){
+                                            setDialState(() {
+                                              dayCounter("+");
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.add_circle_outline,
+                                            size: textSize,
+                                            color: baseColor,
+                                          )),
+                                    ],
+                                  ),
+            
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                          splashColor: Colors.transparent,
+            
+                                          onPressed: (){
+                                            setDialState(() {
+                                              switchCategoryDuration("-");
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_left,
+                                            size: textSize,
+                                            color: baseColor,
+                                          )),
+                                      Text(durationCategory[durationCategoryCounter],style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                        height: 1.5,
+                                        fontSize:pickerSubtitle,
+                                        color: baseColor,
+                                      ),),
+                                      IconButton(
+                                          splashColor: Colors.transparent,
+                                          onPressed: (){
+                                            setDialState(() {
+                                                switchCategoryDuration("+");
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_right,
+                                            size: textSize,
+                                            color: baseColor,
+                                          )),
+                                    ],
+                                  ),
+            
+                                ],
+                              ),
+            
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                // const SizedBox(height: 5.0,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      //Navigator.of(context).pop(),
+                      child: Text(
+                        'Ok',
+                        style: Theme.of(context)
+                            .dialogTheme
+                            .contentTextStyle!
+                            .copyWith(fontSize: textSize),
+                      )),
+                )
+              ],
+            ),
           ),
         );
       },

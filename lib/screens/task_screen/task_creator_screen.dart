@@ -149,6 +149,7 @@ class _TaskCreatorState extends State<TaskCreator>
           return TaskDatePickerDial(
             scopeDatesList:scopeDatesList,
             initialDate: widget.newTask.date,
+            priority: widget.newTask.priority,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {
                 currentDate(date, time); // Ustaw datę i czas tylko raz wewnątrz setState

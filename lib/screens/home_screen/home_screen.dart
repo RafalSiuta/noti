@@ -229,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen>
                             subtitle: " ",
                             keep: true,
                             fk: 0,
-                            date: DateTime.now(),
+                            date: taskProvider.selDay,
                           )),
                     ));
               },

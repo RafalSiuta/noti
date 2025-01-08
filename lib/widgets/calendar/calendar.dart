@@ -60,22 +60,7 @@ class Calendar extends StatelessWidget {
 
               onFormatChanged: onFormatChanged,
               onDayLongPressed: onDayLongPressed ?? (date,dateTime){},
-              //     (DateTime date, dateTime) async {
-              //   await Navigator.push(
-              //       context,
-              //       CustomPageRoute(
-              //           child: TaskCreator(
-              //               editEnable: true,
-              //               newTask: Task(
-              //                   date: DateTime(
-              //                       date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-              //                   icon: 1,
-              //                   description: " ",
-              //                   title: " ",
-              //                   priority: 1,
-              //                   isTaskDone: false)),
-              //           direction: AxisDirection.right));
-              // },
+            
               rowHeight: rowHeight,
               daysOfWeekHeight: rowHeight,
               headerVisible: isHeaderVisible,
@@ -221,6 +206,7 @@ class Calendar extends StatelessWidget {
                   color: Colors.transparent,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(5.0),
+                  
                 ),
                 weekendDecoration: BoxDecoration(
                   shape: BoxShape.rectangle,

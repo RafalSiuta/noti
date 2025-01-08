@@ -95,25 +95,27 @@ class _CustomDialState extends State<CustomDial> {
                 child: widget.child!,
               ),
             ),
-            const Divider(),
+            Visibility(
+              visible: widget.isBtnVisible,
+              child: const Divider()),
             // const SizedBox(height: 5.0,),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  //Navigator.of(context).pop(),
-                  child: Visibility(
-                    visible: widget.isBtnVisible,
+            Visibility(
+              visible: widget.isBtnVisible,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    //Navigator.of(context).pop(),
                     child: Text(
                       'Ok',
                       style: Theme.of(context)
                           .dialogTheme
                           .contentTextStyle!
                           .copyWith(fontSize: textSize),
-                    ),
-                  )),
+                    )),
+              ),
             )
           ],
         ),

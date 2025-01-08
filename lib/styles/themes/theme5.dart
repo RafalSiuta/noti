@@ -15,8 +15,8 @@ const theme6UnselectedColor = Color(0xFF101015);
 const theme6ShadowColor = Color(0xFF1F2229);
 
 const theme6IndicatorColor = Color(0xFFFBC02D);// 3F51B5 EF6C00
-const theme6CalendarMarkerColorOne = Color(0xFFDD4822);// 3F51B5 EF6C00
-const theme6CalendarMarkerColorTwo = Color(0xFFFD842E);// 3F51B5 EF6C00
+const theme6CalendarMarkerColorOne = Color(0xFFCD664C); // 3F51B5 EF6C00
+const theme6CalendarMarkerColorTwo = Color(0xFFEB8C47); // 3F51B5 EF6C00
 
 const theme6BaseTextColor = Color(0xffb1b6c4);
 const theme6BtnTextColor = Color(0xff16181D);

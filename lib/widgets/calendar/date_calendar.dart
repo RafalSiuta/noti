@@ -40,7 +40,7 @@ class DateCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     var rowHeight = SizeInfo.rowHeight;
     var calendarFontSize = SizeInfo.calendarDaySize;
-    var markerRadius = SizeInfo.calendarMarkerSize;
+   // var markerRadius = SizeInfo.calendarMarkerSize;
     var cellMargin = SizeInfo.calendarCellMargin;
     return Consumer<SettingsProvider>(builder: (context,settingsProvider,child){
       return AnimationLimiter(
