@@ -60,7 +60,9 @@ class Carousel extends StatelessWidget {
                           shadowColor: Theme.of(context).shadowColor,
                           child: Padding(
                             padding: const EdgeInsets.all(.0),
-                            child: ClipPath(
+                            child:
+
+                            ClipPath(
                               clipper: carousel,
                               child: Container(
                                 decoration: BoxDecoration(

@@ -125,21 +125,24 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     });
   }
 
+
   void onDayLongPressed(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
-      if (!widget.scopeDatesList.any((day) => isSameDay(day, selectedDay))) {
-        widget.scopeDatesList.add(selectedDay); // Dodaj wybraną datę tylko jeśli nie istnieje
+      bool exists = widget.scopeDatesList.any((day) => isSameDay(day, selectedDay));
+      if (exists) {
+        widget.scopeDatesList.removeWhere((day) => isSameDay(day, selectedDay));
+      } else {
+        widget.scopeDatesList.add(selectedDay);
       }
     });
   }
+
 
   List<DateTime> getCalendarDates(DateTime date) {
     return widget.scopeDatesList.where((item) {
       return isSameDay(item, date);
     }).toList();
   }
-
-
 
 
   @override

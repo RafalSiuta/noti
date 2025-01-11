@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
@@ -45,10 +46,11 @@ class TaskProvider extends ChangeNotifier {
     _taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
-   // await reloadDatabase();
     getSettingsValuesForTask().whenComplete(() => getTaskDbList());
     notifyListeners();
   }
+
+
 
   UnmodifiableListView<Task> get taskList {
     return UnmodifiableListView(_taskList);
@@ -58,9 +60,8 @@ class TaskProvider extends ChangeNotifier {
     return _taskList.length;
   }
 
-    onMonthChange(DateTime day) {
+  void onMonthChange(DateTime day) {
     focDay = DateTime(day.year, day.month, 1);
-    print("$focDay next month");
     notifyListeners();
   }
 
@@ -143,37 +144,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Funkcja, która sprawdza istnienie bazy danych i migruje dane do Hive
-  // Future<void> reloadDatabase() async {
-  //   // Sprawdzamy, czy baza danych SQLite istnieje
-  //   final dbPath = await getDatabasesPath();
-  //   String path = '$dbPath/note_database.db';
-  //   bool dbExists = await databaseFactory.databaseExists(path);
-  //
-  //   if (!dbExists) {
-  //     print('No SQLite database found. Skipping migration.');
-  //     return;
-  //   }
-  //
-  //   // Pobieranie wszystkich zadań ze starej bazy danych SQLite
-  //   try {
-  //     List<Task> tasks = await _dbTempTask.getAllTasks();
-  //     for (Task task in tasks) {
-  //       // Dodawanie zadania do bazy Hive
-  //       await _dbHelper.addTask(task);
-  //     }
-  //
-  //     // Po pomyślnej migracji, usunięcie danych z SQLite
-  //     await _dbTempTask.deleteAllTasks();
-  //     print('Migration completed successfully.');
-  //   } catch (e) {
-  //     print('Error during migration: $e');
-  //   }
-  //
-  //   notifyListeners();
-  // }
-  //
-
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
 
     taskMonthsToDelete = month;
@@ -224,8 +194,9 @@ class TaskProvider extends ChangeNotifier {
       } else {
         await _dbHelper.addTask(newTask);
       }
+      await refreshTasks();
     }
-    await refreshTasks();
+
     notifyListeners();
   }
 

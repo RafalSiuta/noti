@@ -208,10 +208,10 @@ class _HomeScreenState extends State<HomeScreen>
                         child: TaskCreator(
                             editEnable: true,
                             newTask: Task(
-                                date: taskProvider.selDay,
+                                date: DateTime(taskProvider.selDay.year,taskProvider.selDay.month,taskProvider.selDay.day,DateTime.now().hour,DateTime.now().minute),
                                 icon: 1,
-                                description: " ",
-                                title: " ",
+                                description: "",
+                                title: "",
                                 priority: 1,
                                 isTaskDone: false)),
                         direction: AxisDirection.up));
@@ -224,12 +224,12 @@ class _HomeScreenState extends State<HomeScreen>
                           editEnable: true,
                           newNote: Note(
                             icon: 1,
-                            description: " ",
-                            title: " ",
-                            subtitle: " ",
+                            description: "",
+                            title: "",
+                            subtitle: "",
                             keep: true,
                             fk: 0,
-                            date: taskProvider.selDay,
+                            date: DateTime(taskProvider.selDay.year,taskProvider.selDay.month,taskProvider.selDay.day,DateTime.now().hour,DateTime.now().minute),
                           )),
                     ));
               },

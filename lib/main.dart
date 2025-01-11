@@ -73,13 +73,6 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => HomeProvider(),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => TaskProvider(),
-          // ),
-
-          // ChangeNotifierProvider(
-          //   create: (context) => NoteProvider(),
-          // ),
         ],
         child: Consumer<SettingsProvider>(
           builder: (context, settings, child) {
@@ -87,14 +80,14 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Noti',
               //locale: const Locale('pl','PL'),
-              localizationsDelegates: [
+              localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: [
-                const Locale('pl','PL'),
-                const Locale('en', 'GB'),
+              supportedLocales: const [
+                 Locale('pl','PL'),
+                 Locale('en', 'GB'),
               ],
               theme: settings.getTheme(),
               initialRoute: '/',

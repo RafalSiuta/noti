@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:noti/providers/permission_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../models/menu_model/nav_model.dart';
@@ -197,6 +198,7 @@ class SettingsProvider extends ChangeNotifier {
   int currentShape = 0;
 
   CustomClipper<Path> shapes = Shape1();
+  //CustomClipper<Path> shapes = Shape1();
 
   goToPrevious() {
     carouselController.previousPage(
@@ -271,6 +273,7 @@ class SettingsProvider extends ChangeNotifier {
       NotificationsHelper().cancelAllNotifications();
       //await NotificationsHelper().denyNotificationPermissions();
     }
+    print("NOTIFICATIONS SETTINGS VALUE: 0");
     notifyListeners();
   }
 

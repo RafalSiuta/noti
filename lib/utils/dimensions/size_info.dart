@@ -147,7 +147,7 @@ class SizeInfo {
     calendarMarkerSize = 23;
     calendarMarkerFontSize = 15;
     calendarCellMargin = 12;
-    switchButtonIconSize = 18;
+    switchButtonIconSize = 15.0;
 
     ///task card:
     taskCardHeight = 132;

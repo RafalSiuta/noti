@@ -29,8 +29,7 @@ class TaskCreator extends StatefulWidget {
 
 class _TaskCreatorState extends State<TaskCreator>
     with TickerProviderStateMixin {
-  var topMargin = SizeInfo.menuTopMargin;//SizeInfo.topMargin;
-  //var menuTop = SizeInfo.menuTopMargin;
+  var topMargin = SizeInfo.menuTopMargin;
   var titleFontSize = SizeInfo.taskCreatorTitle;
   var descriptionFontSize = SizeInfo.taskCreatorDescription;
   var helpTextFontSize = SizeInfo.helpTextSize;
@@ -43,8 +42,6 @@ class _TaskCreatorState extends State<TaskCreator>
   var iconListCrossCount = SizeInfo.iconDialogListCrossAxisCount;
   var appBarHeight = SizeInfo.appBarCollapsedHeight;
   var verticalPadding = SizeInfo.verticalTextPadding;
-
-
   int maxTitleLength = 100;
   int maxDescriptionLength = 4000;
 
@@ -53,13 +50,9 @@ class _TaskCreatorState extends State<TaskCreator>
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
 
-  // DateTime? selectedDate;// = DateTime.now();
-  // TimeOfDay? dayTime;// = TimeOfDay.now();
   bool editTextEnable = false;
 
   TextEditingController titleVal = TextEditingController();
-  TextEditingController subtitleVal = TextEditingController();
- // TextEditingController dateVal = TextEditingController();
   TextEditingController descVal = TextEditingController();
 
   CustomDialog customDialog = CustomDialog();
@@ -124,7 +117,6 @@ class _TaskCreatorState extends State<TaskCreator>
   void currentDate(DateTime date, TimeOfDay dayTime){
     setState(() {
       widget.newTask.date = DateTime(date.year,date.month,date.day,dayTime.hour,dayTime.minute);
-     // dateVal.text = DateFormat('dd MMM yy').format(widget.newTask.date);
     });
   }
 
@@ -262,8 +254,21 @@ class _TaskCreatorState extends State<TaskCreator>
 
 
     editTextEnable = widget.editEnable;
-    titleVal.text = widget.newTask.title[0].toUpperCase() +
-        widget.newTask.title.substring(1, widget.newTask.title.length);
+
+    titleVal.text  = widget.newTask.title.isNotEmpty
+        ? widget.newTask.title[0].toUpperCase() + widget.newTask.title.substring(1)
+        : '';
+    titleVal.selection = TextSelection.fromPosition(
+      const TextPosition(offset: 0),
+    );
+    descVal.text  = widget.newTask.description.isNotEmpty
+        ? widget.newTask.description[0].toUpperCase() + widget.newTask.description.substring(1)
+        : '';
+    descVal.selection = TextSelection.fromPosition(
+      const TextPosition(offset: 0),
+    );
+        // widget.newTask.title[0].toUpperCase() +
+        // widget.newTask.title.substring(1, widget.newTask.title.length);
     checkIsTaskDone();
     //descVal.text = widget.newTask.description!;
 
@@ -426,7 +431,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                         titleNode.unfocus();
                                         FocusScope.of(context)
                                             .requestFocus(
-                                            titleNode);
+                                            descriptionNode);
                                       });
                                     },
                                     keyboardType: TextInputType.text,

@@ -1,29 +1,28 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-//import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeProvider extends ChangeNotifier {
+  HomeProvider() {
 
+   // _startDateTimeUpdates();
+  }
 
-  // HomeProvider(){
-  //   initHomeProvider();
-  // }
-  // void initHomeProvider() async {
-  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  //
-  //   String appName = packageInfo.appName;
-  //   String packageName = packageInfo.packageName;
-  //   String version = packageInfo.version;
-  //   String buildNumber = packageInfo.buildNumber;
-  //
-  //   print("APP NAME ${appName}\nPackage NAME ${packageName}\nVersion:  ${version}\nBUILD NUMBER ${buildNumber}\n");
-  //   notifyListeners();
-  // }
+  final DateFormat mY = DateFormat('dd MMM yyyy');
+  final DateFormat wD = DateFormat('EEEE');
+  DateTime _date = DateTime.now();
 
-  final mY = DateFormat('dd MMM yy');
-  final wD = DateFormat('EEEE');
-  final date = DateTime.now();
+  // Pobierz aktualny czas
+  DateTime get date => _date;
 
-
+  // Rozpocznij aktualizację czasu
+  void _startDateTimeUpdates() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      _date = DateTime.now(); // Aktualizuj datę na bieżąco
+      print("HOME PROVIDER DATE: ${_date}");
+      notifyListeners(); // Powiadom listenerów o zmianie
+    });
+  }
 }
+

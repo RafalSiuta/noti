@@ -16,7 +16,7 @@ const theme5ShadowColor = Color(0xFFE6E2DB);
 
 const theme5IndicatorColor = Color(0xFFDBB136);
 const theme5CalendarMarkerColorOne = Color(0xFFCD664C);// 3F51B5 EF6C00
-const theme5CalendarMarkerColorTwo = Color(0xFFCD7633);// 3F51B5 EF6C00
+const theme5CalendarMarkerColorTwo = Color(0xFFE09052);// 3F51B5 EF6C00
 
 const theme5BaseTextColor = Color(0xff2E260F);
 const theme5BtnTextColor = Color(0xffF7F5F3);
@@ -86,7 +86,7 @@ final theme5CalendarDayWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme5IndicatorColor,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w200,
         decorationColor: theme5DividerColor));
 
 //next month text style:
@@ -101,7 +101,7 @@ final theme5CalendarWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme5IndicatorColor,
-        fontWeight: FontWeight.w200,
+        fontWeight: FontWeight.w400,
         decorationColor: theme5DividerColor));
 
 
@@ -178,7 +178,7 @@ final theme5 = ThemeData(
           color: theme5UnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
-          color: theme5IndicatorColor, fontSize: 18, fontWeight: FontWeight.w300,
+          color: theme5IndicatorColor, fontSize: 18, fontWeight: FontWeight.w400,
           backgroundColor: Colors.transparent,
         ),
       ),
