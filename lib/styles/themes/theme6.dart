@@ -27,14 +27,14 @@ final theme8PickersBaseTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       color: theme8PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w100),
+      fontWeight: FontWeight.w400),
 );
 
 final theme8PickersTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       color: theme8BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w200),
+      fontWeight: FontWeight.w400),
 );
 //TEXT STYLES:
 //headers:
@@ -43,14 +43,14 @@ final TextStyle theme8LargeHeaderTextStyle  = GoogleFonts.poppins(
     textStyle: const TextStyle(
         color: theme8BaseTextColor,
         fontSize: 32,
-        fontWeight: FontWeight.w300
+        fontWeight: FontWeight.w400
     ));
 //Subtitle header:
 final TextStyle theme8SubtitleHeaderTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 18,
       color: theme8BaseTextColor,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       decoration: TextDecoration.none),
 );
 //task & note card style:
@@ -59,7 +59,7 @@ final TextStyle theme8CardTitleTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme8BaseTextColor,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       decoration: TextDecoration.none),
 );
 //content text:
@@ -67,7 +67,7 @@ final TextStyle theme8ContentTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme8BaseTextColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w400,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
@@ -75,7 +75,7 @@ final TextStyle theme8UnselectedTextStyle = GoogleFonts.poppins(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme8UnselectedColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w400,
       decorationColor: theme8UnselectedColor,
       decoration: TextDecoration.lineThrough),
 );
@@ -85,7 +85,7 @@ final theme8CalendarDayWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme8IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w400,
         decorationColor: theme8DividerColor));
 
 //next month text style:
@@ -93,14 +93,14 @@ final theme8CalendarNextMonthTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme8BaseTextColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w400,
         decorationColor: theme8UnselectedColor));
 
 final theme8CalendarWeekendTextStyle = GoogleFonts.poppins(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme8IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w400,
         decorationColor: theme8DividerColor));
 
 
@@ -177,7 +177,7 @@ final theme8 = ThemeData(
           color: theme8UnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
-          color: theme8BaseTextColor, fontSize: 18, fontWeight: FontWeight.w300,
+          color: theme8BaseTextColor, fontSize: 18, fontWeight: FontWeight.w400,
           backgroundColor: Colors.transparent,
         ),
       ),
@@ -247,7 +247,7 @@ final theme8 = ThemeData(
           textStyle: const TextStyle(
               color: theme8BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w400),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
@@ -258,7 +258,7 @@ final theme8 = ThemeData(
             textStyle: const TextStyle(
                 color: theme8BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w400),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -334,7 +334,7 @@ final theme8 = ThemeData(
           textStyle: const TextStyle(
               color: theme8BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w400),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
@@ -345,7 +345,7 @@ final theme8 = ThemeData(
             textStyle: const TextStyle(
                 color: theme8BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w400),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -406,14 +406,14 @@ final theme8 = ThemeData(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme8UnselectedColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w400,
             decoration: TextDecoration.none),
       ),
       labelStyle: GoogleFonts.poppins(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme8BaseTextColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w400,
             decoration: TextDecoration.none),
       ),
     ),

@@ -230,6 +230,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     selDay: selDay,
                     markerColor:markerColor,
                     onDaySelected: (selectedDay, focusedDay) {
+
                         setDialState(() {
                           selDay = selectedDay;
                           focDay = focusedDay;
@@ -240,7 +241,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                           }
             
                               if (selectedDay != widget.initialDate) {
-                                TimeOfDay time = TimeOfDay(hour: selectedDay.hour, minute: selectedDay.minute);
+                                TimeOfDay time = TimeOfDay(hour: widget.initialDate.hour, minute: widget.initialDate.minute);
                                 widget.onDateSelected(startDate, time);
                               }
                           onScopeDateSelected();
