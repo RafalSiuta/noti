@@ -1,6 +1,5 @@
 import 'package:noti/widgets/responsive/responsive_builder.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/dimensions/screen_type.dart';
 
 class ScreenTypeLayout extends StatelessWidget {

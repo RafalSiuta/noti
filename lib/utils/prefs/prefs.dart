@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../models/permission_model/permission_model.dart';
 import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../models/settings_model/trash_settings_model/trash_model.dart';
@@ -128,21 +127,13 @@ class Prefs extends ChangeNotifier {
         }).toList();
       }
     } catch (e) {
-      // Obsługa błędów, np. zapisanie w logach
-      print("Error restoring list: $e");
+
     }
 
     notifyListeners();
     return list;
   }
-  // przykład użycia:
-  // List<PermissionModel> permissionModels = [];
-  //
-  // permissionModels = await restoreList<PermissionModel>(
-  // 'permissionSettings',
-  // permissionModels,
-  // (map) => PermissionModel.fromMap(map)
-  // );
+
 
 
   Future<List<TrashModel>> restoreTrashList(

@@ -15,8 +15,8 @@ const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
 const themeDefIndicatorColor = Color(0xfffbc720);
-const themeDefCalendarMarkerColorOne = Color(0xFFCD664C); // 3F51B5 EF6C00
-const themeDefCalendarMarkerColorTwo = Color(0xFFE08D52); // 3F51B5 EF6C00
+const themeDefCalendarMarkerColorOne = Color(0xFFE64A19); // 3F51B5 EF6C00
+const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800); // 3F51B5 EF6C00
 
 const themeDefBaseTextColor = Color(0xff161616);
 const themeDefBtnTextColor = Color(0xff161616);

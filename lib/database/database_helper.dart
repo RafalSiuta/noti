@@ -1,4 +1,3 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/db_model/note.dart';
 import '../models/db_model/task.dart';
@@ -18,8 +17,6 @@ class DatabaseHelper {
     Hive.registerAdapter(TaskAdapter());
     Hive.registerAdapter(NoteAdapter());
 
-
-    // Sprawdzamy, czy boks istnieje, zanim spróbujemy go otworzyć
     if (!Hive.isBoxOpen('taskBox')) {
       _taskBox = await Hive.openBox<Task>('taskBox');
     } else {

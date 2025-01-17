@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../models/db_model/task.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
@@ -28,17 +27,17 @@ class CalendarScreen extends StatelessWidget {
                     key: key,
                     topSpacing: spacingTop,
                     isHeaderVisible: true,
-                    focDay: taskProvider.focDay, // Bieżący dzień wybrany w kalendarzu
-                    selDay: taskProvider.selDay, // Aktualnie zaznaczony dzień
+                    focDay: taskProvider.focDay,
+                    selDay: taskProvider.selDay,
                     startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
                     onDaySelected: taskProvider.onDaySelected,
                     onMonthChange: (day) {
                       taskProvider.onMonthChange(day);
-                    }, // Reakcja na zmianę miesiąca
-                    calendarFormat: taskProvider.format, // Obecny format kalendarza (tydzień/miesiąc)
+                    },
+                    calendarFormat: taskProvider.format,
                     onFormatChanged: (format) {
                       taskProvider.changeDateFormat(format);
-                    }, // Zmiana formatu kalendarza
+                    },
                     taskEvents: taskProvider.getCalendarValues,
                     onDayLongPressed:
                         (DateTime date, dateTime) async {
@@ -51,26 +50,13 @@ class CalendarScreen extends StatelessWidget {
                                       date: DateTime(
                                           date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
                                       icon: 1,
-                                      description: " ",
-                                      title: " ",
+                                      description: "",
+                                      title: "",
                                       priority: 1,
                                       isTaskDone: false)),
                               direction: AxisDirection.right));
-                    },// Pobieranie wydarzeń dla danego dnia
+                    },
                   ),
-                  // Calendar(
-                  //   key: key,
-                  //   topSpacing: spacingTop,
-                  //   isHeaderVisible: true,
-                  //   focDay: taskProvider.focDay,
-                  //   selDay: ,
-                  //   startingDayOfWeek:,
-                  //   onDaySelected:,
-                  //   onMonthChange:,
-                  //   calendarFormat:taskProvider.format,
-                  //   onFormatChanged: ,
-                  //   taskEvents:,
-                  // ),
                 ]),
               ),
               SliverPadding(

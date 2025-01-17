@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../models/permission_model/permission_model.dart';
-import '../models/settings_model/settings_model/settings_model.dart';
 import '../utils/prefs/prefs.dart';
 
 //todo futures in next version fix permission choices for user
@@ -122,12 +121,11 @@ class PermissionProvider extends ChangeNotifier{
 
     for (var item in _permissionSettings) {
       if (!item.isOn!) {
-        // Jeśli znajdzie się jakiekolwiek 'false', natychmiast zwracamy false
+
         return false;
       }
     }
 
-    // Jeśli żadne uprawnienie nie było 'false', zwracamy true
     return true;
   }
 }

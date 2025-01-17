@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/app_icon_card.dart';
-import '../../widgets/cards/socials_bar.dart';
 import '../policy_screen/policy_screen.dart';
-import 'licence_screen.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key, this.scaleAnim});
@@ -25,13 +22,6 @@ class AboutScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const AppIconCard(),
-          // const SizedBox(
-          //   height: 50,
-          // ),
-         // const SocialsBar(),
-         //  const SizedBox(
-         //    height: 100,
-         //  ),
           TextButton.icon(
             onPressed: () async {
               await Navigator.push(

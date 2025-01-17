@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/settings_provider.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/cards/settings_card.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
 import '../../widgets/responsive/column_row_builder.dart';
@@ -16,7 +14,6 @@ class PolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
-    var switchIconSize = SizeInfo.switchButtonIconSize;
     var headerHeight = SizeInfo.sliverHeaderHeight;
     var navIconSize = SizeInfo.leadingAndTrailingIconSize;
 

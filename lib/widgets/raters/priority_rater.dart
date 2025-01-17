@@ -25,13 +25,7 @@ class Rater extends StatelessWidget {
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
     var markerColor = priorityColor(context,rating);
-    // if(rating == 1){
-    //   markerColor = Theme.of(context).indicatorColor;
-    // }else if(rating == 2){
-    //   markerColor = Theme.of(context).colorScheme.secondaryFixed;
-    // }else{
-    //   markerColor = Theme.of(context).colorScheme.primaryFixed;
-    // }
+
     if (index >= rating) {
       icon = Icon(
         Icons.circle,

@@ -13,7 +13,6 @@ class PermissionModel {
     this.isOn = false,
   });
 
-  // Mapowanie obiektu PermissionModel na mapę
   Map<String, Object?> toMap() {
     return {
       'title': title,
@@ -23,7 +22,6 @@ class PermissionModel {
     };
   }
 
-  // Tworzenie obiektu PermissionModel z mapy
   PermissionModel.fromMap(Map<String, dynamic> map) {
     title = map['title'] as String?;
     description = map['description'] as String?;
@@ -35,7 +33,6 @@ class PermissionModel {
     isOn = !isOn!;
   }
 
-  // Konwersja tekstu na obiekt Permission
   Permission? _permissionFromString(String? permissionString) {
     if (permissionString == null) return null;
 

@@ -29,7 +29,7 @@ class NoteCreator extends StatefulWidget {
 class _NoteCreatorState extends State<NoteCreator>
     with TickerProviderStateMixin {
 
-  var topMargin = SizeInfo.menuTopMargin;//SizeInfo.topMargin;
+  var topMargin = SizeInfo.menuTopMargin;
   var titleTextSize = SizeInfo.headerSubtitleSize;
   var helperTextSize = SizeInfo.helpTextSize;
   var navIconSize = SizeInfo.leadingAndTrailingIconSize;
@@ -52,7 +52,6 @@ class _NoteCreatorState extends State<NoteCreator>
   bool keepInMind = true;
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
-  //DateTime currentDate = DateTime.now();
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController subtitleVal = TextEditingController();
@@ -70,13 +69,10 @@ class _NoteCreatorState extends State<NoteCreator>
 
   void cursorPlace(TextEditingController textVal, String newText){
 
-    // Pobierz aktualną pozycję kursora
     final cursorPosition = textVal.selection.baseOffset;
 
-    // Ustaw tekst, ale bez zmiany pozycji kursora
     textVal.text = newText;
 
-    // Ustawienie kursora na poprzedniej pozycji (chyba że pozycja kursora jest poza zakresem nowego tekstu)
     textVal.selection = TextSelection.fromPosition(
       TextPosition(
         offset: cursorPosition <= newText.length ? cursorPosition : newText.length,
@@ -99,7 +95,6 @@ class _NoteCreatorState extends State<NoteCreator>
   void currentDate(DateTime date,){
     setState(() {
       widget.newNote.date = DateTime(date.year,date.month,date.day);
-     // dateVal.text = DateFormat('dd MMM yy').format(widget.newNote.date);
     });
   }
   _pickDate(BuildContext context) async {
@@ -112,12 +107,12 @@ class _NoteCreatorState extends State<NoteCreator>
             initialDate: widget.newNote.date,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {
-                currentDate(date); // Ustaw datę i czas tylko raz wewnątrz setState
-                picked = date; // Ustaw wybraną datę
+                currentDate(date);
+                picked = date;
               });
             },
             onMonthChange: (date) {
-              // Logika dla zmiany miesiąca, jeśli jest potrzebna
+
             },
           );
         }
@@ -125,7 +120,7 @@ class _NoteCreatorState extends State<NoteCreator>
 
     if (picked != null && picked != widget.newNote.date) {
       setState(() {
-        currentDate(picked!); // Aktualizuj tylko raz, gdy faktycznie potrzebujesz
+        currentDate(picked!);
       });
     }
   }
@@ -145,7 +140,7 @@ class _NoteCreatorState extends State<NoteCreator>
                 title: 'Note icon',
                 child: Container(
                   constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
-                 // padding: const EdgeInsets.symmetric(horizontal: 16),
+
                   child: GridView.count(
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
@@ -164,8 +159,6 @@ class _NoteCreatorState extends State<NoteCreator>
                               onChanged: (val) {
                                 setState(() {
                                   setDialCtx((){
-                                    //widget.newNote.icon = index;
-
                                     widget.newNote.icon = categoryIcons.iconsList[index].id!;
                                     pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon).icon;
                                     pickedIconText = categoryIcons.getPickedIcon(widget.newNote.icon).name;
@@ -291,7 +284,6 @@ class _NoteCreatorState extends State<NoteCreator>
                           backgroundColor: Theme.of(context).cardColor,
                           shadowColor: Colors.transparent,
                           surfaceTintColor: Colors.transparent,
-                          //scrolledUnderElevation: 0,
                           automaticallyImplyLeading: false,
                           elevation: 0,
                           floating: true,
@@ -401,9 +393,7 @@ class _NoteCreatorState extends State<NoteCreator>
                           padding:EdgeInsets.only( top: topMargin ,),
                           sliver: SliverList(
                             delegate: SliverChildListDelegate([
-                              // SizedBox(
-                              //   height: verticalPadding,
-                              // ),
+
                               GestureDetector(
                                 onTap: () {
                                   editText();
@@ -430,11 +420,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   onChanged: (newText) {
                                     setState(() {
                                       widget.newNote.title = newText;
-                                      // titleVal.selection =
-                                      //     TextSelection.fromPosition(
-                                      //         TextPosition(
-                                      //   offset: titleVal.text.length,
-                                      // ));
+
                                       cursorPlace(titleVal,newText);
                                     });
                                   },
@@ -510,9 +496,6 @@ class _NoteCreatorState extends State<NoteCreator>
                                   ),
                                 ),
                               ),
-                              // SizedBox(
-                              //   height: verticalPadding,
-                              // ),
                               GestureDetector(
                                 onTap: () {
                                   editText();
@@ -538,9 +521,6 @@ class _NoteCreatorState extends State<NoteCreator>
                                     setState(() {
                                       widget.newNote.description = newText;
                                       cursorPlace(descVal,newText);
-                                      // descVal.selection =
-                                      //     TextSelection.fromPosition(TextPosition(
-                                      //         offset: descVal.text.length));
                                     });
                                   },
                                   cursorColor: Theme.of(context)
@@ -620,8 +600,6 @@ class _NoteCreatorState extends State<NoteCreator>
                             case 4:
                               noteProvider.deleteNote(widget.newNote);
                               Navigator.pop(context, true);
-
-
                               break;
                             case 5:
                               setState(() {

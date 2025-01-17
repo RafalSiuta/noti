@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -9,9 +8,7 @@ import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DateCalendar extends StatelessWidget {
-  // final bool isHeaderVisible;
-  // final bool gesturesEnable;
-  //final double topSpacing;
+
   final DateTime focDay;
   final DateTime selDay;
   final StartingDayOfWeek startingDayOfWeek;
@@ -38,7 +35,6 @@ class DateCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     var rowHeight = SizeInfo.rowHeight;
     var calendarFontSize = SizeInfo.calendarDaySize;
-   // var markerRadius = SizeInfo.calendarMarkerSize;
     var cellMargin = SizeInfo.calendarCellMargin;
     return Consumer<SettingsProvider>(builder: (context,settingsProvider,child){
       return AnimationLimiter(
@@ -124,15 +120,6 @@ class DateCalendar extends StatelessWidget {
                     size: 8,
                     color: markerColor ?? Theme.of(context).indicatorColor,
                   )
-                // Container(
-                //   decoration: BoxDecoration(
-                //       shape: BoxShape.rectangle,
-                //       color: Theme.of(context).indicatorColor,
-                //       borderRadius: BorderRadius.all(Radius.circular(4))
-                //   ),
-                //   width: markerRadius,
-                //   height: markerRadius,
-                // )
               )
                   : const Positioned(
                 right: 1,

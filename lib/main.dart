@@ -13,14 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'database/database_helper.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
-  //  FlutterNativeSplash.preserve(widgetsBinding: binding);
+
   await DatabaseHelper.databaseHelper.initializeHive();
   await NotificationsHelper().init();
   LicenseRegistry.addLicense(() async* {
@@ -29,7 +27,6 @@ void main() async {
   });
   runApp(const MyApp());
 
-  //FlutterNativeSplash.remove();
 }
 
 
@@ -40,9 +37,9 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    //  SystemChrome.setEnabledSystemUIOverlays([]);
+
     WidgetsFlutterBinding.ensureInitialized(); // add this line
-    //display full screen app
+
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     SystemChrome.setPreferredOrientations([
@@ -78,7 +75,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-              //locale: const Locale('pl','PL'),
+
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,

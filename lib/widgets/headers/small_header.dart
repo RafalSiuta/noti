@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
-
 import '../../utils/constans/durations.dart';
 import '../../utils/dimensions/size_info.dart';
 

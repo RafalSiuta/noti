@@ -2,8 +2,6 @@ import 'dart:collection';
 
 import 'package:noti/models/settings_model/trash_settings_model/trash_model.dart';
 
-
-
 class TrashSettings {
   List<TrashModel> trashSettings = [
     TrashModel(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../utils/dimensions/screen_type.dart';
 import '../../utils/dimensions/size_info.dart';
 

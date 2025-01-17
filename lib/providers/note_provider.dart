@@ -1,6 +1,4 @@
-
 import 'dart:collection';
-
 import 'package:noti/providers/settings_provider.dart';
 import 'package:flutter/foundation.dart';
 
@@ -38,13 +36,6 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // int get imageListCounter {
-  //   return galleryImages.length;
-  // }
-  //
-  // UnmodifiableListView<AssetEntity> get imageList {
-  //   return UnmodifiableListView(galleryImages);
-  // }
 
   UnmodifiableListView<Note> get noteListByKeyword {
     return UnmodifiableListView(_noteListByKeyword);

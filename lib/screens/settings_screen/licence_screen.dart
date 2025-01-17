@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:noti/screens/settings_screen/policy_screen.dart';
-
 import '../../models/settings_model/policy/librarys_list.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';

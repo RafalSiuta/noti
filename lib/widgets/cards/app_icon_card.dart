@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../utils/constans/durations.dart';
-import '../../utils/dimensions/size_info.dart';
 
 class AppIconCard extends StatelessWidget {
   const AppIconCard({

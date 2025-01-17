@@ -15,10 +15,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final taskProvider = Provider.of<TaskProvider>(context, listen: false);
 
     DateTime focDay = DateTime.now();
-    //DateTime selDay = DateTime.now();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
@@ -28,7 +26,6 @@ class WelcomeScreen extends StatelessWidget {
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child)
     {
-      //taskProvider.onDaySelected(focDay, selDay);
       return Container(
         key: key,
         child: Column(
@@ -40,24 +37,16 @@ class WelcomeScreen extends StatelessWidget {
             Calendar(
               isHeaderVisible: false,
               gesturesEnable: false,
-              focDay: focDay, // Bieżący dzień wybrany w kalendarzu
-              selDay: taskProvider.selDay, // Aktualnie zaznaczony dzień
+              focDay: focDay,
+              selDay: taskProvider.selDay,
               startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
               onDaySelected: taskProvider.onDaySelected,
-              //     (selectedDay,focusedDay){
-              //   if (!isSameDay(selDay, selectedDay)) {
-              //     selDay = selectedDay;
-              //     focDay = focusedDay;
-              //   }
-              //   taskProvider.onDaySelected;
-              // },
               onMonthChange: (day) {
-                //taskProvider.onMonthChange(day);
-              }, // Reakcja na zmianę miesiąca
-              calendarFormat: CalendarFormat.week, // Obecny format kalendarza (tydzień/miesiąc)
+              },
+              calendarFormat: CalendarFormat.week,
               onFormatChanged: (format) {
                 taskProvider.changeDateFormat(format);
-              }, // Zmiana formatu kalendarza
+              },
               taskEvents: taskProvider.getCalendarValues,
               onDayLongPressed: (DateTime date, dateTime) async {
                 await Navigator.push(
@@ -74,19 +63,8 @@ class WelcomeScreen extends StatelessWidget {
                                 priority: 1,
                                 isTaskDone: false)),
                         direction: AxisDirection.right));
-              },// Pobieranie wydarzeń dla danego dnia,// Pobieranie wydarzeń dla danego dnia
+              },
             ),
-            // Calendar(
-            //   isHeaderVisible: false,
-            //   focDay:,
-            //   selDay:,
-            //   startingDayOfWeek:,
-            //   onDaySelected:,
-            //   onMonthChange:,
-            //   calendarFormat:,
-            //   onFormatChanged:,
-            //   taskEvents:,
-            // ),
             Expanded(flex: 5, child: TaskList()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: .0),

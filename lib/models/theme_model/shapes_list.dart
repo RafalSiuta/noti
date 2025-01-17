@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import '../../styles/shapes/shape_paths/shapes_exports.dart';
 
 class ShapesList {
-  //final List<CustomClipper<Path>>
+
   final List<CustomClipper<Path>> _shapesList = [
     Shape1(), //default bow
     Shape9(), //snowflakes

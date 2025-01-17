@@ -39,7 +39,7 @@ class Calendar extends StatelessWidget {
     var headerFontSize = SizeInfo.headerSubtitleSize;
     var calendarButtonFontSize = SizeInfo.taskCardTitle;
     var chevronIconSize = SizeInfo.switchButtonIconSize;
-    var markerRadius = SizeInfo.rowHeight / 3.2;//SizeInfo.calendarMarkerSize;
+    var markerRadius = SizeInfo.rowHeight / 3.2;
     var markerFontSize = SizeInfo.calendarMarkerFontSize;
     var cellMargin = SizeInfo.calendarCellMargin;
     return ClipRect(

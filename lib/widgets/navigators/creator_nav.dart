@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../models/menu_model/nav_model.dart';
-import '../../utils/dimensions/size_info.dart';
 import '../responsive/screen_type_layout.dart';
 
 
@@ -37,7 +35,7 @@ class CreatorNav extends StatelessWidget {
                 topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+                  color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
                   blurRadius: 1.0,
                   offset: const Offset(.0, .0),
                   spreadRadius: 1.0)
@@ -104,9 +102,8 @@ class CreatorNav extends StatelessWidget {
                 topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+                  color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
                   blurRadius: 1.0,
-                  //offset: Offset(.0, .0),
                   spreadRadius: 1.0)
             ]),
         child: ClipRRect(
@@ -152,40 +149,6 @@ class CreatorNav extends StatelessWidget {
         ),
       ),
 
-      // Container(
-      //   width: 50,
-      //   key: key,
-      //   margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-      //   decoration: BoxDecoration(
-      //       color: Theme.of(context).colorScheme.onSurface,
-      //       borderRadius: const BorderRadius.all(Radius.circular(15)),
-      //       boxShadow:  [
-      //         BoxShadow(
-      //             color: Colors.black54.withOpacity(0.5),
-      //             blurRadius: 1.5,
-      //             offset: const Offset(.0, .0),
-      //             spreadRadius: 1.0)
-      //       ]),
-      //   child: ClipRRect(
-      //     borderRadius: const BorderRadius.all(Radius.circular(15)),
-      //     child: Wrap(
-      //       spacing: 10,
-      //       direction: Axis.vertical,
-      //       children:  List.generate(
-      //         itemCount,
-      //         (index) => IconButton(
-      //             onPressed: () {
-      //               onTap(index);
-      //             },
-      //             icon: Icon(
-      //               titles[index].icon,
-      //               size: navDotIndicatorSize,
-      //             )),
-      //       ).toList(),
-      //
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

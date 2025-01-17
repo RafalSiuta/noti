@@ -99,7 +99,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
           daysToScope--;
         }
       }
-      // Reset and generate the new date scope list
       generateDateScopeList(startDate, endDate, daysToScope.toInt());
     });
   }
@@ -120,7 +119,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
           durationCategoryCounter--;
         }
       }
-      // Reset and generate the new date scope list
       generateDateScopeList(startDate, endDate, daysToScope.toInt());
     });
   }
@@ -179,7 +177,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //calendar picker header
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: textSize * 3,
@@ -507,14 +504,12 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 5.0,),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
                   child: TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      //Navigator.of(context).pop(),
                       child: Text(
                         'Ok',
                         style: Theme.of(context)

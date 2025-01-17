@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/settings_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -27,8 +25,7 @@ class SocialsBar extends StatelessWidget {
             return GestureDetector(
               onTap: () async {
                 if (index == 2) {
-                  // Share.share(
-                  //     'https://play.google.com/store/apps/details?id=org.r85.calendar_todo');
+
                 } else {
                   await Navigator.push(
                       context,
@@ -69,15 +66,6 @@ class SocialsBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // CircleAvatar(
-                  //   backgroundColor: Theme.of(context).indicatorColor,
-                  //   radius: socialIconSize,
-                  //   child: Icon(
-                  //     listItem.icon,
-                  //     color: Theme.of(context).textTheme.headlineLarge!.color,
-                  //     size: socialIconSize,
-                  //   ),
-                  // ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: socialPadding),
                     child: Text(

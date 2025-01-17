@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/db_model/note.dart';
@@ -62,12 +61,6 @@ class _HomeScreenState extends State<HomeScreen>
         title: NavModel(
           title: 'Notes',
         )),
-    //todo: temp testing screen
-    // ScreenModel(
-    //     page: const TestingScreen(),
-    //     title: NavModel(
-    //       title: 'Images',
-    //     ))
   ];
 
   hideTrigger() {

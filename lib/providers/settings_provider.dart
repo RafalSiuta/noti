@@ -134,8 +134,6 @@ class SettingsProvider extends ChangeNotifier {
         currentTheme = theme;
       }
     }
-    //themeData = themes.themesList[0].themeData!;
-    //currentTheme = theme;
     await _prefs.storeInt('theme', theme);
     notifyListeners();
   }
@@ -196,7 +194,7 @@ class SettingsProvider extends ChangeNotifier {
   int currentShape = 0;
 
   CustomClipper<Path> shapes = Shape1();
-  //CustomClipper<Path> shapes = Shape1();
+
 
   goToPrevious() {
     carouselController.previousPage(
@@ -220,8 +218,6 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //settings option:
-  //calendar settings option
   CalendarSettings calendarSets = CalendarSettings();
 
   onCalendarSettingsChange(SettingsModel sets) async {
@@ -253,7 +249,6 @@ class SettingsProvider extends ChangeNotifier {
     });
   }
 
-  //notification settings option
   NotificationSettings notificationSets = NotificationSettings();
 
   onNotificationSettingsChange(SettingsModel sets) async{
@@ -263,13 +258,13 @@ class SettingsProvider extends ChangeNotifier {
 
     if (sets.isOn == true) {
       isNotification = true;
-      // Jeśli użytkownik włączył powiadomienia, poproś o uprawnienia
+
       await NotificationsHelper().requestNotificationPermissions();
     } else {
       isNotification = false;
-      // Możesz również anulować wszystkie powiadomienia, jeśli wyłączono
+
       NotificationsHelper().cancelAllNotifications();
-      //await NotificationsHelper().denyNotificationPermissions();
+
     }
     print("NOTIFICATIONS SETTINGS VALUE: 0");
     notifyListeners();
@@ -289,12 +284,11 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<void> playSound() async {
     try {
-      // Ścieżka do pliku dźwiękowego w folderze assets
-      //await audioPlayer.play(AssetSource('sounds/my_sound.wav'));
+
       final player = AudioPlayer();
       await player.play(AssetSource('sounds/sound.wav'));
     } catch (e) {
-      print("Błąd podczas odtwarzania dźwięku: $e");
+
     }
   }
 
@@ -309,7 +303,7 @@ class SettingsProvider extends ChangeNotifier {
     });
   }
 
-  //trash settings option
+
   TrashSettings trashSets = TrashSettings();
 
   onTrashSettingsChange(TrashModel sets) {
@@ -345,7 +339,7 @@ class SettingsProvider extends ChangeNotifier {
   PolicyList policyList = PolicyList();
 
   loadSets() async {
-    //permissionProvider.updatePermissionSettings();
+
 
     updateCalendarSettings();
     themeData = await loadTheme();

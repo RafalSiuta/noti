@@ -1,7 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
-
 import '../../utils/dimensions/size_info.dart';
 
 class CustomDialog {

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/theme_model/theme_model.dart';
 import '../../utils/dimensions/size_info.dart';
 
@@ -27,10 +25,6 @@ class ThemeCard extends StatelessWidget {
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(cardBorderRadius)
-            // BorderRadius.only(
-            //     topLeft: Radius.circular(15),
-            //     topRight: Radius.circular(15),
-            //     bottomRight: Radius.circular(15)),
           ),
           child: ClipRRect(
             borderRadius:  BorderRadius.all(cardBorderRadius),
@@ -50,14 +44,6 @@ class ThemeCard extends StatelessWidget {
                   color: themeData!.themeData!.indicatorColor,
                 ),
                 child: Icon(Icons.add,size: indicatorIconSize,color: themeData!.themeData!.colorScheme.primary,),
-                // Align(
-                //   alignment: Alignment.bottomLeft,
-                //   child: Text(
-                //     themeData!.title,
-                //     style: themeData!.themeData!.textTheme.headlineLarge!
-                //         .copyWith(fontSize: indicatorIconSize, color: themeData!.themeData!.colorScheme.primary),
-                //   ),
-                // ),
               ),
             ]),
           ),

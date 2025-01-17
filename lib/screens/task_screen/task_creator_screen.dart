@@ -62,13 +62,10 @@ class _TaskCreatorState extends State<TaskCreator>
 
   void cursorPlace(TextEditingController textVal, String newText){
 
-    // Pobierz aktualną pozycję kursora
     final cursorPosition = textVal.selection.baseOffset;
 
-    // Ustaw tekst, ale bez zmiany pozycji kursora
     textVal.text = newText;
 
-    // Ustawienie kursora na poprzedniej pozycji (chyba że pozycja kursora jest poza zakresem nowego tekstu)
     textVal.selection = TextSelection.fromPosition(
       TextPosition(
         offset: cursorPosition <= newText.length ? cursorPosition : newText.length,
@@ -142,12 +139,12 @@ class _TaskCreatorState extends State<TaskCreator>
             priority: widget.newTask.priority,
             onDateSelected: (DateTime date, TimeOfDay time) {
               setState(() {
-                currentDate(date, time); // Ustaw datę i czas tylko raz wewnątrz setState
-                picked = date; // Ustaw wybraną datę
+                currentDate(date, time);
+                picked = date;
               });
             },
             onMonthChange: (date) {
-              // Logika dla zmiany miesiąca, jeśli jest potrzebna
+
             },
           );
         }
@@ -156,7 +153,7 @@ class _TaskCreatorState extends State<TaskCreator>
     if (picked != null && picked != widget.newTask.date) {
       setState(() {
         TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
-        currentDate(picked!, time); // Aktualizuj tylko raz, gdy faktycznie potrzebujesz
+        currentDate(picked!, time);
       });
     }
   }
@@ -193,7 +190,6 @@ class _TaskCreatorState extends State<TaskCreator>
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: (ctx,setDialState){
-            //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
             return CustomDial(
                 title: 'Task category icon',
                 child:
@@ -265,10 +261,7 @@ class _TaskCreatorState extends State<TaskCreator>
     descVal.selection = TextSelection.fromPosition(
       const TextPosition(offset: 0),
     );
-    // widget.newTask.title[0].toUpperCase() +
-    // widget.newTask.title.substring(1, widget.newTask.title.length);
     checkIsTaskDone();
-    //descVal.text = widget.newTask.description!;
 
     priorityRating = widget.newTask.priority;
 
@@ -312,7 +305,6 @@ class _TaskCreatorState extends State<TaskCreator>
                               backgroundColor: Theme.of(context).cardColor,
                               shadowColor: Colors.transparent,
                               surfaceTintColor: Colors.transparent,
-                              //scrolledUnderElevation: 0,
                               automaticallyImplyLeading: false,
                               elevation: 0,
                               floating: true,
@@ -530,54 +522,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                       ),
                                     ),
                                   ),
-                                  scopeDatesList.isNotEmpty ?
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Optional dates to repeat task:",
-                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                              fontSize: descriptionFontSize)
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(top: 5.0),
-                                        height: 45,
-                                        child: ListView.builder(
-                                          itemCount: scopeDatesList.length,
-                                          itemBuilder: (context,index){
-                                            DateTime date = scopeDatesList[index];
-                                            return Container(
-                                              margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                                              padding: const EdgeInsets.all(5.0),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                                                  color: Theme.of(context).scaffoldBackgroundColor
-                                              ),
-                                              child: RichText(
-                                                textAlign: TextAlign.center,
-                                                text: TextSpan(
-                                                    text:"${ DateFormat('dd').format(date)}\n",
-                                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                        fontSize: descriptionFontSize
-                                                    ),
-                                                    children: <TextSpan>[
-                                                      TextSpan(
-                                                        text: DateFormat('MMM yy').format(date),
-                                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                            fontSize: helpTextFontSize
-                                                        ),
-                                                      )
-                                                    ]
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          scrollDirection: Axis.horizontal,
-                                          shrinkWrap:true,
-                                        ),
-                                      ),
-                                    ],
-                                  ) : Container(),
+
                                 ]),
                               ),
                             )

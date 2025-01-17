@@ -6,7 +6,6 @@ class CategoryIconsList {
 
 
   CategoryIconModel getPickedIcon(int id){
-   // IconData pickedIcon = Icons.circle;
     CategoryIconModel pickedIcon = CategoryIconModel(
       icon: Icons.circle,
       name: "",
@@ -25,22 +24,8 @@ class CategoryIconsList {
     }
     return pickedIcon;
   }
-  //ativities
-  //audio
-  //brand
-  //bussiness
-  //text formating
-  //communication
-  //social
-  //ui actions
-  //home
-  //photo & image
-  //security
-  //transport
-  //travel
 
   List<CategoryIconModel> iconsList = [
-    // Istniejące elementy - bez zmian
     CategoryIconModel(id: 1, icon: Icons.shopping_cart, name: "cart", category: "business & payments"),
     CategoryIconModel(id: 2, icon: Icons.phone, name: "phone", category: "communication"),
     CategoryIconModel(id: 3, icon: Icons.edit, name: "edit", category: "text formatting"),

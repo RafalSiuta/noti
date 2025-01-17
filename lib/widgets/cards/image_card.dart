@@ -31,20 +31,6 @@ class ImageAssetCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(cornerRadius - 1)),
           child:
-          // Image.memory(
-          //   img,
-          //   fit: BoxFit.cover,
-          //   width: size,
-          //   height: size,
-          //   filterQuality: FilterQuality.medium,
-          // ),
-          // AssetEntityImage(
-          //   img,
-          //   isOriginal: false,
-          //   // thumbnailSize: option.size,
-          //   // thumbnailFormat: option.format,
-          //   fit: BoxFit.cover,
-          // ),
           Image(
             image: AssetEntityImageProvider(
               img,

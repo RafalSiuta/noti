@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class GalleryImageProvider extends ChangeNotifier {
@@ -47,7 +46,7 @@ class GalleryImageProvider extends ChangeNotifier {
   }
 
   Future<AssetEntity?> _saveImageToGallery(Uint8List imageData) async {
-    //DateTime.now().day;
+
     final AssetEntity? asset = await PhotoManager.editor.saveImage(
         imageData,
         title: 'Noti${imageData.length.toStringAsFixed(4)}',
@@ -68,17 +67,13 @@ class GalleryImageProvider extends ChangeNotifier {
       requestOption: requestOption,
     );
 
-    print("PERMISSION STATE: ${permissionState}");
-
     PhotoManager.setIgnorePermissionCheck(true);
     List<AssetPathEntity> paths = await PhotoManager.getAssetPathList(
-     // onlyAll: true,
+
       type: RequestType.image,
       hasAll: true,
       filterOption: FilterOptionGroup(onlyLivePhotos: true),
     );
-    //todo remove prints:
-    //print("\n###############  ASSETENTITY PATHS: ${paths} ############################\n");
 
     final int count = await PhotoManager.getAssetCount();
 
@@ -89,7 +84,7 @@ class GalleryImageProvider extends ChangeNotifier {
     await album.getAssetListRange(start: 0, end: 200).then((images){
         for(AssetEntity image in images){
           _galleryImages.add(image);
-          //print("\n###############  ENTIETIES: ${images} ############################\n");
+
           notifyListeners();
         }
     });

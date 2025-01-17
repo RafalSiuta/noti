@@ -129,7 +129,7 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                               setDialState(() {
                                 focDay = focusedDay;
                               });
-                            }, // Dodaj domyślną funkcję, gdy onMonthChange jest null
+                            },
                             onFormatChanged: widget.onFormatChanged ?? (_){},
                             startingDayOfWeek: widget.startingDayOfWeek,
                             calendarFormat: widget.calendarFormat,
@@ -146,7 +146,6 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      //Navigator.of(context).pop(),
                       child: Text(
                         'Ok',
                         style: Theme.of(context)

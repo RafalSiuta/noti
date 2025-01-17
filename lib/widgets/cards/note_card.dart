@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/note.dart';
@@ -25,7 +24,7 @@ class NoteCard extends StatelessWidget {
       onTap: edit,
       child: CsShadow(
         shadow: BoxShadow(
-          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+          color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
           offset: const Offset(1, 1),
           blurRadius: 0.5,
         ),
@@ -38,13 +37,11 @@ class NoteCard extends StatelessWidget {
               Container(
 
                 decoration: BoxDecoration(
-                  //color: Theme.of(context).primaryColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomLeft,
                     stops: const [0.0,  1.0],
                     colors: [
-                      //Theme.of(context).primaryColorDark,
                      Theme.of(context).primaryColorLight,
                       Theme.of(context).primaryColor
                     ],
@@ -71,17 +68,6 @@ class NoteCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              // Icon(
-                              //   categoryIcons.iconsList[note.icon!],
-                              //   size: titleFontSize,
-                              //   color: Theme.of(context)
-                              //       .textTheme
-                              //       .displayMedium!
-                              //       .color,
-                              // ),
-                              // const SizedBox(
-                              //   height: 5.0,
-                              // ),
                               Text(
                                 note.title, //capitalTitle,
                                 style: Theme.of(context)

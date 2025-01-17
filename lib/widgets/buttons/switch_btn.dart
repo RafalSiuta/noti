@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions/size_info.dart';
-
 class SwitchBtn extends StatelessWidget {
   const SwitchBtn({
     super.key,

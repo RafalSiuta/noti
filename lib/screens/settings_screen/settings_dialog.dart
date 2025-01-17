@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/note_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/task_provider.dart';
@@ -17,8 +16,6 @@ class SliderDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var sliderValueFontSize = SizeInfo.settingsCardTitleFontSize;
     var paddingVertical = SizeInfo.menuTopMargin;
-    //width: MediaQuery.of(context).size.width - 30,
-         // height: MediaQuery.of(context).size.height / 2.5,
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
         final sets = settingsProvider.trashSets.trashSettings[index];

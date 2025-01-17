@@ -16,19 +16,16 @@ class Art1 extends CustomPainter {
     path.quadraticBezierTo(0, size.height * 1, 0, 0);
     path.close();
 
-    // Tworzenie gradientu
     final gradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: colors,
     );
 
-    // Tworzenie pędzla (Paint) z gradientem
     final paint = Paint()
       ..shader = gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill;
 
-    // Rysowanie ścieżki z gradientem
     canvas.drawPath(path, paint);
 
   }

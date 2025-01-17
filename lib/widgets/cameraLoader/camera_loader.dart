@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/dimensions/size_info.dart';
 
 class CameraScreen extends StatelessWidget {
@@ -33,7 +32,6 @@ class CameraScreen extends StatelessWidget {
               )),
         ),
 
-        ///note if wrap with raw is easier to add another functions to camera shots:
         SizedBox(
           height: cameraIconSize + 12,
           child: IconButton(
