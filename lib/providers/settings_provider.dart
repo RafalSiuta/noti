@@ -124,7 +124,6 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   setCustomTheme(int theme) async {
-   print("CURRENT THEME IS: $theme");
     if(theme >= 0 && theme <= 12){
       theme = themes.themesList.first.id;
     }

@@ -91,7 +91,10 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   void dayCounter(String operator){
     setState(() {
       if(operator == "+"){
-        daysToScope++;
+        if(daysToScope <= 99){
+          daysToScope++;
+        }
+
       } else {
         if(daysToScope <= 1){
           daysToScope = 0;

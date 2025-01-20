@@ -147,7 +147,7 @@ class CategoryIconsList {
     CategoryIconModel(id: 91, icon: Icons.hiking, name: "hiking", category: "travel"),
 
     //ideas
-    CategoryIconModel(id: 91, icon: Icons.lightbulb, name: "lightbulb", category: "ideas"),
+    CategoryIconModel(id: 92, icon: Icons.lightbulb, name: "lightbulb", category: "ideas"),
   ];
 
 }
