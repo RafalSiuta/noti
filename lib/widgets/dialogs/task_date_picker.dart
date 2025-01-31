@@ -46,7 +46,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
 
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
-    DateTime currentDate = startDate;
+    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
     if(daysToScope > 0){
       while (currentDate.isBefore(endDate)) {
         widget.scopeDatesList.add(currentDate);
@@ -58,10 +58,10 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
             currentDate = currentDate.add(Duration(days: 7 * interval));
             break;
           case "month":
-            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day);
+            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
             break;
           case "year":
-            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day);
+            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
             break;
           default:
             throw Exception("Invalid duration category");

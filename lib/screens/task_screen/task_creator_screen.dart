@@ -112,6 +112,7 @@ class _TaskCreatorState extends State<TaskCreator>
   void currentDate(DateTime date, TimeOfDay dayTime){
     setState(() {
       widget.newTask.date = DateTime(date.year,date.month,date.day,dayTime.hour,dayTime.minute);
+
     });
   }
 
@@ -123,10 +124,8 @@ class _TaskCreatorState extends State<TaskCreator>
 
     });
   }
+
   List<DateTime> scopeDatesList = [];
-
-
-
 
   _pickDate(BuildContext context) async {
     DateTime? picked;
@@ -141,6 +140,7 @@ class _TaskCreatorState extends State<TaskCreator>
               setState(() {
                 currentDate(date, time);
                 picked = date;
+
               });
             },
             onMonthChange: (date) {
@@ -154,9 +154,9 @@ class _TaskCreatorState extends State<TaskCreator>
       setState(() {
         TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
         currentDate(picked!, time);
-      });
+    });
     }
-  }
+}
 
 
   _pickTime(BuildContext context) async {
@@ -178,9 +178,20 @@ class _TaskCreatorState extends State<TaskCreator>
     );
     if (selectedTime != null && selectedTime != time) {
       currentDate(widget.newTask.date,selectedTime);
-
+      if(scopeDatesList.isNotEmpty){
+        for (int i = 0; i < scopeDatesList.length; i++) {
+          scopeDatesList[i] = DateTime(
+            scopeDatesList[i].year,
+            scopeDatesList[i].month,
+            scopeDatesList[i].day,
+            selectedTime.hour,
+            selectedTime.minute,
+          );
+        }
+      }
     }
   }
+
   IconData pickedIcon = Icons.circle;
   String pickedIconText = "";
 
@@ -249,7 +260,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
     editTextEnable = widget.editEnable;
 
-    titleVal.text  = widget.newTask.title.isNotEmpty
+    titleVal.text = widget.newTask.title.isNotEmpty
         ? widget.newTask.title[0].toUpperCase() + widget.newTask.title.substring(1)
         : '';
     titleVal.selection = TextSelection.fromPosition(
@@ -430,6 +441,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                         setState(() {
                                           widget.newTask.title = newText;
                                           cursorPlace(titleVal,newText);
+
                                         });
                                       },
                                       cursorColor: Theme.of(context)
@@ -494,9 +506,12 @@ class _TaskCreatorState extends State<TaskCreator>
                                       },
                                       onChanged: (newText) {
                                         setState(() {
-                                          widget.newTask.description =
-                                              newText;
-                                          cursorPlace(descVal,newText);
+                                          if(newText.isNotEmpty){
+                                            widget.newTask.description =
+                                                newText;
+                                            cursorPlace(descVal,newText);
+                                          }
+
                                         });
                                       },
                                       cursorColor: Theme.of(context)
@@ -550,7 +565,6 @@ class _TaskCreatorState extends State<TaskCreator>
 
                                 }else{
                                   taskProvider.addMultipleTasks(widget.newTask,scopeDatesList);
-
 
                                 }
 

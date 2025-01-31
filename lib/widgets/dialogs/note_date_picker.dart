@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
-import '../../utils/dimensions/size_info.dart';
-import '../calendar/date_calendar.dart';
+  import 'package:intl/intl.dart';
+  import 'package:table_calendar/table_calendar.dart';
+  import '../../utils/dimensions/size_info.dart';
+  import '../calendar/date_calendar.dart';
 
-class NoteDatePickerDial extends StatefulWidget {
+  class NoteDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
   final Function(DateTime, TimeOfDay) onDateSelected;
   final StartingDayOfWeek startingDayOfWeek;

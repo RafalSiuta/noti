@@ -1,95 +1,95 @@
 import 'dart:typed_data';
-import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../providers/gallery_image_provider.dart';
-import '../../utils/dimensions/size_info.dart';
-import '../cameraLoader/camera_loader.dart';
-import '../cards/image_card.dart';
+    import 'package:camera/camera.dart';
+    import 'package:flutter/material.dart';
+    import 'package:provider/provider.dart';
+    import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+    import '../../providers/gallery_image_provider.dart';
+    import '../../utils/dimensions/size_info.dart';
+    import '../cameraLoader/camera_loader.dart';
+    import '../cards/image_card.dart';
 
-class GallerySheet extends StatefulWidget {
-  const GallerySheet({super.key, required this.pickImage});
+    class GallerySheet extends StatefulWidget {
+    const GallerySheet({super.key, required this.pickImage});
 
-  final Function(Uint8List img) pickImage;
+    final Function(Uint8List img) pickImage;
 
-  @override
-  State<GallerySheet> createState() => _GallerySheetState();
-}
+    @override
+    State<GallerySheet> createState() => _GallerySheetState();
+    }
 
-class _GallerySheetState extends State<GallerySheet>
+    class _GallerySheetState extends State<GallerySheet>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int currentPage = 0;
-  int? lastPage;
-  bool expand = true;
+    late TabController _tabController;
+    int currentPage = 0;
+    int? lastPage;
+    bool expand = true;
 
-  late CameraController _cameraController;
-  bool _isInited = false;
+    late CameraController _cameraController;
+    bool _isInited = false;
 
-  @override
-  void initState() {
+    @override
+    void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
-      setState(() {
-        currentPage = _tabController.index;
-      });
+    setState(() {
+    currentPage = _tabController.index;
+    });
     });
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await availableCameras().then((value) {
-        _cameraController = CameraController(value[0], ResolutionPreset.medium);
-        _cameraController.initialize().then((value) => {
-              setState(() {
-                _isInited = true;
-              })
-            });
-      });
+    await availableCameras().then((value) {
+    _cameraController = CameraController(value[0], ResolutionPreset.medium);
+    _cameraController.initialize().then((value) => {
+    setState(() {
+    _isInited = true;
+    })
     });
-  }
+    });
+    });
+    }
 
-  @override
-  void dispose() {
+    @override
+    void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     var tabTitleSize = SizeInfo.noteCardTitle;
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pop();
-      },
-      child: Container(
-        color: Colors.transparent,
-        child: DraggableScrollableSheet(
-            initialChildSize: .5,
-            minChildSize: .1,
-            maxChildSize: .8,
-            expand: expand,
-            builder: (context, scrollController) {
-              final txtStyle = Theme.of(context)
-                  .textTheme
-                  .bodyMedium;
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
-                decoration: BoxDecoration(
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(20)),
-                    color: Theme.of(context).colorScheme.onSurface),
-                child:
-                Consumer<GalleryImageProvider>(
-                  builder: (context, imageProvider, child) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: TabBarView(
-                            physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics(),
-                            ),
+    onTap: () {
+    Navigator.of(context).pop();
+    },
+    child: Container(
+    color: Colors.transparent,
+    child: DraggableScrollableSheet(
+    initialChildSize: .5,
+    minChildSize: .1,
+    maxChildSize: .8,
+    expand: expand,
+    builder: (context, scrollController) {
+    final txtStyle = Theme.of(context)
+        .textTheme
+        .bodyMedium;
+    return Container(
+    padding:
+    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+    decoration: BoxDecoration(
+    borderRadius:
+    const BorderRadius.vertical(top: Radius.circular(20)),
+    color: Theme.of(context).colorScheme.onSurface),
+    child:
+    Consumer<GalleryImageProvider>(
+    builder: (context, imageProvider, child) {
+    return Column(
+    children: [
+    Expanded(
+    child: TabBarView(
+    physics: const BouncingScrollPhysics(
+    parent: AlwaysScrollableScrollPhysics(),
+    ),
                             controller: _tabController,
                             children: [
                               NotificationListener<ScrollNotification>(
