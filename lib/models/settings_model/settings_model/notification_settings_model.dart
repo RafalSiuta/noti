@@ -2,10 +2,7 @@ import 'dart:collection';
 
 import 'package:noti/models/settings_model/settings_model/settings_model.dart';
 
-<<<<<<< HEAD
-=======
 
->>>>>>> main/main
 class NotificationSettings {
   List<SettingsModel> notificationSettings = [
     SettingsModel(

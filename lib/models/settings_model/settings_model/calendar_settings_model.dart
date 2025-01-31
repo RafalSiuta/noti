@@ -1,8 +1,5 @@
 import 'dart:collection';
-<<<<<<< HEAD
 
-=======
->>>>>>> main/main
 import 'package:noti/models/settings_model/settings_model/settings_model.dart';
 
 class CalendarSettings {
