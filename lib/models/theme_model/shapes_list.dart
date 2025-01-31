@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/widgets.dart';
 
+import '../../styles/shapes/shape_paths/shape5.dart';
 import '../../styles/shapes/shape_paths/shapes_exports.dart';
 
 class ShapesList {

@@ -2,6 +2,10 @@ import 'dart:collection';
 
 import 'package:noti/models/settings_model/settings_model/settings_model.dart';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main/main
 class NoteSettings {
   List<SettingsModel> noteSettings = [
     SettingsModel(
