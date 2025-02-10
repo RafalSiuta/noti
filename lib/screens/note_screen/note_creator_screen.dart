@@ -320,13 +320,11 @@ class _NoteCreatorState extends State<NoteCreator>
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.center,
+                                              spacing: 5,
                                               children: [
                                                 Icon(
                                                   pickedIcon,
                                                   size: navIconSize,
-                                                ),
-                                                const SizedBox(
-                                                  height: 5,
                                                 ),
                                                 Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor),)
 
