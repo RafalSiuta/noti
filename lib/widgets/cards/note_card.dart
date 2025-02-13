@@ -37,6 +37,7 @@ class NoteCard extends StatelessWidget {
               Container(
 
                 decoration: BoxDecoration(
+
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomLeft,
@@ -53,9 +54,10 @@ class NoteCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: 5.0, top: isGrid ? 12 : 8.0, right: 5.0, bottom: 3.0),
+                      left: 5.0, top: 5.0, right: 6.5, bottom: 3.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
+
 
                   ),
                   child: Column(
@@ -67,6 +69,7 @@ class NoteCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
+                            spacing: 3.5,
                             children: [
                               Text(
                                 note.title, //capitalTitle,
@@ -101,9 +104,6 @@ class NoteCard extends StatelessWidget {
                                 textAlign: TextAlign.left,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(
-                                height: 2.0,
-                              ),
                               note.image != null && note.image!.isNotEmpty
                                   ? ImageCard(
                                 img: note.image!,
@@ -131,7 +131,7 @@ class NoteCard extends StatelessWidget {
                             DateFormat('dd MMM yy').format(note.date),
                             style: Theme.of(context)
                                 .textTheme
-                                .displaySmall!
+                                .bodyMedium!
                                 .copyWith(fontSize: contentFontSize),
                           ),
                         ),

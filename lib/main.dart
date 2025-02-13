@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
@@ -14,13 +15,46 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'database/database_helper.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Future<int> getAndroidVersion() async {
+    if (Platform.isAndroid) {
+      final deviceInfo = DeviceInfoPlugin();
+      final androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.version.sdkInt;
+    }
+    return 0;
+  }
+
+  final int androidVersion = await getAndroidVersion();
+
+  if (Platform.isAndroid && androidVersion >= 35) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: null,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+  } else {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  }
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   await DatabaseHelper.databaseHelper.initializeHive();
   await NotificationsHelper().init();
+
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -29,23 +63,11 @@ void main() async {
 
 }
 
-
-
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
 
-    WidgetsFlutterBinding.ensureInitialized(); // add this line
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(

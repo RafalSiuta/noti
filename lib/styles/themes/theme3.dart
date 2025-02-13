@@ -27,14 +27,14 @@ final theme3PickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       color: theme3PickerTextColor,
       fontSize: 12,
-      fontWeight: FontWeight.w100),
+      fontWeight: FontWeight.w200),
 );
 
 final theme3PickersTitleTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       color: theme3BaseTextColor,
       fontSize: 18,
-      fontWeight: FontWeight.w100),
+      fontWeight: FontWeight.w200),
 );
 //TEXT STYLES:
 //headers:
@@ -67,7 +67,7 @@ final TextStyle theme3ContentTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme3BaseTextColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w200,
       decoration: TextDecoration.none),
 );
 //unselected text (is done):
@@ -75,7 +75,7 @@ final TextStyle theme3UnselectedTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 12,
       color: theme3UnselectedColor,
-      fontWeight: FontWeight.w100,
+      fontWeight: FontWeight.w200,
       decorationColor: theme3UnselectedColor,
       decoration: TextDecoration.lineThrough),
 );
@@ -85,7 +85,7 @@ final theme3CalendarDayWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme3IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme3DividerColor));
 
 //next month text style:
@@ -93,14 +93,14 @@ final theme3CalendarNextMonthTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme3BaseTextColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme3UnselectedColor));
 
 final theme3CalendarWeekendTextStyle = GoogleFonts.exo2(
     textStyle: const TextStyle(
         fontSize: 12,
         color: theme3IndicatorColor,
-        fontWeight: FontWeight.w100,
+        fontWeight: FontWeight.w200,
         decorationColor: theme3DividerColor));
 
 
@@ -247,7 +247,7 @@ final theme3 = ThemeData(
           textStyle: const TextStyle(
               color: theme3BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
@@ -258,7 +258,7 @@ final theme3 = ThemeData(
             textStyle: const TextStyle(
                 color: theme3BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -334,7 +334,7 @@ final theme3 = ThemeData(
           textStyle: const TextStyle(
               color: theme3BaseTextColor,
               fontSize: 12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w200),
         ),),
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
       ),
@@ -345,7 +345,7 @@ final theme3 = ThemeData(
             textStyle: const TextStyle(
                 color: theme3BaseTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w100),
+                fontWeight: FontWeight.w200),
           ),),
           padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
@@ -406,14 +406,14 @@ final theme3 = ThemeData(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme3UnselectedColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
       labelStyle: GoogleFonts.exo2(
         textStyle: const TextStyle(
             fontSize: 12,
             color: theme3BaseTextColor,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w200,
             decoration: TextDecoration.none),
       ),
     ),

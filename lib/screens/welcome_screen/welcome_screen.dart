@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         direction: AxisDirection.right));
               },
             ),
-            Expanded(flex: 5, child: TaskList()),
+            Expanded(flex: 6, child: TaskList()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: .0),
               child: Divider(
@@ -73,11 +73,11 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: NoteList(),
             ),
             SizedBox(
-              height: 8.0,
+              height: 5.0,
             )
           ],
         ),

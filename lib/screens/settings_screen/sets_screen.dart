@@ -123,7 +123,7 @@ class SetsScreen extends StatelessWidget {
                     return SettingsCard(
                       title: trashSets.title!,
                       description: trashSets.description!,
-                      child: SwitchBtn(
+                      child: index <= 1 ? SwitchBtn(
                           iconData: Icons.circle,
                           iconSize: switchIconSize,
                           value: trashSets.isOn,
@@ -140,7 +140,7 @@ class SetsScreen extends StatelessWidget {
                                 taskProvider.loadTaskListFromSettings(0, false);
                               }
                             }
-                          }),
+                          }): Icon(Icons.delete_forever),
                     );
                   },
                 ),

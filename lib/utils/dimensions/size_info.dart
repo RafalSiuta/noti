@@ -67,7 +67,7 @@ class SizeInfo {
   ///note dimens:
   static double noteCardImageSize = 50;
   static double noteCardTitle = 12;
-  static double noteCardContent = 7.0;
+  static double noteCardContent = 8.0;
   static double noteLeftPadding = 16;
   static double scaleCard = 0.9;
   static double verticalTextPadding = 12.0;

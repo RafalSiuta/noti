@@ -1,3 +1,4 @@
+
 class TrashModel {
   String? title;
   String? description;
@@ -8,13 +9,13 @@ class TrashModel {
       {required this.title,
       required this.description,
       this.isOn = false,
-      this.sliderValue});
+      this.sliderValue,});
 
   Map<String, Object?> toMap() {
     var map = <String, dynamic>{
       'title': title,
       'description': description,
-      'slider_value': sliderValue
+      'slider_value': sliderValue,
     };
     if (isOn != null) {
       if (isOn == true) {

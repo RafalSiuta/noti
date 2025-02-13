@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:noti/models/settings_model/trash_settings_model/trash_model.dart';
 
 class TrashSettings {
@@ -8,12 +7,23 @@ class TrashSettings {
         title: "Delete notes",
         description: "Delete old notes after (date)",
         sliderValue: 0,
-        isOn: false),
+        isOn: false,
+    ),
     TrashModel(
         title: "Delete tasks",
         description: "Delete old tasks after (date)",
         sliderValue: 0,
-        isOn: false),
+        isOn: false,),
+    TrashModel(
+      title: "Delete all tasks",
+      description: "Delete all tasks permanently",
+      sliderValue: 0,
+      isOn: false,),
+    TrashModel(
+      title: "Delete all notes",
+      description: "Delete all notes permanently",
+      sliderValue: 0,
+      isOn: false,),
   ];
 
   UnmodifiableListView<TrashModel> get trashSettingsList {

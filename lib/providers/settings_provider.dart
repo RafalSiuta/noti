@@ -339,7 +339,7 @@ class SettingsProvider extends ChangeNotifier {
 
   loadSets() async {
 
-
+    await _prefs.storeList('trashSettings', trashSets.trashSettings);
     updateCalendarSettings();
     themeData = await loadTheme();
     shapes = await loadShape();
