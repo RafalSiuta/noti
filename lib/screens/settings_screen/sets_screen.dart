@@ -1,5 +1,6 @@
 import 'package:noti/screens/settings_screen/settings_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/widgets/buttons/icon_button.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider.dart';
 import '../../providers/settings_provider.dart';
@@ -21,6 +22,7 @@ class SetsScreen extends StatelessWidget {
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
     var headerHeight = SizeInfo.sliverHeaderHeight;
+    var btnPadding = SizeInfo.edgePadding;
 
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
@@ -133,14 +135,24 @@ class SetsScreen extends StatelessWidget {
                               _pickDate(context, index);
                             } else {
                               settingsProvider.cancelDeleteSettings(index);
-                              if (index == 0) {
+                              if (index == 0 && trashSets.isOn == true) {
                                 noteProvider.loadNoteListBySettingsValues(
                                     0, false);
-                              } else {
+                              } else if(index == 1 && trashSets.isOn == true){
                                 taskProvider.loadTaskListFromSettings(0, false);
                               }
                             }
-                          }): Icon(Icons.delete_forever),
+                          }): IconButton(
+                              icon: Icon(Icons.delete_forever),
+                              onPressed: (){
+                                _warringAlert(context, index);
+                                // if(index == 2){
+                                //   taskProvider.deleteAllTasks();
+                                // }else if(index == 3){
+                                //   noteProvider.deleteAllNotes();
+                                // }
+                              },
+                      ),
                     );
                   },
                 ),
@@ -162,6 +174,41 @@ class SetsScreen extends StatelessWidget {
               child: SliderDialog(
                 index: index,
               ));
+        });
+  }
+
+  static _warringAlert(BuildContext context, int index) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CustomDial(
+              title: 'Warring !!!',
+              isBtnVisible: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 5.0,
+                children: [
+                  Icon(Icons.warning_rounded, color: Theme.of(context).colorScheme.primaryFixed,),
+                  Text("This action will delete all ${index == 2 ? "task" : "note"} data permanently!!!", style: Theme.of(context).textTheme.bodyMedium,),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: (){
+                          Navigator.pop(context);
+                      }, child: Text('cancel',style: Theme.of(context).textTheme.bodyMedium)
+                      ),
+                      TextButton(
+                          onPressed: (){
+
+                          }, child: Text('confirm',style: Theme.of(context).textTheme.bodyMedium)
+                      ),
+                    ],
+                  )
+
+                ],
+              )
+          );
         });
   }
 }

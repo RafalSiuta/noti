@@ -53,19 +53,19 @@ class NoteProvider extends ChangeNotifier {
     return _noteList.length;
   }
 
-  void testNoteDb(Note note, String message){
-    print("####### $message -> NOTE ID: ${note.id}\nTITLE: ${note.title} KEEP ${note.keep}");
-  }
+  // void testNoteDb(Note note, String message){
+  //   print("####### $message -> NOTE ID: ${note.id}\nTITLE: ${note.title} KEEP ${note.keep}");
+  // }
 
   void addNote(Note note) async {
 
     //todo: remove prints:
     if(note.isInBox){
       await _dbHelper.updateNote(note);
-      testNoteDb(note, "NOTE WAS UPDATED");
+      //testNoteDb(note, "NOTE WAS UPDATED");
     }else{
       await _dbHelper.addNote(note);
-      testNoteDb(note, "NEW NOTE WAS ADDED");
+      //testNoteDb(note, "NEW NOTE WAS ADDED");
     }
 
      getNoteDbList();
@@ -141,5 +141,16 @@ class NoteProvider extends ChangeNotifier {
       });
     }
     notifyListeners();
+  }
+
+  Future<List<Note>> deleteAllNotes() async{
+    List<Note> list = _dbHelper.getAllNotes();
+
+    for(Note note in list){
+      deleteNote(note);
+    }
+
+    notifyListeners();
+    return list;
   }
 }

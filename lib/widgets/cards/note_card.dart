@@ -35,7 +35,6 @@ class NoteCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-
                 decoration: BoxDecoration(
 
                   gradient: LinearGradient(
@@ -49,12 +48,12 @@ class NoteCard extends StatelessWidget {
                   ),
 
                 ),
-                width: isGrid ? leftPadding : leftPadding - 8,
+                width: isGrid ? leftPadding - 2 : leftPadding - 6,
               ),
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: 5.0, top: 5.0, right: 6.5, bottom: 3.0),
+                      left: 5.0, top: 5.0, right: isGrid ? 8.0 : 12.0, bottom: 3.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
 
@@ -126,7 +125,7 @@ class NoteCard extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
                           child: Text(
                             DateFormat('dd MMM yy').format(note.date),
                             style: Theme.of(context)

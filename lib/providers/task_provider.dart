@@ -252,19 +252,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Task>> getAllTasksToDelete(DateTime date) async {
-
-    List<Task> tempList = _dbHelper.getAllTasks();
-    for (var taskItem in tempList) {
-      if(DateTime(taskItem.date.year, taskItem.date.month, 1).isBefore(date)){
-        deleteTask(taskItem);
-      }
-    }
-
-    notifyListeners();
-    return tempList;
-  }
-
   Future<List<Task>> getTaskDbList() async {
 
     _taskList = _dbHelper.getAllTasks();
@@ -293,6 +280,28 @@ class TaskProvider extends ChangeNotifier {
         loadTaskListFromSettings(taskMonthsToDelete, isTaskToDelete);
       });
     });
+  }
+
+  Future<List<Task>> getAllTasksToDelete(DateTime date) async {
+
+    List<Task> tempList = _dbHelper.getAllTasks();
+    for (var taskItem in tempList) {
+      if(DateTime(taskItem.date.year, taskItem.date.month, 1).isBefore(date)){
+        deleteTask(taskItem);
+      }
+    }
+
+    notifyListeners();
+    return tempList;
+  }
+
+  Future<List<Task>> deleteAllTasks() async{
+    List<Task> list = _dbHelper.getAllTasks();
+    for (var taskItem in list){
+      deleteTask(taskItem);
+    }
+    notifyListeners();
+    return list;
   }
 
 }
