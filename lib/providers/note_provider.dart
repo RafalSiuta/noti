@@ -62,10 +62,8 @@ class NoteProvider extends ChangeNotifier {
     //todo: remove prints:
     if(note.isInBox){
       await _dbHelper.updateNote(note);
-      //testNoteDb(note, "NOTE WAS UPDATED");
     }else{
       await _dbHelper.addNote(note);
-      //testNoteDb(note, "NEW NOTE WAS ADDED");
     }
 
      getNoteDbList();
@@ -149,6 +147,13 @@ class NoteProvider extends ChangeNotifier {
     for(Note note in list){
       deleteNote(note);
     }
+
+    notifyListeners();
+    return list;
+  }
+
+  Future<List<Note>> getAllDataNotes() async {
+    List<Note> list = _dbHelper.getAllNotes();
 
     notifyListeners();
     return list;

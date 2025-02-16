@@ -304,4 +304,10 @@ class TaskProvider extends ChangeNotifier {
     return list;
   }
 
+  Future<List<Task>> getAllTasks() async{
+    List<Task> list = _dbHelper.getAllTasks();
+    notifyListeners();
+    return list;
+  }
+
 }

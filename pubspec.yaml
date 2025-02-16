@@ -56,6 +56,10 @@ flutter:
     - assets/images/
     - assets/sounds/sound.wav
 
+#todo: remove before publish:
+    - assets/data/tasks_notes.json
+
+
 
   fonts:
     - family: NotiSystemIcons
