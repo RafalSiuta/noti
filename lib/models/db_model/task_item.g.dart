@@ -21,7 +21,7 @@ class TaskItemAdapter extends TypeAdapter<TaskItem> {
       title: fields[3] as String,
       text: fields[1] as String,
       isDone: fields[2] as bool,
-      image: fields[4] as dynamic,
+      image: fields[4] as Uint8List?,
     );
   }
 

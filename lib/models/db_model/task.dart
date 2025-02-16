@@ -33,6 +33,8 @@ class Task extends HiveObject {
   @HiveField(8)
   Uint8List? image;
 
+  @HiveField(9)
+  bool? isNotification;
 
   Task({
     String? id,
@@ -43,10 +45,9 @@ class Task extends HiveObject {
     required this.description,
     required this.date,
     this.items,
-    this.image
+    this.image,
+    this.isNotification
   }): id = id ?? makeId();
-
-
 
   void toggleTask() {
     isTaskDone = !isTaskDone;

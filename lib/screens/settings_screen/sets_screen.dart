@@ -1,6 +1,7 @@
 import 'package:noti/screens/settings_screen/settings_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:noti/widgets/buttons/icon_button.dart';
+import 'package:noti/widgets/dialogs/warring_alert.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider.dart';
 import '../../providers/settings_provider.dart';
@@ -145,12 +146,14 @@ class SetsScreen extends StatelessWidget {
                           }): IconButton(
                               icon: Icon(Icons.delete_forever),
                               onPressed: (){
-                                _warringAlert(context, index);
-                                // if(index == 2){
-                                //   taskProvider.deleteAllTasks();
-                                // }else if(index == 3){
-                                //   noteProvider.deleteAllNotes();
-                                // }
+                                _warringAlert(context, index, (){
+                                  if(index == 2){
+                                    taskProvider.deleteAllTasks();
+                                  }else if(index == 3){
+                                    noteProvider.deleteAllNotes();
+                                  }
+                                });
+
                               },
                       ),
                     );
@@ -164,7 +167,7 @@ class SetsScreen extends StatelessWidget {
     );
   }
 
-  static _pickDate(BuildContext context, int index) {
+  static _pickDate(BuildContext context, int index, ) {
     showDialog(
         context: context,
         builder: (context) {
@@ -177,38 +180,43 @@ class SetsScreen extends StatelessWidget {
         });
   }
 
-  static _warringAlert(BuildContext context, int index) {
+  static _warringAlert(BuildContext context, int index,VoidCallback confirm) {
     showDialog(
         context: context,
         builder: (context) {
-          return CustomDial(
-              title: 'Warring !!!',
-              isBtnVisible: false,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: 5.0,
-                children: [
-                  Icon(Icons.warning_rounded, color: Theme.of(context).colorScheme.primaryFixed,),
-                  Text("This action will delete all ${index == 2 ? "task" : "note"} data permanently!!!", style: Theme.of(context).textTheme.bodyMedium,),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: (){
-                          Navigator.pop(context);
-                      }, child: Text('cancel',style: Theme.of(context).textTheme.bodyMedium)
-                      ),
-                      TextButton(
-                          onPressed: (){
-
-                          }, child: Text('confirm',style: Theme.of(context).textTheme.bodyMedium)
-                      ),
-                    ],
-                  )
-
-                ],
-              )
-          );
+          return
+            WarringAlert(
+              message: "This action will delete all ${index == 2 ? "tasks" : "notes"} data permanently !!!",
+              onConfirm: confirm
+            );
+          //   CustomDial(
+          //     title: 'Warring !!!',
+          //     isBtnVisible: false,
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       spacing: 5.0,
+          //       children: [
+          //         Icon(Icons.warning_rounded, color: Theme.of(context).colorScheme.primaryFixed,),
+          //         Text("This action will delete all ${index == 2 ? "task" : "note"} data permanently!!!", style: Theme.of(context).textTheme.bodyMedium,),
+          //         Row(
+          //           children: [
+          //             TextButton(
+          //                 onPressed: (){
+          //                 Navigator.pop(context);
+          //             }, child: Text('cancel',style: Theme.of(context).textTheme.bodyMedium)
+          //             ),
+          //             TextButton(
+          //                 onPressed: (){
+          //
+          //                 }, child: Text('confirm',style: Theme.of(context).textTheme.bodyMedium)
+          //             ),
+          //           ],
+          //         )
+          //
+          //       ],
+          //     )
+          // );
         });
   }
 }

@@ -26,13 +26,14 @@ class TaskAdapter extends TypeAdapter<Task> {
       date: fields[6] as DateTime,
       items: (fields[7] as List?)?.cast<TaskItem>(),
       image: fields[8] as Uint8List?,
+      isNotification: fields[9] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(7)
       ..write(obj.items)
       ..writeByte(8)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(9)
+      ..write(obj.isNotification);
   }
 
   @override

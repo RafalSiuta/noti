@@ -88,8 +88,16 @@ class MyApp extends StatelessWidget {
             create: (context) => NoteProvider(Provider.of<SettingsProvider>(context, listen: false)),
             update: (context, SettingsProvider settings, calendar) => NoteProvider(settings),
           ),
-          ChangeNotifierProvider(
-            create: (context) => HomeProvider(),
+          // ChangeNotifierProvider(
+          //   create: (context) => HomeProvider(),
+          // ),
+          ChangeNotifierProxyProvider2<TaskProvider, NoteProvider, HomeProvider>(
+            create: (context) => HomeProvider(
+              taskProvider: Provider.of<TaskProvider>(context, listen: false),
+              noteProvider: Provider.of<NoteProvider>(context, listen: false),
+            ),
+            update: (context, taskProvider, noteProvider, homeProvider) =>
+                HomeProvider(taskProvider: taskProvider, noteProvider: noteProvider),
           ),
         ],
         child: Consumer<SettingsProvider>(
