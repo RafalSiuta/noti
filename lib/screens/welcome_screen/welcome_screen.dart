@@ -77,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
               child: NoteList(),
             ),
             SizedBox(
-              height: 5.0,
+              height: 10.0,
             )
           ],
         ),
