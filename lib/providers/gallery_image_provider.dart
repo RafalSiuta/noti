@@ -47,7 +47,7 @@ class GalleryImageProvider extends ChangeNotifier {
 
   Future<AssetEntity?> _saveImageToGallery(Uint8List imageData) async {
 
-    final AssetEntity? asset = await PhotoManager.editor.saveImage(
+    final AssetEntity asset = await PhotoManager.editor.saveImage(
         imageData,
         title: 'Noti${imageData.length.toStringAsFixed(4)}',
         filename: "noti${imageData.length.toStringAsFixed(2)}.jpg"
@@ -55,39 +55,93 @@ class GalleryImageProvider extends ChangeNotifier {
     return asset;
   }
 
+  int selectedAlbum = 0;
 
-  Future<List<AssetEntity>> getGalleryImages() async {
-    final PermissionRequestOption requestOption = PermissionRequestOption(
-      androidPermission: const AndroidPermission(
-        type: RequestType(1),
-        mediaLocation: false,
+  List<AssetPathEntity> _albums = [];
+
+  int get albumsListCounter {
+    return _albums.length;
+  }
+
+  UnmodifiableListView<AssetPathEntity> get albumsList {
+    return UnmodifiableListView(_albums);
+  }
+
+  void onAlbumChoose(int index){
+    selectedAlbum = index;
+    getGalleryImages();
+    notifyListeners();
+  }
+
+  Future<void> fetchAlbums() async {
+    final PermissionState permissionState = await PhotoManager.requestPermissionExtend(
+      requestOption: PermissionRequestOption(
+        androidPermission: const AndroidPermission(
+          type: RequestType(1),
+          mediaLocation: false,
+        ),
       ),
     );
-    final PermissionState permissionState = await PhotoManager.requestPermissionExtend(
-      requestOption: requestOption,
-    );
 
-    PhotoManager.setIgnorePermissionCheck(true);
-    List<AssetPathEntity> paths = await PhotoManager.getAssetPathList(
+    if (!permissionState.hasAccess) return;
 
+    _albums = await PhotoManager.getAssetPathList(
       type: RequestType.image,
       hasAll: true,
-      filterOption: FilterOptionGroup(onlyLivePhotos: true),
     );
 
-    final int count = await PhotoManager.getAssetCount();
-
-    AssetPathEntity album = paths.firstWhere(
-          (album) => album.name == "Recent",
-      orElse: () => paths.first,
-    );
-    await album.getAssetListRange(start: 0, end: 200).then((images){
-        for(AssetEntity image in images){
-          _galleryImages.add(image);
-
-          notifyListeners();
-        }
-    });
-    return _galleryImages;
+    notifyListeners();
   }
+
+  Future<void> getGalleryImages() async {
+
+    if (_albums.isEmpty) {
+      await fetchAlbums();
+    }
+
+    if (_albums.isEmpty) return; // secure problems in case is no albums
+
+    AssetPathEntity album = _albums[selectedAlbum];
+
+    final images = await album.getAssetListRange(start: 0, end: 200);
+
+    _galleryImages = images;
+    notifyListeners();
+  }
+
+
+  // Future<List<AssetEntity>> getGalleryImages() async {
+  //   final PermissionRequestOption requestOption = PermissionRequestOption(
+  //     androidPermission: const AndroidPermission(
+  //       type: RequestType(1),
+  //       mediaLocation: false,
+  //     ),
+  //   );
+  //   final PermissionState permissionState = await PhotoManager.requestPermissionExtend(
+  //     requestOption: requestOption,
+  //   );
+  //
+  //   PhotoManager.setIgnorePermissionCheck(true);
+  //   List<AssetPathEntity> paths = await PhotoManager.getAssetPathList(
+  //
+  //     type: RequestType.image,
+  //     hasAll: true,
+  //     filterOption: FilterOptionGroup(onlyLivePhotos: true),
+  //   );
+  //
+  //   final int count = await PhotoManager.getAssetCount();
+  //
+  //   AssetPathEntity album = paths.firstWhere(
+  //         (album) => album.name == "Recent",
+  //     orElse: () => paths.first,
+  //   );
+  //   await album.getAssetListRange(start: 0, end: 200).then((images){
+  //       for(AssetEntity image in images){
+  //         _galleryImages.add(image);
+  //
+  //         notifyListeners();
+  //       }
+  //   });
+  //   return _galleryImages;
+  // }
 }

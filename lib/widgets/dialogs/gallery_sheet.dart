@@ -29,7 +29,10 @@ class _GallerySheetState extends State<GallerySheet>
   bool _isInit = false;
   bool _isFlashOn = false;
 
+  final DraggableScrollableController _scrollableController = DraggableScrollableController();
 
+  bool isFullyCollapsed = false;
+  double opacityLevel = 1.0;
 
   @override
   void initState() {
@@ -40,6 +43,28 @@ class _GallerySheetState extends State<GallerySheet>
       });
     });
     super.initState();
+    _scrollableController.addListener(() {
+      double currentSize = _scrollableController.size;
+      //double minSize = 0.1;
+
+      if(currentSize <= 2.5){
+        setState(() {
+          opacityLevel = 0.0;
+        });
+      }
+
+      if (currentSize <= 0.18) {
+        setState(() {
+          isFullyCollapsed = true;
+
+        });
+      } else {
+        setState(() {
+          isFullyCollapsed = false;
+          opacityLevel = 1.0;
+        });
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await availableCameras().then((value) {
@@ -67,6 +92,7 @@ class _GallerySheetState extends State<GallerySheet>
   Widget build(BuildContext context) {
     var tabTitleSize = SizeInfo.noteCardTitle;
     var bottomSheetBorderRadius = 20.0;
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pop();
@@ -74,7 +100,8 @@ class _GallerySheetState extends State<GallerySheet>
       child: Container(
         color: Colors.transparent,
         child: DraggableScrollableSheet(
-            initialChildSize: .5,
+            controller: _scrollableController,
+            initialChildSize: .6,
             minChildSize: .1,
             maxChildSize: .8,
             expand: expand,
@@ -100,6 +127,7 @@ class _GallerySheetState extends State<GallerySheet>
                               children: [
                                 NotificationListener<ScrollNotification>(
                                   onNotification: (ScrollNotification scroll) {
+
                                     if (scroll.metrics.pixels /
                                             scroll.metrics.maxScrollExtent >
                                         0.4) {
@@ -110,61 +138,96 @@ class _GallerySheetState extends State<GallerySheet>
                                     }
                                     return true;
                                   },
-                                  child: AnimationLimiter(
-                                    child: GridView.builder(
-                                      controller: scrollController,
-                                      physics: const BouncingScrollPhysics(
-                                        parent: AlwaysScrollableScrollPhysics(),
-                                      ),
-                                      shrinkWrap: true,
-                                      padding:  EdgeInsets.all(cameraPadding),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        mainAxisSpacing: 5.0,
-                                        crossAxisSpacing: 5.0,
-                                      ),
-                                      itemCount: imageProvider.imageListCounter,
-                                      itemBuilder: (context, index) {
-                                        if (imageProvider.imageList.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              'Loading images',
-                                              style: txtStyle,
-                                            ),
-                                          );
-                                        } else {
-                                          final img =
-                                              imageProvider.imageList[index];
 
-                                          return AnimationConfiguration
-                                              .staggeredGrid(
-                                            columnCount: 3,
-                                            position: index,
-                                            duration: const Duration(
-                                                milliseconds: 374),
-                                            child: ScaleAnimation(
-                                              scale: 0.5,
-                                              child: FadeInAnimation(
-                                                child: ImageAssetCard(
-                                                  img: img,
-                                                  onTap: () async {
-                                                    img.file.then((value) {
-                                                      if (value != null) {
-                                                        return widget.pickImage(
-                                                            value
-                                                                .readAsBytesSync());
-                                                      }
-                                                    });
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ),
+                                  child: Column(
+                                    mainAxisAlignment:MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: AnimationLimiter(
+                                          child: GridView.builder(
+                                            controller: scrollController,
+                                            physics: const BouncingScrollPhysics(
+                                              parent: AlwaysScrollableScrollPhysics(),
                                             ),
-                                          );
-                                        }
-                                      },
-                                    ),
+                                            shrinkWrap: true,
+                                            padding:  EdgeInsets.all(cameraPadding),
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing: 5.0,
+                                              crossAxisSpacing: 5.0,
+                                            ),
+                                            itemCount: imageProvider.imageListCounter,
+                                            itemBuilder: (context, index) {
+                                              if (imageProvider.imageList.isEmpty) {
+                                                return Center(
+                                                  child: Text(
+                                                    'Loading images',
+                                                    style: txtStyle,
+                                                  ),
+                                                );
+                                              } else {
+                                                final img =
+                                                    imageProvider.imageList[index];
+
+                                                return AnimationConfiguration
+                                                    .staggeredGrid(
+                                                  columnCount: 3,
+                                                  position: index,
+                                                  duration: const Duration(
+                                                      milliseconds: 374),
+                                                  child: ScaleAnimation(
+                                                    scale: 0.5,
+                                                    child: FadeInAnimation(
+                                                      child: ImageAssetCard(
+                                                        img: img,
+                                                        onTap: () async {
+                                                          img.file.then((value) {
+                                                            if (value != null) {
+                                                              return widget.pickImage(
+                                                                  value
+                                                                      .readAsBytesSync());
+                                                            }
+                                                          });
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      AnimatedOpacity(
+                                        opacity: opacityLevel,
+                                        duration: const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                        child: Visibility(
+                                          visible: !isFullyCollapsed,
+                                          child: Container(
+                                            padding: EdgeInsets.all(cameraPadding),
+                                            height: 60,
+                                            child: ListView.builder(
+                                              itemCount: imageProvider.albumsListCounter,
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.symmetric(horizontal:cameraPadding),
+                                              itemBuilder: (context, index){
+                                                var album = imageProvider.albumsList[index];
+                                                return TextButton(
+                                                    onPressed: (){
+                                                      imageProvider.onAlbumChoose(index);
+                                                    }, child: Text(album.name,style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                                    fontSize: tabTitleSize,color: imageProvider.selectedAlbum == index ? Theme.of(context).indicatorColor : Theme.of(context).textTheme.bodyMedium!.color
+                                                ),)
+                                                );
+                                              },scrollDirection: Axis.horizontal,),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 _isInit
@@ -183,20 +246,7 @@ class _GallerySheetState extends State<GallerySheet>
                                                     child: CameraPreview(
                                                       _cameraController,
                                                     ),
-                                                  )
-                                                  // CameraScreen(
-                                                  //                                 key: widget.key,
-                                                  //                                 controller: _cameraController,
-                                                  //                                 scrollController: scrollController,
-                                                  //                                 onPhoto: () async {
-                                                  // final res = await _cameraController.takePicture();
-                                                  // final value = await res.readAsBytes();
-                                                  // imageProvider.addTakenPictureToGallery(value);
-                                                  // widget.pickImage(value);
-                                                  //  Navigator.pop(context);
-                                                  //                                 },
-                                                  //                               ),
-                                                  ),
+                                                  ))
                                             ),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

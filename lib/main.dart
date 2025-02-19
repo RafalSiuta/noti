@@ -68,6 +68,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    // MultiProvider(
+    //     providers: [...],
+    //     child: MaterialApp(
+    //       home: child,
+    //     )
+    // )
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -105,7 +112,6 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
