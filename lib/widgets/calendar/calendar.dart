@@ -5,7 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
-import '../../utils/constans/durations.dart';
+import '../../utils/constans/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import 'calendar_marker.dart';
 
@@ -44,7 +44,7 @@ class Calendar extends StatelessWidget {
     var cellMargin = SizeInfo.calendarCellMargin;
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        filter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
         child: Padding(
           padding:  EdgeInsets.only(top: topSpacing,left: 3.0,right: 3.0,bottom: 3.0),
           child: AnimationLimiter(

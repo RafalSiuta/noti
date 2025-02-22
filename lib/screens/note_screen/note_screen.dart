@@ -11,15 +11,13 @@ class NoteScreen extends StatelessWidget {
     return Container(
         key: key,
         child: Column(
-          children: const [
-
-            SearchInput(),
-            Expanded(
-              child: NoteList(
-                isGrid: true,
-              ),
+        children:  [
+          SearchInput(),
+          Expanded(
+            child: NoteList(
+              isGrid: true,
             ),
-          ],
-        ));
+          ),
+        ],  ));
   }
 }

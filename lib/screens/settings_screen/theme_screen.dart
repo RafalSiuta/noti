@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/settings_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../utils/constans/const_values.dart';
 import '../../utils/dimensions/screen_type.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/theme_card.dart';

@@ -4,7 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../providers/settings_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../utils/constans/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DateCalendar extends StatelessWidget {

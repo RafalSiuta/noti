@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../providers/settings_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../utils/constans/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class Carousel extends StatelessWidget {

@@ -10,6 +10,8 @@ class NoteProvider extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
   String keyword = "";
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
 
   List<Note> _noteList = [];
 
@@ -83,22 +85,49 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<List<Note>> getNoteByKeyword() async {
-    List<Note> list = _dbHelper.getAllNotes();
+    List<Note> list = getAllDataNotes();
 
-    if(keyword != ""){
-      _noteListByKeyword = list.where((note) {
-        return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-            note.description.toLowerCase().contains(keyword.toLowerCase());
-      }).toList();
-    }else{
-      _noteListByKeyword = _dbHelper.getAllNotes();
+    if (keyword.isEmpty && startDate == endDate) {
+      _noteListByKeyword = list;
+    } else {
+
+      if (keyword.isNotEmpty) {
+        list = list.where((note) {
+          return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
+              note.description.toLowerCase().contains(keyword.toLowerCase());
+        }).toList();
+      }
+
+      if (startDate.isBefore(endDate)) {
+        list = list.where((note) {
+          return note.date.isAfter(startDate) && note.date.isBefore(endDate);
+        }).toList();
+      }
+
+      _noteListByKeyword = list;
     }
 
     notifyListeners();
     return _noteListByKeyword;
   }
+
+
+  // Future<List<Note>> getNoteByKeyword() async {
+  //   List<Note> list = _dbHelper.getAllNotes();
+  //
+  //   if(keyword != ""){
+  //     _noteListByKeyword = list.where((note) {
+  //       return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
+  //           note.description.toLowerCase().contains(keyword.toLowerCase());
+  //     }).toList();
+  //   }else{
+  //     _noteListByKeyword = _dbHelper.getAllNotes();
+  //   }
+  //
+  //   notifyListeners();
+  //   return _noteListByKeyword;
+  // }
 
     Future<void> getSettingsValuesForNote() async {
     await _notePrefs
@@ -113,7 +142,7 @@ class NoteProvider extends ChangeNotifier {
   }
 
   Future<List<Note>> getNoteDbList() async {
-    _noteList = _dbHelper.getAllNotes()
+    _noteList = getAllDataNotes()
         .where((note) => note.keep == true)
         .toList();
 
@@ -152,10 +181,13 @@ class NoteProvider extends ChangeNotifier {
     return list;
   }
 
-  Future<List<Note>> getAllDataNotes() async {
+  List<Note> getAllDataNotes()  {
     List<Note> list = _dbHelper.getAllNotes();
+
+    list.sort((a, b) => b.date.compareTo(a.date));
 
     notifyListeners();
     return list;
   }
+
 }

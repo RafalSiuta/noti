@@ -71,12 +71,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     return widget.scopeDatesList;
   }
 
-  void onExpanded(){
-    setState(() {
-      isExpanded = !isExpanded;
-    });
-  }
-
   void onScopeDateSelected(){
     setState(() {
       if(isDateScopeSelected){
@@ -180,6 +174,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //calendar header
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: textSize * 3,
@@ -223,7 +218,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     ],
                   ),
                 ),
-            
                 //calendar
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
@@ -322,7 +316,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                               children: [
             
                                 TextButton(
-            
                                     style: ButtonStyle(
                                         shape:WidgetStateProperty.all(
                                           RoundedRectangleBorder(
