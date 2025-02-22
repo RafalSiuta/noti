@@ -60,7 +60,9 @@ class DatabaseHelper {
   }
 
   List<Note> getAllNotes() {
-    return _noteBox.values.toList();
+    List<Note> list = _noteBox.values.toList();
+    list.sort((a, b) => b.date.compareTo(a.date));
+    return list;
   }
 
   Future<void> closeHive() async {

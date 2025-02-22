@@ -10,8 +10,8 @@ class NoteProvider extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
   String keyword = "";
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now();
+  DateTime startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  DateTime endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
 
   List<Note> _noteList = [];
 
@@ -86,30 +86,56 @@ class NoteProvider extends ChangeNotifier {
   }
 
   Future<List<Note>> getNoteByKeyword() async {
-    List<Note> list = getAllDataNotes();
+    List<Note> list = _dbHelper.getAllNotes();
 
     if (keyword.isEmpty && startDate == endDate) {
-      _noteListByKeyword = list;
+      _noteListByKeyword = _dbHelper.getAllNotes();
     } else {
 
       if (keyword.isNotEmpty) {
-        list = list.where((note) {
+        _noteListByKeyword = list.where((note) {
           return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
               note.description.toLowerCase().contains(keyword.toLowerCase());
         }).toList();
       }
 
-      if (startDate.isBefore(endDate)) {
-        list = list.where((note) {
+      if (startDate.isBefore(endDate) && endDate.isAfter(startDate)) {
+        _noteListByKeyword = list.where((note) {
           return note.date.isAfter(startDate) && note.date.isBefore(endDate);
         }).toList();
       }
+      // else{
+      //   _noteListByKeyword = _dbHelper.getAllNotes();
+      // }
+      // else if(startDate == endDate){
+      //   _noteListByKeyword = _dbHelper.getAllNotes();
+      // }
 
-      _noteListByKeyword = list;
+      //_noteListByKeyword = list;
+      notifyListeners();
     }
 
     notifyListeners();
     return _noteListByKeyword;
+  }
+
+  void resetSearchFilters(){
+
+    keyword = "";
+    startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+    endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+    _noteListByKeyword = _dbHelper.getAllNotes();
+
+    notifyListeners();
+  }
+
+  void deleteSelectedNotes()async {
+     await getNoteByKeyword().then((notes){
+      for(Note note in notes){
+        deleteNote(note);
+      }
+    });
+     notifyListeners();
   }
 
 
@@ -142,7 +168,7 @@ class NoteProvider extends ChangeNotifier {
   }
 
   Future<List<Note>> getNoteDbList() async {
-    _noteList = getAllDataNotes()
+    _noteList = _dbHelper.getAllNotes()
         .where((note) => note.keep == true)
         .toList();
 
@@ -176,15 +202,6 @@ class NoteProvider extends ChangeNotifier {
     for(Note note in list){
       deleteNote(note);
     }
-
-    notifyListeners();
-    return list;
-  }
-
-  List<Note> getAllDataNotes()  {
-    List<Note> list = _dbHelper.getAllNotes();
-
-    list.sort((a, b) => b.date.compareTo(a.date));
 
     notifyListeners();
     return list;
