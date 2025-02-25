@@ -33,9 +33,13 @@ class NoteProvider extends ChangeNotifier {
   Future<void> initNote() async {
     await getSettingsValuesForNote().whenComplete((){
       getNoteDbList();
-      getNoteByKeyword();
+      getNoteBySearchOptions();
     });
     notifyListeners();
+  }
+
+  void getDates(){
+
   }
 
 
@@ -69,14 +73,14 @@ class NoteProvider extends ChangeNotifier {
     }
 
      getNoteDbList();
-     getNoteByKeyword();
+     getNoteBySearchOptions();
     notifyListeners();
   }
 
   void deleteNote(Note note) async {
     await _dbHelper.deleteNote(note);
     getNoteDbList();
-    getNoteByKeyword();
+    getNoteBySearchOptions();
     notifyListeners();
   }
 
@@ -85,7 +89,7 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Note>> getNoteByKeyword() async {
+  Future<List<Note>> getNoteBySearchOptions() async {
     List<Note> list = _dbHelper.getAllNotes();
 
     if (keyword.isEmpty && startDate == endDate) {
@@ -104,14 +108,6 @@ class NoteProvider extends ChangeNotifier {
           return note.date.isAfter(startDate) && note.date.isBefore(endDate);
         }).toList();
       }
-      // else{
-      //   _noteListByKeyword = _dbHelper.getAllNotes();
-      // }
-      // else if(startDate == endDate){
-      //   _noteListByKeyword = _dbHelper.getAllNotes();
-      // }
-
-      //_noteListByKeyword = list;
       notifyListeners();
     }
 
@@ -119,41 +115,34 @@ class NoteProvider extends ChangeNotifier {
     return _noteListByKeyword;
   }
 
-  void resetSearchFilters(){
+  // void getFullMonth(DateTime focDay){
+  //
+  //   startDate = DateTime(focDay.year, focDay.month, 1);
+  //   endDate = DateTime(focDay.year, focDay.month + 1, 1).subtract(Duration(days: 1));
+  //   getNoteByKeyword();
+  //
+  //   notifyListeners();
+  // }
 
-    keyword = "";
-    startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
-    endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
-    _noteListByKeyword = _dbHelper.getAllNotes();
-
-    notifyListeners();
-  }
+  // void resetSearchFilters(){
+  //
+  //   keyword = "";
+  //   startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  //   endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  //
+  //   _noteListByKeyword = _dbHelper.getAllNotes();
+  //
+  //   notifyListeners();
+  // }
 
   void deleteSelectedNotes()async {
-     await getNoteByKeyword().then((notes){
+     await getNoteBySearchOptions().then((notes){
       for(Note note in notes){
         deleteNote(note);
       }
     });
      notifyListeners();
   }
-
-
-  // Future<List<Note>> getNoteByKeyword() async {
-  //   List<Note> list = _dbHelper.getAllNotes();
-  //
-  //   if(keyword != ""){
-  //     _noteListByKeyword = list.where((note) {
-  //       return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-  //           note.description.toLowerCase().contains(keyword.toLowerCase());
-  //     }).toList();
-  //   }else{
-  //     _noteListByKeyword = _dbHelper.getAllNotes();
-  //   }
-  //
-  //   notifyListeners();
-  //   return _noteListByKeyword;
-  // }
 
     Future<void> getSettingsValuesForNote() async {
     await _notePrefs

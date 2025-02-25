@@ -33,6 +33,7 @@ class TaskDatePickerDial extends StatefulWidget {
 }
 
 class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
+
   late DateTime focDay;
   late DateTime selDay;
 
@@ -132,6 +133,12 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     });
   }
 
+  void getFullMonth(DateTime focDay){
+
+    startDate = DateTime(focDay.year, focDay.month, 1);
+    endDate = DateTime(focDay.year, focDay.month + 1, 1).subtract(Duration(days: 1));
+
+  }
 
   List<DateTime> getCalendarDates(DateTime date) {
     return widget.scopeDatesList.where((item) {
@@ -226,6 +233,8 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     focDay: focDay,
                     selDay: selDay,
                     markerColor:markerColor,
+                    rangeStartDay: startDate,
+                    rangeEndDay: endDate,
                     onDaySelected: (selectedDay, focusedDay) {
 
                         setDialState(() {
@@ -384,6 +393,50 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                       fontSize:pickerSubtitle,
                                       color: !isDateScopeSelected ? selectedDateColor : baseColor,)
             
+                                        )
+                                      ]
+                                  ),
+                                )),
+                                Text(
+                                  'OR',
+                                  style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                    color: baseColor,
+                                  ),
+                                ),
+                                TextButton(
+                                    style: ButtonStyle(
+                                        shape:WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                        ) ,
+                                        side: WidgetStateProperty.all(BorderSide(
+                                          width: 0.5,
+                                          color: baseColor!,
+                                        ))
+                                    ),
+                                    onPressed: (){
+
+                                      setState((){
+                                        getFullMonth(focDay);
+                                      });
+                                    }, child: RichText(
+                                  text: TextSpan(
+                                      text: "full month\n",
+                                      style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                                        color: !isDateScopeSelected ? selectedDateColor : baseColor,
+                                      ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: DateFormat('MMM yy').format(focDay),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                              height: 1.5,
+                                              fontSize:pickerSubtitle,
+                                              color: !isDateScopeSelected ? selectedDateColor : baseColor,)
+
                                         )
                                       ]
                                   ),

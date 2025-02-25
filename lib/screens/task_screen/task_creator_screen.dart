@@ -302,7 +302,7 @@ class _TaskCreatorState extends State<TaskCreator>
     priorityRating = widget.newTask.priority;
 
     super.initState();
-
+    _toggleKeyboard();
     Future.delayed(const Duration(milliseconds: 500))
         .then((value) => _menuSlideInController!.forward());
   }

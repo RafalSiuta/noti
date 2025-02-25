@@ -4,13 +4,15 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../providers/settings_provider.dart';
-import '../../utils/constans/const_values.dart';
+import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DateCalendar extends StatelessWidget {
 
   final DateTime focDay;
   final DateTime selDay;
+  final DateTime? rangeStartDay;
+  final DateTime? rangeEndDay;
   final StartingDayOfWeek startingDayOfWeek;
   final Function(DateTime, DateTime)? onDaySelected;
   final Function(DateTime, DateTime)? onDayLongPressed;
@@ -23,6 +25,8 @@ class DateCalendar extends StatelessWidget {
     required this.onMonthChange,
     required this.startingDayOfWeek,
     required this.selDay,
+    this.rangeStartDay,
+    this.rangeEndDay,
     required this.onDaySelected,
     this.onDayLongPressed,
     required this.calendarFormat,
@@ -43,6 +47,8 @@ class DateCalendar extends StatelessWidget {
           availableGestures: AvailableGestures.all,
           firstDay: calendarMinDate,
           lastDay: calendarMaxDate,
+          rangeStartDay: rangeStartDay,
+          rangeEndDay:rangeEndDay,
           calendarFormat: calendarFormat,
           onFormatChanged: onFormatChanged,
           onDayLongPressed: onDayLongPressed ?? (date,dateTime){},
@@ -130,10 +136,95 @@ class DateCalendar extends StatelessWidget {
                 ),
               );
             },
+            rangeStartBuilder: (context,date,end,){
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5.0)),
+                  color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                ),
+                child: Center(
+                    child: Text(
+                      '${date.day}',
+
+                      style: (date.weekday != 6 && date.weekday != 7)
+                          ? Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize )
+                          : Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize),
+                    )),
+              );
+            },
+            rangeEndBuilder: (context,date,end,){
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(5.0)),
+                  color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                ),
+                child: Center(
+                    child: Text(
+                      '${date.day}',
+
+                      style: (date.weekday != 6 && date.weekday != 7)
+                          ? Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize )
+                          : Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize),
+                    )),
+              );
+            },
+            withinRangeBuilder: (context,date,end,){
+              return Container(
+                color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                child: Center(
+                    child: Text(
+                      '${date.day}',
+                      style: (date.weekday != 6 && date.weekday != 7)
+                          ? Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize )
+                          : Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(
+                          fontSize: calendarFontSize),
+                    )),
+              );
+            },
+            rangeHighlightBuilder: (context,date,end,){
+              return Center(
+                  child: Text(
+                    '${date.day}',
+                    style: (date.weekday != 6 && date.weekday != 7)
+                        ? Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(
+                        fontSize: calendarFontSize )
+                        : Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(
+                        fontSize: calendarFontSize),
+                  ));
+            },
           ),
           calendarStyle: CalendarStyle(
             cellMargin: EdgeInsets.symmetric(
-                horizontal: cellMargin, vertical: cellMargin / 5),
+                horizontal: cellMargin / 5, vertical: cellMargin / 5),
             isTodayHighlighted: true,
             defaultTextStyle: Theme.of(context)
                 .textTheme

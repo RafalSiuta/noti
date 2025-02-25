@@ -288,7 +288,7 @@ class _NoteCreatorState extends State<NoteCreator>
     keepInMind = widget.newNote.keep;
 
     super.initState();
-
+    _toggleKeyboard();
     titleNode.addListener(() {
       setState(() {
         editTextEnable = titleNode.hasFocus;

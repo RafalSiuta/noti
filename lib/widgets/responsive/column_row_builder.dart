@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../utils/constans/const_values.dart';
+import '../../utils/constants/const_values.dart';
 
 class ColumnBuilder extends StatelessWidget {
   final IndexedWidgetBuilder itemBuilder;

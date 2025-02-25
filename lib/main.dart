@@ -3,6 +3,7 @@ import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
 import 'package:noti/providers/permission_provider.dart';
+import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:noti/providers/task_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
@@ -95,9 +96,9 @@ class MyApp extends StatelessWidget {
             create: (context) => NoteProvider(Provider.of<SettingsProvider>(context, listen: false)),
             update: (context, SettingsProvider settings, calendar) => NoteProvider(settings),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => HomeProvider(),
-          // ),
+          ChangeNotifierProvider(
+            create: (context) => SearchProvider(),
+          ),
           ChangeNotifierProxyProvider2<TaskProvider, NoteProvider, HomeProvider>(
             create: (context) => HomeProvider(
               taskProvider: Provider.of<TaskProvider>(context, listen: false),
