@@ -518,6 +518,7 @@ import '../dialogs/warring_alert.dart';
 class SearchWindow extends StatelessWidget {
   const SearchWindow({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Consumer3<SearchProvider,NoteProvider,SettingsProvider>(
@@ -560,29 +561,34 @@ class SearchWindow extends StatelessWidget {
                         isExpanded: searchProvider.isExpanded,
                         searchInputController: searchProvider.searchInputController,
                         searchFocusNode: searchProvider.searchFocusNode,
-                        onChanged: searchProvider.onTextChange,
-                        onEditingComplete: searchProvider.editText,
-                        suffixIcon:  GestureDetector(
+                        onChanged:(focusedDay){
+                            searchProvider.onTextChange(focusedDay);
+                            noteProvider.getNoteBySearchOptions();
+                        },
+                          onEditingComplete: (){
+                            searchProvider.editText();
+                          },
+                          suffixIcon:  GestureDetector(
                           onTap: () {
-                            if (searchProvider.searchFocusNode.hasFocus) {
-                              FocusScope.of(context).unfocus();
-                            }
-                            searchProvider.onExpanded(0);
+                          if (searchProvider.searchFocusNode.hasFocus) {
+                          FocusScope.of(context).unfocus();
+                          }
+                          searchProvider.onExpanded(0);
                           },
                           child: Icon(
-                            Icons.filter_alt,
-                            size: searchIconSize,
-                            color: Theme.of(context).textTheme.headlineLarge!.color,
+                          Icons.filter_alt,
+                          size: searchIconSize,
+                          color: Theme.of(context).textTheme.headlineLarge!.color,
                           ),
-                        ),
+                          ),
 
-                      ),
-                      Visibility(
+                          ),
+                          Visibility(
                           visible: searchProvider.isExpanded,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+                          child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: 5.0,
                               children: [
@@ -633,9 +639,7 @@ class SearchWindow extends StatelessWidget {
                                               title: "full month\n",
                                               isSelected: false,
                                               date:DateFormat('dd MMM yy').format(searchProvider.startDate),
-                                              onPressed: (){
-                                                searchProvider.getFullMonth();
-                                              },
+                                              onPressed:searchProvider.getFullMonth,
                                             ),
                                           ],
                                         ),

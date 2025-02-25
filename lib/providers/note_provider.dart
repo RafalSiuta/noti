@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:flutter/foundation.dart';
 
@@ -6,12 +7,21 @@ import '../database/database_helper.dart';
 import '../models/db_model/note.dart';
 import '../utils/prefs/prefs.dart';
 
-class NoteProvider extends ChangeNotifier {
+class NoteProvider extends ChangeNotifier  {
+
+  SettingsProvider settings;
+  SearchProvider searchProvider;
+
+  NoteProvider(this.settings, this.searchProvider) {
+    initNote();
+
+  }
+
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
-  String keyword = "";
-  DateTime startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
-  DateTime endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  // String keyword = "";
+  // DateTime startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  // DateTime endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
 
   List<Note> _noteList = [];
 
@@ -24,12 +34,6 @@ class NoteProvider extends ChangeNotifier {
 
   bool isDeleteNotesOnLoad = false;
 
-  SettingsProvider settings;
-
-  NoteProvider(this.settings) {
-    initNote();
-  }
-
   Future<void> initNote() async {
     await getSettingsValuesForNote().whenComplete((){
       getNoteDbList();
@@ -37,11 +41,6 @@ class NoteProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
-
-  void getDates(){
-
-  }
-
 
   UnmodifiableListView<Note> get noteListByKeyword {
     return UnmodifiableListView(_noteListByKeyword);
@@ -92,20 +91,21 @@ class NoteProvider extends ChangeNotifier {
   Future<List<Note>> getNoteBySearchOptions() async {
     List<Note> list = _dbHelper.getAllNotes();
 
-    if (keyword.isEmpty && startDate == endDate) {
+    if (searchProvider.keyword.isEmpty &&
+        searchProvider.startDate == searchProvider.endDate) {
       _noteListByKeyword = _dbHelper.getAllNotes();
     } else {
 
-      if (keyword.isNotEmpty) {
+      if (searchProvider.keyword.isNotEmpty) {
         _noteListByKeyword = list.where((note) {
-          return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-              note.description.toLowerCase().contains(keyword.toLowerCase());
+          return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+              note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
         }).toList();
       }
 
-      if (startDate.isBefore(endDate) && endDate.isAfter(startDate)) {
+      if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
         _noteListByKeyword = list.where((note) {
-          return note.date.isAfter(startDate) && note.date.isBefore(endDate);
+          return note.date.isAfter(searchProvider.startDate) && note.date.isBefore(searchProvider.endDate);
         }).toList();
       }
       notifyListeners();
@@ -115,6 +115,81 @@ class NoteProvider extends ChangeNotifier {
     return _noteListByKeyword;
   }
 
+  void resetSearchFilters() {
+    searchProvider.keyword = "";
+    searchProvider.startDate = DateTime.now();
+    searchProvider.endDate = DateTime.now();
+
+    _noteListByKeyword = _dbHelper.getAllNotes();
+    notifyListeners();
+  }
+  // Future<List<Note>> getNoteBySearchOptions() async {
+  //   List<Note> list = _dbHelper.getAllNotes();
+  //
+  //   if (searchProvider.keyword.isEmpty && searchProvider.startDate == searchProvider.endDate) {
+  //     _noteListByKeyword = _dbHelper.getAllNotes();
+  //   } else {
+  //
+  //     if (searchProvider.keyword.isNotEmpty) {
+  //       _noteListByKeyword = list.where((note) {
+  //         return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+  //             note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+  //       }).toList();
+  //     }
+  //
+  //     if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
+  //       _noteListByKeyword = list.where((note) {
+  //         return note.date.isAfter(searchProvider.startDate) && note.date.isBefore(searchProvider.endDate);
+  //       }).toList();
+  //     }
+  //     notifyListeners();
+  //   }
+  //
+  //   notifyListeners();
+  //   return _noteListByKeyword;
+  // }
+
+  // Future<List<Note>> getNoteBySearchOptions() async {
+  //   List<Note> list = _dbHelper.getAllNotes();
+  //
+  //   if (searchProvider.keyword.isEmpty && searchProvider.startDate == searchProvider.endDate) {
+  //     _noteListByKeyword = _dbHelper.getAllNotes();
+  //   } else {
+  //     _noteListByKeyword = list.where((note) {
+  //       return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+  //           note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+  //     }).toList();
+  //   }
+  //
+  //   notifyListeners();
+  //   return _noteListByKeyword;
+  // }
+  // Future<List<Note>> getNoteBySearchOptions() async {
+  //   List<Note> list = _dbHelper.getAllNotes();
+  //
+  //   if (keyword.isEmpty && startDate == endDate) {
+  //     _noteListByKeyword = _dbHelper.getAllNotes();
+  //   } else {
+  //
+  //     if (keyword.isNotEmpty) {
+  //       _noteListByKeyword = list.where((note) {
+  //         return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
+  //             note.description.toLowerCase().contains(keyword.toLowerCase());
+  //       }).toList();
+  //     }
+  //
+  //     if (startDate.isBefore(endDate) && endDate.isAfter(startDate)) {
+  //       _noteListByKeyword = list.where((note) {
+  //         return note.date.isAfter(startDate) && note.date.isBefore(endDate);
+  //       }).toList();
+  //     }
+  //     notifyListeners();
+  //   }
+  //
+  //   notifyListeners();
+  //   return _noteListByKeyword;
+  // }
+  //
   // void getFullMonth(DateTime focDay){
   //
   //   startDate = DateTime(focDay.year, focDay.month, 1);
@@ -123,7 +198,7 @@ class NoteProvider extends ChangeNotifier {
   //
   //   notifyListeners();
   // }
-
+  //
   // void resetSearchFilters(){
   //
   //   keyword = "";
