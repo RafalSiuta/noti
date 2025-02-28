@@ -1,16 +1,15 @@
 import 'dart:collection';
-import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:flutter/foundation.dart';
-
 import '../database/database_helper.dart';
 import '../models/db_model/note.dart';
 import '../utils/prefs/prefs.dart';
+import 'note_search_provider.dart';
 
 class NoteProvider extends ChangeNotifier  {
 
   SettingsProvider settings;
-  SearchProvider searchProvider;
+  NoteSearchProvider searchProvider;
 
   NoteProvider(this.settings, this.searchProvider) {
     initNote();
@@ -77,7 +76,6 @@ class NoteProvider extends ChangeNotifier  {
     getNoteBySearchOptions();
     notifyListeners();
   }
-
 
   Future<List<Note>> getNoteBySearchOptions() async {
     List<Note> list = _dbHelper.getAllNotes();

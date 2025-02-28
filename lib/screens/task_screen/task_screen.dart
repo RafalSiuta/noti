@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/task_search_provider.dart';
 import '../../widgets/headers/search_window.dart';
 import 'task_list.dart';
 
@@ -11,7 +13,7 @@ class TaskScreen extends StatelessWidget {
         key: key,
         child: Column(
           children:  [
-            SearchWindow(),
+            SearchWindow(searchProvider: Provider.of<TaskSearchProvider>(context)),
             Expanded(
               child: TaskList(
                 isSearch: true,

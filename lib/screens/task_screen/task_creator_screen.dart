@@ -47,7 +47,7 @@ class _TaskCreatorState extends State<TaskCreator>
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
 
-  bool editTextEnable = false;
+  bool? editTextEnable;// = false;
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController descVal = TextEditingController();
@@ -259,6 +259,8 @@ class _TaskCreatorState extends State<TaskCreator>
 
   @override
   void initState() {
+    editTextEnable = widget.editEnable;
+
     titleNode.addListener(() {
       setState(() {
         editTextEnable = titleNode.hasFocus;
@@ -283,7 +285,7 @@ class _TaskCreatorState extends State<TaskCreator>
                 parent: _menuSlideInController!, curve: Curves.ease));
 
 
-    editTextEnable = widget.editEnable;
+
 
     titleVal.text = widget.newTask.title.isNotEmpty
         ? widget.newTask.title[0].toUpperCase() + widget.newTask.title.substring(1)
@@ -302,7 +304,10 @@ class _TaskCreatorState extends State<TaskCreator>
     priorityRating = widget.newTask.priority;
 
     super.initState();
-    _toggleKeyboard();
+    if(editTextEnable == true){
+       _toggleKeyboard();
+    }
+
     Future.delayed(const Duration(milliseconds: 500))
         .then((value) => _menuSlideInController!.forward());
   }

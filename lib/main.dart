@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
+import 'package:noti/providers/note_search_provider.dart';
 import 'package:noti/providers/permission_provider.dart';
 import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:noti/providers/task_provider.dart';
+import 'package:noti/providers/task_search_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
@@ -94,20 +96,26 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => SearchProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (context) => TaskSearchProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => NoteSearchProvider(),
+          ),
 
-          ChangeNotifierProxyProvider2<SettingsProvider, SearchProvider, NoteProvider>(
+          ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
             create: (context) => NoteProvider(
               Provider.of<SettingsProvider>(context, listen: false),
-              Provider.of<SearchProvider>(context, listen: false),
+              Provider.of<NoteSearchProvider>(context, listen: false),
             ),
             update: (context, settingsProvider, searchProvider, noteProvider) =>
                 NoteProvider(settingsProvider, searchProvider),
           ),
 
-          ChangeNotifierProxyProvider2<SettingsProvider, SearchProvider, TaskProvider>(
+          ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
             create: (context) => TaskProvider(
               Provider.of<SettingsProvider>(context, listen: false),
-              Provider.of<SearchProvider>(context, listen: false),
+              Provider.of<TaskSearchProvider>(context, listen: false),
             ),
             update: (context, settingsProvider, searchProvider, noteProvider) =>
                 TaskProvider(settingsProvider, searchProvider),

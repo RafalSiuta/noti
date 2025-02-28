@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:flutter/widgets.dart';
+import 'package:noti/providers/task_search_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../database/database_helper.dart';
 import '../models/db_model/task.dart';
@@ -13,6 +13,12 @@ class TaskProvider extends ChangeNotifier {
 
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
+  SettingsProvider settings;
+  TaskSearchProvider searchProvider;
+
+  TaskProvider(this.settings, this.searchProvider) {
+    initTask();
+  }
 
   int selectedIndex = 0;
   DateTime focDay =
@@ -32,12 +38,7 @@ class TaskProvider extends ChangeNotifier {
 
   final Prefs _prefs = Prefs();
 
-  SettingsProvider settings;
-  SearchProvider searchProvider;
 
-  TaskProvider(this.settings, this.searchProvider) {
-    initTask();
-  }
 
   Future<void> initTask() async {
     _taskList = _dbHelper.getAllTasks();
@@ -120,7 +121,15 @@ class TaskProvider extends ChangeNotifier {
       tasks[addDate] = [task];
     }
 
-    tasks[addDate]!.sort((a, b) => a.date.compareTo(b.date));
+    // tasks[addDate]!.sort((a, b) => a.date.compareTo(b.date));
+    tasks.forEach((key, value) {
+      value.sort((a, b) {
+        if (a.isTaskDone == b.isTaskDone) {
+          return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+        }
+        return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+      });
+    });
 
     _taskList = getCalendarValues(focDay);
 
@@ -141,13 +150,43 @@ class TaskProvider extends ChangeNotifier {
       refreshNotification(task);
     }
 
+    // Sortowanie: Najpierw niewykonane, potem wykonane, w każdej grupie sortujemy po dacie.
     tasks.forEach((key, value) {
-      value.sort((a, b) => a.date.compareTo(b.date));
+      value.sort((a, b) {
+        if (a.isTaskDone == b.isTaskDone) {
+          return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+        }
+        return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+      });
     });
 
     _taskList = getCalendarValues(focDay);
     notifyListeners();
   }
+
+  // Future<void> refreshTasks() async {
+  //   _taskList = _dbHelper.getAllTasks();
+  //   tasks.clear();
+  //
+  //   for (var task in _taskList) {
+  //     final taskDate = DateTime(task.date.year, task.date.month, task.date.day);
+  //     if (tasks[taskDate] != null) {
+  //       tasks[taskDate]!.add(task);
+  //     } else {
+  //       tasks[taskDate] = [task];
+  //     }
+  //     refreshNotification(task);
+  //
+  //   }
+  //
+  //   tasks.forEach((key, value) {
+  //
+  //     value.sort((a, b) => a.date.compareTo(b.date));
+  //   });
+  //
+  //   _taskList = getCalendarValues(focDay);
+  //   notifyListeners();
+  // }
 
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
 
@@ -236,7 +275,8 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void refreshNotification(Task task) {
-    print("NOTIFICATIONS DATES ${task.date}");
+    //todo: remove prints:
+    //print("NOTIFICATIONS DATES ${task.date}");
 
     if (settings.isNotification) {
       if (task.isTaskDone) {
@@ -308,32 +348,98 @@ class TaskProvider extends ChangeNotifier {
     return tempList;
   }
 
+  // Future<List<Task>> getTasksBySearchOptions() async {
+  //   List<Task> list = _dbHelper.getAllTasks();
+  //
+  //   //wartości domyślne, które nie powinny powodować zmian
+  //   // searchProvider.isDone = false;
+  //   // searchProvider.priority = -1;
+  //
+  //   if (searchProvider.keyword.isEmpty &&
+  //       searchProvider.startDate == searchProvider.endDate) {
+  //     _taskListByKeyword = _dbHelper.getAllTasks();
+  //   } else {
+  //
+  //     if (searchProvider.keyword.isNotEmpty) {
+  //       _taskListByKeyword = list.where((task) {
+  //         return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+  //             task.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+  //       }).toList();
+  //     }
+  //
+  //     if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
+  //       _taskListByKeyword = list.where((task) {
+  //         return task.date.isAfter(searchProvider.startDate) && task.date.isBefore(searchProvider.endDate);
+  //       }).toList();
+  //     }
+  //     notifyListeners();
+  //   }
+  //
+  //   _taskListByKeyword.sort((a, b) {
+  //     if (a.isTaskDone == b.isTaskDone) {
+  //       return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+  //     }
+  //     return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+  //   });
+  //
+  //   notifyListeners();
+  //   return _taskListByKeyword;
+  // }
+
   Future<List<Task>> getTasksBySearchOptions() async {
     List<Task> list = _dbHelper.getAllTasks();
 
+
     if (searchProvider.keyword.isEmpty &&
-        searchProvider.startDate == searchProvider.endDate) {
+        searchProvider.startDate == searchProvider.endDate &&
+        searchProvider.priority == -1 &&
+        !searchProvider.isDone) {
       _taskListByKeyword = _dbHelper.getAllTasks();
     } else {
+      _taskListByKeyword = list; // Zaczynamy od pełnej listy
 
+      // Filtrowanie po słowie kluczowym
       if (searchProvider.keyword.isNotEmpty) {
-        _taskListByKeyword = list.where((task) {
+        _taskListByKeyword = _taskListByKeyword.where((task) {
           return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
               task.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
         }).toList();
       }
 
-      if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
-        _taskListByKeyword = list.where((task) {
-          return task.date.isAfter(searchProvider.startDate) && task.date.isBefore(searchProvider.endDate);
+      // Filtrowanie po dacie
+      if (searchProvider.startDate.isBefore(searchProvider.endDate) &&
+          searchProvider.endDate.isAfter(searchProvider.startDate)) {
+        _taskListByKeyword = _taskListByKeyword.where((task) {
+          return task.date.isAfter(searchProvider.startDate) &&
+              task.date.isBefore(searchProvider.endDate);
         }).toList();
       }
+
+      // Filtrowanie po statusie (isTaskDone) – tylko jeśli użytkownik zaznaczył opcję
+      if (searchProvider.isDone) {
+        _taskListByKeyword = _taskListByKeyword.where((task) => task.isTaskDone).toList();
+      }
+
+      // Filtrowanie po priorytecie – tylko jeśli użytkownik wybrał inny niż -1
+      if (searchProvider.priority != -1) {
+        _taskListByKeyword = _taskListByKeyword.where((task) => task.priority == searchProvider.priority).toList();
+      }
+
       notifyListeners();
     }
+
+    // Sortowanie: Najpierw niewykonane, potem wykonane, w każdej grupie sortujemy po dacie
+    _taskListByKeyword.sort((a, b) {
+      if (a.isTaskDone == b.isTaskDone) {
+        return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+      }
+      return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+    });
 
     notifyListeners();
     return _taskListByKeyword;
   }
+
 
   void resetTaskSearch() {
     searchProvider.resetSearchFilters();
@@ -344,6 +450,8 @@ class TaskProvider extends ChangeNotifier {
   void deleteSelectedTasks()async {
     await getTasksBySearchOptions().then((tasks){
       for(Task task in tasks){
+
+        //todo:
         print("SELECTED NOTES TO DELETE ${task.title}");
         //deleteTask(task);
       }

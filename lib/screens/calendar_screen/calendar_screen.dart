@@ -64,7 +64,7 @@ class CalendarScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: .0, vertical: 20),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    TaskList(key: key),
+                    TaskList(key: key,listType: 'custom',),
                   ]),
                 ),
               ),

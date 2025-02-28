@@ -16,16 +16,18 @@ import '../buttons/custom_text_button.dart';
 import '../buttons/icon_button.dart';
 import '../calendar/calendar_header.dart';
 import '../dialogs/warring_alert.dart';
+import '../raters/priority_rater.dart';
 
 class SearchWindow extends StatelessWidget {
-  const SearchWindow({this.searchType = "task",super.key});
+  const SearchWindow({this.searchType = "task", required this.searchProvider, super.key});
   final String searchType;
+  final SearchProvider searchProvider;
 
 
   @override
   Widget build(BuildContext context) {
-    return Consumer4<SearchProvider,TaskProvider, NoteProvider,SettingsProvider>(
-      builder: (context,searchProvider,taskProvider, noteProvider,settingsProvider, child) {
+    return Consumer3<TaskProvider, NoteProvider,SettingsProvider>(
+      builder: (context,taskProvider, noteProvider,settingsProvider, child) {
 
         var baseColor = Theme.of(context).textTheme.headlineMedium!.color;
         var searchIconSize = SizeInfo.searchIconSize;
@@ -33,6 +35,8 @@ class SearchWindow extends StatelessWidget {
         var markerColor = Theme.of(context).indicatorColor;
         var navIconSize = SizeInfo.leadingAndTrailingIconSize;
         var radius = 8.0;
+        var raterIconSize = SizeInfo.switchButtonIconSize;
+        var helpTextFontSize = SizeInfo.helpTextSize;
         BorderRadius searchBarBorderRadiusExpanded = BorderRadius.only(topLeft: Radius.circular(radius),topRight: Radius.circular(radius), bottomLeft:  Radius.circular(radius),  bottomRight:  Radius.circular(radius));
         return PlayAnimationBuilder(
           tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero), duration: headerDuration,
@@ -109,6 +113,7 @@ class SearchWindow extends StatelessWidget {
                                     searchProvider.onExpanded(1);
                                   },
                                 ),
+                                //calendar
                                 Visibility(
                                   visible: searchProvider.isCalendarExpanded,
                                   child: Column(
@@ -179,6 +184,65 @@ class SearchWindow extends StatelessWidget {
                                   ),
                                 ),
 
+
+                                // ExpandableHeader(
+                                //   title: 'Select dates scope: ',
+                                //   isExpanded: searchProvider.isCalendarExpanded,
+                                //   padding: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+                                //   onTap:(){
+                                //     searchProvider.onExpanded(1);
+                                //   },
+                                // ),
+                                Visibility(
+                                  visible: searchType == 'task' ? true : false,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Divider(),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Rater(
+                                              size: raterIconSize,
+                                              helperTextSize: helpTextFontSize,
+                                              starCount: 3,
+                                              rating: searchProvider.priority,
+                                              onRatingChanged: (rating) {
+                                                searchProvider.setRating(rating);
+                                              }
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Transform.scale(
+                                                  scale: 0.8,
+                                                  child: Switch(
+                                                      value: searchProvider.isDone,
+                                                      onChanged: (value) {
+                                                        searchProvider.onCheckIsDone(value);
+                                                      }
+                                                      ),
+                                                ),
+                                                Text(
+                                                  'finished tasks',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineMedium!
+                                                      .copyWith(
+                                                      fontSize: navIconSize * 0.52 ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Divider(),
                                 ExpandableHeader(
                                   title: 'Actions: ',

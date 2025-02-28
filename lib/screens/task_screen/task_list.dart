@@ -12,9 +12,10 @@ import '../../widgets/text_display/default_text.dart';
 
 class TaskList extends StatelessWidget {
 
-  const TaskList({super.key, this.isSearch = false});
+  const TaskList({super.key, this.isSearch = false, this.listType = "base"});
 
   final bool isSearch;
+  final String listType;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class TaskList extends StatelessWidget {
                       'You have $counter task${counter > 1 ? 's' : ""}',
                 ),
                 AnimationLimiter(
-                  child: isSearch ? Expanded(
+                  child: listType == "base" ? Expanded(
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 2),
                       physics: const BouncingScrollPhysics(
