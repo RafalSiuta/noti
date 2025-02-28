@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:noti/providers/base_search_provider.dart';
 import 'package:noti/providers/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider.dart';
 import 'package:noti/providers/note_provider.dart';
@@ -74,6 +73,9 @@ class MyApp extends StatelessWidget {
         providers:
         [
           ChangeNotifierProvider(
+            create: (context) => HomeProvider(),
+          ),
+          ChangeNotifierProvider(
             create: (context) => PermissionProvider(),
           ),
 
@@ -89,12 +91,10 @@ class MyApp extends StatelessWidget {
             create: (context) => GalleryImageProvider(),
           ),
 
-          // 🔹 **Najpierw rejestrujemy SearchProvider, który będzie używany przez NoteProvider**
           ChangeNotifierProvider(
             create: (context) => SearchProvider(),
           ),
 
-          // 🔹 **Teraz NoteProvider, który wymaga zarówno SettingsProvider, jak i SearchProvider**
           ChangeNotifierProxyProvider2<SettingsProvider, SearchProvider, NoteProvider>(
             create: (context) => NoteProvider(
               Provider.of<SettingsProvider>(context, listen: false),
@@ -104,17 +104,24 @@ class MyApp extends StatelessWidget {
                 NoteProvider(settingsProvider, searchProvider),
           ),
 
-          ChangeNotifierProxyProvider<SettingsProvider, TaskProvider>(
+          ChangeNotifierProxyProvider2<SettingsProvider, SearchProvider, TaskProvider>(
             create: (context) => TaskProvider(
               Provider.of<SettingsProvider>(context, listen: false),
+              Provider.of<SearchProvider>(context, listen: false),
             ),
-            update: (context, settingsProvider, taskProvider) =>
-                TaskProvider(settingsProvider),
+            update: (context, settingsProvider, searchProvider, noteProvider) =>
+                TaskProvider(settingsProvider, searchProvider),
           ),
 
-          ChangeNotifierProvider(
-            create: (context) => HomeProvider(),
-          ),
+          // ChangeNotifierProxyProvider<SettingsProvider, TaskProvider>(
+          //   create: (context) => TaskProvider(
+          //     Provider.of<SettingsProvider>(context, listen: false),
+          //   ),
+          //   update: (context, settingsProvider, taskProvider) =>
+          //       TaskProvider(settingsProvider),
+          // ),
+
+
         ],
         // [
         //   ChangeNotifierProvider(

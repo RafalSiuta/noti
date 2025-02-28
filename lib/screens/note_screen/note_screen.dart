@@ -11,7 +11,7 @@ class NoteScreen extends StatelessWidget {
         key: key,
         child: Column(
         children:  [
-          SearchWindow(),
+          SearchWindow(searchType: "note",),
           Expanded(
             child: NoteList(
               isGrid: true,

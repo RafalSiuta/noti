@@ -17,6 +17,7 @@ class CalendarScreen extends StatelessWidget {
     var spacingTop = SizeInfo.menuTopMargin;
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child){
+
          return CustomScrollView(
             physics:
             const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),

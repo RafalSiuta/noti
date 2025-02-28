@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'package:noti/providers/search_provider.dart';
 import 'package:noti/providers/settings_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -32,8 +33,9 @@ class TaskProvider extends ChangeNotifier {
   final Prefs _prefs = Prefs();
 
   SettingsProvider settings;
+  SearchProvider searchProvider;
 
-  TaskProvider(this.settings) {
+  TaskProvider(this.settings, this.searchProvider) {
     initTask();
   }
 
@@ -41,8 +43,19 @@ class TaskProvider extends ChangeNotifier {
     _taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
-    getSettingsValuesForTask().whenComplete(() => getTaskDbList());
+    getSettingsValuesForTask().whenComplete((){
+      getTaskDbList();
+      getTasksBySearchOptions();
+    });
     notifyListeners();
+  }
+  List<Task> _taskListByKeyword = [];
+  UnmodifiableListView<Task> get taskListByKeyword {
+    return UnmodifiableListView(_taskListByKeyword);
+  }
+
+  int get taskListByKeywordCounter {
+    return _taskListByKeyword.length;
   }
 
   UnmodifiableListView<Task> get taskList {
@@ -293,6 +306,49 @@ class TaskProvider extends ChangeNotifier {
 
     notifyListeners();
     return tempList;
+  }
+
+  Future<List<Task>> getTasksBySearchOptions() async {
+    List<Task> list = _dbHelper.getAllTasks();
+
+    if (searchProvider.keyword.isEmpty &&
+        searchProvider.startDate == searchProvider.endDate) {
+      _taskListByKeyword = _dbHelper.getAllTasks();
+    } else {
+
+      if (searchProvider.keyword.isNotEmpty) {
+        _taskListByKeyword = list.where((task) {
+          return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+              task.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+        }).toList();
+      }
+
+      if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
+        _taskListByKeyword = list.where((task) {
+          return task.date.isAfter(searchProvider.startDate) && task.date.isBefore(searchProvider.endDate);
+        }).toList();
+      }
+      notifyListeners();
+    }
+
+    notifyListeners();
+    return _taskListByKeyword;
+  }
+
+  void resetTaskSearch() {
+    searchProvider.resetSearchFilters();
+    _taskListByKeyword = _dbHelper.getAllTasks();
+    notifyListeners();
+  }
+
+  void deleteSelectedTasks()async {
+    await getTasksBySearchOptions().then((tasks){
+      for(Task task in tasks){
+        print("SELECTED NOTES TO DELETE ${task.title}");
+        //deleteTask(task);
+      }
+    });
+    notifyListeners();
   }
 
   Future<List<Task>> deleteAllTasks() async{

@@ -177,7 +177,6 @@ class SearchProvider extends ChangeNotifier{
     keyword = newText;
     searchInputController.selection = TextSelection.fromPosition(
         TextPosition(offset: searchInputController.text.length));
-    //TODO: GET FROM NOTE PROVIDER   noteProvider.keyword = newText;noteProvider.getNoteByKeyword();
   }
 
     void onExpanded(int section){
@@ -249,7 +248,6 @@ class SearchProvider extends ChangeNotifier{
       } else {
         endDate = selectedDay;
       }
-      //TODO: GET FROM NOTE PROVIDER noteProvider.getNoteByKeyword();
       notifyListeners();
   }
 
@@ -263,7 +261,6 @@ class SearchProvider extends ChangeNotifier{
     startDate = DateTime(focDay.year, focDay.month, 1);
     endDate = DateTime(focDay.year, focDay.month + 1, 1).subtract(Duration(days: 1));
 
-    //TODO: GET FROM NOTE PROVIDER getNoteByKeyword();
     notifyListeners();
   }
 
@@ -274,7 +271,6 @@ class SearchProvider extends ChangeNotifier{
     startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
     endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
 
-    //TODO: GET FROM NOTE PROVIDER _noteListByKeyword = _dbHelper.getAllNotes();
     notifyListeners();
   }
 
