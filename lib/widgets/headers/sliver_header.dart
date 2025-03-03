@@ -10,10 +10,12 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   final Widget? child;
   final double paddingHorizontal;
   final double paddingVertical;
+
   @override
   double get minExtent => minHeight!;
   @override
   double get maxExtent => math.max(maxHeight!, minHeight!);
+
   SliverHeader(
       {required this.minHeight,
       required this.maxHeight,

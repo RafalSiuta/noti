@@ -257,17 +257,7 @@ class TaskCard extends StatelessWidget {
                     ],
                   ),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-
-                        color: circleFromLeft == true ? Colors.transparent : Theme.of(context)
-                            .unselectedWidgetColor
-                            .withValues(alpha: 0.5),
-                        blurRadius: 1.5,
-                        offset: const Offset(.0, .0),
-                        spreadRadius: 1.5),
-                  ]
-              ),
+               ),
             ),
           ), //ring
           Align(

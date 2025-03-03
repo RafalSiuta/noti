@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:noti/screens/note_screen/sliver_note_list.dart';
 import 'package:provider/provider.dart';
 import 'package:noti/providers/note_provider/note_search_provider.dart';
 import '../../widgets/headers/search_window.dart';
-import 'note_list.dart';
 
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        key: key,
-        child: Column(
-        children:  [
-          SearchWindow(searchType: "note",searchProvider: Provider.of<NoteSearchProvider>(context)),
-          Expanded(
-            child: NoteList(
-              isGrid: true,
+    return
+      CustomScrollView(
+          key: key,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          slivers: [
+            SliverToBoxAdapter(
+              child: SearchWindow(
+                key: key,
+                searchProvider: Provider.of<NoteSearchProvider>(context),
+                searchType: "note",
+              ),
             ),
-          ),
-        ],  ));
+            SliverNoteList(
+              isSearch: true,
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 10.0,
+              ),
+            )
+          ]
+      );
+
   }
 }

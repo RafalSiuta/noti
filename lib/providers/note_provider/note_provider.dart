@@ -115,9 +115,11 @@ class NoteProvider extends ChangeNotifier  {
      await getNoteBySearchOptions().then((notes){
       for(Note note in notes){
         print("SELECTED NOTES TO DELETE ${note.title}");
-        //deleteNote(note);
+        deleteNote(note);
+
       }
     });
+     resetNoteSearch();
      notifyListeners();
   }
 

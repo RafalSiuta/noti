@@ -165,30 +165,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> refreshTasks() async {
-  //   _taskList = _dbHelper.getAllTasks();
-  //   tasks.clear();
-  //
-  //   for (var task in _taskList) {
-  //     final taskDate = DateTime(task.date.year, task.date.month, task.date.day);
-  //     if (tasks[taskDate] != null) {
-  //       tasks[taskDate]!.add(task);
-  //     } else {
-  //       tasks[taskDate] = [task];
-  //     }
-  //     refreshNotification(task);
-  //
-  //   }
-  //
-  //   tasks.forEach((key, value) {
-  //
-  //     value.sort((a, b) => a.date.compareTo(b.date));
-  //   });
-  //
-  //   _taskList = getCalendarValues(focDay);
-  //   notifyListeners();
-  // }
-
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
 
     taskMonthsToDelete = month;
@@ -454,9 +430,10 @@ class TaskProvider extends ChangeNotifier {
 
         //todo:
         print("SELECTED NOTES TO DELETE ${task.title}");
-        //deleteTask(task);
+        deleteTask(task);
       }
     });
+    resetTaskSearch();
     notifyListeners();
   }
 

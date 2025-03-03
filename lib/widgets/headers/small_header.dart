@@ -13,7 +13,7 @@ class SmallHeader extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: SizeInfo.verticalHeaderPadding),
       child: PlayAnimationBuilder(
-          tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero),
+          tween: Tween<Offset>(begin: const Offset(-10.0, 0), end: Offset.zero),
           duration: headerDuration,
           delay: const Duration(milliseconds: 100),
           curve: Curves.easeOut,

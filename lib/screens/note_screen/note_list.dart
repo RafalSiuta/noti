@@ -33,7 +33,7 @@ class NoteList extends StatelessWidget {
           );
         } else {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: bottomSpacing ),
+            padding: EdgeInsets.only(left: 8.0,bottom: bottomSpacing ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
