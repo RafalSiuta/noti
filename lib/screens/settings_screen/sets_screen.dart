@@ -1,11 +1,11 @@
 import 'package:noti/screens/settings_screen/settings_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:noti/widgets/buttons/icon_button.dart';
+import 'package:noti/widgets/buttons/text_icon_button.dart';
 import 'package:noti/widgets/dialogs/warring_alert.dart';
 import 'package:provider/provider.dart';
-import '../../providers/note_provider.dart';
-import '../../providers/settings_provider.dart';
-import '../../providers/task_provider.dart';
+import '../../providers/note_provider/note_provider.dart';
+import '../../providers/settings_provider/settings_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/settings_card.dart';

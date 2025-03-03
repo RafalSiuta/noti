@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/permission_provider.dart';
+import '../../providers/permission_provider/permission_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/cards/settings_card.dart';

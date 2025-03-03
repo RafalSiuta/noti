@@ -3,9 +3,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../providers/gallery_image_provider.dart';
+import '../../providers/image_provider/gallery_image_provider.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../buttons/icon_button.dart';
+import '../buttons/text_icon_button.dart';
 import '../cameraLoader/camera_loader.dart';
 import '../cards/image_card.dart';
 

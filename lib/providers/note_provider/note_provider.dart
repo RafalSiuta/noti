@@ -1,9 +1,9 @@
 import 'dart:collection';
-import 'package:noti/providers/settings_provider.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:flutter/foundation.dart';
-import '../database/database_helper.dart';
-import '../models/db_model/note.dart';
-import '../utils/prefs/prefs.dart';
+import '../../database/database_helper.dart';
+import '../../models/db_model/note.dart';
+import '../../utils/prefs/prefs.dart';
 import 'note_search_provider.dart';
 
 class NoteProvider extends ChangeNotifier  {

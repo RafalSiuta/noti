@@ -2,7 +2,7 @@ import 'package:noti/screens/task_screen/task_creator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../providers/task_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';

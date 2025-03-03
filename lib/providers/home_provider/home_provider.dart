@@ -3,13 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:noti/providers/note_provider.dart';
-import 'package:noti/providers/task_provider.dart';
+import 'package:noti/providers/note_provider/note_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import '../models/db_model/note.dart';
-import '../models/db_model/task.dart';
+import '../../models/db_model/note.dart';
+import '../../models/db_model/task.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class HomeProvider extends ChangeNotifier {

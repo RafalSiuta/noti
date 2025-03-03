@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../models/db_model/task.dart';
-import '../../providers/task_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../widgets/headers/date_header.dart';
 import '../../widgets/calendar/calendar.dart';

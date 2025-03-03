@@ -1,27 +1,29 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:noti/providers/search_provider.dart';
-import 'package:noti/providers/settings_provider.dart';
+import 'package:noti/providers/search_provider/search_provider.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:noti/widgets/calendar/date_calendar.dart';
 import 'package:noti/widgets/headers/expandable_header.dart';
 import 'package:noti/widgets/headers/search_input.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../providers/note_provider.dart';
-import '../../providers/task_provider.dart';
+import '../../providers/note_provider/note_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/custom_text_button.dart';
-import '../buttons/icon_button.dart';
+import '../buttons/text_icon_button.dart';
 import '../calendar/calendar_header.dart';
 import '../dialogs/warring_alert.dart';
 import '../raters/priority_rater.dart';
 
 class SearchWindow extends StatelessWidget {
-  const SearchWindow({this.searchType = "task", required this.searchProvider, super.key});
+  const SearchWindow({super.key, this.searchType = "task", required this.searchProvider,});
   final String searchType;
   final SearchProvider searchProvider;
+
 
 
   @override
@@ -37,10 +39,12 @@ class SearchWindow extends StatelessWidget {
         var radius = 8.0;
         var raterIconSize = SizeInfo.switchButtonIconSize;
         var helpTextFontSize = SizeInfo.helpTextSize;
+        var pickerSubtitle = SizeInfo.calendarDaySize;
         BorderRadius searchBarBorderRadiusExpanded = BorderRadius.only(topLeft: Radius.circular(radius),topRight: Radius.circular(radius), bottomLeft:  Radius.circular(radius),  bottomRight:  Radius.circular(radius));
         return PlayAnimationBuilder(
           tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero), duration: headerDuration,
           builder: (context,value,child){
+
             return
               Transform.translate(
                 offset: value,
@@ -63,7 +67,6 @@ class SearchWindow extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SearchInput(
-                        key: key,
                         title: searchType == "task" ? "Search tasks" : "Search notes",
                         isExpanded: searchProvider.isExpanded,
                         searchInputController: searchProvider.searchInputController,
@@ -108,7 +111,7 @@ class SearchWindow extends StatelessWidget {
                                 ExpandableHeader(
                                   title: 'Select dates scope: ',
                                   isExpanded: searchProvider.isCalendarExpanded,
-                                  padding: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
                                   onTap:(){
                                     searchProvider.onExpanded(1);
                                   },
@@ -160,7 +163,6 @@ class SearchWindow extends StatelessWidget {
                                       Divider(),
                                       //calendar header
                                       CalendarHeader(
-                                        key: key,
                                         date:searchProvider.focDay,
                                         next: searchProvider.nextMonth,
                                         previous: searchProvider.previousMonth,
@@ -180,66 +182,69 @@ class SearchWindow extends StatelessWidget {
                                           events:searchProvider.getCalendarDates
                                       ),
 
-                                    ],
-                                  ),
-                                ),
-
-
-                                // ExpandableHeader(
-                                //   title: 'Select dates scope: ',
-                                //   isExpanded: searchProvider.isCalendarExpanded,
-                                //   padding: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
-                                //   onTap:(){
-                                //     searchProvider.onExpanded(1);
-                                //   },
-                                // ),
-                                Visibility(
-                                  visible: searchType == 'task' ? true : false,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Divider(),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Rater(
-                                              size: raterIconSize,
-                                              helperTextSize: helpTextFontSize,
-                                              starCount: 3,
-                                              rating: searchProvider.priority,
-                                              onRatingChanged: (rating) {
-                                                searchProvider.setRating(rating);
-                                              }
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Transform.scale(
-                                                  scale: 0.8,
-                                                  child: Switch(
-                                                      value: searchProvider.isDone,
-                                                      onChanged: (value) {
-                                                        searchProvider.onCheckIsDone(value);
-                                                      }
-                                                      ),
+                                      Visibility(
+                                        visible: searchType == 'task' ? true : false,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Divider(),
+                                              Text('Search by priority or finished tasks',style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium!
+                                                  .copyWith(
+                                                height: 1.5,
+                                                fontSize:pickerSubtitle,
+                                                color: baseColor,
+                                              ),),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 8.0, ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Rater(
+                                                        size: raterIconSize,
+                                                        helperTextSize: helpTextFontSize,
+                                                        starCount: 3,
+                                                        rating: searchProvider.priority,
+                                                        onRatingChanged: (rating) {
+                                                          searchProvider.setRating(rating);
+                                                        }
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Transform.scale(
+                                                          scale: 0.8,
+                                                          child: Switch(
+                                                              value: searchProvider.isDone,
+                                                              onChanged: (value) {
+                                                                searchProvider.onCheckIsDone(value);
+                                                              }
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'finished tasks',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .headlineMedium!
+                                                              .copyWith(
+                                                              fontSize: navIconSize * 0.52 ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  'finished tasks',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                      fontSize: navIconSize * 0.52 ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
+
                                     ],
                                   ),
                                 ),
@@ -247,7 +252,7 @@ class SearchWindow extends StatelessWidget {
                                 ExpandableHeader(
                                   title: 'Actions: ',
                                   isExpanded: searchProvider.isActionsExpanded,
-                                  padding: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+                                  padding: EdgeInsets.symmetric(vertical: 5.0),
                                   onTap:(){
                                     searchProvider.onExpanded(2);
                                   },

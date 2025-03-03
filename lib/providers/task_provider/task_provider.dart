@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:noti/providers/settings_provider.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:flutter/widgets.dart';
-import 'package:noti/providers/task_search_provider.dart';
+import 'package:noti/providers/task_provider/task_search_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../database/database_helper.dart';
-import '../models/db_model/task.dart';
-import '../utils/notifications/notifications_helper.dart';
-import '../utils/prefs/prefs.dart';
+import '../../database/database_helper.dart';
+import '../../models/db_model/task.dart';
+import '../../utils/notifications/notifications_helper.dart';
+import '../../utils/prefs/prefs.dart';
+
 
 class TaskProvider extends ChangeNotifier {
 
