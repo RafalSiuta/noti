@@ -9,6 +9,7 @@ import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/note_card.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
+import '../../widgets/text_display/default_text.dart';
 import 'note_creator_screen.dart';
 
 
@@ -33,17 +34,14 @@ class SliverNoteList extends StatelessWidget {
             isSearch ? noteProvider.noteListByKeyword : noteProvider.noteList;
 
             if(noteList.isEmpty){
-              return SliverPadding(
+              return
+                SliverPadding(
                 padding: EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
-                sliver: SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverHeader(
-                        paddingHorizontal: 8.0,
-                        maxHeight: 40,
-                        minHeight: 30,
-                        child: SmallHeader(
-                          title: 'There is no notes',
-                        ))),
+                sliver: SliverFillRemaining(
+                  child: DefaultText(
+                    title: 'There is no notes',
+                  ),
+                )
 
               );
             }else{

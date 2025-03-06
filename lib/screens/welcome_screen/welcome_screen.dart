@@ -6,8 +6,10 @@ import '../../models/db_model/task.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
+import '../../widgets/calendar/sliver_calendar_wrapper.dart';
 import '../../widgets/headers/date_header.dart';
 import '../../widgets/calendar/calendar.dart';
+import '../../widgets/headers/sliver_header.dart';
 import '../note_screen/note_list.dart';
 import '../note_screen/sliver_note_list.dart';
 import '../task_screen/sliver_task_list.dart';
@@ -32,6 +34,7 @@ class WelcomeScreen extends StatelessWidget {
     {
       return Stack(
         alignment: Alignment.topLeft,
+        fit: StackFit.expand,
         children:[
           CustomScrollView(
           key: key,
@@ -39,50 +42,102 @@ class WelcomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
-            SliverToBoxAdapter(
-              child: const DateHeader(),
+            SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: .0,
+                  // paddingVertical: 5.0,
+                  maxHeight: 80,
+                  minHeight: 70,
+                  child:const DateHeader(),
+                )
             ),
-            SliverToBoxAdapter(
-              child: Calendar(
-                      isHeaderVisible: false,
-                      gesturesEnable: false,
-                      focDay: focDay,
-                      selDay: taskProvider.selDay,
-                      startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
-                      onDaySelected: taskProvider.onDaySelected,
-                      onMonthChange: (day) {
-                      },
-                      calendarFormat: CalendarFormat.week,
-                      onFormatChanged: (format) {
-                        taskProvider.changeDateFormat(format);
-                      },
-                      taskEvents: taskProvider.getCalendarValues,
-                      onDayLongPressed: (DateTime date, dateTime) async {
-                        await Navigator.push(
-                            context,
-                            CustomPageRoute(
-                                child: TaskCreator(
-                                    editEnable: true,
-                                    newTask: Task(
-                                        date: DateTime(
-                                            date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-                                        icon: 1,
-                                        description: " ",
-                                        title: " ",
-                                        priority: 1,
-                                        isTaskDone: false)),
-                                direction: AxisDirection.right));
-                      },
-                    ),
+            SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverCalendarWrapper(
+                  paddingHorizontal: .0,
+                  // paddingVertical: 5.0,
+                  maxHeight: 100,
+                  minHeight: 95,
+                  isRebuild: true,
+                  child:Calendar(
+                    isHeaderVisible: false,
+                    gesturesEnable: false,
+                    focDay: focDay,
+                    selDay: taskProvider.selDay,
+                    startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+                    onDaySelected: taskProvider.onDaySelected,
+                    onMonthChange: (day) {
+                    },
+                    calendarFormat: CalendarFormat.week,
+                    onFormatChanged: (format) {
+                      taskProvider.changeDateFormat(format);
+                    },
+                    taskEvents: taskProvider.getCalendarValues,
+                    onDayLongPressed: (DateTime date, dateTime) async {
+                      await Navigator.push(
+                          context,
+                          CustomPageRoute(
+                              child: TaskCreator(
+                                  editEnable: true,
+                                  newTask: Task(
+                                      date: DateTime(
+                                          date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
+                                      icon: 1,
+                                      description: " ",
+                                      title: " ",
+                                      priority: 1,
+                                      isTaskDone: false)),
+                              direction: AxisDirection.right));
+                    },
+                  ),
+                )
             ),
+            // SliverToBoxAdapter(
+            //   child: const DateHeader(),
+            // ),
+            // SliverToBoxAdapter(
+            //   child: Calendar(
+            //           isHeaderVisible: false,
+            //           gesturesEnable: false,
+            //           focDay: focDay,
+            //           selDay: taskProvider.selDay,
+            //           startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+            //           onDaySelected: taskProvider.onDaySelected,
+            //           onMonthChange: (day) {
+            //           },
+            //           calendarFormat: CalendarFormat.week,
+            //           onFormatChanged: (format) {
+            //             taskProvider.changeDateFormat(format);
+            //           },
+            //           taskEvents: taskProvider.getCalendarValues,
+            //           onDayLongPressed: (DateTime date, dateTime) async {
+            //             await Navigator.push(
+            //                 context,
+            //                 CustomPageRoute(
+            //                     child: TaskCreator(
+            //                         editEnable: true,
+            //                         newTask: Task(
+            //                             date: DateTime(
+            //                                 date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
+            //                             icon: 1,
+            //                             description: " ",
+            //                             title: " ",
+            //                             priority: 1,
+            //                             isTaskDone: false)),
+            //                     direction: AxisDirection.right));
+            //           },
+            //         ),
+            // ),
             SliverTaskList(),
             SliverToBoxAdapter(
-              child: SizedBox(
-                height:  MediaQuery.of(context).size.height / 3.2,
+              child: Container(
+                //color: Colors.red,
+                height:  MediaQuery.of(context).size.height / 3.6,
               ),
             )
           ],
-        ),
+                  ),
           Align(
             alignment: Alignment.bottomLeft,
             child: ClipRRect(
@@ -94,7 +149,7 @@ class WelcomeScreen extends StatelessWidget {
                 filter: ImageFilter.blur(
                     sigmaX:intensiveBlurValue, sigmaY:intensiveBlurValue),
                 child: Container(
-                    height: MediaQuery.of(context).size.height / 3.7,
+                    height: MediaQuery.of(context).size.height / 3.8,
                     margin: EdgeInsets.only(bottom: 10),
                     child: NoteList()),
               ),

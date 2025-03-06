@@ -84,8 +84,6 @@ class ImageCard extends StatelessWidget {
               child: Image.memory(
                 img,
                 fit: BoxFit.cover,
-                // width: width,
-                // height: height,
                 filterQuality: FilterQuality.high,
               ),
             ),

@@ -114,7 +114,7 @@ class NoteProvider extends ChangeNotifier  {
   void deleteSelectedNotes()async {
      await getNoteBySearchOptions().then((notes){
       for(Note note in notes){
-        print("SELECTED NOTES TO DELETE ${note.title}");
+        //print("SELECTED NOTES TO DELETE ${note.title}");
         deleteNote(note);
 
       }
@@ -176,94 +176,3 @@ class NoteProvider extends ChangeNotifier  {
   }
 
 }
-// Future<void> deleteAllNotesData() async {
-//   await _dbHelper.closeHive();
-//   notifyListeners();
-// }
-
-// Future<List<Note>> getNoteBySearchOptions() async {
-//   List<Note> list = _dbHelper.getAllNotes();
-//
-//   if (searchProvider.keyword.isEmpty && searchProvider.startDate == searchProvider.endDate) {
-//     _noteListByKeyword = _dbHelper.getAllNotes();
-//   } else {
-//
-//     if (searchProvider.keyword.isNotEmpty) {
-//       _noteListByKeyword = list.where((note) {
-//         return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
-//             note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
-//       }).toList();
-//     }
-//
-//     if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
-//       _noteListByKeyword = list.where((note) {
-//         return note.date.isAfter(searchProvider.startDate) && note.date.isBefore(searchProvider.endDate);
-//       }).toList();
-//     }
-//     notifyListeners();
-//   }
-//
-//   notifyListeners();
-//   return _noteListByKeyword;
-// }
-
-// Future<List<Note>> getNoteBySearchOptions() async {
-//   List<Note> list = _dbHelper.getAllNotes();
-//
-//   if (searchProvider.keyword.isEmpty && searchProvider.startDate == searchProvider.endDate) {
-//     _noteListByKeyword = _dbHelper.getAllNotes();
-//   } else {
-//     _noteListByKeyword = list.where((note) {
-//       return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
-//           note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
-//     }).toList();
-//   }
-//
-//   notifyListeners();
-//   return _noteListByKeyword;
-// }
-// Future<List<Note>> getNoteBySearchOptions() async {
-//   List<Note> list = _dbHelper.getAllNotes();
-//
-//   if (keyword.isEmpty && startDate == endDate) {
-//     _noteListByKeyword = _dbHelper.getAllNotes();
-//   } else {
-//
-//     if (keyword.isNotEmpty) {
-//       _noteListByKeyword = list.where((note) {
-//         return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-//             note.description.toLowerCase().contains(keyword.toLowerCase());
-//       }).toList();
-//     }
-//
-//     if (startDate.isBefore(endDate) && endDate.isAfter(startDate)) {
-//       _noteListByKeyword = list.where((note) {
-//         return note.date.isAfter(startDate) && note.date.isBefore(endDate);
-//       }).toList();
-//     }
-//     notifyListeners();
-//   }
-//
-//   notifyListeners();
-//   return _noteListByKeyword;
-// }
-//
-// void getFullMonth(DateTime focDay){
-//
-//   startDate = DateTime(focDay.year, focDay.month, 1);
-//   endDate = DateTime(focDay.year, focDay.month + 1, 1).subtract(Duration(days: 1));
-//   getNoteByKeyword();
-//
-//   notifyListeners();
-// }
-//
-// void resetSearchFilters(){
-//
-//   keyword = "";
-//   startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
-//   endDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
-//
-//   _noteListByKeyword = _dbHelper.getAllNotes();
-//
-//   notifyListeners();
-// }

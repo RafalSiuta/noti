@@ -10,6 +10,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   final Widget? child;
   final double paddingHorizontal;
   final double paddingVertical;
+  final bool isRebuild;
 
   @override
   double get minExtent => minHeight!;
@@ -21,7 +22,8 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       required this.maxHeight,
       required this.child,
       this.paddingHorizontal = 8.0,
-      this.paddingVertical = 0.0});
+      this.paddingVertical = 0.0,
+      this.isRebuild = false});
 
   @override
   Widget build(
@@ -55,7 +57,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverHeader oldDelegate) {
-    return false;
+    return isRebuild ;
   }
 
   @override

@@ -453,56 +453,6 @@ class _NoteCreatorState extends State<NoteCreator>
                           sliver: SliverList(
                             delegate: SliverChildListDelegate([
 
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     editText();
-                              //   },
-                              //   child: TextField(
-                              //     maxLengthEnforcement:
-                              //         MaxLengthEnforcement.enforced,
-                              //     focusNode: titleNode,
-                              //     contextMenuBuilder: (context, editableTextState) {
-                              //       return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                              //     },
-                              //     cursorWidth: 1,
-                              //     maxLines: null,
-                              //     maxLength: maxTitleLength,
-                              //     textInputAction: TextInputAction.done,
-                              //     keyboardType: TextInputType.text,
-                              //     enabled: editTextEnable,
-                              //     onSubmitted: (val) {
-                              //       setState(() {
-                              //         fieldFocusChange(
-                              //             context, titleNode, subtitleNode);
-                              //       });
-                              //     },
-                              //     onChanged: (newText) {
-                              //       setState(() {
-                              //         widget.newNote.title = newText;
-                              //
-                              //         cursorPlace(titleVal,newText);
-                              //       });
-                              //     },
-                              //     cursorColor: Theme.of(context)
-                              //         .textTheme
-                              //         .labelMedium!
-                              //         .color,
-                              //     controller: titleVal,
-                              //     autofocus: true,
-                              //     style: Theme.of(context)
-                              //         .textTheme
-                              //         .displayLarge!
-                              //         .copyWith(fontSize: titleTextSize),
-                              //     textAlign: TextAlign.start,
-                              //     decoration: InputDecoration(
-                              //       helperText: 'Enter title',
-                              //       helperStyle: Theme.of(context)
-                              //           .inputDecorationTheme
-                              //           .helperStyle!
-                              //           .copyWith(fontSize: helperTextSize),
-                              //     ),
-                              //   ),
-                              // ),
                               TextField(
                                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
                                   focusNode: titleNode,
@@ -545,55 +495,6 @@ class _NoteCreatorState extends State<NoteCreator>
                               SizedBox(
                                 height: verticalPadding,
                               ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     editText();
-                              //   },
-                              //   child: TextField(
-                              //     maxLengthEnforcement:
-                              //         MaxLengthEnforcement.enforced,
-                              //     focusNode: subtitleNode,
-                              //     contextMenuBuilder: (context, editableTextState) {
-                              //       return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                              //     },
-                              //     cursorWidth: 1,
-                              //     maxLines: null,
-                              //     maxLength: maxSubtitleLength,
-                              //     textInputAction: TextInputAction.done,
-                              //     onSubmitted: (val) {
-                              //       setState(() {
-                              //         fieldFocusChange(context, subtitleNode,
-                              //             descriptionNode);
-                              //       });
-                              //     },
-                              //     keyboardType: TextInputType.text,
-                              //     enabled: editTextEnable,
-                              //     onChanged: (newText) {
-                              //       setState(() {
-                              //         widget.newNote.subtitle = newText;
-                              //         cursorPlace(subtitleVal,newText);
-                              //       });
-                              //     },
-                              //     cursorColor: Theme.of(context)
-                              //         .textTheme
-                              //         .labelMedium!
-                              //         .color,
-                              //     controller: subtitleVal,
-                              //     autofocus: false,
-                              //     style: Theme.of(context)
-                              //         .textTheme
-                              //         .displayLarge!
-                              //         .copyWith(fontSize: titleTextSize,height: 1.5),
-                              //     textAlign: TextAlign.start,
-                              //     decoration: InputDecoration(
-                              //       helperText: 'Enter subtitle',
-                              //       helperStyle: Theme.of(context)
-                              //           .inputDecorationTheme
-                              //           .helperStyle!
-                              //           .copyWith(fontSize: helperTextSize),
-                              //     ),
-                              //   ),
-                              // ),
                               TextField(
                                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                                 focusNode: subtitleNode,
@@ -635,54 +536,6 @@ class _NoteCreatorState extends State<NoteCreator>
                                 ),
                   ),
 
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     editText();
-                              //   },
-                              //   child: TextField(
-                              //     maxLengthEnforcement:
-                              //         MaxLengthEnforcement.enforced,
-                              //     focusNode: descriptionNode,
-                              //     contextMenuBuilder: (context, editableTextState) {
-                              //       return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                              //     },
-                              //     cursorWidth: 1,
-                              //     maxLength: maxDescriptionLength,
-                              //     maxLines: null,
-                              //     textInputAction: TextInputAction.newline,
-                              //     enabled: editTextEnable,
-                              //     onSubmitted: (val) {
-                              //       setState(() {
-                              //         descriptionNode.unfocus();
-                              //       });
-                              //     },
-                              //     onChanged: (newText) {
-                              //       setState(() {
-                              //         widget.newNote.description = newText;
-                              //         cursorPlace(descVal,newText);
-                              //       });
-                              //     },
-                              //     cursorColor: Theme.of(context)
-                              //         .textTheme
-                              //         .labelMedium!
-                              //         .color,
-                              //     keyboardType: TextInputType.multiline,
-                              //     controller: descVal,
-                              //     autofocus: false,
-                              //     style: Theme.of(context)
-                              //         .textTheme
-                              //         .bodyMedium!
-                              //         .copyWith(fontSize: titleTextSize,height: 1.5),
-                              //     textAlign: TextAlign.start,
-                              //     decoration: InputDecoration(
-                              //       helperText: 'Enter note text',
-                              //       helperStyle: Theme.of(context)
-                              //           .inputDecorationTheme
-                              //           .helperStyle!
-                              //           .copyWith(fontSize: helperTextSize),
-                              //     ),
-                              //   ),
-                              // ),
                               TextField(
                                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                                 focusNode: descriptionNode,
@@ -730,7 +583,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                       widget.newNote.image!.isNotEmpty
                                   ? ImageCard(
                                       img: widget.newNote.image!,
-                                      width: 100,
+                                      width: 70,
                                       onTap: () {
                                         _bottomDrawer(context);
                                       },
@@ -784,6 +637,7 @@ class _NoteCreatorState extends State<NoteCreator>
                               setState(() {
                                 editTextEnable = false;
                               });
+
                               Navigator.pop(context, true);
                               break;
                           }

@@ -10,6 +10,7 @@ import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/task_card.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
+import '../../widgets/text_display/default_text.dart';
 
 
 class SliverTaskList extends StatelessWidget {
@@ -29,17 +30,12 @@ class SliverTaskList extends StatelessWidget {
 
           if(taskList.isEmpty){
             return SliverPadding(
-                padding: EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
-                sliver: SliverPersistentHeader(
-                pinned: true,
-                delegate: SliverHeader(
-                paddingHorizontal: 8.0,
-                maxHeight: 40,
-                minHeight: 30,
-                child: SmallHeader(
-                title: 'There is no assignments\nfor today ',
-                ))),
-
+                padding: EdgeInsets.only(left: edgePadding, top: 10, bottom: 10),
+                sliver: SliverFillRemaining(
+                  hasScrollBody: false,
+                child: DefaultText(
+                    title: 'There is no assignments\nfor today '
+                ),)
             );
           }else{
             return SliverPadding(
