@@ -49,7 +49,7 @@ class Calendar extends StatelessWidget {
           padding:  EdgeInsets.only(top: topSpacing,left: 3.0,right: 3.0,bottom: 3.0),
           child: AnimationLimiter(
             child: TableCalendar<Task>(
-
+              // locale: 'pl_PL',
               focusedDay: focDay,
               availableGestures: gesturesEnable
                   ? AvailableGestures.all
@@ -71,6 +71,12 @@ class Calendar extends StatelessWidget {
               selectedDayPredicate: (day) =>
                   isSameDay(selDay, day),
               eventLoader: (day) => taskEvents?.call(day) ?? [],
+              //todo add holidays docs: https://pub.dev/packages/table_calendar/versions/1.2.5
+              // holidayPredicate:(day) {
+              //   // Weekends
+              //   return day.weekday >= 6;
+              // },
+
               calendarBuilders: CalendarBuilders(
                 headerTitleBuilder: (context, date) {
                   return Center(
@@ -261,6 +267,7 @@ class Calendar extends StatelessWidget {
                   fontSize: calendarFontSize,
                 ),
               ),
+
             ),
           ),
         ),

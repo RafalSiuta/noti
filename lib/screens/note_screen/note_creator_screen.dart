@@ -79,24 +79,7 @@ class _NoteCreatorState extends State<NoteCreator>
       ),
     );
   }
-  // void cursorPlace(TextEditingController textVal, String newText){
-  //
-  //   final cursorPosition = textVal.selection.baseOffset;
-  //
-  //   textVal.text = newText;
-  //
-  //   textVal.selection = TextSelection.fromPosition(
-  //     TextPosition(
-  //       offset: cursorPosition <= newText.length ? cursorPosition : newText.length,
-  //     ),
-  //   );
-  // }
 
-  // void editText() {
-  //   setState(() {
-  //     editTextEnable = !editTextEnable;
-  //   });
-  // }
   void _editText(FocusNode node) {
     setState(() {
       if (!node.hasFocus) {
@@ -268,7 +251,7 @@ class _NoteCreatorState extends State<NoteCreator>
 
   @override
   void initState() {
-
+    editTextEnable = widget.editEnable;
     currentDate(widget.newNote.date);
     pickedIcon = categoryIcons.getPickedIcon(widget.newNote.icon).icon;
     pickedIconText = categoryIcons.getPickedIcon(widget.newNote.icon).name;
@@ -288,7 +271,9 @@ class _NoteCreatorState extends State<NoteCreator>
     keepInMind = widget.newNote.keep;
 
     super.initState();
-    _toggleKeyboard();
+    if(editTextEnable == true){
+      _toggleKeyboard();
+    }
     titleNode.addListener(() {
       setState(() {
         editTextEnable = titleNode.hasFocus;

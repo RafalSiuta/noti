@@ -65,6 +65,7 @@ class NoteCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
+                          physics:NeverScrollableScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,

@@ -120,52 +120,7 @@ class MyApp extends StatelessWidget {
             update: (context, settingsProvider, searchProvider, noteProvider) =>
                 TaskProvider(settingsProvider, searchProvider),
           ),
-
-          // ChangeNotifierProxyProvider<SettingsProvider, TaskProvider>(
-          //   create: (context) => TaskProvider(
-          //     Provider.of<SettingsProvider>(context, listen: false),
-          //   ),
-          //   update: (context, settingsProvider, taskProvider) =>
-          //       TaskProvider(settingsProvider),
-          // ),
-
-
         ],
-        // [
-        //   ChangeNotifierProvider(
-        //     create: (context) => PermissionProvider(),
-        //   ),
-        //   ChangeNotifierProxyProvider(
-        //     create: (context) => SettingsProvider(Provider.of<PermissionProvider>(context, listen: false)),
-        //     update: (context, PermissionProvider permissions, calendar) => SettingsProvider(permissions),
-        //   ),
-        //   ChangeNotifierProvider(
-        //     create: (context) => GalleryImageProvider(),
-        //   ),
-        //   ChangeNotifierProxyProvider(
-        //     create: (context) => SearchProvider(noteProvider: Provider.of<NoteProvider>(context, listen: false)),
-        //     update: (context, NoteProvider noteProvider, searchProvider) => SearchProvider(noteProvider:noteProvider),
-        //   ),
-        //   ChangeNotifierProxyProvider(
-        //     create: (context) => TaskProvider(Provider.of<SettingsProvider>(context, listen: false)),
-        //     update: (context, SettingsProvider settings, calendar) => TaskProvider(settings),
-        //   ),
-        //   ChangeNotifierProxyProvider2<SettingsProvider,SearchProvider, NoteProvider>(
-        //     create: (context) => NoteProvider(
-        //         Provider.of<SettingsProvider>(context, listen: false),
-        //         Provider.of<SearchProvider>(context, listen: false)),
-        //     update: (context,settingsProvider, searchProvider,noteProvider) => NoteProvider(settingsProvider, searchProvider)
-        //     //(context, SettingsProvider settings,search) => NoteProvider(settings,search),
-        //   ),
-        //   ChangeNotifierProxyProvider2<TaskProvider, NoteProvider, HomeProvider>(
-        //     create: (context) => HomeProvider(
-        //       taskProvider: Provider.of<TaskProvider>(context, listen: false),
-        //       noteProvider: Provider.of<NoteProvider>(context, listen: false),
-        //     ),
-        //     update: (context, taskProvider, noteProvider, homeProvider) =>
-        //         HomeProvider(taskProvider: taskProvider, noteProvider: noteProvider),
-        //   ),
-        // ],
         child: Consumer<SettingsProvider>(
           builder: (context, settings, child) {
             return MaterialApp(

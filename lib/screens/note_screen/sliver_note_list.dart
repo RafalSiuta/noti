@@ -46,7 +46,7 @@ class SliverNoteList extends StatelessWidget {
               );
             }else{
               return SliverPadding(
-                  padding: EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: edgePadding-2, ),
                   sliver: SliverMainAxisGroup(
                     slivers: [
                       SliverPersistentHeader(

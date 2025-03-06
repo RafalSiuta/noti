@@ -10,6 +10,7 @@ import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../widgets/cards/task_card.dart';
 import '../../widgets/headers/search_window.dart';
 import '../../widgets/headers/sliver_header.dart';
+import '../../widgets/headers/sliver_list_header.dart';
 import '../../widgets/headers/small_header.dart';
 import 'task_list.dart';
 
@@ -30,6 +31,9 @@ class TaskScreen extends StatelessWidget {
               searchProvider: Provider.of<TaskSearchProvider>(context),
               searchType: "task",
             ),
+          ),
+          SliverListHeader(
+            isSearch: true,
           ),
           SliverTaskList(
             isSearch: true,

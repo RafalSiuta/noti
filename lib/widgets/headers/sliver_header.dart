@@ -32,10 +32,10 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       padding: EdgeInsets.symmetric(
           horizontal: paddingHorizontal, vertical: paddingVertical),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(0)),
+        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         child: BackdropFilter(
           filter: ImageFilter.blur(
               sigmaX: blur(shrinkOffset), sigmaY: blur(shrinkOffset)),
@@ -52,7 +52,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   }
 
   double blur(double shrinkOffset) {
-    return 0.0 + min(6.0, shrinkOffset);
+    return 0.0 + min(3.0, shrinkOffset);
   }
 
   @override

@@ -26,8 +26,8 @@ class TaskProvider extends ChangeNotifier {
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
   DateTime selDay =
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+  // DateTime? _rangeStart;
+  // DateTime? _rangeEnd;
   RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOff;
   Map<DateTime, List<Task>> tasks = {};
   List<Task> _taskList = [];
@@ -39,10 +39,8 @@ class TaskProvider extends ChangeNotifier {
 
   final Prefs _prefs = Prefs();
 
-
-
   Future<void> initTask() async {
-    _taskList = _dbHelper.getAllTasks();
+    //_taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
     getSettingsValuesForTask().whenComplete((){
@@ -89,8 +87,8 @@ class TaskProvider extends ChangeNotifier {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;
       focDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
-      _rangeStart = null;
-      _rangeEnd = null;
+      // _rangeStart = null;
+      // _rangeEnd = null;
       rangeSelectionMode = RangeSelectionMode.toggledOff;
     }
     _taskList = getCalendarValues(selDay);
@@ -101,8 +99,8 @@ class TaskProvider extends ChangeNotifier {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;
       focDay = focusedDay;
-      _rangeStart = null;
-      _rangeEnd = null;
+      // _rangeStart = null;
+      // _rangeEnd = null;
       rangeSelectionMode = RangeSelectionMode.toggledOff;
     }
     _taskList = getCalendarValues(selDay);
@@ -324,44 +322,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
     return tempList;
   }
-
-  // Future<List<Task>> getTasksBySearchOptions() async {
-  //   List<Task> list = _dbHelper.getAllTasks();
-  //
-  //   //wartości domyślne, które nie powinny powodować zmian
-  //   // searchProvider.isDone = false;
-  //   // searchProvider.priority = -1;
-  //
-  //   if (searchProvider.keyword.isEmpty &&
-  //       searchProvider.startDate == searchProvider.endDate) {
-  //     _taskListByKeyword = _dbHelper.getAllTasks();
-  //   } else {
-  //
-  //     if (searchProvider.keyword.isNotEmpty) {
-  //       _taskListByKeyword = list.where((task) {
-  //         return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
-  //             task.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
-  //       }).toList();
-  //     }
-  //
-  //     if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
-  //       _taskListByKeyword = list.where((task) {
-  //         return task.date.isAfter(searchProvider.startDate) && task.date.isBefore(searchProvider.endDate);
-  //       }).toList();
-  //     }
-  //     notifyListeners();
-  //   }
-  //
-  //   _taskListByKeyword.sort((a, b) {
-  //     if (a.isTaskDone == b.isTaskDone) {
-  //       return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
-  //     }
-  //     return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
-  //   });
-  //
-  //   notifyListeners();
-  //   return _taskListByKeyword;
-  // }
 
   Future<List<Task>> getTasksBySearchOptions() async {
     List<Task> list = _dbHelper.getAllTasks();
