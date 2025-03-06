@@ -16,7 +16,7 @@
     <application
         android:label="Noti"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">
         <!--        android:requestLegacyExternalStorage="true"-->
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />

@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
-import '../settings_model/social_model.dart';
+import '../../../models/settings_model/settings_model/social_model.dart';
 
 class PolicyList {
   final List<SocialModel> _policyList = [

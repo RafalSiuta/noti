@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noti/widgets/buttons/dialog_button.dart';
 import 'package:provider/provider.dart';
-import '../../providers/note_provider.dart';
-import '../../providers/settings_provider.dart';
-import '../../providers/task_provider.dart';
+import '../../providers/note_provider/note_provider.dart';
+import '../../providers/settings_provider/settings_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class SliderDialog extends StatelessWidget {

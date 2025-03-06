@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../models/menu_model/screen_model.dart';
-import '../../providers/settings_provider.dart';
+import '../../providers/settings_provider/settings_provider.dart';
 import '../../styles/shapes/shapes.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/navigators/side_nav.dart';

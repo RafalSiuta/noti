@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/settings_model/policy/librarys_list.dart';
+import '../../providers/settings_provider/policy/librarys_list.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/headers/sliver_header.dart';

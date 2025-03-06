@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../providers/note_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../providers/note_provider/note_provider.dart';
+import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/note_card.dart';
@@ -33,7 +33,7 @@ class NoteList extends StatelessWidget {
           );
         } else {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: bottomSpacing ),
+            padding: EdgeInsets.only(left: 8.0,bottom: bottomSpacing ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

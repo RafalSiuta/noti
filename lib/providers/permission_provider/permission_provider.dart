@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../models/permission_model/permission_model.dart';
-import '../utils/prefs/prefs.dart';
+import '../../models/permission_model/permission_model.dart';
+import '../../utils/prefs/prefs.dart';
 
 //todo futures in next version fix permission choices for user
 class PermissionProvider extends ChangeNotifier{

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/permission_provider.dart';
-import '../../providers/settings_provider.dart';
+import '../../providers/permission_provider/permission_provider.dart';
+import '../../providers/settings_provider/settings_provider.dart';
 import '../../styles/shapes/shapes.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';

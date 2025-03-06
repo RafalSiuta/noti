@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/settings_provider.dart';
+import '../../providers/settings_provider/settings_provider.dart';
 
 class BackgroundShape extends StatelessWidget {
   const BackgroundShape({super.key});

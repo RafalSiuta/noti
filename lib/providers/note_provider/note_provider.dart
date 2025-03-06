@@ -1,15 +1,22 @@
 import 'dart:collection';
-import 'package:noti/providers/settings_provider.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:flutter/foundation.dart';
+import '../../database/database_helper.dart';
+import '../../models/db_model/note.dart';
+import '../../utils/prefs/prefs.dart';
+import 'note_search_provider.dart';
 
-import '../database/database_helper.dart';
-import '../models/db_model/note.dart';
-import '../utils/prefs/prefs.dart';
+class NoteProvider extends ChangeNotifier  {
 
-class NoteProvider extends ChangeNotifier {
+  SettingsProvider settings;
+  NoteSearchProvider searchProvider;
+
+  NoteProvider(this.settings, this.searchProvider) {
+    initNote();
+
+  }
+
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
-
-  String keyword = "";
 
   List<Note> _noteList = [];
 
@@ -22,20 +29,13 @@ class NoteProvider extends ChangeNotifier {
 
   bool isDeleteNotesOnLoad = false;
 
-  SettingsProvider settings;
-
-  NoteProvider(this.settings) {
-    initNote();
-  }
-
   Future<void> initNote() async {
     await getSettingsValuesForNote().whenComplete((){
       getNoteDbList();
-      getNoteByKeyword();
+      getNoteBySearchOptions();
     });
     notifyListeners();
   }
-
 
   UnmodifiableListView<Note> get noteListByKeyword {
     return UnmodifiableListView(_noteListByKeyword);
@@ -59,7 +59,6 @@ class NoteProvider extends ChangeNotifier {
 
   void addNote(Note note) async {
 
-    //todo: remove prints:
     if(note.isInBox){
       await _dbHelper.updateNote(note);
     }else{
@@ -67,37 +66,61 @@ class NoteProvider extends ChangeNotifier {
     }
 
      getNoteDbList();
-     getNoteByKeyword();
+     getNoteBySearchOptions();
     notifyListeners();
   }
 
   void deleteNote(Note note) async {
     await _dbHelper.deleteNote(note);
     getNoteDbList();
-    getNoteByKeyword();
+    getNoteBySearchOptions();
     notifyListeners();
   }
 
-  Future<void> deleteAllNotesData() async {
-    await _dbHelper.closeHive();
-    notifyListeners();
-  }
-
-
-  Future<List<Note>> getNoteByKeyword() async {
+  Future<List<Note>> getNoteBySearchOptions() async {
     List<Note> list = _dbHelper.getAllNotes();
 
-    if(keyword != ""){
-      _noteListByKeyword = list.where((note) {
-        return note.title.toLowerCase().contains(keyword.toLowerCase()) ||
-            note.description.toLowerCase().contains(keyword.toLowerCase());
-      }).toList();
-    }else{
+    if (searchProvider.keyword.isEmpty &&
+        searchProvider.startDate == searchProvider.endDate) {
       _noteListByKeyword = _dbHelper.getAllNotes();
+    } else {
+
+      if (searchProvider.keyword.isNotEmpty) {
+        _noteListByKeyword = list.where((note) {
+          return note.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
+              note.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+        }).toList();
+      }
+
+      if (searchProvider.startDate.isBefore(searchProvider.endDate) && searchProvider.endDate.isAfter(searchProvider.startDate)) {
+        _noteListByKeyword = list.where((note) {
+          return note.date.isAfter(searchProvider.startDate) && note.date.isBefore(searchProvider.endDate);
+        }).toList();
+      }
+      notifyListeners();
     }
 
     notifyListeners();
     return _noteListByKeyword;
+  }
+
+  void resetNoteSearch() {
+    searchProvider.resetSearchFilters();
+    _noteListByKeyword = _dbHelper.getAllNotes();
+    notifyListeners();
+  }
+
+
+  void deleteSelectedNotes()async {
+     await getNoteBySearchOptions().then((notes){
+      for(Note note in notes){
+        //print("SELECTED NOTES TO DELETE ${note.title}");
+        deleteNote(note);
+
+      }
+    });
+     resetNoteSearch();
+     notifyListeners();
   }
 
     Future<void> getSettingsValuesForNote() async {
@@ -152,10 +175,4 @@ class NoteProvider extends ChangeNotifier {
     return list;
   }
 
-  Future<List<Note>> getAllDataNotes() async {
-    List<Note> list = _dbHelper.getAllNotes();
-
-    notifyListeners();
-    return list;
-  }
 }

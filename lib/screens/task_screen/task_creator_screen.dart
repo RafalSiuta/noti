@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -7,9 +6,9 @@ import 'package:provider/provider.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
-import '../../providers/task_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/buttons/icon_button.dart';
+import '../../widgets/buttons/text_icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/task_date_picker.dart';
 import '../../widgets/navigators/creator_nav.dart';
@@ -48,7 +47,7 @@ class _TaskCreatorState extends State<TaskCreator>
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
 
-  bool editTextEnable = false;
+  bool? editTextEnable;// = false;
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController descVal = TextEditingController();
@@ -60,9 +59,8 @@ class _TaskCreatorState extends State<TaskCreator>
   FocusNode titleNode = FocusNode();
   FocusNode descriptionNode = FocusNode();
 
-  void cursorPlace(TextEditingController textVal, String newText){
-
-    final cursorPosition = textVal.selection.baseOffset;
+  void cursorPlace(TextEditingController textVal, String newText, {bool moveToEnd = false}) {
+    int cursorPosition = moveToEnd ? newText.length : textVal.selection.baseOffset;
 
     textVal.text = newText;
 
@@ -115,14 +113,32 @@ class _TaskCreatorState extends State<TaskCreator>
 
     });
   }
-
-
-  void editText() {
+  void editText(FocusNode node) {
     setState(() {
-      editTextEnable = !editTextEnable;
-      FocusScope.of(context).unfocus();
-
+      if (!node.hasFocus) {
+        editTextEnable = true;
+        node.requestFocus();
+      } else {
+        editTextEnable = false;
+        node.unfocus();
+      }
     });
+  }
+
+  void _toggleKeyboard() {
+    if (!titleNode.hasFocus && !descriptionNode.hasFocus) {
+      setState(() {
+        editText(titleNode);
+        cursorPlace(titleVal, titleVal.text, moveToEnd: true);
+      });
+    } else if (titleNode.hasFocus) {
+      setState(() {
+        editText(descriptionNode);
+        cursorPlace(descVal, descVal.text, moveToEnd: true);
+      });
+    } else if (descriptionNode.hasFocus) {
+      FocusScope.of(context).unfocus();
+    }
   }
 
   List<DateTime> scopeDatesList = [];
@@ -157,7 +173,6 @@ class _TaskCreatorState extends State<TaskCreator>
     });
     }
 }
-
 
   _pickTime(BuildContext context) async {
     TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
@@ -244,6 +259,18 @@ class _TaskCreatorState extends State<TaskCreator>
 
   @override
   void initState() {
+    editTextEnable = widget.editEnable;
+
+    titleNode.addListener(() {
+      setState(() {
+        editTextEnable = titleNode.hasFocus;
+      });
+    });
+    descriptionNode.addListener(() {
+      setState(() {
+        editTextEnable = descriptionNode.hasFocus;
+      });
+    });
     pickedIcon = categoryIcons.getPickedIcon(widget.newTask.icon).icon;
     pickedIconText = categoryIcons.getPickedIcon(widget.newTask.icon).name;
     TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
@@ -258,7 +285,7 @@ class _TaskCreatorState extends State<TaskCreator>
                 parent: _menuSlideInController!, curve: Curves.ease));
 
 
-    editTextEnable = widget.editEnable;
+
 
     titleVal.text = widget.newTask.title.isNotEmpty
         ? widget.newTask.title[0].toUpperCase() + widget.newTask.title.substring(1)
@@ -277,6 +304,9 @@ class _TaskCreatorState extends State<TaskCreator>
     priorityRating = widget.newTask.priority;
 
     super.initState();
+    if(editTextEnable == true){
+       _toggleKeyboard();
+    }
 
     Future.delayed(const Duration(milliseconds: 500))
         .then((value) => _menuSlideInController!.forward());
@@ -285,7 +315,9 @@ class _TaskCreatorState extends State<TaskCreator>
   @override
   void dispose() {
     titleNode.dispose();
+    titleVal.dispose();
     descriptionNode.dispose();
+    descVal.dispose();
     _menuSlideInController!.dispose();
     super.dispose();
   }
@@ -294,7 +326,6 @@ class _TaskCreatorState extends State<TaskCreator>
   Widget build(BuildContext context) {
 
     return Scaffold(
-      //todo: check nav bar items shrink option
         resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).cardColor,
         body: Container(
@@ -413,67 +444,50 @@ class _TaskCreatorState extends State<TaskCreator>
                               sliver: SliverList(
                                 delegate:  SliverChildListDelegate([
 
-                                  GestureDetector(
-                                    onTap: () {
-                                      editText();
+                                  TextField(
+                                    maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                                    contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(
+                                    key: widget.key, editableTextState: editableTextState);
                                     },
-                                    child: TextField(
-                                      maxLengthEnforcement:
-                                      MaxLengthEnforcement.truncateAfterCompositionEnds,
-                                      contextMenuBuilder: (context, editableTextState) {
-                                        return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                      },
-                                      cursorWidth: 1,
-                                      focusNode: titleNode,
-                                      maxLines: null,
-                                      maxLength: maxTitleLength,
-                                      onSubmitted: (val) {
-                                        setState(() {
-                                          titleNode.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(
-                                              descriptionNode);
-                                        });
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      enabled: editTextEnable,
-                                      onChanged: (newText) {
-                                        setState(() {
-                                          widget.newTask.title = newText;
-                                          cursorPlace(titleVal,newText);
-
-                                        });
-                                      },
-                                      cursorColor: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .color,
-                                      controller: titleVal,
-                                      autofocus: true,
-                                      style: widget
-                                          .newTask.isTaskDone ?
-                                      Theme.of(context)
-                                          .textTheme
-                                          .displayMedium!
-                                          .copyWith(
-                                          fontSize: titleFontSize):
-                                      Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                          fontSize: titleFontSize,
-                                          decoration:TextDecoration.none),
-                                      textAlign: TextAlign.start,
-                                      decoration: InputDecoration(
-                                        helperText: 'Enter title',
-                                        helperStyle: Theme.of(context)
-                                            .inputDecorationTheme
-                                            .helperStyle!
-                                            .copyWith(
-                                            fontSize: helpTextFontSize),
-                                      ),
+                                    cursorWidth: 1,
+                                    focusNode: titleNode,
+                                    maxLines: null,
+                                    maxLength: maxTitleLength,
+                                    onSubmitted: (val) {
+                                    setState(() {
+                                    titleNode.unfocus();
+                                    FocusScope.of(context).requestFocus(descriptionNode);
+                                    });
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    enabled: true,
+                                    onChanged: (newText) {
+                                    setState(() {
+                                    widget.newTask.title = newText;
+                                    cursorPlace(titleVal, newText);
+                                    });
+                                    },
+                                    cursorColor: Theme.of(context).textTheme.labelMedium!.color,
+                                    controller: titleVal,
+                                    autofocus: false,
+                                    style: widget.newTask.isTaskDone
+                                    ? Theme.of(context).textTheme.displayMedium!.copyWith(
+                                    fontSize: titleFontSize,
+                                    )
+                                        : Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: titleFontSize,
+                                    decoration: TextDecoration.none,
                                     ),
-                                  ),
+                                    textAlign: TextAlign.start,
+                                    decoration: InputDecoration(
+                                    helperText: 'Enter title',
+                                    helperStyle: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .helperStyle!
+                                        .copyWith(fontSize: helpTextFontSize),
+                                    ),
+                ),
                                   SizedBox(height: verticalPadding,),
                                   Rater(
                                     size: raterIconSize,
@@ -486,58 +500,44 @@ class _TaskCreatorState extends State<TaskCreator>
                                           rating.toInt();
                                     }),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      editText();
+                                  TextField(
+                                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                    focusNode: descriptionNode,
+                                    contextMenuBuilder: (context, editableTextState) {
+                                    return CustomTextSelectionToolbar(
+                                    key: widget.key, editableTextState: editableTextState);
                                     },
-                                    child: TextField(
-                                      maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                      focusNode: descriptionNode,
-                                      contextMenuBuilder: (context, editableTextState) {
-                                        return CustomTextSelectionToolbar(key:widget.key,editableTextState: editableTextState);
-                                      },
-                                      cursorWidth: 1,
-                                      maxLength: maxDescriptionLength,
-                                      maxLines: null,
-                                      enabled: editTextEnable,
-                                      onSubmitted: (val) {
-                                        descriptionNode.unfocus();
-                                      },
-                                      onChanged: (newText) {
-                                        setState(() {
-                                          if(newText.isNotEmpty){
-                                            widget.newTask.description =
-                                                newText;
-                                            cursorPlace(descVal,newText);
-                                          }
-
-                                        });
-                                      },
-                                      cursorColor: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .color,
-                                      keyboardType: TextInputType.multiline,
-                                      controller: descVal,
-                                      autofocus: true,
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                          fontSize: descriptionFontSize),
-                                      decoration: InputDecoration(
-                                        helperText: 'Enter description',
-                                        helperStyle: Theme.of(context)
-                                            .inputDecorationTheme
-                                            .helperStyle!
-                                            .copyWith(
-                                            fontSize: helpTextFontSize),
-                                      ),
+                                    cursorWidth: 1,
+                                    maxLength: maxDescriptionLength,
+                                    maxLines: null,
+                                    enabled: true, // Pole tekstowe zawsze aktywne, kontrolujemy tylko focus
+                                    onSubmitted: (val) {
+                                    descriptionNode.unfocus();
+                                    },
+                                    onChanged: (newText) {
+                                    setState(() {
+                                    if (newText.isNotEmpty) {
+                                    widget.newTask.description = newText;
+                                    cursorPlace(descVal, newText);
+                                    }
+                                    });
+                                    },
+                                    cursorColor: Theme.of(context).textTheme.labelMedium!.color,
+                                    keyboardType: TextInputType.multiline,
+                                    controller: descVal,
+                                    autofocus: false, // Nie wymuszamy od razu klawiatury, tylko na tapnięcie
+                                    textAlign: TextAlign.start,
+                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: descriptionFontSize,
                                     ),
-                                  ),
-
+                                    decoration: InputDecoration(
+                                    helperText: 'Enter description',
+                                    helperStyle: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .helperStyle!
+                                        .copyWith(fontSize: helpTextFontSize),
+                                    ),
+                ),
                                 ]),
                               ),
                             )
@@ -571,7 +571,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                 Navigator.pop(context, true);
                                 break;
                               case 1:
-                                editText();
+                                _toggleKeyboard();
                                 break;
                               case 2:
                                 _pickTime(context);

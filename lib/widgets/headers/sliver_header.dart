@@ -10,16 +10,20 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   final Widget? child;
   final double paddingHorizontal;
   final double paddingVertical;
+  final bool isRebuild;
+
   @override
   double get minExtent => minHeight!;
   @override
   double get maxExtent => math.max(maxHeight!, minHeight!);
+
   SliverHeader(
       {required this.minHeight,
       required this.maxHeight,
       required this.child,
       this.paddingHorizontal = 8.0,
-      this.paddingVertical = 0.0});
+      this.paddingVertical = 0.0,
+      this.isRebuild = false});
 
   @override
   Widget build(
@@ -28,10 +32,10 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       padding: EdgeInsets.symmetric(
           horizontal: paddingHorizontal, vertical: paddingVertical),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(0)),
+        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         child: BackdropFilter(
           filter: ImageFilter.blur(
               sigmaX: blur(shrinkOffset), sigmaY: blur(shrinkOffset)),
@@ -48,12 +52,12 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   }
 
   double blur(double shrinkOffset) {
-    return 0.0 + min(6.0, shrinkOffset);
+    return 0.0 + min(3.0, shrinkOffset);
   }
 
   @override
   bool shouldRebuild(SliverHeader oldDelegate) {
-    return false;
+    return isRebuild ;
   }
 
   @override

@@ -1,10 +1,13 @@
 import 'dart:io';
-import 'package:noti/providers/gallery_image_provider.dart';
-import 'package:noti/providers/home_provider.dart';
-import 'package:noti/providers/note_provider.dart';
-import 'package:noti/providers/permission_provider.dart';
-import 'package:noti/providers/settings_provider.dart';
-import 'package:noti/providers/task_provider.dart';
+import 'package:noti/providers/image_provider/gallery_image_provider.dart';
+import 'package:noti/providers/home_provider/home_provider.dart';
+import 'package:noti/providers/note_provider/note_provider.dart';
+import 'package:noti/providers/note_provider/note_search_provider.dart';
+import 'package:noti/providers/permission_provider/permission_provider.dart';
+import 'package:noti/providers/search_provider/search_provider.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
+import 'package:noti/providers/task_provider/task_search_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
@@ -69,35 +72,53 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MultiProvider(
-        providers: [
+        providers:
+        [
+          ChangeNotifierProvider(
+            create: (context) => HomeProvider(),
+          ),
           ChangeNotifierProvider(
             create: (context) => PermissionProvider(),
           ),
-          ChangeNotifierProxyProvider(
-            create: (context) => SettingsProvider(Provider.of<PermissionProvider>(context, listen: false)),
-            update: (context, PermissionProvider permissions, calendar) => SettingsProvider(permissions),
+
+          ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
+            create: (context) => SettingsProvider(
+              Provider.of<PermissionProvider>(context, listen: false),
+            ),
+            update: (context, permissionProvider, settingsProvider) =>
+                SettingsProvider(permissionProvider),
           ),
+
           ChangeNotifierProvider(
             create: (context) => GalleryImageProvider(),
           ),
-          ChangeNotifierProxyProvider(
-            create: (context) => TaskProvider(Provider.of<SettingsProvider>(context, listen: false)),
-            update: (context, SettingsProvider settings, calendar) => TaskProvider(settings),
+
+          ChangeNotifierProvider(
+            create: (context) => SearchProvider(),
           ),
-          ChangeNotifierProxyProvider(
-            create: (context) => NoteProvider(Provider.of<SettingsProvider>(context, listen: false)),
-            update: (context, SettingsProvider settings, calendar) => NoteProvider(settings),
+          ChangeNotifierProvider(
+            create: (context) => TaskSearchProvider(),
           ),
-          // ChangeNotifierProvider(
-          //   create: (context) => HomeProvider(),
-          // ),
-          ChangeNotifierProxyProvider2<TaskProvider, NoteProvider, HomeProvider>(
-            create: (context) => HomeProvider(
-              taskProvider: Provider.of<TaskProvider>(context, listen: false),
-              noteProvider: Provider.of<NoteProvider>(context, listen: false),
+          ChangeNotifierProvider(
+            create: (context) => NoteSearchProvider(),
+          ),
+
+          ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
+            create: (context) => NoteProvider(
+              Provider.of<SettingsProvider>(context, listen: false),
+              Provider.of<NoteSearchProvider>(context, listen: false),
             ),
-            update: (context, taskProvider, noteProvider, homeProvider) =>
-                HomeProvider(taskProvider: taskProvider, noteProvider: noteProvider),
+            update: (context, settingsProvider, searchProvider, noteProvider) =>
+                NoteProvider(settingsProvider, searchProvider),
+          ),
+
+          ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
+            create: (context) => TaskProvider(
+              Provider.of<SettingsProvider>(context, listen: false),
+              Provider.of<TaskSearchProvider>(context, listen: false),
+            ),
+            update: (context, settingsProvider, searchProvider, noteProvider) =>
+                TaskProvider(settingsProvider, searchProvider),
           ),
         ],
         child: Consumer<SettingsProvider>(
@@ -105,7 +126,6 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
-
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,

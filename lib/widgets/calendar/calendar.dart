@@ -5,7 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
-import '../../utils/constans/durations.dart';
+import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import 'calendar_marker.dart';
 
@@ -44,12 +44,12 @@ class Calendar extends StatelessWidget {
     var cellMargin = SizeInfo.calendarCellMargin;
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        filter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
         child: Padding(
           padding:  EdgeInsets.only(top: topSpacing,left: 3.0,right: 3.0,bottom: 3.0),
           child: AnimationLimiter(
             child: TableCalendar<Task>(
-
+              // locale: 'pl_PL',
               focusedDay: focDay,
               availableGestures: gesturesEnable
                   ? AvailableGestures.all
@@ -71,6 +71,12 @@ class Calendar extends StatelessWidget {
               selectedDayPredicate: (day) =>
                   isSameDay(selDay, day),
               eventLoader: (day) => taskEvents?.call(day) ?? [],
+              //todo add holidays docs: https://pub.dev/packages/table_calendar/versions/1.2.5
+              // holidayPredicate:(day) {
+              //   // Weekends
+              //   return day.weekday >= 6;
+              // },
+
               calendarBuilders: CalendarBuilders(
                 headerTitleBuilder: (context, date) {
                   return Center(
@@ -165,7 +171,7 @@ class Calendar extends StatelessWidget {
               ),
               calendarStyle: CalendarStyle(
                 cellMargin: EdgeInsets.symmetric(
-                    horizontal: cellMargin, vertical: cellMargin / 5),
+                    horizontal: cellMargin / 5, vertical: cellMargin / 5),
                 isTodayHighlighted: true,
                 defaultTextStyle: Theme.of(context)
                     .textTheme
@@ -261,6 +267,7 @@ class Calendar extends StatelessWidget {
                   fontSize: calendarFontSize,
                 ),
               ),
+
             ),
           ),
         ),

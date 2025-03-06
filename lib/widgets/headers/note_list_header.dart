@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
-import '../../providers/note_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../providers/note_provider/note_provider.dart';
+import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class NoteListHeader extends StatelessWidget {
@@ -20,13 +20,13 @@ class NoteListHeader extends StatelessWidget {
           child: Row(
             children: [
               PlayAnimationBuilder(
-                tween: Tween<double>(begin: 0.9, end: 1.0),
+                tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero),
                 duration: headerDuration,
                 delay: const Duration(milliseconds: 100),
                 curve: Curves.easeOut,
                 builder: (context, value, child){
-                  return Transform.scale(
-                    scale: value,
+                  return Transform.translate(
+                    offset: value,
                     child: Text(
                       title,
                       style: Theme.of(context)

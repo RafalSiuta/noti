@@ -1,21 +1,21 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:noti/providers/permission_provider.dart';
+import 'package:noti/providers/permission_provider/permission_provider.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/providers/settings_provider/policy/policy_rules_list.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../models/menu_model/nav_model.dart';
-import '../models/settings_model/policy/policy_rules_list.dart';
-import '../models/settings_model/settings_model/calendar_settings_model.dart';
-import '../models/settings_model/settings_model/notification_settings_model.dart';
-import '../models/settings_model/settings_model/settings_model.dart';
-import '../models/settings_model/social_items.dart';
-import '../models/settings_model/trash_settings_model/trash_model.dart';
-import '../models/settings_model/trash_settings_model/trash_settings_list.dart';
-import '../models/theme_model/shapes_list.dart';
-import '../models/theme_model/themes_list.dart';
-import '../styles/shapes/shape_paths/shape1.dart';
-import '../utils/notifications/notifications_helper.dart';
-import '../utils/prefs/prefs.dart';
+import '../../models/menu_model/nav_model.dart';
+import '../../models/settings_model/settings_model/calendar_settings_model.dart';
+import '../../models/settings_model/settings_model/notification_settings_model.dart';
+import '../../models/settings_model/settings_model/settings_model.dart';
+import '../../models/settings_model/social_items.dart';
+import '../../models/settings_model/trash_settings_model/trash_model.dart';
+import 'trash_settings_list.dart';
+import '../../models/theme_model/shapes_list.dart';
+import '../../models/theme_model/themes_list.dart';
+import '../../styles/shapes/shape_paths/shape1.dart';
+import '../../utils/notifications/notifications_helper.dart';
+import '../../utils/prefs/prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
 

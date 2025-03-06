@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
-import '../../providers/home_provider.dart';
-import '../../utils/constans/durations.dart';
+import '../../providers/home_provider/home_provider.dart';
+import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class DateHeader extends StatelessWidget {

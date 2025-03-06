@@ -4,8 +4,8 @@ import '../../models/db_model/note.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../models/menu_model/screen_model.dart';
-import '../../providers/home_provider.dart';
-import '../../providers/task_provider.dart';
+import '../../providers/home_provider/home_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../styles/shapes/shapes.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -16,6 +16,7 @@ import '../calendar_screen/calendar_screen.dart';
 import '../note_screen/note_creator_screen.dart';
 import '../note_screen/note_screen.dart';
 import '../task_screen/task_creator_screen.dart';
+import '../task_screen/task_screen.dart';
 import '../welcome_screen/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,6 +61,11 @@ class _HomeScreenState extends State<HomeScreen>
         page: const NoteScreen(),
         title: NavModel(
           title: 'Notes',
+        )),
+    ScreenModel(
+        page: const TaskScreen(),
+        title: NavModel(
+          title: 'Tasks',
         )),
   ];
 
