@@ -280,12 +280,14 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   void refreshNotification(Task task) {
     //todo: remove prints:
     //print("NOTIFICATIONS DATES ${task.date}");
 
     if (settings.isNotification) {
-      if (task.isTaskDone) {
+      if (task.isTaskDone || task.isNotification == false) {
 
         NotificationsHelper().cancelNotification(task.id.hashCode);
       } else {
