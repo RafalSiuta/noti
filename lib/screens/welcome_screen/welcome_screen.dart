@@ -1,22 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
-import '../../models/db_model/task.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
-import '../../utils/customPageRoute/custom_page_route.dart';
+import '../../utils/dimensions/size_info.dart';
 import '../../widgets/calendar/sliver_calendar_wrapper.dart';
 import '../../widgets/calendar/small_calendar.dart';
 import '../../widgets/headers/date_header.dart';
-import '../../widgets/calendar/calendar.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/sliver_list_header.dart';
 import '../note_screen/note_list.dart';
-import '../note_screen/sliver_note_list.dart';
 import '../task_screen/sliver_task_list.dart';
-import '../task_screen/task_creator_screen.dart';
-import '../task_screen/task_list.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -29,6 +23,7 @@ class WelcomeScreen extends StatelessWidget {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       taskProvider.onDaySelected(DateTime.now(), DateTime.now());
     });
+    var headerHeight = SizeInfo.sliverHeaderHeight;
     return Stack(
         alignment: Alignment.topLeft,
         fit: StackFit.expand,
@@ -44,18 +39,18 @@ class WelcomeScreen extends StatelessWidget {
                   floating: true,
                   delegate: SliverHeader(
                     paddingHorizontal: .0,
-                    maxHeight: 80,
-                    minHeight: 75,
+                    height: 70,
+                    // maxHeight: 80,
+                    // minHeight: 75,
                     child:const DateHeader(),
                   )
               ),
               SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverCalendarWrapper(
-                    paddingHorizontal: .0,
-                    // paddingVertical: 5.0,
-                    maxHeight: 100,
-                    minHeight: 95,
+                    // maxHeight: 100,
+                    // minHeight: 100,
+                    height: 95,
                     isRebuild: false,
                     child:SmallCalendar()
                   )

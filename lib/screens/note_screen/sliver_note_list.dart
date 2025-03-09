@@ -27,6 +27,7 @@ class SliverNoteList extends StatelessWidget {
             var scaleCard = SizeInfo.scaleCard;
             var  bottomSpacing = SizeInfo.noteListBottomSpacing;
             var noteSpacing = SizeInfo.noteGridSpacing;
+            var headerHeight = SizeInfo.sliverHeaderHeight;
             int counter = isSearch
                 ? noteProvider.noteListByKeywordCounter
                 : noteProvider.noteListCounter;
@@ -54,8 +55,9 @@ class SliverNoteList extends StatelessWidget {
                           delegate: SliverHeader(
                               paddingHorizontal: 8.0,
                               paddingVertical: 5.0,
-                              maxHeight: 60,
-                              minHeight: 55,
+                              height: headerHeight,
+                              // maxHeight: 60,
+                              // minHeight: 55,
                               child: SmallHeader(
                                 title: 'You have $counter note${counter > 1 ? 's' : ""}',
                               ))),

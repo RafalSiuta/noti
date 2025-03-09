@@ -38,8 +38,9 @@ class SetsScreen extends StatelessWidget {
                   pinned: true,
                   delegate: SliverHeader(
                       paddingHorizontal: 8.0,
-                      maxHeight: headerHeight,
-                      minHeight: headerHeight - 2,
+                      height: headerHeight,
+                      // maxHeight: headerHeight,
+                      // minHeight: headerHeight - 2,
                       child: const SmallHeader(
                         title: 'Calendar',
                       ))),
@@ -72,8 +73,9 @@ class SetsScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: headerHeight,
-                    minHeight: headerHeight - 2,
+                    height: headerHeight,
+                    // maxHeight: headerHeight,
+                    // minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Notifications',
                     ))),
@@ -110,8 +112,9 @@ class SetsScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: headerHeight,
-                    minHeight: headerHeight - 2,
+                    height: headerHeight,
+                    // maxHeight: headerHeight,
+                    // minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Trash',
                     ))),

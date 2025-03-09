@@ -34,8 +34,9 @@ class ThemeScreen extends StatelessWidget {
                 pinned: true,
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
-                    maxHeight: headerHeight,
-                    minHeight: headerHeight - 2,
+                    height: headerHeight,
+                    // maxHeight: headerHeight,
+                    // minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Shapes',
                     ))),
@@ -49,8 +50,9 @@ class ThemeScreen extends StatelessWidget {
               pinned: true,
               delegate: SliverHeader(
                   paddingHorizontal: 8.0,
-                  maxHeight: headerHeight,
-                  minHeight: headerHeight - 2,
+                  height: headerHeight,
+                  // maxHeight: headerHeight,
+                  // minHeight: headerHeight - 2,
                   child: const SmallHeader(
                     title: 'Themes',
                   ))),

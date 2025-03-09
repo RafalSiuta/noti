@@ -5,24 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class SliverCalendarWrapper extends SliverPersistentHeaderDelegate {
-  final double? minHeight;
-  final double? maxHeight;
+  // final double? minHeight;
+  // final double? maxHeight;
+  final double height;
   final Widget? child;
-  final double paddingHorizontal;
-  final double paddingVertical;
   final bool isRebuild;
 
   @override
-  double get minExtent => minHeight!;
+  double get minExtent => height;//minHeight!;
   @override
-  double get maxExtent => math.max(maxHeight!, minHeight!);
+  double get maxExtent => height; //math.max(maxHeight!, minHeight!);
 
   SliverCalendarWrapper(
-      {required this.minHeight,
-        required this.maxHeight,
+      {
+        // required this.minHeight,
+        // required this.maxHeight,
+        required this.height,
         required this.child,
-        this.paddingHorizontal = 8.0,
-        this.paddingVertical = 0.0,
         this.isRebuild = false});
 
   @override

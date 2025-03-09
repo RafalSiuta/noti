@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../buttons/calendar_format_button.dart';
 import 'calendar_header.dart';
 import 'calendar_marker.dart';
 
@@ -60,11 +61,27 @@ class Calendar extends StatelessWidget {
             children: [
               Visibility(
                 visible: isHeaderVisible,
-                child: CalendarHeader(
-                  next:next ?? (){},
-                  previous: prev ?? (){},
+                child:
+                CalendarHeader(
+                  next: next ?? () {},
+                  previous: prev ?? () {},
                   date: focDay,
+                  widget: CalendarFormatButton(
+                    format: calendarFormat,
+                    onFormatChange: onFormatChanged ?? (format){
+
+                    },
+                  ),
                 ),
+                // CalendarHeader(
+                //   next:next ?? (){},
+                //   previous: prev ?? (){},
+                //   date: focDay,
+                //   widget: CalendarFormatButton(
+                //     format: calendarFormat,
+                //     onFormatChange:onFormatChanged ?? (format){},
+                //   ),
+                // ),
               ),
               AnimationLimiter(
                 child: TableCalendar<Task>(

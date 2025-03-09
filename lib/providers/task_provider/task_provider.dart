@@ -102,8 +102,8 @@ class TaskProvider extends ChangeNotifier {
   //
   // }
 
-  void changeDateFormat(CalendarFormat calendarFormat) {
-    format = calendarFormat;
+  void changeDateFormat(CalendarFormat newFormat) {
+    format = newFormat;
     _prefs.storeInt("calendarFormat", format.index);
     notifyListeners();
   }

@@ -43,6 +43,7 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
+    var headerHeight = SizeInfo.sliverHeaderHeight;
     return  Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -64,8 +65,9 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
                           pinned: true,
                           delegate: SliverHeader(
                               paddingHorizontal: 8.0,
-                              maxHeight: 42,
-                              minHeight: 40,
+                              height: headerHeight,
+                              // maxHeight: 42,
+                              // minHeight: 40,
                               child: const SmallHeader(
                                 title: 'Permissions',
                               ))),

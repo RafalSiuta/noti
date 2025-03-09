@@ -4,22 +4,27 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../utils/constants/const_values.dart';
+
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  final double? minHeight;
-  final double? maxHeight;
+  // final double? minHeight;
+  // final double? maxHeight;
+  final double height;
   final Widget? child;
   final double paddingHorizontal;
   final double paddingVertical;
   final bool isRebuild;
 
   @override
-  double get minExtent => minHeight!;
+  double get minExtent => height;//minHeight!;
   @override
-  double get maxExtent => math.max(maxHeight!, minHeight!);
+  double get maxExtent => height;//math.max(maxHeight!, minHeight!);
 
   SliverHeader(
-      {required this.minHeight,
-      required this.maxHeight,
+      {
+      //   required this.minHeight,
+      // required this.maxHeight,
+        required this.height,
       required this.child,
       this.paddingHorizontal = 8.0,
       this.paddingVertical = 0.0,
@@ -28,17 +33,17 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: paddingHorizontal, vertical: paddingVertical),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-              sigmaX: blur(shrinkOffset), sigmaY: blur(shrinkOffset)),
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+            sigmaX: blurValue, sigmaY: blurValue),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: paddingHorizontal, vertical: paddingVertical),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          ),
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -51,9 +56,9 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
     );
   }
 
-  double blur(double shrinkOffset) {
-    return 0.0 + min(3.0, shrinkOffset);
-  }
+  // double blur(double shrinkOffset) {
+  //   return 0.0 + min(3.0, shrinkOffset);
+  // }
 
   @override
   bool shouldRebuild(SliverHeader oldDelegate) {
