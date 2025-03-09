@@ -30,6 +30,12 @@ class CalendarScreen extends StatelessWidget {
                   key: key,
                   topSpacing: spacingTop,
                   isHeaderVisible: true,
+                  next: (){
+                    taskProvider.onButtonMonthChange("+");
+                  },
+                  prev:(){
+                    taskProvider.onButtonMonthChange("-");
+                  },
                   focDay: taskProvider.focDay,
                   selDay: taskProvider.selDay,
                   startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,

@@ -249,13 +249,13 @@ class _TaskCreatorState extends State<TaskCreator>
         });
   }
 
-  checkIsTaskDone() {
-    setState(() {
-      widget.newTask.isTaskDone
-          ? descVal.text = "Task Finished. Well done!"
-          : descVal.text = widget.newTask.description;
-    });
-  }
+  // checkIsTaskDone() {
+  //   setState(() {
+  //     widget.newTask.isTaskDone
+  //         ? descVal.text = "Task Finished. Well done!"
+  //         : descVal.text = widget.newTask.description;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -299,7 +299,7 @@ class _TaskCreatorState extends State<TaskCreator>
     descVal.selection = TextSelection.fromPosition(
       const TextPosition(offset: 0),
     );
-    checkIsTaskDone();
+    //checkIsTaskDone();
 
     priorityRating = widget.newTask.priority;
 
@@ -492,6 +492,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                   Rater(
                                     size: raterIconSize,
                                     helperTextSize: helpTextFontSize,
+                                    isDone: widget.newTask.isTaskDone,
                                     starCount: 3,
                                     rating: priorityRating,
                                     onRatingChanged: (rating) => setState(() {
@@ -527,7 +528,9 @@ class _TaskCreatorState extends State<TaskCreator>
                                     controller: descVal,
                                     autofocus: false, // Nie wymuszamy od razu klawiatury, tylko na tapnięcie
                                     textAlign: TextAlign.start,
-                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    style:widget.newTask.isTaskDone ? Theme.of(context).textTheme.displayMedium!.copyWith(
+                                    fontSize: titleFontSize,
+                                    ): Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: descriptionFontSize,
                                     ),
                                     decoration: InputDecoration(
@@ -585,7 +588,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                 break;
                               case 5:
                                 taskProvider.updateTasks(widget.newTask);
-                                checkIsTaskDone();
+                                //checkIsTaskDone();
                                 break;
                               case 6:
                                 setState(() {

@@ -71,6 +71,37 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void onButtonMonthChange(String operator){
+    if(operator == "+"){
+      focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+    }else{
+      focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+    }
+    notifyListeners();
+  }
+
+  //CalendarFormat format;
+  // void onCalendarFormatChange(){
+  //   int count = 0;
+  //
+  //   switch (count){
+  //     case 0:
+  //       format = CalendarFormat.month;
+  //       break;
+  //     case 1:
+  //       format = CalendarFormat.twoWeeks;
+  //       break;
+  //     case 2:
+  //       format = CalendarFormat.week;
+  //       break;
+  //
+  //     default: format = CalendarFormat.month;
+  //   }
+  //   count++;
+  //   notifyListeners();
+  //
+  // }
+
   void changeDateFormat(CalendarFormat calendarFormat) {
     format = calendarFormat;
     _prefs.storeInt("calendarFormat", format.index);

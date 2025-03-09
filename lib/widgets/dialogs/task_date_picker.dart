@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../buttons/icon_btn.dart';
 import '../calendar/date_calendar.dart';
+import '../headers/expandable_header.dart';
 
 class TaskDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
@@ -185,6 +187,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: textSize * 3,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
@@ -194,40 +197,59 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_left,
-                            size: textSize,
-                          )),
+                      IconBtn(
+                        icon: Icons.arrow_left,
+                        iconSize: textSize,
+                        iconColor:  baseColor,
+                        onPressed: (){
+                          setDialState(() {
+                            focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+                          });
+                        },
+                      ),
+                      // IconButton(
+                      //     splashColor: Colors.transparent,
+                      //     onPressed: (){
+                      //       setDialState(() {
+                      //         focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+                      //       });
+                      //     },
+                      //     icon: Icon(
+                      //       Icons.arrow_left,
+                      //       size: textSize,
+                      //     )),
                       Text(
                         DateFormat('MMMM yy').format(focDay),
                         style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                       ),
+                      IconBtn(
+                        icon: Icons.arrow_right,
+                        iconSize: textSize,
+                        iconColor:  baseColor,
+                        onPressed: (){
+                          setDialState(() {
+                            focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+                          });
+                        },
+                      ),
             
-            
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_right,
-                            size: textSize,
-                          )),
+                      // IconButton(
+                      //     splashColor: Colors.transparent,
+                      //     onPressed: (){
+                      //       setDialState(() {
+                      //         focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+                      //       });
+                      //     },
+                      //     icon: Icon(
+                      //       Icons.arrow_right,
+                      //       size: textSize,
+                      //     )),
                     ],
                   ),
                 ),
                 //calendar
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child:
                   DateCalendar(
                     focDay: focDay,
@@ -266,31 +288,41 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                   ),
                 ),
                 const Divider(),
-                GestureDetector(
-                  onTap: (){
+                ExpandableHeader(
+                  title: 'more options',
+                  isExpanded: isExpanded,
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+                  onTap:(){
                     setDialState((){
                       isExpanded = !isExpanded;
                     });
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('more options',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                            //height: 1.5,
-                              color: isExpanded ? selectedDateColor : baseColor,
-                              fontSize:pickerSubtitle),
-                        ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
-                      ],
-                    ),
-                  ),
                 ),
+                // GestureDetector(
+                //   onTap: (){
+                //     setDialState((){
+                //       isExpanded = !isExpanded;
+                //     });
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.end,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text('more options',
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .headlineMedium!
+                //               .copyWith(
+                //             //height: 1.5,
+                //               color: isExpanded ? selectedDateColor : baseColor,
+                //               fontSize:pickerSubtitle),
+                //         ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 Visibility(
                   visible: isExpanded,
                   child: Container(

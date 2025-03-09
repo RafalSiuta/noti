@@ -14,6 +14,7 @@ class CalendarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: textSize * 2,
@@ -24,33 +25,20 @@ class CalendarHeader extends StatelessWidget {
           IconBtn(
             icon: Icons.arrow_left,
             iconSize: textSize,
-            iconColor: Theme.of(context).indicatorColor,
-            onPressed: next,
+            iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+            onPressed: previous,
           ),
-          // IconButton(
-          //     splashColor: Colors.transparent,
-          //     onPressed: next,
-          //     icon: Icon(
-          //       Icons.arrow_left,
-          //       size: textSize,
-          //     )),
           Text(
             DateFormat('MMMM yy').format(date),
             style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
           ),
+
           IconBtn(
             icon: Icons.arrow_right,
             iconSize: textSize,
-            iconColor: Theme.of(context).indicatorColor,
-            onPressed: previous,
+            iconColor:  Theme.of(context).dialogTheme.titleTextStyle!.color,
+            onPressed: next,
           ),
-          // IconButton(
-          //     splashColor: Colors.transparent,
-          //     onPressed: previous,
-          //     icon: Icon(
-          //       Icons.arrow_right,
-          //       size: textSize,
-          //     )),
         ],
       ),
     );

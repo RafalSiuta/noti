@@ -65,8 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                 bottomSpace: MediaQuery.of(context).size.height / 3.5,
               ),
               SliverToBoxAdapter(
-                child: Container(
-                  //color: Colors.red,
+                child: SizedBox(
                   height:  MediaQuery.of(context).size.height / 3.7,
                 ),
               )

@@ -54,7 +54,8 @@ class SearchWindow extends StatelessWidget {
                   margin: EdgeInsets.only(left: 5.0, top: topMargin, right: 1.5),
                   decoration: BoxDecoration(
                       borderRadius: searchBarBorderRadiusExpanded,
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).colorScheme.onSurface,
+                     // color: Theme.of(context).scaffoldBackgroundColor,
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
@@ -166,8 +167,12 @@ class SearchWindow extends StatelessWidget {
                                       //calendar header
                                       CalendarHeader(
                                         date:searchProvider.focDay,
-                                        next: searchProvider.nextMonth,
-                                        previous: searchProvider.previousMonth,
+                                        next: (){
+                                          searchProvider.onButtonMonthChange("+");
+                                        },
+                                        previous: (){
+                                          searchProvider.onButtonMonthChange("-");
+                                        },
                                       ),
                                       DateCalendar(
                                           focDay: searchProvider.focDay,

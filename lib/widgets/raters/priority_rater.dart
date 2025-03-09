@@ -11,6 +11,7 @@ class Rater extends StatelessWidget {
   final double height;
   final double helperTextSize;
   final RatingChangeCallback? onRatingChanged;
+  final bool? isDone;
 
   const Rater({
     super.key,
@@ -20,11 +21,14 @@ class Rater extends StatelessWidget {
     this.height = 8.0,
     this.size = 10,
     this.helperTextSize = 8.0,
+    this.isDone
   });
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
-    var markerColor = priorityColor(context,rating);
+    var markerColor = isDone == true
+        ? Theme.of(context).unselectedWidgetColor
+        : priorityColor(context,rating);
 
     if (index >= rating) {
       icon = Icon(
