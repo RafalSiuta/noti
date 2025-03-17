@@ -45,27 +45,48 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   late DateTime endDate;
   double daysToScope = 0;
   int durationCategoryCounter = 0;
-  List<String> durationCategory = ["day","week","month","year"];
-
+  List<String> durationCategory = ["day","week", "weekend","no weekend", "month","year"];
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
-    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
-    if(daysToScope > 0){
+    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day, startDate.hour, startDate.minute);
+
+    if (daysToScope > 0) {
       while (currentDate.isBefore(endDate)) {
-        widget.scopeDatesList.add(currentDate);
         switch (durationCategory[durationCategoryCounter]) {
           case "day":
+            widget.scopeDatesList.add(currentDate);
             currentDate = currentDate.add(Duration(days: interval));
             break;
+
           case "week":
+            widget.scopeDatesList.add(currentDate);
             currentDate = currentDate.add(Duration(days: 7 * interval));
             break;
+
+          case "weekend":
+            if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
+              widget.scopeDatesList.add(currentDate);
+            }
+            currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+            break;
+
+          case "no weekend":
+            if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
+              widget.scopeDatesList.add(currentDate);
+            }
+            currentDate = currentDate.add(Duration(days: interval)); // Przechodzimy do następnego dnia
+            break;
+
           case "month":
-            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+            widget.scopeDatesList.add(currentDate);
+            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
             break;
+
           case "year":
-            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+            widget.scopeDatesList.add(currentDate);
+            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
             break;
+
           default:
             throw Exception("Invalid duration category");
         }
@@ -73,6 +94,46 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     }
     return widget.scopeDatesList;
   }
+
+  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
+  //   widget.scopeDatesList.clear();
+  //   DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
+  //   if(daysToScope > 0){
+  //     while (currentDate.isBefore(endDate)) {
+  //      // widget.scopeDatesList.add(currentDate);
+  //       switch (durationCategory[durationCategoryCounter]) {
+  //         case "day":
+  //           currentDate = currentDate.add(Duration(days: interval));
+  //           break;
+  //         case "week":
+  //           currentDate = currentDate.add(Duration(days: 7 * interval));
+  //           break;
+  //         case "weekend":
+  //           if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
+  //             widget.scopeDatesList.add(currentDate);
+  //           }
+  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+  //           break;
+  //
+  //         case "no weekend":
+  //           if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
+  //             widget.scopeDatesList.add(currentDate);
+  //           }
+  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+  //           break;
+  //         case "month":
+  //           currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+  //           break;
+  //         case "year":
+  //           currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+  //           break;
+  //         default:
+  //           throw Exception("Invalid duration category");
+  //       }
+  //     }
+  //   }
+  //   return widget.scopeDatesList;
+  // }
 
   void onScopeDateSelected(){
     setState(() {
@@ -155,7 +216,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     startDate = widget.initialDate;
     focDay = widget.initialDate;
     selDay = widget.initialDate;
-    endDate = DateTime.now().add(const Duration(days: 2));
+    endDate = widget.initialDate;//DateTime.now().add(const Duration(days: 2));
     getCalendarDates(focDay);
 
   }

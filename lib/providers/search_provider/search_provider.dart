@@ -96,15 +96,6 @@ class SearchProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
-  // void nextMonth(){
-  //   focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-  //   notifyListeners();
-  // }
-  //
-  // void previousMonth(){
-  //   focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-  //   notifyListeners();
-  // }
 
   void onButtonSelected(){
     isDateScopeSelected = !isDateScopeSelected;
