@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/icon_btn.dart';
 
 class CalendarHeader extends StatelessWidget {
-  const CalendarHeader({required this.next, required this.previous,required this.date, super.key});
+  const CalendarHeader({required this.next, required this.previous,required this.date,this.widget, super.key});
 
   final VoidCallback next;
   final VoidCallback previous;
   final DateTime date;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: textSize * 2,
@@ -24,33 +25,30 @@ class CalendarHeader extends StatelessWidget {
           IconBtn(
             icon: Icons.arrow_left,
             iconSize: textSize,
-            iconColor: Theme.of(context).indicatorColor,
-            onPressed: next,
+            iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+            onPressed: previous,
           ),
-          // IconButton(
-          //     splashColor: Colors.transparent,
-          //     onPressed: next,
-          //     icon: Icon(
-          //       Icons.arrow_left,
-          //       size: textSize,
-          //     )),
-          Text(
+          widget != null ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: textSize,
+            children: [
+              Text(
+                DateFormat('MMMM yy').format(date),
+                style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+              ),
+              widget!
+            ],
+          ) : Text(
             DateFormat('MMMM yy').format(date),
             style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
           ),
           IconBtn(
             icon: Icons.arrow_right,
             iconSize: textSize,
-            iconColor: Theme.of(context).indicatorColor,
-            onPressed: previous,
+            iconColor:  Theme.of(context).dialogTheme.titleTextStyle!.color,
+            onPressed: next,
           ),
-          // IconButton(
-          //     splashColor: Colors.transparent,
-          //     onPressed: previous,
-          //     icon: Icon(
-          //       Icons.arrow_right,
-          //       size: textSize,
-          //     )),
         ],
       ),
     );

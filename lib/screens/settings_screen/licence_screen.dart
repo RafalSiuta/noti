@@ -22,6 +22,7 @@ class LicenceScreen extends StatelessWidget {
         .headlineMedium!
         .copyWith(fontSize: titleSize, letterSpacing: 2);
     double cardSize = 100;
+    var headerHeight = SizeInfo.sliverHeaderHeight;
     return Scaffold(
       key: key,
       resizeToAvoidBottomInset: false,
@@ -41,8 +42,9 @@ class LicenceScreen extends StatelessWidget {
                   pinned: true,
                   delegate: SliverHeader(
                     paddingHorizontal: padding,
-                    maxHeight: 150,
-                    minHeight: 130,
+                    height: headerHeight,
+                    // maxHeight: 150,
+                    // minHeight: 130,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,8 +141,9 @@ class LicenceScreen extends StatelessWidget {
                   pinned: true,
                   delegate: SliverHeader(
                       paddingHorizontal: 8.0,
-                      maxHeight: 70,
-                      minHeight: 60,
+                      height: headerHeight,
+                      // maxHeight: 70,
+                      // minHeight: 60,
                       child: const SmallHeader(
                         title:
                             'This app is built thanks to external libraries and software',

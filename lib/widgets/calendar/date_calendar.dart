@@ -9,18 +9,6 @@ import '../../utils/dimensions/size_info.dart';
 
 class DateCalendar extends StatelessWidget {
 
-  final DateTime focDay;
-  final DateTime selDay;
-  final DateTime? rangeStartDay;
-  final DateTime? rangeEndDay;
-  final StartingDayOfWeek startingDayOfWeek;
-  final Function(DateTime, DateTime)? onDaySelected;
-  final Function(DateTime, DateTime)? onDayLongPressed;
-  final Function(DateTime) onMonthChange;
-  final CalendarFormat calendarFormat;
-  final Function(CalendarFormat)? onFormatChanged;
-  final List<DateTime> Function(DateTime)  events;
-  final Color? markerColor;
   const DateCalendar({required this.focDay,
     required this.onMonthChange,
     required this.startingDayOfWeek,
@@ -33,7 +21,23 @@ class DateCalendar extends StatelessWidget {
     required this.onFormatChanged,
     required this.events,super.key,
     required this.markerColor,
+   // this.isRangeUsed = false,
   });
+
+  final DateTime focDay;
+  final DateTime selDay;
+  final DateTime? rangeStartDay;
+  final DateTime? rangeEndDay;
+  final StartingDayOfWeek startingDayOfWeek;
+  final Function(DateTime, DateTime)? onDaySelected;
+  final Function(DateTime, DateTime)? onDayLongPressed;
+  final Function(DateTime) onMonthChange;
+  final CalendarFormat calendarFormat;
+  final Function(CalendarFormat)? onFormatChanged;
+  final List<DateTime> Function(DateTime)  events;
+  final Color? markerColor;
+  //final bool isRangeUsed;
+
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +144,7 @@ class DateCalendar extends StatelessWidget {
               return Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(5.0)),
-                  color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                  color:  Theme.of(context).focusColor.withValues(alpha: 0.5),
                 ),
                 child: Center(
                     child: Text(

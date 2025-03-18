@@ -57,7 +57,7 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
             margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/14,
                 vertical: MediaQuery.of(context).size.height/5
             ),
-          
+
             color: Theme.of(context).colorScheme.onSurface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),

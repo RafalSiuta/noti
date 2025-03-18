@@ -26,8 +26,9 @@ class IconBtn extends StatelessWidget {
               width: iconSize * 1.5,
               height: iconSize * 1.5,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onSurface,
+                  //color: Theme.of(context).scaffoldBackgroundColor,
                 shape: BoxShape.rectangle,
+                border: Border.all(color: iconColor!,width: 0.5),
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius))
               ),
               child: Icon(icon, size: iconSize,color: iconColor,),
@@ -35,20 +36,5 @@ class IconBtn extends StatelessWidget {
           ),
         ),
       );
-    //   IconButton(
-    //     padding: EdgeInsets.all(5.0),
-    //     alignment: Alignment.center,
-    //     splashColor: Colors.transparent,
-    //     focusColor: Theme.of(context).indicatorColor,
-    //     disabledColor: Theme.of(context).unselectedWidgetColor,
-    //
-    //     onPressed: onPressed,
-    //     icon: Icon(icon, size: iconSize,color: iconColor,),
-    //     style: ButtonStyle(
-    //         backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryFixed),
-    //         foregroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryFixed),
-    //         shape: WidgetStatePropertyAll(BoxShape.rectangle)
-    //     ),
-    // );
   }
 }

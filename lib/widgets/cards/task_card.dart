@@ -146,12 +146,14 @@ class TaskCard extends StatelessWidget {
               child: Padding(
                 padding: textPadding,
                 child: Text(
-                  task.isTaskDone
-                      ? "Task Finished. Well done!"
-                      : task.description,
+                  task.description,
                   textAlign:
                       circleFromLeft == true ? TextAlign.left : TextAlign.right,
-                  style: Theme.of(context)
+                  style: task.isTaskDone ? Theme.of(context)
+                      .textTheme
+                      .displayMedium!
+                      .copyWith(
+                      fontSize: descriptionSize ): Theme.of(context)
                       .textTheme
                       .bodyMedium!
                       .copyWith(fontSize: descriptionSize),

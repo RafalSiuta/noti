@@ -71,8 +71,39 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeDateFormat(CalendarFormat calendarFormat) {
-    format = calendarFormat;
+  void onButtonMonthChange(String operator){
+    if(operator == "+"){
+      focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+    }else{
+      focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+    }
+    notifyListeners();
+  }
+
+  //CalendarFormat format;
+  // void onCalendarFormatChange(){
+  //   int count = 0;
+  //
+  //   switch (count){
+  //     case 0:
+  //       format = CalendarFormat.month;
+  //       break;
+  //     case 1:
+  //       format = CalendarFormat.twoWeeks;
+  //       break;
+  //     case 2:
+  //       format = CalendarFormat.week;
+  //       break;
+  //
+  //     default: format = CalendarFormat.month;
+  //   }
+  //   count++;
+  //   notifyListeners();
+  //
+  // }
+
+  void changeDateFormat(CalendarFormat newFormat) {
+    format = newFormat;
     _prefs.storeInt("calendarFormat", format.index);
     notifyListeners();
   }
@@ -249,12 +280,14 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   void refreshNotification(Task task) {
     //todo: remove prints:
     //print("NOTIFICATIONS DATES ${task.date}");
 
     if (settings.isNotification) {
-      if (task.isTaskDone) {
+      if (task.isTaskDone || task.isNotification == false) {
 
         NotificationsHelper().cancelNotification(task.id.hashCode);
       } else {

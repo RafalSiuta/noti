@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../buttons/icon_btn.dart';
 import '../calendar/date_calendar.dart';
+import '../headers/expandable_header.dart';
 
 class TaskDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
@@ -43,27 +45,48 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   late DateTime endDate;
   double daysToScope = 0;
   int durationCategoryCounter = 0;
-  List<String> durationCategory = ["day","week","month","year"];
-
+  List<String> durationCategory = ["day","week", "weekend","no weekend", "month","year"];
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
-    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
-    if(daysToScope > 0){
+    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day, startDate.hour, startDate.minute);
+
+    if (daysToScope > 0) {
       while (currentDate.isBefore(endDate)) {
-        widget.scopeDatesList.add(currentDate);
         switch (durationCategory[durationCategoryCounter]) {
           case "day":
+            widget.scopeDatesList.add(currentDate);
             currentDate = currentDate.add(Duration(days: interval));
             break;
+
           case "week":
+            widget.scopeDatesList.add(currentDate);
             currentDate = currentDate.add(Duration(days: 7 * interval));
             break;
+
+          case "weekend":
+            if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
+              widget.scopeDatesList.add(currentDate);
+            }
+            currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+            break;
+
+          case "no weekend":
+            if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
+              widget.scopeDatesList.add(currentDate);
+            }
+            currentDate = currentDate.add(Duration(days: interval)); // Przechodzimy do następnego dnia
+            break;
+
           case "month":
-            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+            widget.scopeDatesList.add(currentDate);
+            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
             break;
+
           case "year":
-            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+            widget.scopeDatesList.add(currentDate);
+            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
             break;
+
           default:
             throw Exception("Invalid duration category");
         }
@@ -71,6 +94,46 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     }
     return widget.scopeDatesList;
   }
+
+  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
+  //   widget.scopeDatesList.clear();
+  //   DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
+  //   if(daysToScope > 0){
+  //     while (currentDate.isBefore(endDate)) {
+  //      // widget.scopeDatesList.add(currentDate);
+  //       switch (durationCategory[durationCategoryCounter]) {
+  //         case "day":
+  //           currentDate = currentDate.add(Duration(days: interval));
+  //           break;
+  //         case "week":
+  //           currentDate = currentDate.add(Duration(days: 7 * interval));
+  //           break;
+  //         case "weekend":
+  //           if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
+  //             widget.scopeDatesList.add(currentDate);
+  //           }
+  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+  //           break;
+  //
+  //         case "no weekend":
+  //           if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
+  //             widget.scopeDatesList.add(currentDate);
+  //           }
+  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
+  //           break;
+  //         case "month":
+  //           currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+  //           break;
+  //         case "year":
+  //           currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
+  //           break;
+  //         default:
+  //           throw Exception("Invalid duration category");
+  //       }
+  //     }
+  //   }
+  //   return widget.scopeDatesList;
+  // }
 
   void onScopeDateSelected(){
     setState(() {
@@ -153,7 +216,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     startDate = widget.initialDate;
     focDay = widget.initialDate;
     selDay = widget.initialDate;
-    endDate = DateTime.now().add(const Duration(days: 2));
+    endDate = widget.initialDate;//DateTime.now().add(const Duration(days: 2));
     getCalendarDates(focDay);
 
   }
@@ -185,6 +248,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: textSize * 3,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
@@ -194,40 +258,59 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_left,
-                            size: textSize,
-                          )),
+                      IconBtn(
+                        icon: Icons.arrow_left,
+                        iconSize: textSize,
+                        iconColor:  baseColor,
+                        onPressed: (){
+                          setDialState(() {
+                            focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+                          });
+                        },
+                      ),
+                      // IconButton(
+                      //     splashColor: Colors.transparent,
+                      //     onPressed: (){
+                      //       setDialState(() {
+                      //         focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+                      //       });
+                      //     },
+                      //     icon: Icon(
+                      //       Icons.arrow_left,
+                      //       size: textSize,
+                      //     )),
                       Text(
                         DateFormat('MMMM yy').format(focDay),
                         style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                       ),
+                      IconBtn(
+                        icon: Icons.arrow_right,
+                        iconSize: textSize,
+                        iconColor:  baseColor,
+                        onPressed: (){
+                          setDialState(() {
+                            focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+                          });
+                        },
+                      ),
             
-            
-                      IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: (){
-                            setDialState(() {
-                              focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_right,
-                            size: textSize,
-                          )),
+                      // IconButton(
+                      //     splashColor: Colors.transparent,
+                      //     onPressed: (){
+                      //       setDialState(() {
+                      //         focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+                      //       });
+                      //     },
+                      //     icon: Icon(
+                      //       Icons.arrow_right,
+                      //       size: textSize,
+                      //     )),
                     ],
                   ),
                 ),
                 //calendar
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child:
                   DateCalendar(
                     focDay: focDay,
@@ -266,31 +349,41 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                   ),
                 ),
                 const Divider(),
-                GestureDetector(
-                  onTap: (){
+                ExpandableHeader(
+                  title: 'more options',
+                  isExpanded: isExpanded,
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+                  onTap:(){
                     setDialState((){
                       isExpanded = !isExpanded;
                     });
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('more options',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                            //height: 1.5,
-                              color: isExpanded ? selectedDateColor : baseColor,
-                              fontSize:pickerSubtitle),
-                        ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
-                      ],
-                    ),
-                  ),
                 ),
+                // GestureDetector(
+                //   onTap: (){
+                //     setDialState((){
+                //       isExpanded = !isExpanded;
+                //     });
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5.0),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.end,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text('more options',
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .headlineMedium!
+                //               .copyWith(
+                //             //height: 1.5,
+                //               color: isExpanded ? selectedDateColor : baseColor,
+                //               fontSize:pickerSubtitle),
+                //         ),Icon(Icons.arrow_drop_down,size: textSize,color: isExpanded ? selectedDateColor : baseColor,)
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 Visibility(
                   visible: isExpanded,
                   child: Container(

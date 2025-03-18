@@ -16,6 +16,7 @@ class PermissionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
+    var headerHeight = SizeInfo.sliverHeaderHeight;
     return Consumer<PermissionProvider>(
         builder: (context, permissionProvider, child) {
           return
@@ -29,8 +30,9 @@ class PermissionScreen extends StatelessWidget {
                       pinned: true,
                       delegate: SliverHeader(
                           paddingHorizontal: 8.0,
-                          maxHeight: 42,
-                          minHeight: 40,
+                          height: headerHeight,
+                          // maxHeight: 42,
+                          // minHeight: 40,
                           child: const SmallHeader(
                             title: 'Permissions',
                           ))),

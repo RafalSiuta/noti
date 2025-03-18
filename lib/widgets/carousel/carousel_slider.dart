@@ -5,6 +5,7 @@ import 'package:simple_animations/simple_animations.dart';
 import '../../providers/settings_provider/settings_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../buttons/icon_btn.dart';
 
 class Carousel extends StatelessWidget {
   const Carousel({super.key});
@@ -15,6 +16,7 @@ class Carousel extends StatelessWidget {
       builder: (context, settingsProvider, child) {
         var chevronIconSize = SizeInfo.switchButtonIconSize;
         var carouselHeight = SizeInfo.carouselHeight;
+        var textSize = SizeInfo.headerSubtitleSize;
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,22 +93,34 @@ class Carousel extends StatelessWidget {
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                IconButton(
-                    splashColor: Colors.transparent,
-                    onPressed: () => settingsProvider.goToPrevious(),
-                    icon: Icon(
-                      Icons.arrow_left,
-                      size: chevronIconSize,
-                    )),
-                IconButton(
-                    splashColor: Colors.transparent,
-                    onPressed: () => settingsProvider.goToNext(),
-                    icon: Icon(
-                      Icons.arrow_right,
-                      size: chevronIconSize,
-                    )),
+                IconBtn(
+                  icon: Icons.arrow_left,
+                  iconSize: textSize,
+                  iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+                  onPressed: () => settingsProvider.goToPrevious(),
+                ),
+                // IconButton(
+                //     splashColor: Colors.transparent,
+                //     onPressed: () => settingsProvider.goToPrevious(),
+                //     icon: Icon(
+                //       Icons.arrow_left,
+                //       size: chevronIconSize,
+                //     )),
+                // IconButton(
+                //     splashColor: Colors.transparent,
+                //     onPressed: () => settingsProvider.goToNext(),
+                //     icon: Icon(
+                //       Icons.arrow_right,
+                //       size: chevronIconSize,
+                //     )),
+                IconBtn(
+                  icon: Icons.arrow_right,
+                  iconSize: textSize,
+                  iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+                  onPressed: () => settingsProvider.goToNext(),
+                ),
               ],
             ),
           ],

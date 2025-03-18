@@ -88,14 +88,12 @@ class SearchProvider extends ChangeNotifier{
     // }).toList();
     return [];
   }
-
-  void nextMonth(){
-    focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-    notifyListeners();
-  }
-
-  void previousMonth(){
-    focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+  void onButtonMonthChange(String operator){
+    if(operator == "+"){
+      focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
+    }else{
+      focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
+    }
     notifyListeners();
   }
 

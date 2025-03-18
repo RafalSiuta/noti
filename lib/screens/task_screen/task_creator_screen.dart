@@ -249,11 +249,17 @@ class _TaskCreatorState extends State<TaskCreator>
         });
   }
 
-  checkIsTaskDone() {
+  // checkIsTaskDone() {
+  //   setState(() {
+  //     widget.newTask.isTaskDone
+  //         ? descVal.text = "Task Finished. Well done!"
+  //         : descVal.text = widget.newTask.description;
+  //   });
+  // }
+  void addNotification(bool isTaskDone){
+
     setState(() {
-      widget.newTask.isTaskDone
-          ? descVal.text = "Task Finished. Well done!"
-          : descVal.text = widget.newTask.description;
+      widget.newTask.isNotification = isTaskDone;
     });
   }
 
@@ -299,7 +305,7 @@ class _TaskCreatorState extends State<TaskCreator>
     descVal.selection = TextSelection.fromPosition(
       const TextPosition(offset: 0),
     );
-    checkIsTaskDone();
+    //checkIsTaskDone();
 
     priorityRating = widget.newTask.priority;
 
@@ -489,16 +495,44 @@ class _TaskCreatorState extends State<TaskCreator>
                                     ),
                 ),
                                   SizedBox(height: verticalPadding,),
-                                  Rater(
-                                    size: raterIconSize,
-                                    helperTextSize: helpTextFontSize,
-                                    starCount: 3,
-                                    rating: priorityRating,
-                                    onRatingChanged: (rating) => setState(() {
-                                      priorityRating = rating.toInt();
-                                      widget.newTask.priority =
-                                          rating.toInt();
-                                    }),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Rater(
+                                        size: raterIconSize,
+                                        helperTextSize: helpTextFontSize,
+                                        isDone: widget.newTask.isTaskDone,
+                                        starCount: 3,
+                                        rating: priorityRating,
+                                        onRatingChanged: (rating) => setState(() {
+                                          priorityRating = rating.toInt();
+                                          widget.newTask.priority =
+                                              rating.toInt();
+                                        }),
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Transform.scale(
+                                            scale: 0.8,
+                                            child: Switch(
+                                                value: widget.newTask.isNotification ?? true,
+                                                onChanged: addNotification
+                                            ),
+                                          ),
+                                          Text(
+                                            'notification',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                                fontSize: navIconSize * 0.52 ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                   TextField(
                                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -527,7 +561,9 @@ class _TaskCreatorState extends State<TaskCreator>
                                     controller: descVal,
                                     autofocus: false, // Nie wymuszamy od razu klawiatury, tylko na tapnięcie
                                     textAlign: TextAlign.start,
-                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    style:widget.newTask.isTaskDone ? Theme.of(context).textTheme.displayMedium!.copyWith(
+                                    fontSize: titleFontSize,
+                                    ): Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: descriptionFontSize,
                                     ),
                                     decoration: InputDecoration(
@@ -585,7 +621,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                 break;
                               case 5:
                                 taskProvider.updateTasks(widget.newTask);
-                                checkIsTaskDone();
+                                //checkIsTaskDone();
                                 break;
                               case 6:
                                 setState(() {
