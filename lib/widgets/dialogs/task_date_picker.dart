@@ -46,6 +46,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   double daysToScope = 0;
   int durationCategoryCounter = 0;
   List<String> durationCategory = ["day","week", "weekend","no weekend", "month","year"];
+
   List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
     widget.scopeDatesList.clear();
     DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day, startDate.hour, startDate.minute);
