@@ -23,7 +23,8 @@ class WelcomeScreen extends StatelessWidget {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       taskProvider.onDaySelected(DateTime.now(), DateTime.now());
     });
-    var headerHeight = SizeInfo.sliverHeaderHeight;
+    var headerHeight = SizeInfo.sliverLargeHeaderHeight;
+    var calendarHeaderHeight = SizeInfo.sliverCalendarHeaderHeight;
     return Stack(
         alignment: Alignment.topLeft,
         fit: StackFit.expand,
@@ -39,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                   floating: true,
                   delegate: SliverHeader(
                     paddingHorizontal: .0,
-                    height: 70,
+                    height: headerHeight,
                     // maxHeight: 80,
                     // minHeight: 75,
                     child:const DateHeader(),
@@ -50,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                   delegate: SliverCalendarWrapper(
                     // maxHeight: 100,
                     // minHeight: 100,
-                    height: 95,
+                    height: calendarHeaderHeight,
                     isRebuild: false,
                     child:SmallCalendar()
                   )

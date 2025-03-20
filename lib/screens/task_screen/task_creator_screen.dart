@@ -249,13 +249,6 @@ class _TaskCreatorState extends State<TaskCreator>
         });
   }
 
-  // checkIsTaskDone() {
-  //   setState(() {
-  //     widget.newTask.isTaskDone
-  //         ? descVal.text = "Task Finished. Well done!"
-  //         : descVal.text = widget.newTask.description;
-  //   });
-  // }
   void addNotification(bool isTaskDone){
 
     setState(() {

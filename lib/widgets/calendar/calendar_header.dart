@@ -4,19 +4,21 @@ import '../../utils/dimensions/size_info.dart';
 import '../buttons/icon_btn.dart';
 
 class CalendarHeader extends StatelessWidget {
-  const CalendarHeader({required this.next, required this.previous,required this.date,this.widget, super.key});
+  const CalendarHeader({required this.next, required this.previous,required this.date,this.widget, this.padding = EdgeInsets.zero, super.key});
 
   final VoidCallback next;
   final VoidCallback previous;
   final DateTime date;
   final Widget? widget;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
 
-    return SizedBox(
+    return Container(
       width: MediaQuery.of(context).size.width,
+      padding: padding,
       height: textSize * 2,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

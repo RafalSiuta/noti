@@ -23,6 +23,7 @@ class SizeInfo {
 
   ///corner radius
   static double cornerRadius = 15.0;
+  static double buttonCornerRadius = 5.0;
 
   ///general - repeat in other widgets:
   static double headerTitleSize = 32;
@@ -30,10 +31,13 @@ class SizeInfo {
   static double verticalHeaderPadding = 10;
   static double leftEdgeMainPadding = .0;
   static double leftEdgeCreatorPadding = 8.0;
+
   ///search bar and headers:
   static double searchBarHeight = 40;
   static double searchIconSize = 18;
   static double sliverHeaderHeight = 42;
+  static double sliverLargeHeaderHeight = 70;
+  static double sliverCalendarHeaderHeight = 95;
 
   static double helpTextSize = 8.0;
 
@@ -127,6 +131,9 @@ class SizeInfo {
 
     helpTextSize = 13;
 
+    //corner radius:
+    buttonCornerRadius = 10.0;
+
     ///social bar:
     socialIcons = 23;
 
@@ -140,7 +147,9 @@ class SizeInfo {
     headerTitleSize = 42;
     headerSubtitleSize = 32;
     verticalHeaderPadding = 16;
-    sliverHeaderHeight = 60;
+    sliverHeaderHeight = 70;
+    sliverLargeHeaderHeight = 120;
+    sliverCalendarHeaderHeight = 160;
 
     ///calendar
     rowHeight = 72;

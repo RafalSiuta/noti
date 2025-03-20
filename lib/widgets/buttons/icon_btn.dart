@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 class IconBtn extends StatelessWidget {
   const IconBtn({required this.onPressed, required this.icon, this.iconSize = 10, this.iconColor, super.key});
   final VoidCallback onPressed;
@@ -9,7 +11,7 @@ class IconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius = 5.0;
+    var borderRadius = SizeInfo.buttonCornerRadius;
     return
       InkWell(
         splashColor: Colors.transparent,

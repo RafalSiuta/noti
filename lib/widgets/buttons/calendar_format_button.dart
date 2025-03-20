@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 
 class CalendarFormatButton extends StatelessWidget {
   const CalendarFormatButton({required this.format, required this.onFormatChange, this.textSize = 10, super.key});
@@ -11,7 +13,7 @@ class CalendarFormatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius = 5.0;
+    var borderRadius =  SizeInfo.buttonCornerRadius;
 
     // Lista dostępnych formatów
     final List<CalendarFormat> formats = [
@@ -36,8 +38,8 @@ class CalendarFormatButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),
         child: Container(
-          height: textSize * 2.5,
-          padding: EdgeInsets.symmetric(horizontal: 5.0),
+          height: textSize * 2,
+          padding: EdgeInsets.symmetric(horizontal: borderRadius * 1.5),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             border: Border.all(

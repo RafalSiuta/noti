@@ -15,6 +15,7 @@ class SliverListHeader extends StatelessWidget {
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child) {
           var edgePadding = SizeInfo.edgePadding;
+          var headerHeight = SizeInfo.sliverHeaderHeight;
           int counter = isSearch
               ? taskProvider.taskListByKeywordCounter
               : taskProvider.taskListCounter;
@@ -23,7 +24,7 @@ class SliverListHeader extends StatelessWidget {
               delegate: SliverHeader(
                   paddingHorizontal: edgePadding,
                   paddingVertical: 5.0,
-                  height: 50,
+                  height: headerHeight,
                   // maxHeight: 50,
                   // minHeight: 50,
                   isRebuild: true,

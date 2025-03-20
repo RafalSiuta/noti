@@ -14,11 +14,12 @@ class CustomTextButton extends StatelessWidget {
     var pickerSubtitle = SizeInfo.calendarDaySize;
     var baseColor = Theme.of(context).textTheme.headlineMedium!.color;
     var selectedDateColor = Theme.of(context).indicatorColor;
+    var borderRadius = SizeInfo.buttonCornerRadius;
     return TextButton(
         style: ButtonStyle(
             shape:WidgetStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
             ) ,
             side: WidgetStateProperty.all(BorderSide(

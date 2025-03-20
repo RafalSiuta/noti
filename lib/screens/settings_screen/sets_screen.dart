@@ -148,6 +148,7 @@ class SetsScreen extends StatelessWidget {
                             }
                           }): IconButton(
                               icon: Icon(Icons.delete_forever),
+                              iconSize: switchIconSize,
                               onPressed: (){
                                 _warringAlert(context, index, (){
                                   if(index == 2){

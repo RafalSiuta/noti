@@ -68,6 +68,7 @@ class Calendar extends StatelessWidget {
                   date: focDay,
                   widget: CalendarFormatButton(
                     format: calendarFormat,
+                    textSize: calendarButtonFontSize,
                     onFormatChange: onFormatChanged ?? (format){
 
                     },

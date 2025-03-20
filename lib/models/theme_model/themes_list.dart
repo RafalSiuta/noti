@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:noti/models/theme_model/theme_model.dart';
 
 import '../../styles/themes/style_exports.dart';
+import '../../styles/themes/theme8.dart';
 
 class ThemesList {
   UnmodifiableListView<ThemeModel> get themesList {
@@ -19,6 +20,7 @@ class ThemesList {
         title: "Noti",
         themeData: themeDefault,
         imgThemePath: 'theme1.png'), //default
+
     ThemeModel(
         id: 1026,
         title: "Jupiter", themeData: theme6, imgThemePath: 'theme2.png'),
@@ -29,6 +31,11 @@ class ThemesList {
     ThemeModel(id:1030,title: "Hacker", themeData: theme9, imgThemePath: 'theme6.png'),
     ThemeModel(id:1031,title: "Coffee", themeData: theme8, imgThemePath: 'theme7.png'),
     ThemeModel(id:1032,title: "Old book", themeData: theme5, imgThemePath: 'theme8.png'),
+    ThemeModel(
+        id:1033,
+        title: "Noti",
+        themeData: theme12,
+        imgThemePath: 'theme1.png'), //default
 
   ];
 }

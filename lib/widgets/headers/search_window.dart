@@ -40,6 +40,9 @@ class SearchWindow extends StatelessWidget {
         var raterIconSize = SizeInfo.switchButtonIconSize;
         var helpTextFontSize = SizeInfo.helpTextSize;
         var pickerSubtitle = SizeInfo.calendarDaySize;
+
+        var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
+
         BorderRadius searchBarBorderRadiusExpanded = BorderRadius.only(topLeft: Radius.circular(radius),topRight: Radius.circular(radius), bottomLeft:  Radius.circular(radius),  bottomRight:  Radius.circular(radius));
         return
 
@@ -51,7 +54,7 @@ class SearchWindow extends StatelessWidget {
               Transform.translate(
                 offset: value,
                 child: Container(
-                  margin: EdgeInsets.only(left: 5.0, top: topMargin, right: 1.5),
+                  margin: EdgeInsets.only(left:leftEdgePadding, top: topMargin, right: 1.5),
                   decoration: BoxDecoration(
                       borderRadius: searchBarBorderRadiusExpanded,
                       color: Theme.of(context).colorScheme.onSurface,
@@ -104,7 +107,7 @@ class SearchWindow extends StatelessWidget {
                       Visibility(
                           visible: searchProvider.isExpanded,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+                            padding: EdgeInsets.symmetric(horizontal: leftEdgePadding,vertical: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +117,7 @@ class SearchWindow extends StatelessWidget {
                                 ExpandableHeader(
                                   title: 'Select dates scope: ',
                                   isExpanded: searchProvider.isCalendarExpanded,
-                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: leftEdgePadding),
                                   onTap:(){
                                     searchProvider.onExpanded(1);
                                   },
@@ -167,6 +170,7 @@ class SearchWindow extends StatelessWidget {
                                       //calendar header
                                       CalendarHeader(
                                         date:searchProvider.focDay,
+                                        padding: EdgeInsets.symmetric(horizontal: leftEdgePadding),
                                         next: (){
                                           searchProvider.onButtonMonthChange("+");
                                         },
@@ -174,25 +178,28 @@ class SearchWindow extends StatelessWidget {
                                           searchProvider.onButtonMonthChange("-");
                                         },
                                       ),
-                                      DateCalendar(
-                                          focDay: searchProvider.focDay,
-                                          selDay: searchProvider.selDay,
-                                          rangeStartDay: searchProvider.startDate,
-                                          rangeEndDay: searchProvider.endDate,
-                                          markerColor:markerColor,
-                                          onDaySelected: searchProvider.onDaySelected,
-                                          onMonthChange: searchProvider.onMonthChange,
-                                          onFormatChanged: (_){},
-                                          startingDayOfWeek: settingsProvider.calendarStartDay!,
-                                          calendarFormat: CalendarFormat.month,
-                                          onDayLongPressed: (DateTime selectedDay, DateTime focusedDay) {},
-                                          events:searchProvider.getCalendarDates
+                                      Padding(
+                                        padding:EdgeInsets.symmetric(horizontal: leftEdgePadding),
+                                        child: DateCalendar(
+                                            focDay: searchProvider.focDay,
+                                            selDay: searchProvider.selDay,
+                                            rangeStartDay: searchProvider.startDate,
+                                            rangeEndDay: searchProvider.endDate,
+                                            markerColor:markerColor,
+                                            onDaySelected: searchProvider.onDaySelected,
+                                            onMonthChange: searchProvider.onMonthChange,
+                                            onFormatChanged: (_){},
+                                            startingDayOfWeek: settingsProvider.calendarStartDay!,
+                                            calendarFormat: CalendarFormat.month,
+                                            onDayLongPressed: (DateTime selectedDay, DateTime focusedDay) {},
+                                            events:searchProvider.getCalendarDates
+                                        ),
                                       ),
 
                                       Visibility(
                                         visible: searchType == 'task' ? true : false,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                                          padding: EdgeInsets.symmetric(horizontal: leftEdgePadding, vertical: 5.0),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
@@ -258,8 +265,9 @@ class SearchWindow extends StatelessWidget {
                                 Divider(),
                                 ExpandableHeader(
                                   title: 'Actions: ',
+
                                   isExpanded: searchProvider.isActionsExpanded,
-                                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                                  padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: leftEdgePadding),
                                   onTap:(){
                                     searchProvider.onExpanded(2);
                                   },
@@ -267,7 +275,7 @@ class SearchWindow extends StatelessWidget {
                                 Visibility(
                                   visible: searchProvider.isActionsExpanded,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: leftEdgePadding),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       crossAxisAlignment: CrossAxisAlignment.center,
