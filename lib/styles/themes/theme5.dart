@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 const theme6MainBcgColor = Color(0xFF24262E);
 const theme6TitleBoxBcgColor = Color(0xFF2C303A);
 
+const theme6SelDayColor = Color(0xFF65718D);
 const theme6FirstGradientColor = Color(0xFF59647D);
 const theme6MiddleGradientColor = Color(0xFF444C5F);
 const theme6LastGradientColor = Color(0xFF2A2F3C);
@@ -114,7 +115,7 @@ final theme6 = ThemeData(
       secondaryFixed: theme6CalendarMarkerColorTwo,
       surface: theme6TitleBoxBcgColor,
       error: Colors.redAccent,
-      onPrimary: Colors.white,
+      onPrimary: theme6SelDayColor,
       onSecondary: theme6UnselectedTaskIcon,
       onSurface: theme6TitleBoxBcgColor,
       onError: Colors.white,

@@ -4,12 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 const themeDefAMainBcgColor = Color(0xFFE9E9E9);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
-const themeDefFirstGradientColor = Color(0xFF4567D3);
-const themeDefMiddleGradientColor = Color(0xFF3D50AF);
-const themeDefLastGradientColor = Color(0xFF1F2F88);
+const themeDefSelDayColor = Color(0xFF3B75F6);
+const themeDefFirstGradientColor = Color(0xFF366BE0);
+const themeDefMiddleGradientColor = Color(0xFF0032A1);//0E3792
+const themeDefLastGradientColor = Color(0xFF0B2A70);
 
-const themeDefUnselectedTaskIcon = Color(0xFF1B3A7B);
-const themeDefOutlineColor = Color(0xFF292EA9);
+const themeDefUnselectedTaskIcon = Color(0xFF05215D);
+const themeDefOutlineColor = Color(0xFF011E62);
 
 const themeDefDividerColor = Color(0xFF9e9e9e);
 const themeDefUnselectedColor = Color(0xFF9e9e9e);
@@ -117,7 +118,7 @@ final theme12 = ThemeData(
       secondary: themeDefTitleBoxBcgColor,
       surface: themeDefTitleBoxBcgColor,
       error: Colors.redAccent,
-      onPrimary: Colors.white,
+      onPrimary: themeDefSelDayColor,
       onSecondary: themeDefUnselectedTaskIcon,
       onSurface: themeDefTitleBoxBcgColor,
       onError: Colors.white,
@@ -259,7 +260,7 @@ final theme12 = ThemeData(
       inputDecorationTheme: InputDecorationTheme(
 
       ),
-      headerBackgroundColor: themeDefMiddleGradientColor,
+      headerBackgroundColor: themeDefFirstGradientColor,
       headerHeadlineStyle: themeDefPickersTitleTextStyle,
       headerForegroundColor: themeDefBaseTextColor,
       weekdayStyle: themeDefPickersBaseTextStyle,

@@ -260,7 +260,7 @@ class DateCalendar extends StatelessWidget {
                 border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.2)
             ),
             selectedDecoration: BoxDecoration(
-                color: Theme.of(context).primaryColorLight,
+                color: Theme.of(context).colorScheme.onPrimary,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.5)
