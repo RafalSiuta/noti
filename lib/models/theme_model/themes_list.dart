@@ -17,7 +17,7 @@ class ThemesList {
   final List<ThemeModel> _themesList = [
     ThemeModel(
         id:1025,
-        title: "Noti",
+        title: "Noti2",
         themeData: themeDefault,
         imgThemePath: 'theme1.png'), //default
 
@@ -35,7 +35,7 @@ class ThemesList {
         id:1033,
         title: "Noti",
         themeData: theme12,
-        imgThemePath: 'theme1.png'), //default
+        imgThemePath: 'theme9.png'), //default
 
   ];
 }

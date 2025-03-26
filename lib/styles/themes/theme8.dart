@@ -4,13 +4,22 @@ import 'package:google_fonts/google_fonts.dart';
 const themeDefAMainBcgColor = Color(0xFFE9E9E9);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
-const themeDefSelDayColor = Color(0xFF3B75F6);
-const themeDefFirstGradientColor = Color(0xFF366BE0);
-const themeDefMiddleGradientColor = Color(0xFF0032A1);//0E3792
-const themeDefLastGradientColor = Color(0xFF0B2A70);
+// const themeDefSelDayColor = Color(0xFF3B75F6);
+// const themeDefFirstGradientColor = Color(0xFF366BE0);
+// const themeDefMiddleGradientColor = Color(0xFF0032A1);//0E3792
+// const themeDefLastGradientColor = Color(0xFF0B2A70);
+// const themeDefUnselectedTaskIcon = Color(0xFF05215D);
+// const themeDefOutlineColor = Color(0xFF011E62);
 
-const themeDefUnselectedTaskIcon = Color(0xFF05215D);
-const themeDefOutlineColor = Color(0xFF011E62);
+
+const themeDefSelDayColor = Color(0xFF289BFF);
+const themeDefFirstGradientColor = Color(0xFF2592F0);
+const themeDefMiddleGradientColor = Color(0xFF335CCC);
+const themeDefLastGradientColor = Color(0xFF2D32B3);
+const themeDefUnselectedTaskIcon = Color(0xFF1B3A7B);
+const themeDefOutlineColor = Color(0xFF292EA9);
+
+
 
 const themeDefDividerColor = Color(0xFF9e9e9e);
 const themeDefUnselectedColor = Color(0xFF9e9e9e);
