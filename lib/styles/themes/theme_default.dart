@@ -4,26 +4,29 @@ import 'package:google_fonts/google_fonts.dart';
 const themeDefAMainBcgColor = Color(0xFFE9E9E9);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
-
-
 const themeDefSelDayColor = Color(0xFF3B75F6);
 const themeDefFirstGradientColor = Color(0xFF366BE0);
 const themeDefMiddleGradientColor = Color(0xFF0032A1);//0E3792
 const themeDefLastGradientColor = Color(0xFF0B2A70);
 
-const themeDefUnselectedTaskIcon = Color(0xFF05215D);
+const themeDefUnselectedTaskIcon = Color(0xFF041B4B);
 const themeDefOutlineColor = Color(0xFF011E62);
 
 const themeDefDividerColor = Color(0xFF9e9e9e);
 const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
-const themeDefIndicatorColor = Color(0xfffbc720);
-const themeDefCalendarMarkerColorOne = Color(0xFFE64A19); // 3F51B5 EF6C00
-const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800); // 3F51B5 EF6C00
+// const themeDefIndicatorColor = Color(0xfffbc720);
+// const themeDefCalendarMarkerColorOne = Color(0xFFE64A19); // 3F51B5 EF6C00
+// const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800); // 3F51B5 EF6C00
 
-const themeDefBaseTextColor = Color(0xff161616);
-const themeDefBtnTextColor = Color(0xff161616);
+const themeDefIndicatorColor = Color(0xfffbc720);
+const themeDefCalendarMarkerColorOne = Color(0xFFE1663F); // 3F51B5 EF6C00
+const themeDefCalendarMarkerColorTwo = Color(0xFFF3A22B);
+
+const themeDefBaseTextColor = Color(0xFF041B4B);//Color(0xff161616);
+
+const themeDefBtnTextColor = Color(0xFF041B4B);// Color(0xff161616);
 
 const themeDefSplashColor = Colors.transparent;
 
