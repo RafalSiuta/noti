@@ -1,6 +1,5 @@
 import 'package:noti/screens/settings_screen/settings_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:noti/widgets/buttons/text_icon_button.dart';
 import 'package:noti/widgets/dialogs/warring_alert.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider/note_provider.dart';
@@ -39,8 +38,6 @@ class SetsScreen extends StatelessWidget {
                   delegate: SliverHeader(
                       paddingHorizontal: 8.0,
                       height: headerHeight,
-                      // maxHeight: headerHeight,
-                      // minHeight: headerHeight - 2,
                       child: const SmallHeader(
                         title: 'Calendar',
                       ))),
@@ -74,8 +71,6 @@ class SetsScreen extends StatelessWidget {
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
                     height: headerHeight,
-                    // maxHeight: headerHeight,
-                    // minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Notifications',
                     ))),
@@ -113,8 +108,6 @@ class SetsScreen extends StatelessWidget {
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
                     height: headerHeight,
-                    // maxHeight: headerHeight,
-                    // minHeight: headerHeight - 2,
                     child: const SmallHeader(
                       title: 'Trash',
                     ))),
@@ -193,34 +186,6 @@ class SetsScreen extends StatelessWidget {
               message: "This action will delete all ${index == 2 ? "tasks" : "notes"} data permanently !!!",
               onConfirm: confirm
             );
-          //   CustomDial(
-          //     title: 'Warring !!!',
-          //     isBtnVisible: false,
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       spacing: 5.0,
-          //       children: [
-          //         Icon(Icons.warning_rounded, color: Theme.of(context).colorScheme.primaryFixed,),
-          //         Text("This action will delete all ${index == 2 ? "task" : "note"} data permanently!!!", style: Theme.of(context).textTheme.bodyMedium,),
-          //         Row(
-          //           children: [
-          //             TextButton(
-          //                 onPressed: (){
-          //                 Navigator.pop(context);
-          //             }, child: Text('cancel',style: Theme.of(context).textTheme.bodyMedium)
-          //             ),
-          //             TextButton(
-          //                 onPressed: (){
-          //
-          //                 }, child: Text('confirm',style: Theme.of(context).textTheme.bodyMedium)
-          //             ),
-          //           ],
-          //         )
-          //
-          //       ],
-          //     )
-          // );
         });
   }
 }

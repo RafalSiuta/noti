@@ -53,10 +53,6 @@ class NoteProvider extends ChangeNotifier  {
     return _noteList.length;
   }
 
-  // void testNoteDb(Note note, String message){
-  //   print("####### $message -> NOTE ID: ${note.id}\nTITLE: ${note.title} KEEP ${note.keep}");
-  // }
-
   void addNote(Note note) async {
 
     if(note.isInBox){
@@ -114,7 +110,6 @@ class NoteProvider extends ChangeNotifier  {
   void deleteSelectedNotes()async {
      await getNoteBySearchOptions().then((notes){
       for(Note note in notes){
-        //print("SELECTED NOTES TO DELETE ${note.title}");
         deleteNote(note);
 
       }

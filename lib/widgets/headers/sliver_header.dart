@@ -7,8 +7,7 @@ import 'package:flutter/rendering.dart';
 import '../../utils/constants/const_values.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  // final double? minHeight;
-  // final double? maxHeight;
+
   final double height;
   final Widget? child;
   final double paddingHorizontal;
@@ -16,14 +15,12 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   final bool isRebuild;
 
   @override
-  double get minExtent => height;//minHeight!;
+  double get minExtent => height;
   @override
-  double get maxExtent => height;//math.max(maxHeight!, minHeight!);
+  double get maxExtent => height;
 
   SliverHeader(
       {
-      //   required this.minHeight,
-      // required this.maxHeight,
         required this.height,
       required this.child,
       this.paddingHorizontal = 8.0,
@@ -55,10 +52,6 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       ),
     );
   }
-
-  // double blur(double shrinkOffset) {
-  //   return 0.0 + min(3.0, shrinkOffset);
-  // }
 
   @override
   bool shouldRebuild(SliverHeader oldDelegate) {

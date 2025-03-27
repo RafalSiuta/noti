@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/screens/task_screen/task_creator_screen.dart';
 import 'package:provider/provider.dart';
-import '../../models/db_model/task.dart';
 import '../../providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/task_card.dart';
-import '../../widgets/headers/sliver_header.dart';
-import '../../widgets/headers/small_header.dart';
 import '../../widgets/text_display/default_text.dart';
-
-
 
 
 class SliverTaskList extends StatelessWidget {
@@ -94,9 +89,6 @@ class SliverTaskList extends StatelessWidget {
 
             );
           }
-
-
-
         });
   }
 }

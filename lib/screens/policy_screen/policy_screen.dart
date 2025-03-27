@@ -43,8 +43,6 @@ class PolicyScreen extends StatelessWidget {
                           delegate: SliverHeader(
                               paddingHorizontal: 8.0,
                               height: headerHeight,
-                              // maxHeight: headerHeight + 5,
-                              // minHeight: headerHeight,
                               child: const SmallHeader(
                                 title: 'PrivacyPolicy',
                               ))),

@@ -87,45 +87,6 @@ class SliderDialog extends StatelessWidget {
                       }
                     },
                   ),
-                  // TextButton(
-                  //   style: Theme.of(context).datePickerTheme.cancelButtonStyle!,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 2.0),
-                  //     child: Text("cancel",
-                  //         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  //               fontSize: sliderValueFontSize,
-                  //             )),
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.pop(context);
-                  //     settingsProvider.cancelDeleteSettings(index);
-                  //     if (index == 0) {
-                  //       noteProvider.loadNoteListBySettingsValues(0, false);
-                  //     } else {
-                  //       taskProvider.loadTaskListFromSettings(0, false);
-                  //     }
-                  //   },
-                  // ),
-                  // TextButton(
-                  //   style: Theme.of(context).datePickerTheme.confirmButtonStyle!,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 2.0),
-                  //     child: Text("confirm",
-                  //         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  //               fontSize: sliderValueFontSize,
-                  //             )),
-                  //   ),
-                  //   onPressed: () async {
-                  //     if (index == 0) {
-                  //       noteProvider.loadNoteListBySettingsValues(
-                  //           sliderVal.floor(), true);
-                  //     } else if (index == 1) {
-                  //       taskProvider.loadTaskListFromSettings(
-                  //           sliderVal.floor(), true);
-                  //     }
-                  //     Navigator.pop(context);
-                  //   },
-                  // )
                 ],
               )
             ],

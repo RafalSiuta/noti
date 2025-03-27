@@ -16,8 +16,8 @@ const theme9UnselectedColor = Color(0xFF000000);
 const theme9ShadowColor = Color(0xFF111518);
 
 const theme9IndicatorColor = Color(0xFF89B800);
-const theme9CalendarMarkerColorOne = Color(0xFF486105);// 3F51B5 EF6C00
-const theme9CalendarMarkerColorTwo = Color(0xFF628307);// 3F51B5 EF6C00
+const theme9CalendarMarkerColorOne = Color(0xFF486105);
+const theme9CalendarMarkerColorTwo = Color(0xFF628307);
 
 const theme9BaseTextColor = Color(0xffb6bcca);
 const theme9BtnTextColor = Color(0xff161616);
@@ -324,13 +324,13 @@ final theme9 = ThemeData(
       entryModeIconColor: theme9BaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme9IndicatorColor.withOpacity(0.5); // selected hour/minute background color
+          return theme9IndicatorColor.withValues(alpha:0.5); // selected hour/minute background color
         }
         return  theme9TitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme9IndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(theme9IndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(theme9BaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.chakraPetch(
           textStyle: const TextStyle(
@@ -393,7 +393,7 @@ final theme9 = ThemeData(
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // theme_2TitleBoxBcgColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(

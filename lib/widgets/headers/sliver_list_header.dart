@@ -25,8 +25,6 @@ class SliverListHeader extends StatelessWidget {
                   paddingHorizontal: edgePadding,
                   paddingVertical: 5.0,
                   height: headerHeight,
-                  // maxHeight: 50,
-                  // minHeight: 50,
                   isRebuild: true,
                   child: SmallHeader(
                     title: counter == 0 ? "" : 'You have $counter task${counter > 1 ? 's' : ""}',

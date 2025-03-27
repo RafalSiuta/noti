@@ -83,9 +83,7 @@ class SearchProvider extends ChangeNotifier{
   }
 
     List<DateTime> getCalendarDates(DateTime date) {
-    // return widget.scopeDatesList.where((item) {
-    //   return isSameDay(item, date);
-    // }).toList();
+
     return [];
   }
   void onButtonMonthChange(String operator){

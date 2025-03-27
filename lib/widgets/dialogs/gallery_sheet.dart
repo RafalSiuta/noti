@@ -6,7 +6,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/image_provider/gallery_image_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/text_icon_button.dart';
-import '../camera_loader/camera_loader.dart';
 import '../cards/image_card.dart';
 
 class GallerySheet extends StatefulWidget {
@@ -129,19 +128,6 @@ class _GallerySheetState extends State<GallerySheet>
 
       await _cameraController.setFlashMode(FlashMode.off);
     });
-   /* WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await availableCameras().then((value) {
-        _cameraController = CameraController(value[0], ResolutionPreset.max,
-            enableAudio: false);
-        _cameraController.initialize().then((value) => {
-              setState(() {
-                _isInit = true;
-
-              })
-            });
-      });
-      await _cameraController.setFlashMode(FlashMode.off);
-    });*/
   }
 
   @override

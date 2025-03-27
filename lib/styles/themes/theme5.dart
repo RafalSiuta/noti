@@ -15,9 +15,9 @@ const theme6DividerColor = Color(0xFF444C5F);
 const theme6UnselectedColor = Color(0xFF101015);
 const theme6ShadowColor = Color(0xFF1F2229);
 
-const theme6IndicatorColor = Color(0xFFFBC02D);// 3F51B5 EF6C00
-const theme6CalendarMarkerColorOne = Color(0xFFCD664C); // 3F51B5 EF6C00
-const theme6CalendarMarkerColorTwo = Color(0xFFEB8C47); // 3F51B5 EF6C00
+const theme6IndicatorColor = Color(0xFFFBC02D);
+const theme6CalendarMarkerColorOne = Color(0xFFCD664C);
+const theme6CalendarMarkerColorTwo = Color(0xFFEB8C47);
 
 const theme6BaseTextColor = Color(0xffb1b6c4);
 const theme6BtnTextColor = Color(0xff16181D);
@@ -122,7 +122,6 @@ final theme6 = ThemeData(
       brightness: Brightness.light,
       shadow: theme6LastGradientColor,
         outline: theme6OutlineColor
-      // outline: theme6IndicatorColor
     ),
     canvasColor: theme6TitleBoxBcgColor,
     focusColor: theme6FirstGradientColor,
@@ -242,7 +241,7 @@ final theme6 = ThemeData(
       weekdayStyle: theme6PickersBaseTextStyle,
       dayStyle: theme6PickersBaseTextStyle,
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(theme6BaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
@@ -275,7 +274,7 @@ final theme6 = ThemeData(
       }),
       todayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme6IndicatorColor.withOpacity(0.5);
+          return theme6IndicatorColor.withValues(alpha:0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
@@ -301,7 +300,7 @@ final theme6 = ThemeData(
     ),
     timePickerTheme: TimePickerThemeData(
       elevation: 0.2,
-      dayPeriodColor: theme6IndicatorColor.withOpacity(0.5),
+      dayPeriodColor: theme6IndicatorColor.withValues(alpha:0.5),
       dayPeriodTextStyle: theme6PickersBaseTextStyle,
       hourMinuteTextStyle: theme6PickersBaseTextStyle,
       dialTextStyle: theme6PickersBaseTextStyle,
@@ -323,13 +322,13 @@ final theme6 = ThemeData(
       entryModeIconColor: theme6BaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme6IndicatorColor.withOpacity(0.5); // selected hour/minute background color
+          return theme6IndicatorColor.withValues(alpha:0.5); // selected hour/minute background color
         }
         return  theme6TitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(theme6IndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(theme6BaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
@@ -389,7 +388,7 @@ final theme6 = ThemeData(
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // theme_2TitleBoxBcgColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(

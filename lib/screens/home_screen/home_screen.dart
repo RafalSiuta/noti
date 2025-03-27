@@ -152,8 +152,6 @@ class _HomeScreenState extends State<HomeScreen>
                             key: widget.key,
                             child: PageView.builder(
                                 physics: NeverScrollableScrollPhysics(),
-                                // const BouncingScrollPhysics(
-                                //     parent: AlwaysScrollableScrollPhysics()),
                                 itemCount: _pages.length,
                                 controller: _pageController,
                                 onPageChanged: _onPageChange,

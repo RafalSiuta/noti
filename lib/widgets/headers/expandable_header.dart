@@ -5,13 +5,11 @@ import '../buttons/icon_btn.dart';
 
 class ExpandableHeader extends StatelessWidget {
   const ExpandableHeader({this.title = "", required this.onTap, this.isExpanded = true,
-    //this.icon = Icons.arrow_drop_down_outlined,
     this.padding = EdgeInsets.zero, super.key});
 
   final VoidCallback onTap;
   final String title;
   final bool isExpanded;
-  //final IconData icon;
   final EdgeInsets padding;
 
   @override

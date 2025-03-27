@@ -26,8 +26,7 @@ class TaskProvider extends ChangeNotifier {
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
   DateTime selDay =
   DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
-  // DateTime? _rangeStart;
-  // DateTime? _rangeEnd;
+
   RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOff;
   Map<DateTime, List<Task>> tasks = {};
   List<Task> _taskList = [];
@@ -40,7 +39,6 @@ class TaskProvider extends ChangeNotifier {
   final Prefs _prefs = Prefs();
 
   Future<void> initTask() async {
-    //_taskList = _dbHelper.getAllTasks();
     selDay = focDay;
     loadCalendarFormat();
     getSettingsValuesForTask().whenComplete((){
@@ -80,28 +78,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //CalendarFormat format;
-  // void onCalendarFormatChange(){
-  //   int count = 0;
-  //
-  //   switch (count){
-  //     case 0:
-  //       format = CalendarFormat.month;
-  //       break;
-  //     case 1:
-  //       format = CalendarFormat.twoWeeks;
-  //       break;
-  //     case 2:
-  //       format = CalendarFormat.week;
-  //       break;
-  //
-  //     default: format = CalendarFormat.month;
-  //   }
-  //   count++;
-  //   notifyListeners();
-  //
-  // }
-
   void changeDateFormat(CalendarFormat newFormat) {
     format = newFormat;
     _prefs.storeInt("calendarFormat", format.index);
@@ -118,8 +94,6 @@ class TaskProvider extends ChangeNotifier {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;
       focDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
-      // _rangeStart = null;
-      // _rangeEnd = null;
       rangeSelectionMode = RangeSelectionMode.toggledOff;
     }
     _taskList = getCalendarValues(selDay);
@@ -130,8 +104,6 @@ class TaskProvider extends ChangeNotifier {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;
       focDay = focusedDay;
-      // _rangeStart = null;
-      // _rangeEnd = null;
       rangeSelectionMode = RangeSelectionMode.toggledOff;
     }
     _taskList = getCalendarValues(selDay);
@@ -151,13 +123,12 @@ class TaskProvider extends ChangeNotifier {
       tasks[addDate] = [task];
     }
 
-    // tasks[addDate]!.sort((a, b) => a.date.compareTo(b.date));
     tasks.forEach((key, value) {
       value.sort((a, b) {
         if (a.isTaskDone == b.isTaskDone) {
-          return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+          return a.date.compareTo(b.date);
         }
-        return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+        return a.isTaskDone ? 1 : -1;
       });
     });
 
@@ -180,13 +151,12 @@ class TaskProvider extends ChangeNotifier {
       refreshNotification(task);
     }
 
-    // Sortowanie: Najpierw niewykonane, potem wykonane, w każdej grupie sortujemy po dacie.
     tasks.forEach((key, value) {
       value.sort((a, b) {
         if (a.isTaskDone == b.isTaskDone) {
-          return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+          return a.date.compareTo(b.date);
         }
-        return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+        return a.isTaskDone ? 1 : -1;
       });
     });
 
@@ -283,8 +253,6 @@ class TaskProvider extends ChangeNotifier {
 
 
   void refreshNotification(Task task) {
-    //todo: remove prints:
-    //print("NOTIFICATIONS DATES ${task.date}");
 
     if (settings.isNotification) {
       if (task.isTaskDone || task.isNotification == false) {
@@ -366,9 +334,8 @@ class TaskProvider extends ChangeNotifier {
         !searchProvider.isDone) {
       _taskListByKeyword = _dbHelper.getAllTasks();
     } else {
-      _taskListByKeyword = list; // Zaczynamy od pełnej listy
+      _taskListByKeyword = list;
 
-      // Filtrowanie po słowie kluczowym
       if (searchProvider.keyword.isNotEmpty) {
         _taskListByKeyword = _taskListByKeyword.where((task) {
           return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
@@ -376,7 +343,6 @@ class TaskProvider extends ChangeNotifier {
         }).toList();
       }
 
-      // Filtrowanie po dacie
       if (searchProvider.startDate.isBefore(searchProvider.endDate) &&
           searchProvider.endDate.isAfter(searchProvider.startDate)) {
         _taskListByKeyword = _taskListByKeyword.where((task) {
@@ -385,12 +351,10 @@ class TaskProvider extends ChangeNotifier {
         }).toList();
       }
 
-      // Filtrowanie po statusie (isTaskDone) – tylko jeśli użytkownik zaznaczył opcję
       if (searchProvider.isDone) {
         _taskListByKeyword = _taskListByKeyword.where((task) => task.isTaskDone).toList();
       }
 
-      // Filtrowanie po priorytecie – tylko jeśli użytkownik wybrał inny niż -1
       if (searchProvider.priority != -1) {
         _taskListByKeyword = _taskListByKeyword.where((task) => task.priority == searchProvider.priority).toList();
       }
@@ -398,12 +362,11 @@ class TaskProvider extends ChangeNotifier {
       notifyListeners();
     }
 
-    // Sortowanie: Najpierw niewykonane, potem wykonane, w każdej grupie sortujemy po dacie
     _taskListByKeyword.sort((a, b) {
       if (a.isTaskDone == b.isTaskDone) {
-        return a.date.compareTo(b.date); // Jeśli oba są w tej samej grupie (false/true), sortuj po dacie
+        return a.date.compareTo(b.date);
       }
-      return a.isTaskDone ? 1 : -1; // Przesuń `true` na dół, `false` na górę
+      return a.isTaskDone ? 1 : -1;
     });
 
     notifyListeners();
@@ -421,8 +384,6 @@ class TaskProvider extends ChangeNotifier {
     await getTasksBySearchOptions().then((tasks){
       for(Task task in tasks){
 
-        //todo:
-        print("SELECTED NOTES TO DELETE ${task.title}");
         deleteTask(task);
       }
     });

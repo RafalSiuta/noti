@@ -52,7 +52,7 @@ class SocialsBar extends StatelessWidget {
                       shape: BoxShape.rectangle,
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
+                          color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
                           offset: const Offset(0.5, 0.5),
                           blurRadius: 0.2,
                         ),

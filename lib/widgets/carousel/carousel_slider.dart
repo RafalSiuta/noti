@@ -101,20 +101,6 @@ class Carousel extends StatelessWidget {
                   iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
                   onPressed: () => settingsProvider.goToPrevious(),
                 ),
-                // IconButton(
-                //     splashColor: Colors.transparent,
-                //     onPressed: () => settingsProvider.goToPrevious(),
-                //     icon: Icon(
-                //       Icons.arrow_left,
-                //       size: chevronIconSize,
-                //     )),
-                // IconButton(
-                //     splashColor: Colors.transparent,
-                //     onPressed: () => settingsProvider.goToNext(),
-                //     icon: Icon(
-                //       Icons.arrow_right,
-                //       size: chevronIconSize,
-                //     )),
                 IconBtn(
                   icon: Icons.arrow_right,
                   iconSize: textSize,

@@ -297,9 +297,6 @@ class TaskCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.onSurface,
                     borderRadius: radiusContainer,
-                    // border: Border(
-                    //   bottom: BorderSide(width: 0.5, color: Theme.of(context).colorScheme.outline.withValues(alpha: )(0.2)),
-                    // ),
                     boxShadow: [
                       BoxShadow(
                           color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),

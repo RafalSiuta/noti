@@ -41,16 +41,12 @@ class WelcomeScreen extends StatelessWidget {
                   delegate: SliverHeader(
                     paddingHorizontal: .0,
                     height: headerHeight,
-                    // maxHeight: 80,
-                    // minHeight: 75,
                     child:const DateHeader(),
                   )
               ),
               SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverCalendarWrapper(
-                    // maxHeight: 100,
-                    // minHeight: 100,
                     height: calendarHeaderHeight,
                     isRebuild: false,
                     child:SmallCalendar()

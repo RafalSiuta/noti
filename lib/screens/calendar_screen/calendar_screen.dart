@@ -8,7 +8,6 @@ import '../../utils/dimensions/size_info.dart';
 import '../../widgets/headers/sliver_list_header.dart';
 import '../task_screen/sliver_task_list.dart';
 import '../task_screen/task_creator_screen.dart';
-import '../task_screen/task_list.dart';
 import '../../widgets/calendar/calendar.dart';
 
 class CalendarScreen extends StatelessWidget {
@@ -76,49 +75,3 @@ class CalendarScreen extends StatelessWidget {
   }
 }
 
-// SliverPadding(
-//   padding: const EdgeInsets.symmetric(horizontal: .0, vertical: 20),
-//   sliver: SliverList(
-//     delegate: SliverChildListDelegate([
-//       TaskList(key: key,listType: 'custom',),
-//     ]),
-//   ),
-// ),
-// SliverList(
-//   delegate: SliverChildListDelegate([
-//     Calendar(
-//       key: key,
-//       topSpacing: spacingTop,
-//       isHeaderVisible: true,
-//       focDay: taskProvider.focDay,
-//       selDay: taskProvider.selDay,
-//       startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
-//       onDaySelected: taskProvider.onDaySelected,
-//       onMonthChange: (day) {
-//         taskProvider.onMonthChange(day);
-//       },
-//       calendarFormat: taskProvider.format,
-//       onFormatChanged: (format) {
-//         taskProvider.changeDateFormat(format);
-//       },
-//       taskEvents: taskProvider.getCalendarValues,
-//       onDayLongPressed:
-//           (DateTime date, dateTime) async {
-//         await Navigator.push(
-//             context,
-//             CustomPageRoute(
-//                 child: TaskCreator(
-//                     editEnable: true,
-//                     newTask: Task(
-//                         date: DateTime(
-//                             date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-//                         icon: 1,
-//                         description: "",
-//                         title: "",
-//                         priority: 1,
-//                         isTaskDone: false)),
-//                 direction: AxisDirection.right));
-//       },
-//     ),
-//   ]),
-// ),

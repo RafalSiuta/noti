@@ -66,8 +66,6 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
                           delegate: SliverHeader(
                               paddingHorizontal: 8.0,
                               height: headerHeight,
-                              // maxHeight: 42,
-                              // minHeight: 40,
                               child: const SmallHeader(
                                 title: 'Permissions',
                               ))),

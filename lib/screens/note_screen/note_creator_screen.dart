@@ -464,7 +464,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   },
                                   cursorColor: Theme.of(context).textTheme.labelMedium!.color,
                                   controller: titleVal,
-                                  autofocus: false, // Nie wymuszamy automatycznego otwierania klawiatury
+                                  autofocus: false,
                                   textAlign: TextAlign.start,
                                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: titleTextSize,
@@ -497,7 +497,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 });
                                 },
                                 keyboardType: TextInputType.text,
-                                enabled: true, // Pole zawsze aktywne, sterujemy tylko focus
+                                enabled: true,
                                 onChanged: (newText) {
                                 setState(() {
                                 widget.newNote.subtitle = newText;
@@ -506,7 +506,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 },
                                 cursorColor: Theme.of(context).textTheme.labelMedium!.color,
                                 controller: subtitleVal,
-                                autofocus: false, // Nie wymuszamy klawiatury automatycznie
+                                autofocus: false,
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                 fontSize: titleTextSize,
@@ -533,7 +533,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 maxLines: null,
                                 textInputAction: TextInputAction.newline,
                                 keyboardType: TextInputType.multiline,
-                                enabled: true, // Pole zawsze aktywne, sterujemy tylko focusem
+                                enabled: true,
                                 onSubmitted: (val) {
                                 setState(() {
                                 descriptionNode.unfocus();
@@ -547,7 +547,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 },
                                 cursorColor: Theme.of(context).textTheme.labelMedium!.color,
                                 controller: descVal,
-                                autofocus: false, // Nie wymuszamy otwierania klawiatury na start
+                                autofocus: false,
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 fontSize: titleTextSize,

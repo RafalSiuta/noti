@@ -16,17 +16,13 @@ const themeDefDividerColor = Color(0xFF9e9e9e);
 const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
-// const themeDefIndicatorColor = Color(0xfffbc720);
-// const themeDefCalendarMarkerColorOne = Color(0xFFE64A19); // 3F51B5 EF6C00
-// const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800); // 3F51B5 EF6C00
-
 const themeDefIndicatorColor = Color(0xfffbc720);
-const themeDefCalendarMarkerColorOne = Color(0xFFE1663F); // 3F51B5 EF6C00
+const themeDefCalendarMarkerColorOne = Color(0xFFE1663F);
 const themeDefCalendarMarkerColorTwo = Color(0xFFF3A22B);
 
-const themeDefBaseTextColor = Color(0xFF041B4B);//Color(0xff161616);
+const themeDefBaseTextColor = Color(0xFF041B4B);
 
-const themeDefBtnTextColor = Color(0xFF041B4B);// Color(0xff161616);
+const themeDefBtnTextColor = Color(0xFF041B4B);
 
 const themeDefSplashColor = Colors.transparent;
 
@@ -182,10 +178,6 @@ final themeDefault = ThemeData(
         color: themeDefIndicatorColor,
         fill: 0.0,
       ),
-      // indicatorShape: RoundedRectangleBorder(
-      //     side: BorderSide(
-      //         color: Colors.red),
-      //     borderRadius: BorderRadius.all(Radius.circular(10))),
       unselectedIconTheme: const IconThemeData(
           color: themeDefUnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.openSans(
@@ -238,20 +230,6 @@ final themeDefault = ThemeData(
           }
         },
       ),),
-    // outlinedButtonTheme: OutlinedButtonThemeData(
-    //   style: ButtonStyle(
-    //     textStyle: WidgetStateProperty.all(
-    //         subtitleHeaderTextStyle
-    //     ),
-    //     padding: WidgetStateProperty.all(EdgeInsets.zero),
-    //     side: WidgetStateProperty.all(
-    //       BorderSide(
-    //         width: 0.5,
-    //           color: themeDefBaseTextColor
-    //       )
-    //     )
-    //   )
-    // ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: themeDefIndicatorColor),
@@ -271,7 +249,7 @@ final themeDefault = ThemeData(
       weekdayStyle: themeDefPickersBaseTextStyle,
       dayStyle: themeDefPickersBaseTextStyle,
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(themeDefIndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(themeDefIndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(themeDefBaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
@@ -304,19 +282,19 @@ final themeDefault = ThemeData(
       }),
       todayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return themeDefIndicatorColor.withOpacity(0.5);
+          return themeDefIndicatorColor.withValues(alpha:0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayOverlayColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return themeDefIndicatorColor.withOpacity(0.5);
+          return themeDefIndicatorColor.withValues(alpha:0.5);
         }
         return  themeDefUnselectedColor; // unselected element text color
       }),
       dayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return themeDefIndicatorColor.withOpacity(0.5);
+          return themeDefIndicatorColor.withValues(alpha:0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
@@ -330,7 +308,7 @@ final themeDefault = ThemeData(
     ),
     timePickerTheme: TimePickerThemeData(
       elevation: 0.2,
-      dayPeriodColor: themeDefIndicatorColor.withOpacity(0.5),
+      dayPeriodColor: themeDefIndicatorColor.withValues(alpha:0.5),
       dayPeriodTextStyle: themeDefPickersBaseTextStyle,
       hourMinuteTextStyle: themeDefPickersBaseTextStyle,
       dialTextStyle: themeDefPickersBaseTextStyle,
@@ -448,7 +426,7 @@ menuButtonTheme: MenuButtonThemeData(
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // themeDefATitleBoxBcgColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(

@@ -4,14 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 const themeDefAMainBcgColor = Color(0xFFE9E9E9);
 const themeDefTitleBoxBcgColor = Color(0xFFf5f5f5);
 
-// const themeDefSelDayColor = Color(0xFF3B75F6);
-// const themeDefFirstGradientColor = Color(0xFF366BE0);
-// const themeDefMiddleGradientColor = Color(0xFF0032A1);//0E3792
-// const themeDefLastGradientColor = Color(0xFF0B2A70);
-// const themeDefUnselectedTaskIcon = Color(0xFF05215D);
-// const themeDefOutlineColor = Color(0xFF011E62);
-
-
 const themeDefSelDayColor = Color(0xFF289BFF);
 const themeDefFirstGradientColor = Color(0xFF2592F0);
 const themeDefMiddleGradientColor = Color(0xFF335CCC);
@@ -26,8 +18,8 @@ const themeDefUnselectedColor = Color(0xFF9e9e9e);
 const themeDefShadowColor = Color(0xFFe5e5e5);
 
 const themeDefIndicatorColor = Color(0xfffbc720);
-const themeDefCalendarMarkerColorOne = Color(0xFFE64A19); // 3F51B5 EF6C00
-const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800); // 3F51B5 EF6C00
+const themeDefCalendarMarkerColorOne = Color(0xFFE64A19);
+const themeDefCalendarMarkerColorTwo = Color(0xFFFF9800);
 
 const themeDefBaseTextColor = Color(0xff161616);
 const themeDefBtnTextColor = Color(0xff161616);
@@ -47,16 +39,13 @@ final themeDefPickersTitleTextStyle = GoogleFonts.exo2(
       fontSize: 18,
       fontWeight: FontWeight.w600),
 );
-//TEXT STYLES:
-//headers:
-//Large header:
+
 final TextStyle largeHeaderTextStyle  = GoogleFonts.exo2(
     textStyle: const TextStyle(
         color: themeDefBaseTextColor,
         fontSize: 32,
         fontWeight: FontWeight.w600
     ));
-//Subtitle header:
 final TextStyle subtitleHeaderTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
       fontSize: 18,
@@ -186,10 +175,6 @@ final theme12 = ThemeData(
         color: themeDefIndicatorColor,
         fill: 0.0,
       ),
-      // indicatorShape: RoundedRectangleBorder(
-      //     side: BorderSide(
-      //         color: Colors.red),
-      //     borderRadius: BorderRadius.all(Radius.circular(10))),
       unselectedIconTheme: const IconThemeData(
           color: themeDefUnselectedColor,fill: 0.0),
       selectedLabelTextStyle: GoogleFonts.openSans(
@@ -242,20 +227,6 @@ final theme12 = ThemeData(
           }
         },
       ),),
-    // outlinedButtonTheme: OutlinedButtonThemeData(
-    //   style: ButtonStyle(
-    //     textStyle: WidgetStateProperty.all(
-    //         subtitleHeaderTextStyle
-    //     ),
-    //     padding: WidgetStateProperty.all(EdgeInsets.zero),
-    //     side: WidgetStateProperty.all(
-    //       BorderSide(
-    //         width: 0.5,
-    //           color: themeDefBaseTextColor
-    //       )
-    //     )
-    //   )
-    // ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: themeDefIndicatorColor),
@@ -356,13 +327,13 @@ final theme12 = ThemeData(
       entryModeIconColor: themeDefBaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-      return themeDefIndicatorColor.withOpacity(0.5); // selected hour/minute background color
+      return themeDefIndicatorColor.withValues(alpha:0.5); // selected hour/minute background color
       }
       return  themeDefTitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(themeDefIndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(themeDefIndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(themeDefBaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
           textStyle: const TextStyle(
@@ -452,7 +423,7 @@ menuButtonTheme: MenuButtonThemeData(
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // themeDefATitleBoxBcgColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(

@@ -109,39 +109,4 @@ class GalleryImageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  // Future<List<AssetEntity>> getGalleryImages() async {
-  //   final PermissionRequestOption requestOption = PermissionRequestOption(
-  //     androidPermission: const AndroidPermission(
-  //       type: RequestType(1),
-  //       mediaLocation: false,
-  //     ),
-  //   );
-  //   final PermissionState permissionState = await PhotoManager.requestPermissionExtend(
-  //     requestOption: requestOption,
-  //   );
-  //
-  //   PhotoManager.setIgnorePermissionCheck(true);
-  //   List<AssetPathEntity> paths = await PhotoManager.getAssetPathList(
-  //
-  //     type: RequestType.image,
-  //     hasAll: true,
-  //     filterOption: FilterOptionGroup(onlyLivePhotos: true),
-  //   );
-  //
-  //   final int count = await PhotoManager.getAssetCount();
-  //
-  //   AssetPathEntity album = paths.firstWhere(
-  //         (album) => album.name == "Recent",
-  //     orElse: () => paths.first,
-  //   );
-  //   await album.getAssetListRange(start: 0, end: 200).then((images){
-  //       for(AssetEntity image in images){
-  //         _galleryImages.add(image);
-  //
-  //         notifyListeners();
-  //       }
-  //   });
-  //   return _galleryImages;
-  // }
 }

@@ -74,15 +74,6 @@ class Calendar extends StatelessWidget {
                     },
                   ),
                 ),
-                // CalendarHeader(
-                //   next:next ?? (){},
-                //   previous: prev ?? (){},
-                //   date: focDay,
-                //   widget: CalendarFormatButton(
-                //     format: calendarFormat,
-                //     onFormatChange:onFormatChanged ?? (format){},
-                //   ),
-                // ),
               ),
               AnimationLimiter(
                 child: TableCalendar<Task>(
@@ -108,11 +99,6 @@ class Calendar extends StatelessWidget {
                   selectedDayPredicate: (day) =>
                       isSameDay(selDay, day),
                   eventLoader: (day) => taskEvents?.call(day) ?? [],
-                  //todo add holidays docs: https://pub.dev/packages/table_calendar/versions/1.2.5
-                  // holidayPredicate:(day) {
-                  //   // Weekends
-                  //   return day.weekday >= 6;
-                  // },
 
                   calendarBuilders: CalendarBuilders(
                     headerTitleBuilder: (context, date) {

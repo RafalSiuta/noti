@@ -96,45 +96,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     return widget.scopeDatesList;
   }
 
-  // List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
-  //   widget.scopeDatesList.clear();
-  //   DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day,startDate.hour,startDate.minute);
-  //   if(daysToScope > 0){
-  //     while (currentDate.isBefore(endDate)) {
-  //      // widget.scopeDatesList.add(currentDate);
-  //       switch (durationCategory[durationCategoryCounter]) {
-  //         case "day":
-  //           currentDate = currentDate.add(Duration(days: interval));
-  //           break;
-  //         case "week":
-  //           currentDate = currentDate.add(Duration(days: 7 * interval));
-  //           break;
-  //         case "weekend":
-  //           if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
-  //             widget.scopeDatesList.add(currentDate);
-  //           }
-  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
-  //           break;
-  //
-  //         case "no weekend":
-  //           if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
-  //             widget.scopeDatesList.add(currentDate);
-  //           }
-  //           currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
-  //           break;
-  //         case "month":
-  //           currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
-  //           break;
-  //         case "year":
-  //           currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day,widget.initialDate.hour,widget.initialDate.minute);
-  //           break;
-  //         default:
-  //           throw Exception("Invalid duration category");
-  //       }
-  //     }
-  //   }
-  //   return widget.scopeDatesList;
-  // }
 
   void onScopeDateSelected(){
     setState(() {
@@ -270,17 +231,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                           });
                         },
                       ),
-                      // IconButton(
-                      //     splashColor: Colors.transparent,
-                      //     onPressed: (){
-                      //       setDialState(() {
-                      //         focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
-                      //       });
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.arrow_left,
-                      //       size: textSize,
-                      //     )),
                       Text(
                         DateFormat('MMMM yy').format(focDay),
                         style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
@@ -295,18 +245,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                           });
                         },
                       ),
-            
-                      // IconButton(
-                      //     splashColor: Colors.transparent,
-                      //     onPressed: (){
-                      //       setDialState(() {
-                      //         focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-                      //       });
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.arrow_right,
-                      //       size: textSize,
-                      //     )),
+
                     ],
                   ),
                 ),

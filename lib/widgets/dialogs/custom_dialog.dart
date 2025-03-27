@@ -96,7 +96,6 @@ class _CustomDialState extends State<CustomDial> {
             Visibility(
               visible: widget.isBtnVisible,
               child: const Divider()),
-            // const SizedBox(height: 5.0,),
             Visibility(
               visible: widget.isBtnVisible,
               child: Padding(
@@ -105,7 +104,6 @@ class _CustomDialState extends State<CustomDial> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    //Navigator.of(context).pop(),
                     child: Text(
                       'Ok',
                       style: Theme.of(context)

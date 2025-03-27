@@ -15,9 +15,9 @@ const theme8DividerColor = Color(0xFF23201B);
 const theme8UnselectedColor = Color(0xFF23201B);
 const theme8ShadowColor = Color(0xFF433E34);
 
-const theme8IndicatorColor = Color(0xFFFFA726);// 3F51B5 EF6C00
-const theme8CalendarMarkerColorOne = Color(0xFFDC5A39);// 3F51B5 EF6C00
-const theme8CalendarMarkerColorTwo = Color(0xFFFF863B);// 3F51B5 EF6C00
+const theme8IndicatorColor = Color(0xFFFFA726);
+const theme8CalendarMarkerColorOne = Color(0xFFDC5A39);
+const theme8CalendarMarkerColorTwo = Color(0xFFFF863B);
 
 const theme8BaseTextColor = Color(0xffC6C4BD);
 const theme8HelperTextColor = Color(0xff8e8d87);
@@ -275,19 +275,19 @@ final theme8 = ThemeData(
       }),
       todayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme8IndicatorColor.withOpacity(0.5);
+          return theme8IndicatorColor.withValues(alpha:0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
       dayOverlayColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme8IndicatorColor.withOpacity(0.5);
+          return theme8IndicatorColor.withValues(alpha:0.5);
         }
         return  theme8UnselectedColor; // unselected element text color
       }),
       dayBackgroundColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme8IndicatorColor.withOpacity(0.5);
+          return theme8IndicatorColor.withValues(alpha:0.5);
         }
         return  Colors.transparent; // unselected element text color
       }),
@@ -301,7 +301,7 @@ final theme8 = ThemeData(
     ),
     timePickerTheme: TimePickerThemeData(
       elevation: 0.2,
-      dayPeriodColor: theme8IndicatorColor.withOpacity(0.5),
+      dayPeriodColor: theme8IndicatorColor.withValues(alpha:0.5),
       dayPeriodTextStyle: theme8PickersBaseTextStyle,
       hourMinuteTextStyle: theme8PickersBaseTextStyle,
       dialTextStyle: theme8PickersBaseTextStyle,
@@ -323,13 +323,13 @@ final theme8 = ThemeData(
       entryModeIconColor: theme8BaseTextColor, // entry mode icon color
       hourMinuteColor: WidgetStateColor.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
-          return theme8IndicatorColor.withOpacity(0.5); // selected hour/minute background color
+          return theme8IndicatorColor.withValues(alpha:0.5); // selected hour/minute background color
         }
         return  theme8TitleBoxBcgColor; // unselected hour/minute background color
 
       }),
       confirmButtonStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(theme8IndicatorColor.withOpacity(0.5)),
+        backgroundColor: WidgetStateProperty.all(theme8IndicatorColor.withValues(alpha:0.5)),
         foregroundColor: WidgetStateProperty.all(theme8BaseTextColor),
         textStyle: WidgetStateProperty.all(GoogleFonts.poppins(
           textStyle: const TextStyle(
@@ -390,7 +390,7 @@ final theme8 = ThemeData(
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent, // theme_2TitleBoxBcgColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(

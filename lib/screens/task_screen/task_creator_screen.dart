@@ -47,7 +47,7 @@ class _TaskCreatorState extends State<TaskCreator>
   late AnimationController? _menuSlideInController;
   late Animation<Offset> _menuAnimation;
 
-  bool? editTextEnable;// = false;
+  bool? editTextEnable;
 
   TextEditingController titleVal = TextEditingController();
   TextEditingController descVal = TextEditingController();
@@ -298,7 +298,6 @@ class _TaskCreatorState extends State<TaskCreator>
     descVal.selection = TextSelection.fromPosition(
       const TextPosition(offset: 0),
     );
-    //checkIsTaskDone();
 
     priorityRating = widget.newTask.priority;
 
@@ -421,9 +420,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                               onPressed: () {
                                                 _pickTime(context);
                                               },
-                                              //widget.newTask.date
                                               child: Text(
-                                                //"${dayTime}",
                                                 DateFormat('HH:mm').format(widget.newTask.date),
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -537,7 +534,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                     cursorWidth: 1,
                                     maxLength: maxDescriptionLength,
                                     maxLines: null,
-                                    enabled: true, // Pole tekstowe zawsze aktywne, kontrolujemy tylko focus
+                                    enabled: true,
                                     onSubmitted: (val) {
                                     descriptionNode.unfocus();
                                     },
@@ -552,7 +549,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                     cursorColor: Theme.of(context).textTheme.labelMedium!.color,
                                     keyboardType: TextInputType.multiline,
                                     controller: descVal,
-                                    autofocus: false, // Nie wymuszamy od razu klawiatury, tylko na tapnięcie
+                                    autofocus: false,
                                     textAlign: TextAlign.start,
                                     style:widget.newTask.isTaskDone ? Theme.of(context).textTheme.displayMedium!.copyWith(
                                     fontSize: titleFontSize,
@@ -614,7 +611,6 @@ class _TaskCreatorState extends State<TaskCreator>
                                 break;
                               case 5:
                                 taskProvider.updateTasks(widget.newTask);
-                                //checkIsTaskDone();
                                 break;
                               case 6:
                                 setState(() {
