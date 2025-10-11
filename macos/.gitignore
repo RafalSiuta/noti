@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Flutter-related
 **/Flutter/ephemeral/
 **/Pods/
@@ -6,12 +5,3 @@
 # Xcode-related
 **/dgph
 **/xcuserdata/
-=======
-# Flutter-related
-**/Flutter/ephemeral/
-**/Pods/
-
-# Xcode-related
-**/dgph
-**/xcuserdata/
->>>>>>> main/main

@@ -191,7 +191,7 @@ final theme6 = ThemeData(
       ),
     ),
     iconTheme: const IconThemeData(color: theme6IndicatorColor, size: 18),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
         shadowColor: theme6UnselectedColor,
@@ -228,7 +228,7 @@ final theme6 = ThemeData(
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         sizeConstraints: BoxConstraints(maxWidth: 52, maxHeight: 52, minHeight: 48, minWidth: 48),
         backgroundColor: theme6IndicatorColor),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
         elevation: 5.0,
         titleTextStyle: theme6SubtitleHeaderTextStyle,
         contentTextStyle: theme6ContentTextStyle,
@@ -395,7 +395,7 @@ final theme6 = ThemeData(
             left: (Radius.circular(15)), right: (Radius.circular(15))),
       ),
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicator: const UnderlineTabIndicator(
           borderSide: BorderSide(width: 2.0, color: theme6IndicatorColor),
           insets: EdgeInsets.symmetric(horizontal: 16.0)),
