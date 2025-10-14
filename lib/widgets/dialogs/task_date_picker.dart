@@ -43,59 +43,162 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
   bool isDateScopeSelected = true;
   late DateTime startDate;
   late DateTime endDate;
-  double daysToScope = 0;
+  double daysOnScope = 0;
+  double daysOffScope = 0;
   int durationCategoryCounter = 0;
-  List<String> durationCategory = ["day","week", "weekend","no weekend", "month","year"];
+  int maxScopeOn = 6;   // defaulty, nadpiszemy
+  int maxScopeOff = 99; // defaulty, nadpiszemy
+  List<String> durationCategory = ["day","week", "month"];
 
-  List<DateTime> generateDateScopeList(DateTime startDate, DateTime endDate, int interval) {
-    widget.scopeDatesList.clear();
-    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day, startDate.hour, startDate.minute);
-
-    if (daysToScope > 0) {
-      while (currentDate.isBefore(endDate)) {
-        switch (durationCategory[durationCategoryCounter]) {
-          case "day":
-            widget.scopeDatesList.add(currentDate);
-            currentDate = currentDate.add(Duration(days: interval));
-            break;
-
-          case "week":
-            widget.scopeDatesList.add(currentDate);
-            currentDate = currentDate.add(Duration(days: 7 * interval));
-            break;
-
-          case "weekend":
-            if (currentDate.weekday == DateTime.saturday || currentDate.weekday == DateTime.sunday) {
-              widget.scopeDatesList.add(currentDate);
-            }
-            currentDate = currentDate.add(Duration(days: 1)); // Przechodzimy do następnego dnia
-            break;
-
-          case "no weekend":
-            if (currentDate.weekday != DateTime.saturday && currentDate.weekday != DateTime.sunday) {
-              widget.scopeDatesList.add(currentDate);
-            }
-            currentDate = currentDate.add(Duration(days: interval)); // Przechodzimy do następnego dnia
-            break;
-
-          case "month":
-            widget.scopeDatesList.add(currentDate);
-            currentDate = DateTime(currentDate.year, currentDate.month + interval, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
-            break;
-
-          case "year":
-            widget.scopeDatesList.add(currentDate);
-            currentDate = DateTime(currentDate.year + interval, currentDate.month, currentDate.day, widget.initialDate.hour, widget.initialDate.minute);
-            break;
-
-          default:
-            throw Exception("Invalid duration category");
-        }
-      }
-    }
-    return widget.scopeDatesList;
+  int _diffInDaysInclusive(DateTime a, DateTime b) {
+    final aa = DateTime(a.year, a.month, a.day);
+    final bb = DateTime(b.year, b.month, b.day);
+    final d = bb.difference(aa).inDays;
+    return d < 0 ? 0 : d + 1; // +1 bo end inclusive
   }
 
+  int _weeksInclusive(DateTime a, DateTime b) {
+    final d = _diffInDaysInclusive(a, b);
+    return d == 0 ? 0 : ( (d - 1) ~/ 7 ) + 1; // np. ten sam dzień => 1 tydzień
+  }
+
+// Liczymy liczbę „miesięcznych tików” tak jak generator (z clampingiem):
+  int _monthsInclusive(DateTime a, DateTime b) {
+    if (b.isBefore(a)) return 0;
+    final h = widget.initialDate.hour, m = widget.initialDate.minute;
+    int count = 0;
+    DateTime cur = DateTime(a.year, a.month, a.day, h, m);
+    final endLimit = DateTime(b.year, b.month, b.day, h, m);
+    while (!cur.isAfter(endLimit)) {
+      count++;
+      cur = _safeAddMonths(cur, 1, h, m);
+    }
+    return count;
+  }
+
+
+  void _recomputeScopeLimits() {
+    final mode = durationCategory[durationCategoryCounter];
+
+    final daysTotalInc   = _diffInDaysInclusive(startDate, endDate);
+    final weeksTotalInc  = _weeksInclusive(startDate, endDate);
+    final monthsTotalInc = _monthsInclusive(startDate, endDate);
+
+    switch (mode) {
+      case "day":
+        maxScopeOn  = daysTotalInc;
+        maxScopeOff = daysTotalInc;
+        break;
+      case "week":
+        maxScopeOn  = weeksTotalInc;
+        maxScopeOff = weeksTotalInc;
+        break;
+      case "month":
+        maxScopeOn  = monthsTotalInc;
+        maxScopeOff = monthsTotalInc;
+        break;
+      default:
+        maxScopeOn = 0;
+        maxScopeOff = 0;
+    }
+
+    daysOnScope  = daysOnScope.clamp(0, maxScopeOn).toDouble();
+    daysOffScope = daysOffScope.clamp(0, maxScopeOff).toDouble();
+  }
+
+
+
+  int _lastDayOfMonth(int year, int month) {
+    // month w zakresie 1..12
+    final firstNext = (month == 12)
+        ? DateTime(year + 1, 1, 1)
+        : DateTime(year, month + 1, 1);
+    return firstNext.subtract(const Duration(days: 1)).day;
+  }
+
+  DateTime _safeAtHM(DateTime d, int h, int m) =>
+      DateTime(d.year, d.month, d.day, h, m);
+
+  DateTime _safeAddDays(DateTime d, int days, int h, int m) =>
+      DateTime(d.year, d.month, d.day + days, h, m);
+
+// „Przesuń o N miesięcy” z zaciskiem dnia do końca miesiąca
+  DateTime _safeAddMonths(DateTime d, int months, int h, int m) {
+    final targetMonth = d.month + months;
+    final targetYear  = d.year + ((targetMonth - 1) ~/ 12);
+    final monthNorm   = ((targetMonth - 1) % 12) + 1; // 1..12
+    final lastDay     = _lastDayOfMonth(targetYear, monthNorm);
+    final dayClamped  = d.day.clamp(1, lastDay);
+    return DateTime(targetYear, monthNorm, dayClamped, h, m);
+  }
+
+
+  List<DateTime> generateDateScopeList(
+      DateTime startDate,
+      DateTime endDate,
+      int intervalOn,
+      int intervalOff,
+      ) {
+    widget.scopeDatesList.clear();
+
+    final h = widget.initialDate.hour;
+    final m = widget.initialDate.minute;
+
+    // KONIEC inkluzywny: to, co równe endLimit, też łapiemy
+    final endLimit = DateTime(endDate.year, endDate.month, endDate.day, h, m);
+    DateTime currentDate = DateTime(startDate.year, startDate.month, startDate.day, h, m);
+
+    // if (intervalOn <= 0 || currentDate.isAfter(endLimit)) return widget.scopeDatesList;
+
+    if (intervalOn <= 0 || currentDate.isAfter(endLimit)) return widget.scopeDatesList;
+    final int safetyCap = 100000; // duży, ale kończy, jeśli coś poszło nie tak
+    int guard = 0;
+    while (!currentDate.isAfter(endLimit) && guard++ < safetyCap){
+      final mode = durationCategory[durationCategoryCounter];
+
+      DateTime atHM(DateTime d) => DateTime(d.year, d.month, d.day, h, m);
+      DateTime addDays(DateTime d, int days) => DateTime(d.year, d.month, d.day + days, h, m);
+
+      if (mode == "day") {
+        for (int i = 0; i < intervalOn && !currentDate.isAfter(endLimit); i++) {
+          widget.scopeDatesList.add(atHM(currentDate));
+          currentDate = addDays(currentDate, 1);
+        }
+        if (intervalOff > 0 && !currentDate.isAfter(endLimit)) {
+          currentDate = addDays(currentDate, intervalOff);
+        }
+        continue;
+      }
+
+      if (mode == "week") {
+        for (int i = 0; i < intervalOn && !currentDate.isAfter(endLimit); i++) {
+          widget.scopeDatesList.add(atHM(currentDate));
+          currentDate = addDays(currentDate, 7);
+        }
+        if (intervalOff > 0 && !currentDate.isAfter(endLimit)) {
+          currentDate = addDays(currentDate, 7 * intervalOff);
+        }
+        continue;
+      }
+
+      if (mode == "month") {
+        for (int i = 0; i < intervalOn && !currentDate.isAfter(endLimit); i++) {
+          widget.scopeDatesList.add(_safeAtHM(currentDate, h, m));
+          currentDate = _safeAddMonths(currentDate, 1, h, m); // z „clampingiem”
+        }
+        if (intervalOff > 0 && !currentDate.isAfter(endLimit)) {
+          currentDate = _safeAddMonths(currentDate, intervalOff, h, m);
+        }
+        continue;
+      }
+
+      throw Exception("Invalid duration category");
+    }
+    //scopeDatesList' can't be used as a setter because it's final.
+    // widget.scopeDatesList = widget.scopeDatesList.toSet().toList()
+    //   ..sort((a, b) => a.compareTo(b));
+    return widget.scopeDatesList;
+  }
 
   void onScopeDateSelected(){
     setState(() {
@@ -104,25 +207,31 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
       }else{
         endDate = selDay;
       }
-      generateDateScopeList(startDate, endDate, daysToScope.toInt());
+      _recomputeScopeLimits();
+      generateDateScopeList(startDate, endDate, daysOnScope.toInt(),daysOffScope.toInt());
     });
   }
 
-  void dayCounter(String operator){
+  void daysCounter(String operator, bool isDaysOn) {
     setState(() {
-      if(operator == "+"){
-        if(daysToScope <= 99){
-          daysToScope++;
-        }
+      final maxOn  = maxScopeOn;
+      final maxOff = maxScopeOff;
 
-      } else {
-        if(daysToScope <= 1){
-          daysToScope = 0;
+      if (operator == "+") {
+        if (isDaysOn) {
+          if (daysOnScope < maxOn) daysOnScope++;
         } else {
-          daysToScope--;
+          if (daysOffScope < maxOff) daysOffScope++;
+        }
+      } else {
+        if (isDaysOn) {
+          daysOnScope = (daysOnScope <= 1) ? 0 : daysOnScope - 1;
+        } else {
+          daysOffScope = (daysOffScope <= 1) ? 0 : daysOffScope - 1;
         }
       }
-      generateDateScopeList(startDate, endDate, daysToScope.toInt());
+
+      generateDateScopeList(startDate, endDate, daysOnScope.toInt(), daysOffScope.toInt());
     });
   }
 
@@ -142,28 +251,36 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
           durationCategoryCounter--;
         }
       }
-      generateDateScopeList(startDate, endDate, daysToScope.toInt());
+      _recomputeScopeLimits();
+      generateDateScopeList(startDate, endDate, daysOnScope.toInt(),daysOffScope.toInt());
     });
   }
 
 
   void onDayLongPressed(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
+      final h = widget.initialDate.hour;
+      final m = widget.initialDate.minute;
+      final selectedAtHM = DateTime(selectedDay.year, selectedDay.month, selectedDay.day, h, m);
+
       bool exists = widget.scopeDatesList.any((day) => isSameDay(day, selectedDay));
       if (exists) {
         widget.scopeDatesList.removeWhere((day) => isSameDay(day, selectedDay));
       } else {
-        widget.scopeDatesList.add(selectedDay);
+        widget.scopeDatesList.add(selectedAtHM);
       }
     });
   }
 
-  void getFullMonth(DateTime focDay){
 
+  void getFullMonth(DateTime focDay) {
     startDate = DateTime(focDay.year, focDay.month, 1);
-    endDate = DateTime(focDay.year, focDay.month + 1, 1).subtract(Duration(days: 1));
-
+    endDate   = DateTime(focDay.year, focDay.month + 1, 1)
+        .subtract(const Duration(days: 1)); // <- ostatni dzień miesiąca
+    _recomputeScopeLimits();
+    generateDateScopeList(startDate, endDate, daysOnScope.toInt(),daysOffScope.toInt());
   }
+
 
   List<DateTime> getCalendarDates(DateTime date) {
     return widget.scopeDatesList.where((item) {
@@ -188,6 +305,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
     var textSize = SizeInfo.headerSubtitleSize;
     var pickerSubtitle = SizeInfo.calendarDaySize;
     var baseColor = Theme.of(context).textTheme.headlineMedium!.color;
+    var unselectedColor = Theme.of(context).unselectedWidgetColor;
     var selectedDateColor = Theme.of(context).indicatorColor;
     var markerColor = priorityColor(context,widget.priority);
     var leftEdgePadding = SizeInfo.leftEdgeCreatorPadding;
@@ -454,66 +572,23 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                           ),
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Repeat any: ',style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                              height: 1.5,
-                              fontSize:pickerSubtitle,
-                              color: baseColor,
-                            ),),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Text('${durationCategory[durationCategoryCounter]} on: ',style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                  height: 1.5,
+                                  fontSize:pickerSubtitle,
+                                  color: baseColor,
+                                ),),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-                                        padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        onPressed: (){
-                                          setDialState(() {
-                                            dayCounter("-");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove_circle_outline,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                    Text('${daysToScope.toInt()}',style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                      height: 1.5,
-                                      fontSize:pickerSubtitle,
-                                      color: baseColor,
-                                    ),),
-                                    IconButton(
-                                        splashColor: Colors.transparent,
-                                        padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        onPressed: (){
-                                          setDialState(() {
-                                            dayCounter("+");
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.add_circle_outline,
-                                          size: textSize,
-                                          color: baseColor,
-                                        )),
-                                  ],
-                                ),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     IconButton(
@@ -541,7 +616,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                         splashColor: Colors.transparent,
                                         onPressed: (){
                                           setDialState(() {
-                                              switchCategoryDuration("+");
+                                            switchCategoryDuration("+");
                                           });
                                         },
                                         icon: Icon(
@@ -551,9 +626,158 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                         )),
                                   ],
                                 ),
-
+                                Text('${durationCategory[durationCategoryCounter]} off: ',style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                  height: 1.5,
+                                  fontSize:pickerSubtitle,
+                                  color: baseColor,
+                                ),),
                               ],
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            daysCounter("-",true);
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                    RichText(
+                                        text: TextSpan(
+                                      text: "${daysOnScope.toInt()}/",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                        height: 1.5,
+                                        fontSize:pickerSubtitle,
+                                        color: baseColor,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: "${maxScopeOn.toInt()}",
+                                          style:  Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                            height: 1.5,
+                                            fontSize:pickerSubtitle,
+                                            color: unselectedColor,
+                                          ),
+                                        )
+                                      ]
+                                    )),
+                                    // Text('${daysOnScope.toInt()}/${maxScopeOn.toInt()}',style: Theme.of(context)
+                                    //     .textTheme
+                                    //     .headlineMedium!
+                                    //     .copyWith(
+                                    //   height: 1.5,
+                                    //   fontSize:pickerSubtitle,
+                                    //   color: baseColor,
+                                    // ),),
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            daysCounter("+",true);
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            daysCounter("-",false);
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: "${daysOffScope.toInt()}/",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                              height: 1.5,
+                                              fontSize:pickerSubtitle,
+                                              color: baseColor,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: "${maxScopeOff.toInt()}",
+                                                style:  Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium!
+                                                    .copyWith(
+                                                  height: 1.5,
+                                                  fontSize:pickerSubtitle,
+                                                  color: unselectedColor,
+                                                ),
+                                              )
+                                            ]
+                                        )),
+                                    // Text('${daysOffScope.toInt()}/${maxScopeOff.toInt()}',style: Theme.of(context)
+                                    //     .textTheme
+                                    //     .headlineMedium!
+                                    //     .copyWith(
+                                    //   height: 1.5,
+                                    //   fontSize:pickerSubtitle,
+                                    //   color: baseColor,
+                                    // ),),
+                                    IconButton(
+                                        splashColor: Colors.transparent,
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        onPressed: (){
+                                          setDialState(() {
+                                            daysCounter("+",false);
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add_circle_outline,
+                                          size: textSize,
+                                          color: baseColor,
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+
 
                           ],
                         ),

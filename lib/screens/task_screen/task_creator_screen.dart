@@ -143,7 +143,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
   List<DateTime> scopeDatesList = [];
 
-  _pickDate(BuildContext context) async {
+  void _pickDate(BuildContext context) async {
     DateTime? picked;
     await showDialog<DateTime>(
         context: context,
@@ -174,7 +174,7 @@ class _TaskCreatorState extends State<TaskCreator>
     }
 }
 
-  _pickTime(BuildContext context) async {
+  void _pickTime(BuildContext context) async {
     TimeOfDay time = TimeOfDay(hour: widget.newTask.date.hour, minute: widget.newTask.date.minute);
     final TimeOfDay? selectedTime = await showTimePicker(
       initialTime: time,
@@ -210,7 +210,7 @@ class _TaskCreatorState extends State<TaskCreator>
   IconData pickedIcon = Icons.circle;
   String pickedIconText = "";
 
-  _pickIcon(BuildContext context) {
+  void _pickIcon(BuildContext context) {
 
     showDialog(
         context: context,
@@ -322,6 +322,7 @@ class _TaskCreatorState extends State<TaskCreator>
 
   @override
   Widget build(BuildContext context) {
+    var isTaskDoneColor = widget.newTask.isTaskDone ? Theme.of(context).unselectedWidgetColor : Theme.of(context).indicatorColor;
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -386,11 +387,12 @@ class _TaskCreatorState extends State<TaskCreator>
                                                     Icon(
                                                       pickedIcon,
                                                       size: navIconSize,
+                                                      color: isTaskDoneColor,
                                                     ),
                                                     const SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor,),)
+                                                    Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:isTaskDoneColor),)
 
                                                   ],
                                                 ),

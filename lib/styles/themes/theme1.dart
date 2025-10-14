@@ -129,6 +129,7 @@ final theme1 = ThemeData(
     primaryColorLight: theme1MiddleGradientColor,
     primaryColorDark: theme1LastGradientColor,
     cardColor: theme1TitleBoxBcgColor,
+    //todo: update material themes
     indicatorColor: theme1IndicatorColor,
     shadowColor: theme1ShadowColor,
     dialogBackgroundColor: theme1LastGradientColor,
