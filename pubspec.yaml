@@ -21,8 +21,10 @@ dependencies:
   google_fonts: ^6.3.2
   provider: ^6.1.5+1
   intl: ^0.20.2
+  flutter_timezone: ^5.0.0
   flutter_localization:  ^0.3.3
   flutter_local_notifications: ^19.4.2
+  android_intent_plus: ^6.0.0
   table_calendar: ^3.2.0
   path_provider: ^2.1.5
   shared_preferences: ^2.5.3

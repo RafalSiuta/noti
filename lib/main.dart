@@ -23,6 +23,14 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.databaseHelper.initializeHive();
+  await NotificationsHelper().init();
+  await NotificationsHelper().requestNotificationPermissions();
+  //testing
+  //await NotificationsHelper().showImmediateTest();
+  //await NotificationsHelper().scheduleInOneMinute();
+  //await NotificationsHelper().debugDumpNotificationState();
+  //await NotificationsHelper().cancelAllNotifications();
 
   Future<int> getAndroidVersion() async {
     if (Platform.isAndroid) {
@@ -55,8 +63,8 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  await DatabaseHelper.databaseHelper.initializeHive();
-  await NotificationsHelper().init();
+
+
 
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -65,7 +73,56 @@ Future<void> main() async {
   runApp(const MyApp());
 
 }
-
+// [
+//   ChangeNotifierProvider(
+//     create: (context) => HomeProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => PermissionProvider(),
+//   ),
+//
+//   ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
+//     create: (context) => SettingsProvider(
+//       Provider.of<PermissionProvider>(context, listen: false),
+//     ),
+//     update: (context, permissionProvider, settingsProvider) =>
+//         SettingsProvider(permissionProvider),
+//   ),
+//   ChangeNotifierProvider(
+//
+//     create: (context) => GalleryImageProvider(),
+//   ),
+//
+//   ChangeNotifierProvider(
+//     create: (context) => SearchProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => TaskSearchProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => NoteSearchProvider(),
+//   ),
+//
+//
+//   ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
+//     create: (context) => NoteProvider(
+//       Provider.of<SettingsProvider>(context, listen: false),
+//       Provider.of<NoteSearchProvider>(context, listen: false),
+//     ),
+//     update: (context, settingsProvider, searchProvider, noteProvider) =>
+//         NoteProvider(settingsProvider, searchProvider),
+//   ),
+//
+//   ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
+//     create: (context) => TaskProvider(
+//       Provider.of<SettingsProvider>(context, listen: false),
+//       Provider.of<TaskSearchProvider>(context, listen: false),
+//     ),
+//     update: (context, settingsProvider, searchProvider, noteProvider) =>
+//         TaskProvider(settingsProvider, searchProvider),
+//   ),
+//
+// ],
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -74,53 +131,54 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers:
         [
-          ChangeNotifierProvider(
-            create: (context) => HomeProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => PermissionProvider(),
-          ),
+          ChangeNotifierProvider(create: (_) => HomeProvider()),
+            ChangeNotifierProvider(
+              create: (context) => PermissionProvider(),
+            ),
+          ChangeNotifierProvider(create: (_) => GalleryImageProvider()),
+          ChangeNotifierProvider(create: (_) => SearchProvider()),
+          ChangeNotifierProvider(create: (_) => NoteSearchProvider()),
 
           ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
             create: (context) => SettingsProvider(
-              Provider.of<PermissionProvider>(context, listen: false),
+              context.read<PermissionProvider>(),
             ),
-            update: (context, permissionProvider, settingsProvider) =>
-                SettingsProvider(permissionProvider),
+            update: (context, permission, previous) {
+              final sp = previous ?? SettingsProvider(permission);
+              // jeżeli SettingsProvider potrzebuje odświeżyć referencję do permission:
+              sp.updatePermission(permission); // (dodaj metodę, jeśli potrzebujesz)
+              return sp;
+            },
           ),
+          ChangeNotifierProvider(create: (_) => TaskSearchProvider()),
 
-          ChangeNotifierProvider(
-            create: (context) => GalleryImageProvider(),
-          ),
-
-          ChangeNotifierProvider(
-            create: (context) => SearchProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => TaskSearchProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => NoteSearchProvider(),
-          ),
-
-          ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
-            create: (context) => NoteProvider(
-              Provider.of<SettingsProvider>(context, listen: false),
-              Provider.of<NoteSearchProvider>(context, listen: false),
-            ),
-            update: (context, settingsProvider, searchProvider, noteProvider) =>
-                NoteProvider(settingsProvider, searchProvider),
-          ),
-
+          // 2) TaskProvider zależy od Settings + TaskSearch
           ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
             create: (context) => TaskProvider(
-              Provider.of<SettingsProvider>(context, listen: false),
-              Provider.of<TaskSearchProvider>(context, listen: false),
+              context.read<SettingsProvider>(),
+              context.read<TaskSearchProvider>(),
             ),
-            update: (context, settingsProvider, searchProvider, noteProvider) =>
-                TaskProvider(settingsProvider, searchProvider),
+            update: (context, settings, search, previous) {
+              final tp = previous ?? TaskProvider(settings, search);
+              tp.updateDeps(settings, search);
+              return tp;
+            },
+          ),
+
+          // ------------ Twoje inne providery zależne od Settings, itd. -------------
+          ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
+            create: (context) => NoteProvider(
+              context.read<SettingsProvider>(),
+              context.read<NoteSearchProvider>(),
+            ),
+            update: (context, settings, search, previous) {
+              final np = previous ?? NoteProvider(settings, search);
+              np.updateDeps(settings, search);
+              return np;
+            },
           ),
         ],
+
         child: Consumer<SettingsProvider>(
           builder: (context, settings, child) {
             return MaterialApp(

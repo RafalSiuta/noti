@@ -16,6 +16,11 @@ class NoteProvider extends ChangeNotifier  {
 
   }
 
+  void updateDeps(SettingsProvider s, NoteSearchProvider sp) {
+    settings = s;
+    searchProvider = sp;
+  }
+
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
   List<Note> _noteList = [];

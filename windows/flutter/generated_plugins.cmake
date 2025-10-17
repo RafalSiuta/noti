@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   flutter_localization
+  flutter_timezone
   permission_handler_windows
 )
 

@@ -679,19 +679,11 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                               .copyWith(
                                             height: 1.5,
                                             fontSize:pickerSubtitle,
-                                            color: unselectedColor,
+                                            color: baseColor,
                                           ),
                                         )
                                       ]
                                     )),
-                                    // Text('${daysOnScope.toInt()}/${maxScopeOn.toInt()}',style: Theme.of(context)
-                                    //     .textTheme
-                                    //     .headlineMedium!
-                                    //     .copyWith(
-                                    //   height: 1.5,
-                                    //   fontSize:pickerSubtitle,
-                                    //   color: baseColor,
-                                    // ),),
                                     IconButton(
                                         splashColor: Colors.transparent,
                                         padding: EdgeInsets.zero,
@@ -746,19 +738,11 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                                     .copyWith(
                                                   height: 1.5,
                                                   fontSize:pickerSubtitle,
-                                                  color: unselectedColor,
+                                                  color: baseColor,
                                                 ),
                                               )
                                             ]
                                         )),
-                                    // Text('${daysOffScope.toInt()}/${maxScopeOff.toInt()}',style: Theme.of(context)
-                                    //     .textTheme
-                                    //     .headlineMedium!
-                                    //     .copyWith(
-                                    //   height: 1.5,
-                                    //   fontSize:pickerSubtitle,
-                                    //   color: baseColor,
-                                    // ),),
                                     IconButton(
                                         splashColor: Colors.transparent,
                                         padding: EdgeInsets.zero,

@@ -18,7 +18,14 @@ class TaskProvider extends ChangeNotifier {
   TaskSearchProvider searchProvider;
 
   TaskProvider(this.settings, this.searchProvider) {
+    settings.bindTaskProvider(this);
     initTask();
+  }
+
+  void updateDeps(SettingsProvider s, TaskSearchProvider sp) {
+    settings = s;
+    searchProvider = sp;
+    settings.bindTaskProvider(this);
   }
 
   int selectedIndex = 0;
@@ -37,16 +44,35 @@ class TaskProvider extends ChangeNotifier {
   bool isTaskToDelete = false;
 
   final Prefs _prefs = Prefs();
-
   Future<void> initTask() async {
     selDay = focDay;
-    loadCalendarFormat();
-    getSettingsValuesForTask().whenComplete((){
-      getTaskDbList();
-      getTasksBySearchOptions();
-    });
+
+    // 1) format kalendarza (to u Ciebie jest async – warto poczekać)
+    await loadCalendarFormat();
+
+    // 2) ustawienia (globalny przełącznik notyfikacji, itp.)
+    await getSettingsValuesForTask();
+
+    // 3) wczytanie listy zadań i filtrów
+    await getTaskDbList();
+    await getTasksBySearchOptions();
+
+    // 4) pełna resynchronizacja powiadomień (na podstawie aktualnych ustawień i zadań)
+    //await resyncAllNotifications();
+
     notifyListeners();
   }
+
+  // Future<void> initTask() async {
+  //   selDay = focDay;
+  //   loadCalendarFormat();
+  //   getSettingsValuesForTask().whenComplete((){
+  //     getTaskDbList();
+  //     getTasksBySearchOptions();
+  //     resyncAllNotifications();
+  //   });
+  //   notifyListeners();
+  // }
   List<Task> _taskListByKeyword = [];
   UnmodifiableListView<Task> get taskListByKeyword {
     return UnmodifiableListView(_taskListByKeyword);
@@ -84,7 +110,7 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void loadCalendarFormat() async {
+  Future<void> loadCalendarFormat() async {
     int formatIndex = await _prefs.restoreInt('calendarFormat', 0);
     format = CalendarFormat.values[formatIndex];
     notifyListeners();
@@ -251,35 +277,86 @@ class TaskProvider extends ChangeNotifier {
   }
 
 
-
   void refreshNotification(Task task) {
-
-    if (settings.isNotification) {
-      if (task.isTaskDone || task.isNotification == false) {
-
-        NotificationsHelper().cancelNotification(task.id.hashCode);
-      } else {
-
-        final now = DateTime.now();
-
-        if (task.date.year == now.year &&
-            task.date.month == now.month &&
-            task.date.day == now.day &&
-            task.date.isAfter(DateTime(now.year, now.month, now.day, now.hour, now.minute))) {
-
-          NotificationsHelper().scheduleNotification(task, task.date);
-        } else if (task.date.isBefore(now)) {
-
-          NotificationsHelper().cancelNotification(task.id.hashCode);
-        }
-      }
-    } else {
-
+    // 1) Globalny wyłącznik
+    if (!settings.isNotification) {
       NotificationsHelper().cancelNotification(task.id.hashCode);
+      notifyListeners();
+      return;
+    }
+
+    final now = DateTime.now();
+
+    // 2) Stan zadania / flaga per-zadanie / przeszłość
+    final bool shouldCancel =
+        task.isTaskDone ||
+            (task.isNotification == false) ||
+            task.date.isBefore(DateTime(now.year, now.month, now.day, now.hour, now.minute));
+
+    if (shouldCancel) {
+      NotificationsHelper().cancelNotification(task.id.hashCode);
+    } else {
+      // 3) Jednorazowe zaplanowanie na konkretną przyszłą datę+czas
+      NotificationsHelper().scheduleNotification(task, task.date);
     }
 
     notifyListeners();
   }
+
+  // void refreshNotification(Task task) {
+  //
+  //   if (settings.isNotification) {
+  //     if (task.isTaskDone || task.isNotification == false) {
+  //
+  //       NotificationsHelper().cancelNotification(task.id.hashCode);
+  //     } else {
+  //
+  //       final now = DateTime.now();
+  //
+  //       if (task.date.year == now.year &&
+  //           task.date.month == now.month &&
+  //           task.date.day == now.day &&
+  //           task.date.isAfter(DateTime(now.year, now.month, now.day, now.hour, now.minute))) {
+  //
+  //         NotificationsHelper().scheduleNotification(task, task.date);
+  //       } else if (task.date.isBefore(now)) {
+  //
+  //         NotificationsHelper().cancelNotification(task.id.hashCode);
+  //       }
+  //     }
+  //   } else {
+  //
+  //     NotificationsHelper().cancelNotification(task.id.hashCode);
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
+  Future<void> resyncAllNotifications() async {
+    if (!settings.isNotification) {
+      await NotificationsHelper().cancelAllNotifications();
+      return;
+    }
+
+    final now = DateTime.now();
+    final List<Task> all = _dbHelper.getAllTasks();
+
+    for (final task in all) {
+      final shouldCancel =
+          task.isTaskDone ||
+              (task.isNotification == false) ||
+              task.date.isBefore(DateTime(now.year, now.month, now.day, now.hour, now.minute));
+
+      if (shouldCancel) {
+        await NotificationsHelper().cancelNotification(task.id.hashCode);
+      } else {
+        await NotificationsHelper().scheduleNotification(task, task.date);
+      }
+    }
+  }
+
+
+
 
   Future<List<Task>> getTaskDbList() async {
 

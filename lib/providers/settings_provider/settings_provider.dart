@@ -10,6 +10,7 @@ import '../../models/settings_model/settings_model/notification_settings_model.d
 import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../models/settings_model/social_items.dart';
 import '../../models/settings_model/trash_settings_model/trash_model.dart';
+import '../task_provider/task_provider.dart';
 import 'trash_settings_list.dart';
 import '../../models/theme_model/shapes_list.dart';
 import '../../models/theme_model/themes_list.dart';
@@ -20,12 +21,23 @@ import '../../utils/prefs/prefs.dart';
 class SettingsProvider extends ChangeNotifier {
 
   PermissionProvider permissionProvider;
+  TaskProvider? _taskProvider;
+
+  void bindTaskProvider(TaskProvider tp) {
+    _taskProvider = tp;
+  }
 
   SettingsProvider(this.permissionProvider) {
     init();
   }
 
-  init() async {
+  void updatePermission(PermissionProvider sp) {
+
+    permissionProvider = sp;
+
+  }
+
+  void init() async {
     await loadSets();
   }
 
@@ -195,7 +207,7 @@ class SettingsProvider extends ChangeNotifier {
   CustomClipper<Path> shapes = Shape1();
 
 
-  goToPrevious() {
+  void goToPrevious() {
     carouselController.previousPage(
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
 
@@ -203,14 +215,14 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  goToNext() {
+  void goToNext() {
     carouselController.nextPage(
         duration: const Duration(milliseconds: 300), curve: Curves.decelerate);
     _prefs.storeInt('shape', currentShape);
     notifyListeners();
   }
 
-  onActivityChange(int index) {
+  void onActivityChange(int index) {
     currentShape = index;
     setCustomShape(currentShape);
     setTransparency(currentShape);
@@ -219,7 +231,7 @@ class SettingsProvider extends ChangeNotifier {
 
   CalendarSettings calendarSets = CalendarSettings();
 
-  onCalendarSettingsChange(SettingsModel sets) async {
+  void onCalendarSettingsChange(SettingsModel sets) async {
     sets.onChange();
     await _prefs.storeList('calendarSettings', calendarSets.calendarSettings);
     calendarStartingDay();
@@ -237,7 +249,7 @@ class SettingsProvider extends ChangeNotifier {
     return calendarStartDay;
   }
 
-  updateCalendarSettings() async {
+   updateCalendarSettings() async {
 
     calendarSets.calendarSettings = await _prefs
         .restoreList('calendarSettings', calendarSets.calendarSettings)
@@ -249,37 +261,67 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   NotificationSettings notificationSets = NotificationSettings();
-
-  onNotificationSettingsChange(SettingsModel sets) async{
+  void onNotificationSettingsChange(SettingsModel sets) async {
     sets.onChange();
-    _prefs.storeList(
-        'notificationSettings', notificationSets.notificationSettings);
+    _prefs.storeList('notificationSettings', notificationSets.notificationSettings);
 
     if (sets.isOn == true) {
       isNotification = true;
 
-      await NotificationsHelper().requestNotificationPermissions();
+      // Zapewnij wymagane capabilities (POST_NOTIF + exact alarms).
+      final ok = await NotificationsHelper().ensureNotificationCapabilities();
+
+      if (ok) {
+        // możesz też ustawić dźwięk, jeśli masz oddzielny przełącznik
+        // await NotificationsHelper().setSoundEnabled(settings.isNotificationSound);
+
+        // po włączeniu – przeplanuj wszystko
+        await _taskProvider?.resyncAllNotifications();
+      } else {
+        // Użytkownik został odesłany do ekranu „Alarmy i przypomnienia”.
+        // Tu możesz pokazać snackbar/toast: „Włącz dokładne alarmy i wróć do aplikacji”.
+      }
     } else {
       isNotification = false;
-
-      NotificationsHelper().cancelAllNotifications();
-
+      await NotificationsHelper().cancelAllNotifications();
     }
-    print("NOTIFICATIONS SETTINGS VALUE: 0");
+
     notifyListeners();
   }
-
-  onNotificationSound(SettingsModel sets){
+  void onNotificationSound(SettingsModel sets)async{
     sets.onChange();
     _prefs.storeList(
         'notificationSettings', notificationSets.notificationSettings);
 
     if(sets.isOn == true){
-      NotificationsHelper().requestNotificationSound(sets.isOn!);
+      // NotificationsHelper().requestNotificationSound(sets.isOn!);
+      NotificationsHelper().setSoundEnabled(sets.isOn!);
+      await _taskProvider?.resyncAllNotifications();
       playSound();
+
     }
     notifyListeners();
   }
+  // void onNotificationSettingsChange(SettingsModel sets) async{
+  //   sets.onChange();
+  //   _prefs.storeList(
+  //       'notificationSettings', notificationSets.notificationSettings);
+  //
+  //   if (sets.isOn == true) {
+  //     isNotification = true;
+  //
+  //     await NotificationsHelper().requestNotificationPermissions();
+  //   } else {
+  //     isNotification = false;
+  //
+  //     NotificationsHelper().cancelAllNotifications();
+  //
+  //   }
+  //   print("NOTIFICATIONS SETTINGS VALUE: 0");
+  //   notifyListeners();
+  // }
+
+
 
   Future<void> playSound() async {
     try {
@@ -291,7 +333,7 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
-  updateNotificationSettings() async {
+  void updateNotificationSettings() async {
     notificationSets.notificationSettings = await _prefs
         .restoreList(
             'notificationSettings', notificationSets.notificationSettings)
@@ -305,13 +347,13 @@ class SettingsProvider extends ChangeNotifier {
 
   TrashSettings trashSets = TrashSettings();
 
-  onTrashSettingsChange(TrashModel sets) {
+  void onTrashSettingsChange(TrashModel sets) {
     sets.onChange();
     _prefs.storeList('trashSettings', trashSets.trashSettings);
     notifyListeners();
   }
 
-  updateTrashSettings() async {
+  void updateTrashSettings() async {
     trashSets.trashSettings = await _prefs
         .restoreTrashList('trashSettings', trashSets.trashSettings)
         .then((value) {
@@ -321,7 +363,7 @@ class SettingsProvider extends ChangeNotifier {
     });
   }
 
-  cancelDeleteSettings(int index) {
+  void cancelDeleteSettings(int index) {
     if (trashSets.trashSettings[index].isOn == true) {
       trashSets.trashSettings[index].onChange();
       _prefs.storeList('trashSettings', trashSets.trashSettings);
@@ -329,7 +371,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  onSliderChange(double newValue, int index) {
+  void onSliderChange(double newValue, int index) {
     trashSets.trashSettings[index].sliderValue = newValue.floorToDouble();
     _prefs.storeList('trashSettings', trashSets.trashSettings);
     notifyListeners();
@@ -337,7 +379,7 @@ class SettingsProvider extends ChangeNotifier {
 
   PolicyList policyList = PolicyList();
 
-  loadSets() async {
+  Future<void> loadSets() async {
 
     await _prefs.storeList('trashSettings', trashSets.trashSettings);
     updateCalendarSettings();
