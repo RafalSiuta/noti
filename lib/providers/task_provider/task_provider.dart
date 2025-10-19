@@ -248,8 +248,8 @@ class TaskProvider extends ChangeNotifier {
 
   void updateTasks(Task task) async {
     task.toggleTask();
-    await _dbHelper.updateTask(task);
 
+    await _dbHelper.updateTask(task);
 
     _taskList = getCalendarValues(focDay);
     await refreshTasks();

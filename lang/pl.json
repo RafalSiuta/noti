@@ -1,0 +1,35 @@
+{
+  "headers_text": {
+
+  },
+  "icons_text": {
+
+  },
+  "menu_text": {
+    "today":"dzisiaj",
+    "calendar":"kalendarz",
+    "notes": "notatki",
+    "task": "zadania",
+    "themes": "motywy",
+    "settings": "ustawienia",
+    "about": "o apce"
+  },
+  "settings_text": {
+    "title_sunday_first": "niedziela pierwsza",
+    "description_sunday_first": "niedziela jako pierwszy dzień tygodnia",
+    "title_monthly_theme": "motyw miesięczny",
+    "description_monthly_theme": "zmiana motywu co miesiąc",
+    "title_notifications": "powiadomienia",
+    "description_notifications": "włącz/wyłącz powiadomienia",
+    "title_sound_notifications": "dźwięk powiadomień",
+    "description_sound_notifications": "włącz/wyłącz dźwięk powiadomień",
+    "title_delete_notes": "usuń notatki",
+    "description_delete_notes": "usuń notatki po zaznaczonej dacie",
+    "title_delete_tasks": "usuń zadania",
+    "description_delete_tasks": "usuń zadania po zaznaczonej dacie",
+    "title_delete_all_notes": "usuń wszystkie notatki",
+    "description_delete_all_notes": "całkowicie usuwa wszystkie notatki",
+    "title_delete_all_tasks": "usuń wszystkie zadania",
+    "description_delete_all_tasks": "całkowicie usuwa wszystkie zadania"
+  }
+}

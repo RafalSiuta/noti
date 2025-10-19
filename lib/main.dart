@@ -64,8 +64,6 @@ Future<void> main() async {
   ]);
 
 
-
-
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -73,56 +71,7 @@ Future<void> main() async {
   runApp(const MyApp());
 
 }
-// [
-//   ChangeNotifierProvider(
-//     create: (context) => HomeProvider(),
-//   ),
-//   ChangeNotifierProvider(
-//     create: (context) => PermissionProvider(),
-//   ),
-//
-//   ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
-//     create: (context) => SettingsProvider(
-//       Provider.of<PermissionProvider>(context, listen: false),
-//     ),
-//     update: (context, permissionProvider, settingsProvider) =>
-//         SettingsProvider(permissionProvider),
-//   ),
-//   ChangeNotifierProvider(
-//
-//     create: (context) => GalleryImageProvider(),
-//   ),
-//
-//   ChangeNotifierProvider(
-//     create: (context) => SearchProvider(),
-//   ),
-//   ChangeNotifierProvider(
-//     create: (context) => TaskSearchProvider(),
-//   ),
-//   ChangeNotifierProvider(
-//     create: (context) => NoteSearchProvider(),
-//   ),
-//
-//
-//   ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
-//     create: (context) => NoteProvider(
-//       Provider.of<SettingsProvider>(context, listen: false),
-//       Provider.of<NoteSearchProvider>(context, listen: false),
-//     ),
-//     update: (context, settingsProvider, searchProvider, noteProvider) =>
-//         NoteProvider(settingsProvider, searchProvider),
-//   ),
-//
-//   ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
-//     create: (context) => TaskProvider(
-//       Provider.of<SettingsProvider>(context, listen: false),
-//       Provider.of<TaskSearchProvider>(context, listen: false),
-//     ),
-//     update: (context, settingsProvider, searchProvider, noteProvider) =>
-//         TaskProvider(settingsProvider, searchProvider),
-//   ),
-//
-// ],
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -184,15 +133,26 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
+              supportedLocales: const [
+                Locale('pl','PL'),
+                Locale('en', 'GB'),
+                Locale('es', 'ES'),
+              ],
               localizationsDelegates: const [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: const [
-                Locale('pl','PL'),
-                Locale('en', 'GB'),
-              ],
+              localeResolutionCallback: (locale, suppertedLocales) {
+                //check is the current locale is supported:
+                for (var supportedLocale in suppertedLocales) {
+                  if (supportedLocale.languageCode == locale!.languageCode &&
+                      supportedLocale.countryCode == locale.countryCode) {
+                    return supportedLocale;
+                  }
+                }
+                return suppertedLocales.first;
+              },
               theme: settings.getTheme(),
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),
@@ -201,7 +161,7 @@ class MyApp extends StatelessWidget {
         ));
   }
 
-  static onGenerateRoute(RouteSettings settings) {
+  static CustomPageRoute onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case "/":
         return CustomPageRoute(
@@ -215,7 +175,7 @@ class MyApp extends StatelessWidget {
             settings: settings,
             direction: AxisDirection.left);
       default:
-        CustomPageRoute(
+        return CustomPageRoute(
             child: const Main(),
             settings: settings,
             direction: AxisDirection.left);
@@ -223,4 +183,53 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
+// [
+//   ChangeNotifierProvider(
+//     create: (context) => HomeProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => PermissionProvider(),
+//   ),
+//
+//   ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
+//     create: (context) => SettingsProvider(
+//       Provider.of<PermissionProvider>(context, listen: false),
+//     ),
+//     update: (context, permissionProvider, settingsProvider) =>
+//         SettingsProvider(permissionProvider),
+//   ),
+//   ChangeNotifierProvider(
+//
+//     create: (context) => GalleryImageProvider(),
+//   ),
+//
+//   ChangeNotifierProvider(
+//     create: (context) => SearchProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => TaskSearchProvider(),
+//   ),
+//   ChangeNotifierProvider(
+//     create: (context) => NoteSearchProvider(),
+//   ),
+//
+//
+//   ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
+//     create: (context) => NoteProvider(
+//       Provider.of<SettingsProvider>(context, listen: false),
+//       Provider.of<NoteSearchProvider>(context, listen: false),
+//     ),
+//     update: (context, settingsProvider, searchProvider, noteProvider) =>
+//         NoteProvider(settingsProvider, searchProvider),
+//   ),
+//
+//   ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
+//     create: (context) => TaskProvider(
+//       Provider.of<SettingsProvider>(context, listen: false),
+//       Provider.of<TaskSearchProvider>(context, listen: false),
+//     ),
+//     update: (context, settingsProvider, searchProvider, noteProvider) =>
+//         TaskProvider(settingsProvider, searchProvider),
+//   ),
+//
+// ],

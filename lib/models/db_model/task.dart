@@ -41,7 +41,7 @@ class Task extends HiveObject {
     required this.priority,
     required this.icon,
     required this.title,
-    required this.isTaskDone,
+    this.isTaskDone = false,
     required this.description,
     required this.date,
     this.items,
@@ -51,5 +51,12 @@ class Task extends HiveObject {
 
   void toggleTask() {
     isTaskDone = !isTaskDone;
+    if(isTaskDone == true){
+      isNotification = false;
+    }else{
+      isNotification = true;
+    }
+    //isNotification = !isNotification;
+
   }
 }

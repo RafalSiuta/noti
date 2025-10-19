@@ -123,6 +123,7 @@ class NotificationsHelper {
       channelDescription: _channelDescription,
       importance: Importance.max,
       priority: Priority.high,
+      color: const Color(0xFF0032A1),
       // icon: '@mipmap/ic_launcher',
       icon: '@drawable/ic_stat_noti',
       largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
