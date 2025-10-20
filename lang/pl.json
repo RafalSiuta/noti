@@ -1,18 +1,36 @@
 {
   "headers_text": {
-
+    "header_search_tasks": "wyszukaj zadania",
+    "header_search_notes": "wyszukaj notatek",
+    "header_actions": "działania",
+    "header_dates_scope": "zaznacz zakres dat",
+    "header_you_have": "masz",
+    "header_task": "zadanie",
+    "header_tasks": "zadania",
+    "header_tasks_s": "zadań",
+    "header_note": "notatkę",
+    "header_notes": "notatki",
+    "header_notes_s": "notatek",
+    "header_shapes": "wzorki tła",
+    "header_themes": "motywy",
+    "header_calendar": "kalendarz",
+    "header_notifications": "powiadomienia",
+    "header_trash": "kosz",
+    "header_language": "język",
+    "header_policy": "polityka prywatności"
   },
-  "icons_text": {
-
-  },
+  "icons_text": {},
   "menu_text": {
-    "today":"dzisiaj",
-    "calendar":"kalendarz",
+    "today": "dzisiaj",
+    "calendar": "kalendarz",
     "notes": "notatki",
     "task": "zadania",
     "themes": "motywy",
     "settings": "ustawienia",
-    "about": "o apce"
+    "about": "o apce",
+    "button_month": "miesiąc",
+    "button_week": "tydzień",
+    "button_two_weeks": "dwa tygodnie"
   },
   "settings_text": {
     "title_sunday_first": "niedziela pierwsza",
@@ -31,5 +49,84 @@
     "description_delete_all_notes": "całkowicie usuwa wszystkie notatki",
     "title_delete_all_tasks": "usuń wszystkie zadania",
     "description_delete_all_tasks": "całkowicie usuwa wszystkie zadania"
-  }
+  },
+  "creators_text": {
+    "more_options": "więcej opcji",
+    "scope_option": "zaznacz zakres dat dla powtarzania zadań",
+    "date_from": "data od:",
+    "date_to": "data do:",
+    "or": "albo",
+    "full_month": "pełen miesiąc",
+    "day_on": "roboczy",
+    "day_off": "wolny",
+    "day": "dzień",
+    "week": "tydzień",
+    "month": "miesiąc",
+    "ok": "ok",
+    "helper_title": "tytuł",
+    "helper_subtitle": "podtytuł",
+    "helper_description": "tekst",
+    "priority": "priorytet",
+    "notification": "powiadomienie",
+    "gallery": "galeria",
+    "camera": "kamera",
+    "on_dash": "na pulpit"
+  },
+  "policy_rules": [
+    {
+      "policy_id": "010",
+      "policy_title": "Uprawnienia urządzenia do dostępu do danych osobowych",
+      "policy_description": "W zależności od konkretnego urządzenia Użytkownika, Aplikacja może żądać uprawnień pozwalających na dostęp do danych urządzenia Użytkownika, jak opisano poniżej. Domyślnie uprawnienia te muszą zostać nadane przez Użytkownika, zanim odpowiednie informacje będą mogły zostać odczytane. Po udzieleniu zgody Użytkownik może w każdej chwili ją cofnąć w ustawieniach urządzenia. Dokładny sposób zarządzania uprawnieniami może zależeć od urządzenia i oprogramowania Użytkownika. Należy pamiętać, że cofnięcie takich uprawnień może wpłynąć na prawidłowe działanie Aplikacji. Jeśli Użytkownik przyzna którekolwiek z poniższych uprawnień, odpowiednie dane osobowe mogą być przetwarzane (tzn. uzyskiwany może być do nich dostęp, mogą być modyfikowane lub usuwane) przez Noti."
+    },
+    {
+      "policy_id": "011",
+      "policy_title": "Informacje zbierane przez Noti",
+      "policy_description": "Aplikacja nie zbiera danych osobowych. Dane tworzone przez użytkownika w Noti (tj. wpisy kalendarza, zadania i notatki) są przechowywane lokalnie i wyłącznie użytkownik ma do nich dostęp. Noti w żaden sposób nie udostępnia tych danych podmiotom trzecim ani nie przechowuje ich w chmurze."
+    },
+    {
+      "policy_id": "012",
+      "policy_title": "Komunikacja z Tobą i ulepszanie usług",
+      "policy_description": "Zbieramy informacje o przeglądarkach i urządzeniach używanych do korzystania z Noti. Zbieramy tylko te dane osobowe, które są niezbędne do świadczenia naszych usług, i przechowujemy je jedynie w zakresie koniecznym do ich realizacji. Noti zbiera adresy e-mail osób kontaktujących się z nami, a także informacje przekazywane w ramach działań dobrowolnych, takich jak rejestracja na stronie czy udział w ankietach. Wykorzystujemy zebrane informacje, aby komunikować się z Tobą bezpośrednio."
+    },
+    {
+      "policy_id": "013",
+      "policy_title": "Kontrola prywatności i bezpieczeństwo",
+      "policy_description": "Tworzone dane — tj. zadania i notatki zapisywane w kalendarzu — są przechowywane lokalnie na urządzeniu użytkownika; aplikacja nie udostępnia tych danych podmiotom trzecim ani nie przechowuje ich w chmurze. Tylko użytkownik ma do nich dostęp ze swojego urządzenia. Noti nigdy nie sprzeda Twoich danych osobowych podmiotom trzecim ani nie udostępni ich bez Twojej zgody. Gdy jest to absolutnie konieczne, Noti korzysta z usług i dostawców hostingu zgodnych z RODO. W takich przypadkach stosujemy niezbędne środki bezpieczeństwa, aby zapewnić zgodność z RODO podczas przesyłania danych do podmiotów trzecich i ich odbierania."
+    },
+    {
+      "policy_id": "014",
+      "policy_title": "Obsługa funkcji DO-NOT-TRACK",
+      "policy_description": "Większość przeglądarek internetowych oraz niektóre systemy operacyjne i aplikacje mobilne oferują funkcję lub ustawienie Do-Not-Track (\"DNT\"), które można aktywować, aby zasygnalizować preferencję braku śledzenia aktywności online. Na tym etapie nie istnieje jednolity standard technologiczny rozpoznawania i wdrażania sygnałów DNT. W związku z tym obecnie nie odpowiadamy na sygnały DNT przeglądarek ani inne mechanizmy automatycznie komunikujące wybór braku śledzenia. Jeżeli w przyszłości zostanie przyjęty standard śledzenia online, którego będziemy musieli przestrzegać, poinformujemy o tym w zaktualizowanej wersji niniejszej polityki prywatności."
+    },
+    {
+      "policy_id": "015",
+      "policy_title": "Usuwanie danych",
+      "policy_description": "Dane utworzone w aplikacji można usunąć, wybierając ikonę ustawień (kółko zębate), następnie „ustawienia” z prawego menu, a potem kartę „Kosz” — tam możesz zdecydować, po jakim czasie dane będą usuwane. Dane są również usuwane podczas odinstalowywania aplikacji z urządzenia. Dane ze strony internetowej, takie jak imię i adres e-mail podane do newslettera, mogą zostać usunięte po wysłaniu do nas prośby o usunięcie na adres kontaktowy."
+    },
+    {
+      "policy_id": "016",
+      "policy_title": "Prawa użytkowników",
+      "policy_description": "W skrócie: w niektórych regionach, takich jak Europejski Obszar Gospodarczy (EOG) i Zjednoczone Królestwo, przysługują Ci prawa zapewniające większy dostęp do Twoich danych osobowych i kontrolę nad nimi. Możesz w dowolnym momencie przeglądać, zmieniać lub zamknąć swoje konto. W niektórych regionach (np. w EOG i Zjednoczonym Królestwie) masz określone prawa wynikające z obowiązujących przepisów o ochronie danych, w tym prawo do żądania dostępu i uzyskania kopii danych, ich sprostowania lub usunięcia, ograniczenia przetwarzania, a w stosownych przypadkach — przenoszenia danych. W pewnych okolicznościach możesz także wnieść sprzeciw wobec przetwarzania. Aby złożyć wniosek, skorzystaj z danych kontaktowych poniżej. Jeśli przetwarzanie danych opieramy na Twojej zgodzie, możesz ją wycofać w dowolnym momencie; nie wpływa to na zgodność z prawem przetwarzania sprzed wycofania zgody ani na przetwarzanie oparte na innych podstawach prawnych. Jeśli jesteś mieszkańcem EOG lub Zjednoczonego Królestwa i uważasz, że przetwarzamy Twoje dane niezgodnie z prawem, masz prawo wnieść skargę do lokalnego organu nadzorczego. Jeśli jesteś mieszkańcem Szwajcarii, możesz skontaktować się z właściwym szwajcarskim organem ds. ochrony danych."
+    },
+    {
+      "policy_id": "017",
+      "policy_title": "Prawa mieszkańców Kalifornii (Shine The Light)",
+      "policy_description": "W skrócie: tak, jeśli mieszkasz w Kalifornii, przysługują Ci określone prawa dostępu do danych osobowych. Sekcja 1798.83 Kalifornijskiego Kodeksu Cywilnego, znana jako ustawa „Shine The Light”, pozwala użytkownikom z Kalifornii raz w roku i bezpłatnie uzyskać informacje o kategoriach danych osobowych (jeśli dotyczy) ujawnionych podmiotom trzecim do celów marketingu bezpośredniego oraz nazwy i adresy wszystkich takich podmiotów, którym dane udostępnialiśmy w poprzednim roku kalendarzowym. Jeśli jesteś mieszkańcem Kalifornii i chcesz złożyć taki wniosek, wyślij go na adres e-mail podany poniżej. Jeśli masz mniej niż 18 lat, mieszkasz w Kalifornii i posiadasz zarejestrowane konto, masz prawo zażądać usunięcia niechcianych danych. Aby to zrobić, skontaktuj się z nami, podając adres e-mail powiązany z kontem oraz oświadczenie, że mieszkasz w Kalifornii. Dołożymy starań, aby dane nie były publicznie wyświetlane w Aplikacji; pamiętaj jednak, że dane mogą nie zostać całkowicie usunięte ze wszystkich naszych systemów (np. kopii zapasowych)."
+    },
+    {
+      "policy_id": "018",
+      "policy_title": "Pliki cookie",
+      "policy_description": "Pliki cookie są wymagane na stronie internetowej Noti. Wykorzystujemy je do zapisywania preferencji odwiedzających i dzięki temu lepszego dostosowywania doświadczenia użytkownika. Użytkownicy mogą wyłączyć cookies w ustawieniach przeglądarki. Pamiętaj jednak, że nasze usługi opierają się na cookies do prawidłowego działania i po ich wyłączeniu dostęp do niektórych funkcji serwisu może być ograniczony."
+    },
+    {
+      "policy_id": "019",
+      "policy_title": "Zmiany niniejszej Polityki",
+      "policy_description": "Jeśli w przyszłości wprowadzimy zmiany w niniejszej Polityce Prywatności, nie ograniczymy Twoich praw wynikających z tej Polityki bez Twojej wyraźnej zgody. Zawsze wskazujemy datę publikacji ostatnich zmian. Jeśli zmiany będą istotne, przekażemy wyraźniejsze powiadomienie (w tym — w przypadku niektórych usług — wiadomość e-mail o zmianach w Polityce Prywatności). Prosimy o okresowe sprawdzanie aktualizacji. Kontynuując korzystanie z Noti, akceptujesz zaktualizowaną politykę."
+    },
+    {
+      "policy_id": "020",
+      "policy_title": "Skontaktuj się z nami",
+      "policy_description": "Jeśli masz pytania dotyczące niniejszej Polityki, napisz na r85unit@gmail.com z tematem: 'Privacy Questions' w tytule wiadomości lub odwiedź moją stronę: notiapp.org/#contact."
+    }
+  ]
 }

@@ -1,3 +1,132 @@
 {
-
+  "headers_text": {
+    "header_search_tasks": "search tasks",
+    "header_search_notes": "search notes",
+    "header_actions": "actions",
+    "header_dates_scope": "select date range",
+    "header_you_have": "you have",
+    "header_task": "task",
+    "header_tasks": "tasks",
+    "header_tasks_s": "tasks",
+    "header_note": "note",
+    "header_notes": "notes",
+    "header_notes_s": "notes",
+    "header_shapes": "background patterns",
+    "header_themes": "themes",
+    "header_calendar": "calendar",
+    "header_notifications": "notifications",
+    "header_trash": "trash",
+    "header_language": "language",
+    "header_policy": "privacy policy"
+  },
+  "icons_text": {},
+  "menu_text": {
+    "today": "today",
+    "calendar": "calendar",
+    "notes": "notes",
+    "task": "tasks",
+    "themes": "themes",
+    "settings": "settings",
+    "about": "about",
+    "button_month": "month",
+    "button_week": "week",
+    "button_two_weeks": "two weeks"
+  },
+  "settings_text": {
+    "title_sunday_first": "sunday first",
+    "description_sunday_first": "set Sunday as the first day of the week",
+    "title_monthly_theme": "monthly theme",
+    "description_monthly_theme": "change theme every month",
+    "title_notifications": "notifications",
+    "description_notifications": "enable/disable notifications",
+    "title_sound_notifications": "notification sound",
+    "description_sound_notifications": "enable/disable notification sound",
+    "title_delete_notes": "delete notes",
+    "description_delete_notes": "delete notes after the selected date",
+    "title_delete_tasks": "delete tasks",
+    "description_delete_tasks": "delete tasks after the selected date",
+    "title_delete_all_notes": "delete all notes",
+    "description_delete_all_notes": "permanently deletes all notes",
+    "title_delete_all_tasks": "delete all tasks",
+    "description_delete_all_tasks": "permanently deletes all tasks"
+  },
+  "creators_text": {
+    "more_options": "more options",
+    "scope_option": "select date range for repeating tasks",
+    "date_from": "date from:",
+    "date_to": "date to:",
+    "or": "or",
+    "full_month": "full month",
+    "day_on": "workday",
+    "day_off": "day off",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "ok": "ok",
+    "helper_title": "title",
+    "helper_subtitle": "subtitle",
+    "helper_description": "text",
+    "priority": "priority",
+    "notification": "notification",
+    "gallery": "gallery",
+    "camera": "camera",
+    "on_dash": "to dashboard"
+  },
+  "policy_rules": [
+    {
+      "policy_id": "010",
+      "policy_title": "Device permissions for Personal Data access",
+      "policy_description": "Depending on the User's specific device, this Application may request certain permissions that allow it to access the User's device Data as described below. By default, these permissions must be granted by the User before the respective information can be accessed. Once the permission has been given, it can be revoked by the User at any time. In order to revoke these permissions, Users may refer to the device settings. The exact procedure for controlling app permissions may be dependent on the User's device and software. Please note that the revoking of such permissions might impact the proper functioning of this Application. If User grants any of the permissions listed below, the respective Personal Data may be processed (i.e accessed to, modified or removed) by Noti"
+    },
+    {
+      "policy_id": "011",
+      "policy_title": "Information Noti collects",
+      "policy_description": "This application does not collect personal information. Data created by the user with Noti (ie calendar entries, tasks and notes) is stored locally and only the user has access to it. Noti in no way makes this data available to third parties or stores it in the cloud."
+    },
+    {
+      "policy_id": "012",
+      "policy_title": "Communicate with you & improve our services",
+      "policy_description": "We collect information about the browsers and devices you use to access Noti. We only collect personal data required to deliver our services, and we only store it to the extent that it is essential to perform these services. Noti collects email addresses from those who communicate with us via email, as well as information provided through voluntary activities such as site registration or survey participation. We use the information we collect to interact with you directly."
+    },
+    {
+      "policy_id": "013",
+      "policy_title": "Privacy controls & security",
+      "policy_description": "The created data, i.e. tasks and notes saved in the calendar, are stored locally on the user's device the application in no way shared this data with third parties or stores it in the cloud. Only the user can access them from their device. Noti will never sell your personal data with a third party, and we will never share data to third parties without your permission. When absolutely necessary, Noti uses third party services and hosting partners who are GDPR-compliant. In such instances, we take essential security methods to guarantee that we comply with GDPR when sending and receiving data from third parties."
+    },
+    {
+      "policy_id": "014",
+      "policy_title": "Controls for DO-NOT-TRACK features",
+      "policy_description": "Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track (\"DNT\") feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this privacy notice."
+    },
+    {
+      "policy_id": "015",
+      "policy_title": "Delete data",
+      "policy_description": "The data created with the application can be deleted by selecting the settings icon (the gear icon) and then selecting \"settings\" from the bar menu on the right, and then selecting the tab titled \"Recycle Bin\" - you can decide after which time the data will be deleted. Data is also deleted during the process of uninstalling the application from the device. Data from the website, such as the name and e-mail address provided for the newsletter, may be deleted after sending information to the contact address with a request to delete the data."
+    },
+    {
+      "policy_id": "016",
+      "policy_title": "The rights of Users",
+      "policy_description": "In brief: In some regions, such as the European Economic Area (EEA) and the United Kingdom (United Kingdom), you have rights that give you greater access to and control over your personal information. You can review, change or close your account at any time. In some regions (such as the EEA and UK) you have certain rights under applicable data protection laws. They may include the right - to request access and obtain a copy of your personal data, to request rectification or deletion, to limit the processing of your personal data and, where applicable, to transfer data. In certain circumstances, you may also have the right to object to the processing of your personal data. To make such a request, please use the contact details provided below. We will consider and take action upon request in accordance with applicable data protection laws. If we are relying on your consent to process your personal data, you have the right to withdraw your consent at any time. Remember, however, that this will not affect the lawfulness of processing prior to its withdrawal or the processing of your personal data based on lawful grounds for processing other than consent. If you are an EEA or UK resident and you believe that we are processing your personal data unlawfully, you also have the right to lodge a complaint with your local data protection supervisory authority\nTheir contact details can be found here: National Data Protection Authorities\nIf you are a resident in Switzerland, the contact details for the data protection authorities are available here: Ein Fehler ist aufgetreten."
+    },
+    {
+      "policy_id": "017",
+      "policy_title": "California residents’ rights (Shine The Light)",
+      "policy_description": "In brief: Yes, if you live in California you have certain rights to access your personal information. Section 1798.83 of the California Civil Code, also known as the 'Shine The Light' Act, allows our California users to request and obtain from us once a year and free of charge information on the categories of personal information (if any) disclosed to third parties for direct marketing purposes as well as the names and addresses of all third parties with whom we shared personal data in the immediately preceding calendar year. If you are a California resident and wish to make such a request, please send us your request to the email address provided below. If you are under the age of 18, live in California and have a registered account, you have the right to request the deletion of unwanted data. To request deletion of such data, please contact us using the contact details provided below, providing the email address associated with your account and a statement that you live in California. We will make sure that the data is not publicly displayed in the Application, however, it should be remembered that this data may not be completely or comprehensively removed from all our systems (e.g. backups, etc.)."
+    },
+    {
+      "policy_id": "018",
+      "policy_title": "Cookies",
+      "policy_description": "Cookies are required on Noti Website. We use them to collect visitors' preferences and thus to better optimize the user experience. Users can disable cookies in their browser settings. But please note that our services rely on cookies to function properly, and you may not be able to access certain features on our Website after disabling them."
+    },
+    {
+      "policy_id": "019",
+      "policy_title": "Changes to This Policy",
+      "policy_description": "If our Privacy Policy is changed in the future, we will not limit your rights under this Privacy Policy without your express consent. We always indicate the publication date of the latest changes. If the changes are significant, we will send you a more prominent notice (including, for certain services, an email notification of changes to the Privacy Policy). Please check back periodically to stay informed of any updates or changes to this Privacy Policy. By continuing to access and use Noti, you agree to be bound by the revised policy."
+    },
+    {
+      "policy_id": "020",
+      "policy_title": "Contact Us",
+      "policy_description": "If you have any questions about this Policy, please email us at r85unit@gmail.com with topic: Privacy Questions in the title line. or visit my website at notiapp.org/#contact"
+    }
+  ]
 }

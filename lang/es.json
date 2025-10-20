@@ -1,3 +1,132 @@
 {
-
+  "headers_text": {
+    "header_search_tasks": "buscar tareas",
+    "header_search_notes": "buscar notas",
+    "header_actions": "acciones",
+    "header_dates_scope": "seleccionar rango de fechas",
+    "header_you_have": "tienes",
+    "header_task": "tarea",
+    "header_tasks": "tareas",
+    "header_tasks_s": "tareas",
+    "header_note": "nota",
+    "header_notes": "notas",
+    "header_notes_s": "notas",
+    "header_shapes": "patrones de fondo",
+    "header_themes": "temas",
+    "header_calendar": "calendario",
+    "header_notifications": "notificaciones",
+    "header_trash": "papelera",
+    "header_language": "idioma",
+    "header_policy": "política de privacidad"
+  },
+  "icons_text": {},
+  "menu_text": {
+    "today": "hoy",
+    "calendar": "calendario",
+    "notes": "notas",
+    "task": "tareas",
+    "themes": "temas",
+    "settings": "ajustes",
+    "about": "acerca de",
+    "button_month": "mes",
+    "button_week": "semana",
+    "button_two_weeks": "dos semanas"
+  },
+  "settings_text": {
+    "title_sunday_first": "domingo primero",
+    "description_sunday_first": "establecer el domingo como primer día de la semana",
+    "title_monthly_theme": "tema mensual",
+    "description_monthly_theme": "cambiar el tema cada mes",
+    "title_notifications": "notificaciones",
+    "description_notifications": "activar/desactivar notificaciones",
+    "title_sound_notifications": "sonido de notificaciones",
+    "description_sound_notifications": "activar/desactivar el sonido de notificaciones",
+    "title_delete_notes": "eliminar notas",
+    "description_delete_notes": "eliminar notas después de la fecha seleccionada",
+    "title_delete_tasks": "eliminar tareas",
+    "description_delete_tasks": "eliminar tareas después de la fecha seleccionada",
+    "title_delete_all_notes": "eliminar todas las notas",
+    "description_delete_all_notes": "elimina permanentemente todas las notas",
+    "title_delete_all_tasks": "eliminar todas las tareas",
+    "description_delete_all_tasks": "elimina permanentemente todas las tareas"
+  },
+  "creators_text": {
+    "more_options": "más opciones",
+    "scope_option": "seleccionar rango de fechas para tareas repetidas",
+    "date_from": "fecha desde:",
+    "date_to": "fecha hasta:",
+    "or": "o",
+    "full_month": "mes completo",
+    "day_on": "día laborable",
+    "day_off": "día libre",
+    "day": "día",
+    "week": "semana",
+    "month": "mes",
+    "ok": "ok",
+    "helper_title": "título",
+    "helper_subtitle": "subtítulo",
+    "helper_description": "texto",
+    "priority": "prioridad",
+    "notification": "notificación",
+    "gallery": "galería",
+    "camera": "cámara",
+    "on_dash": "al panel"
+  },
+  "policy_rules": [
+    {
+      "policy_id": "010",
+      "policy_title": "Permisos del dispositivo para acceder a Datos Personales",
+      "policy_description": "Según el dispositivo del Usuario, esta Aplicación puede solicitar ciertos permisos que le permiten acceder a los Datos del dispositivo del Usuario según se describe a continuación. Por defecto, estos permisos deben ser concedidos por el Usuario antes de poder acceder a la información correspondiente. Una vez concedidos, el Usuario puede revocarlos en cualquier momento desde los ajustes del dispositivo. El procedimiento exacto para controlar los permisos puede depender del dispositivo y el software del Usuario. Ten en cuenta que revocar estos permisos puede afectar al correcto funcionamiento de la Aplicación. Si el Usuario concede alguno de los permisos listados a continuación, los Datos Personales correspondientes podrán ser procesados (es decir, acceder, modificados o eliminados) por Noti."
+    },
+    {
+      "policy_id": "011",
+      "policy_title": "Información que recopila Noti",
+      "policy_description": "Esta aplicación no recopila información personal. Los datos creados por el usuario con Noti (por ejemplo, entradas de calendario, tareas y notas) se almacenan localmente y solo el usuario tiene acceso a ellos. Noti no pone estos datos a disposición de terceros ni los almacena en la nube."
+    },
+    {
+      "policy_id": "012",
+      "policy_title": "Comunicarnos contigo y mejorar nuestros servicios",
+      "policy_description": "Recopilamos información sobre los navegadores y dispositivos que utilizas para acceder a Noti. Solo recopilamos los datos personales necesarios para prestar nuestros servicios y los almacenamos únicamente en la medida esencial para prestarlos. Noti recopila direcciones de correo electrónico de quienes se comunican con nosotros por email, así como información proporcionada mediante actividades voluntarias como el registro en el sitio o la participación en encuestas. Utilizamos la información recopilada para interactuar directamente contigo."
+    },
+    {
+      "policy_id": "013",
+      "policy_title": "Controles de privacidad y seguridad",
+      "policy_description": "Los datos creados, es decir, tareas y notas guardadas en el calendario, se almacenan localmente en el dispositivo del usuario; la aplicación no comparte estos datos con terceros ni los almacena en la nube. Solo el usuario puede acceder a ellos desde su dispositivo. Noti nunca venderá tus datos personales a terceros ni los compartirá sin tu permiso. Cuando sea absolutamente necesario, Noti utiliza servicios de terceros y proveedores de alojamiento que cumplen con el RGPD. En esos casos, aplicamos medidas de seguridad esenciales para garantizar el cumplimiento del RGPD cuando enviamos y recibimos datos de terceros."
+    },
+    {
+      "policy_id": "014",
+      "policy_title": "Controles para la función DO-NOT-TRACK",
+      "policy_description": "La mayoría de los navegadores web y algunos sistemas operativos y aplicaciones móviles incluyen una función o ajuste Do-Not-Track (\"DNT\") que puedes activar para indicar tu preferencia de privacidad de no ser rastreado en tus actividades de navegación. En esta etapa no existe un estándar tecnológico uniforme para reconocer e implementar señales DNT. Por ello, actualmente no respondemos a las señales DNT del navegador ni a ningún otro mecanismo que comunique automáticamente tu elección de no ser rastreado en línea. Si en el futuro se adopta un estándar de seguimiento en línea que debamos seguir, te informaremos de dicha práctica en una versión revisada de este aviso de privacidad."
+    },
+    {
+      "policy_id": "015",
+      "policy_title": "Eliminar datos",
+      "policy_description": "Los datos creados con la aplicación pueden eliminarse seleccionando el icono de ajustes (icono de engranaje), luego \"ajustes\" en la barra de la derecha y, a continuación, la pestaña \"Papelera\"; allí puedes decidir tras cuánto tiempo se eliminarán los datos. Los datos también se eliminan durante el proceso de desinstalación de la aplicación del dispositivo. Los datos del sitio web, como el nombre y el correo electrónico proporcionados para el boletín, pueden eliminarse tras enviarnos una solicitud de eliminación a la dirección de contacto."
+    },
+    {
+      "policy_id": "016",
+      "policy_title": "Derechos de los Usuarios",
+      "policy_description": "En resumen: en algunas regiones, como el Espacio Económico Europeo (EEE) y el Reino Unido, tienes derechos que te otorgan mayor acceso y control sobre tu información personal. Puedes revisar, cambiar o cerrar tu cuenta en cualquier momento. En algunas regiones (como el EEE y el Reino Unido) dispones de ciertos derechos según las leyes de protección de datos aplicables. Estos pueden incluir el derecho a solicitar acceso y obtener una copia de tus datos personales, solicitar rectificación o eliminación, limitar el procesamiento y, cuando proceda, la portabilidad de datos. En determinadas circunstancias, también puedes oponerte al procesamiento. Para realizar una solicitud, utiliza los datos de contacto indicados más abajo. Si basamos el procesamiento en tu consentimiento, tienes derecho a retirarlo en cualquier momento, sin afectar a la licitud del procesamiento previo. Si resides en el EEE o el Reino Unido y crees que procesamos tus datos ilegalmente, tienes derecho a presentar una reclamación ante tu autoridad local de protección de datos. Si resides en Suiza, también puedes dirigirte a la autoridad suiza competente en protección de datos."
+    },
+    {
+      "policy_id": "017",
+      "policy_title": "Derechos de residentes en California (Shine The Light)",
+      "policy_description": "En resumen: sí, si vives en California tienes ciertos derechos de acceso a tu información personal. La Sección 1798.83 del Código Civil de California, conocida como la ley 'Shine The Light', permite a nuestros usuarios de California solicitarnos, una vez al año y de forma gratuita, información sobre las categorías de información personal (si las hubiera) divulgadas a terceros con fines de marketing directo, así como los nombres y direcciones de dichos terceros durante el año natural anterior. Si eres residente en California y deseas realizar esta solicitud, envíanos un correo a la dirección indicada abajo. Si eres menor de 18 años, vives en California y tienes una cuenta registrada, tienes derecho a solicitar la eliminación de datos no deseados. Para solicitarlo, contáctanos con el email asociado a tu cuenta e indicando que resides en California. Nos aseguraremos de que los datos no se muestren públicamente en la Aplicación; sin embargo, ten en cuenta que puede que no se eliminen completamente de todos nuestros sistemas (por ejemplo, copias de seguridad)."
+    },
+    {
+      "policy_id": "018",
+      "policy_title": "Cookies",
+      "policy_description": "Las cookies son necesarias en el sitio web de Noti. Las usamos para recopilar preferencias de los visitantes y optimizar así la experiencia del usuario. Puedes desactivar las cookies en la configuración de tu navegador. Ten en cuenta que nuestros servicios dependen de las cookies para funcionar correctamente y, tras desactivarlas, es posible que no puedas acceder a ciertas funciones del sitio."
+    },
+    {
+      "policy_id": "019",
+      "policy_title": "Cambios en esta Política",
+      "policy_description": "Si en el futuro cambiamos esta Política de Privacidad, no limitaremos tus derechos sin tu consentimiento expreso. Siempre indicamos la fecha de publicación de los cambios más recientes. Si los cambios son significativos, te enviaremos un aviso más destacado (incluido, para ciertos servicios, un correo electrónico sobre los cambios). Revisa periódicamente esta política para mantenerte informado. Al seguir usando Noti, aceptas la política revisada."
+    },
+    {
+      "policy_id": "020",
+      "policy_title": "Contáctanos",
+      "policy_description": "Si tienes preguntas sobre esta Política, escríbenos a r85unit@gmail.com con el asunto: 'Privacy Questions' en la línea de título, o visita mi sitio web en notiapp.org/#contact."
+    }
+  ]
 }

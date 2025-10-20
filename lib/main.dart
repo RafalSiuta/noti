@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:noti/providers/image_provider/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider/home_provider.dart';
+import 'package:noti/providers/locale_provider/locale_provider.dart';
 import 'package:noti/providers/note_provider/note_provider.dart';
 import 'package:noti/providers/note_provider/note_search_provider.dart';
 import 'package:noti/providers/permission_provider/permission_provider.dart';
@@ -11,6 +12,7 @@ import 'package:noti/providers/task_provider/task_search_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
+import 'package:noti/utils/internationalization/app_localizations.dart';
 import 'package:noti/utils/notifications/notifications_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +82,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers:
         [
+          ChangeNotifierProvider(create: (_) => LocaleProvider()),
           ChangeNotifierProvider(create: (_) => HomeProvider()),
             ChangeNotifierProvider(
               create: (context) => PermissionProvider(),
@@ -128,31 +131,63 @@ class MyApp extends StatelessWidget {
           ),
         ],
 
-        child: Consumer<SettingsProvider>(
-          builder: (context, settings, child) {
+        child: Consumer2<SettingsProvider,LocaleProvider>(
+          builder: (context, settings, localeProvider, child) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Noti',
               supportedLocales: const [
-                Locale('pl','PL'),
+                Locale('pl', 'PL'),
                 Locale('en', 'GB'),
                 Locale('es', 'ES'),
               ],
+              locale: localeProvider.locale,
               localizationsDelegates: const [
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              localeResolutionCallback: (locale, suppertedLocales) {
-                //check is the current locale is supported:
-                for (var supportedLocale in suppertedLocales) {
-                  if (supportedLocale.languageCode == locale!.languageCode &&
-                      supportedLocale.countryCode == locale.countryCode) {
-                    return supportedLocale;
+              localeResolutionCallback: (locale, supported) {
+                if (locale == null) return supported.first;
+                // dopasuj po languageCode, a jak się da to także countryCode
+                for (final l in supported) {
+                  if (l.languageCode == locale.languageCode && (l.countryCode == locale.countryCode || l.countryCode == null)) {
+                    return l;
                   }
                 }
-                return suppertedLocales.first;
+                // fallback tylko po języku
+                for (final l in supported) {
+                  if (l.languageCode == locale.languageCode) return l;
+                }
+                return supported.first;
               },
+              // locale: Provider/Bloc jeśli chcesz ręcznie przełączać język
+              // locale: context.watch<LocaleProvider>().locale,
+              // supportedLocales: const [
+              //   Locale('en', 'US'),
+              //   Locale('pl', 'PL'),
+              //   Locale('es', 'ES'),
+              // ],
+              // localizationsDelegates: const [
+              //   AppLocalizations.delegate,
+              //   GlobalMaterialLocalizations.delegate,
+              //   GlobalWidgetsLocalizations.delegate,
+              //   // AppLocalizations.delegate,
+              //   // GlobalMaterialLocalizations.delegate,
+              //   // GlobalWidgetsLocalizations.delegate,
+              //   // GlobalCupertinoLocalizations.delegate,
+              // ],
+              // localeResolutionCallback: (locale, suppertedLocales) {
+              //   //check is the current locale is supported:
+              //   for (var supportedLocale in suppertedLocales) {
+              //     if (supportedLocale.languageCode == locale!.languageCode &&
+              //         supportedLocale.countryCode == locale.countryCode) {
+              //       return supportedLocale;
+              //     }
+              //   }
+              //   return suppertedLocales.first;
+              // },
               theme: settings.getTheme(),
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),

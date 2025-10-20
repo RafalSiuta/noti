@@ -58,9 +58,13 @@ flutter:
 
   uses-material-design: true
 
+
+
   assets:
     - assets/images/
     - assets/sounds/sound.wav
+    - lang/en.json
+    - lang/pl.json
 
   fonts:
     - family: NotiSystemIcons

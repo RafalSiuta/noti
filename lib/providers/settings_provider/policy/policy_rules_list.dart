@@ -7,7 +7,7 @@ class PolicyList {
   final List<SocialModel> _policyList = [
     SocialModel(
         title: "Device permissions for Personal Data access",
-        icon: Icons.phone_android,
+        // icon: Icons.phone_android,
         link:
             '''Depending on the User's specific device, this Application may request certain permissions that allow it to access the User's device Data as described below. By default, these permissions must be granted by the User before the respective information can be accessed. Once the permission has been given, it can be revoked by the User at any time. In order to revoke these permissions, Users may refer to the device settings. The exact procedure for controlling app permissions may be dependent on the User's device and software. Please note that the revoking of such permissions might impact the proper functioning of this Application. If User grants any of the permissions listed below, the respective Personal Data may be processed (i.e accessed to, modified or removed) by Noti \n'''),
     SocialModel(
