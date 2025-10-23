@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 
 class SmallHeader extends StatelessWidget {
   const SmallHeader({super.key, required this.title});
@@ -21,6 +23,7 @@ class SmallHeader extends StatelessWidget {
           return Transform.translate(
             offset: value,
             child: Text(
+               // AppLocalizations.of(context)!.tr(title).capitalizeFirstLetter(),
               title,
               style: Theme.of(context)
                   .textTheme

@@ -19,6 +19,30 @@ class AppLocalizations {
 
   Map<String, dynamic> _localizedMap = {};
 
+  // Future<bool> load() async {
+  //   String jsonString;
+  //   final candidates = <String>[
+  //     if (locale.countryCode != null && locale.countryCode!.isNotEmpty)
+  //       'lang/${locale.languageCode}_${locale.countryCode}.json',
+  //     'lang/${locale.languageCode}.json',
+  //     'lang/en.json',
+  //   ];
+  //
+  //   Object? lastError;
+  //   for (final path in candidates) {
+  //     try {
+  //       print('[i18n] Trying: $path');
+  //       jsonString = await rootBundle.loadString(path);
+  //       _localizedMap = json.decode(jsonString) as Map<String, dynamic>;
+  //       print('[i18n] Loaded: $path, locale=$locale');
+  //       return true;
+  //     } catch (e) {
+  //       print('[i18n] Failed: $path -> $e');
+  //       lastError = e;
+  //     }
+  //   }
+  //   throw FlutterError('Unable to load any localization asset. Last error: $lastError');
+  // }
   Future<bool> load() async {
     String jsonString;
 
@@ -27,7 +51,7 @@ class AppLocalizations {
       if (locale.countryCode != null && locale.countryCode!.isNotEmpty)
         'lang/${locale.languageCode}_${locale.countryCode}.json',
       'lang/${locale.languageCode}.json',
-      'lang/en.json',
+      'lang/en.json','lang/pl.json','lang/es.json',
     ];
 
     Object? lastError;
@@ -101,6 +125,10 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   @override
   Future<AppLocalizations> load(Locale locale) async {
     final localizations = AppLocalizations(locale: locale);
+    // final manifest = await rootBundle.loadString('AssetManifest.json');
+    // print('[assets] AssetManifest contains lang?: ${manifest.contains('lang/')}');
+    // print('[assets] manifest snippet: ${manifest.substring(0, 500)}');
+
     await localizations.load();
     return localizations;
   }

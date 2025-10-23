@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
                 Locale('en', 'GB'),
                 Locale('es', 'ES'),
               ],
-              locale: localeProvider.locale,
+              locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -149,6 +149,7 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               localeResolutionCallback: (locale, supported) {
+
                 if (locale == null) return supported.first;
                 // dopasuj po languageCode, a jak się da to także countryCode
                 for (final l in supported) {
@@ -161,33 +162,15 @@ class MyApp extends StatelessWidget {
                   if (l.languageCode == locale.languageCode) return l;
                 }
                 return supported.first;
+
+                // for (var supportedLocale in supported) {
+                //   if (supportedLocale.languageCode == locale!.languageCode &&
+                //       supportedLocale.countryCode == locale.countryCode) {
+                //     return supportedLocale;
+                //   }
+                // }
+                // return supported.first;
               },
-              // locale: Provider/Bloc jeśli chcesz ręcznie przełączać język
-              // locale: context.watch<LocaleProvider>().locale,
-              // supportedLocales: const [
-              //   Locale('en', 'US'),
-              //   Locale('pl', 'PL'),
-              //   Locale('es', 'ES'),
-              // ],
-              // localizationsDelegates: const [
-              //   AppLocalizations.delegate,
-              //   GlobalMaterialLocalizations.delegate,
-              //   GlobalWidgetsLocalizations.delegate,
-              //   // AppLocalizations.delegate,
-              //   // GlobalMaterialLocalizations.delegate,
-              //   // GlobalWidgetsLocalizations.delegate,
-              //   // GlobalCupertinoLocalizations.delegate,
-              // ],
-              // localeResolutionCallback: (locale, suppertedLocales) {
-              //   //check is the current locale is supported:
-              //   for (var supportedLocale in suppertedLocales) {
-              //     if (supportedLocale.languageCode == locale!.languageCode &&
-              //         supportedLocale.countryCode == locale.countryCode) {
-              //       return supportedLocale;
-              //     }
-              //   }
-              //   return suppertedLocales.first;
-              // },
               theme: settings.getTheme(),
               initialRoute: '/',
               onGenerateRoute: (route) => onGenerateRoute(route),

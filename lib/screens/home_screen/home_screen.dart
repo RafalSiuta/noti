@@ -48,24 +48,24 @@ class _HomeScreenState extends State<HomeScreen>
     ScreenModel(
       page: const WelcomeScreen(),
       title: NavModel(
-        title: 'Today',
+        title: 'today',
       ),
     ),
     ScreenModel(
       page: const CalendarScreen(),
       title: NavModel(
-        title: 'Calendar',
+        title: 'calendar',
       ),
     ),
     ScreenModel(
         page: const NoteScreen(),
         title: NavModel(
-          title: 'Notes',
+          title: 'notes',
         )),
     ScreenModel(
         page: const TaskScreen(),
         title: NavModel(
-          title: 'Tasks',
+          title: 'task',
         )),
   ];
 

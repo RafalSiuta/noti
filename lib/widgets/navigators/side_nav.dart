@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../responsive/screen_type_layout.dart';
+import '../../utils/internationalization/i18_extension.dart';
 
 class SideNav extends StatelessWidget {
   final int itemCount;
@@ -54,7 +57,8 @@ class SideNav extends StatelessWidget {
                       label: RotatedBox(
                           quarterTurns: -1,
                           child: Text(
-                            '${titles[index].title}  ',
+                            context.t("menu_text.${titles[index].title}").capitalizeFirstLetter()
+                           // '${titles[index].title}  ',
                           )),
                     )).toList(),
             selectedIndex: selectedItem,

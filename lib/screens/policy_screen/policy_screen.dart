@@ -47,7 +47,8 @@ class PolicyScreen extends StatelessWidget {
                               paddingHorizontal: 8.0,
                               height: headerHeight,
                               child: SmallHeader(
-                                title: AppLocalizations.of(context)!.tr('headers_text.header_policy').capitalizeFirstLetter(),
+                                title:AppLocalizations.of(context)!.tr('headers_text.header_policy').capitalizeFirstLetter()
+                               // title: 'headers_text.header_policy',
                                 // title: 'PrivacyPolicy',
                               ))),
                     ),

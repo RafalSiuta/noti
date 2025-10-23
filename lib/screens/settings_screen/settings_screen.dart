@@ -33,19 +33,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ScreenModel(
       page: const ThemeScreen(),
       title: NavModel(
-        title: 'Themes',
+        title: 'themes',
       ),
     ),
     ScreenModel(
       page: const SetsScreen(),
       title: NavModel(
-        title: 'Settings',
+        title: 'settings',
       ),
     ),
     ScreenModel(
         page: const AboutScreen(),
         title: NavModel(
-          title: 'About',
+          title: 'about',
         ))
   ];
 

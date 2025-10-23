@@ -55,16 +55,13 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
-
-
-
   assets:
     - assets/images/
     - assets/sounds/sound.wav
     - lang/en.json
     - lang/pl.json
+    - lang/es.json
 
   fonts:
     - family: NotiSystemIcons
