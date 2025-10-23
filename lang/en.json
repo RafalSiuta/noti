@@ -48,7 +48,10 @@
     "title_delete_all_notes": "delete all notes",
     "description_delete_all_notes": "permanently deletes all notes",
     "title_delete_all_tasks": "delete all tasks",
-    "description_delete_all_tasks": "permanently deletes all tasks"
+    "description_delete_all_tasks": "permanently deletes all tasks",
+    "settings_dial_info": "This setting delete data after",
+    "settings_dial_confirm": "Are You sure?",
+    "settings_dial_month": "months"
   },
   "creators_text": {
     "more_options": "more options",

@@ -48,7 +48,10 @@
     "title_delete_all_notes": "usuń wszystkie notatki",
     "description_delete_all_notes": "całkowicie usuwa wszystkie notatki",
     "title_delete_all_tasks": "usuń wszystkie zadania",
-    "description_delete_all_tasks": "całkowicie usuwa wszystkie zadania"
+    "description_delete_all_tasks": "całkowicie usuwa wszystkie zadania",
+    "settings_dial_info": "To ustawienie skasuje dane po",
+    "settings_dial_confirm": "Czy napewno?",
+    "settings_dial_month": "miesięcy"
   },
   "creators_text": {
     "more_options": "więcej opcji",

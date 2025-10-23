@@ -5,12 +5,12 @@ import 'package:noti/models/settings_model/settings_model/settings_model.dart';
 class CalendarSettings {
   List<SettingsModel> calendarSettings = [
     SettingsModel(
-        title: "Sunday first",
-        description: "Set sunday as first weekday",
+        title: "title_sunday_first",
+        description: "description_sunday_first",
         isOn: false),
     SettingsModel(
-        title: "Monthly theme",
-        description: "Change theme and shapes every month",
+        title: "title_monthly_theme",
+        description: "description_monthly_theme",
         isOn: false),
   ];
 

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/widgets/buttons/dialog_button.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider/note_provider.dart';
 import '../../providers/settings_provider/settings_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/i18_extension.dart';
+
 
 class SliderDialog extends StatelessWidget {
   const SliderDialog({
@@ -29,7 +32,7 @@ class SliderDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Months: ${sliderVal.toStringAsFixed(0)}",
+                "${context.t("settings_text.settings_dial_month").capitalizeFirstLetter()} ${sliderVal.toStringAsFixed(0)}",
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: sliderValueFontSize,
                     fontWeight: FontWeight.w700,
@@ -47,15 +50,17 @@ class SliderDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
         
                   text: TextSpan(
-                    text: "This setting delete data after\n",
+                    text:context.t("settings_text.settings_dial_info").capitalizeFirstLetter(),
+                   // text: "This setting delete data after\n",
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: sliderValueFontSize),
                     children: <TextSpan>[
                       TextSpan(
         
-                        text: "${sliderVal.toStringAsFixed(0)} months.\n\n"
+                        text: " ${sliderVal.toStringAsFixed(0)} ${context.t("settings_text.settings_dial_month").capitalizeFirstLetter()}\n\n"
                       ),
                       TextSpan(
-                          text: "Are You sure?",
+                        text:context.t("settings_text.settings_dial_confirm").capitalizeFirstLetter(),
+                          // text: "Are You sure?",
                           style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: sliderValueFontSize),
                       )
                     ]

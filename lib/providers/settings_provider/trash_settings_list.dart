@@ -4,24 +4,24 @@ import 'package:noti/models/settings_model/trash_settings_model/trash_model.dart
 class TrashSettings {
   List<TrashModel> trashSettings = [
     TrashModel(
-        title: "Delete notes",
-        description: "Delete old notes after (date)",
+        title: "title_delete_notes",
+        description: "description_delete_notes",
         sliderValue: 0,
         isOn: false,
     ),
     TrashModel(
-        title: "Delete tasks",
-        description: "Delete old tasks after (date)",
+        title: "title_delete_tasks",
+        description: "description_delete_tasks",
         sliderValue: 0,
         isOn: false,),
     TrashModel(
-      title: "Delete all tasks",
-      description: "Delete all tasks permanently",
+      title: "title_delete_all_tasks",
+      description: "description_delete_all_tasks",
       sliderValue: 0,
       isOn: false,),
     TrashModel(
-      title: "Delete all notes",
-      description: "Delete all notes permanently",
+      title: "title_delete_all_notes",
+      description: "description_delete_all_notes",
       sliderValue: 0,
       isOn: false,),
   ];

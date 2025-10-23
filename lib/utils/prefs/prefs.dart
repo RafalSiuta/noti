@@ -8,6 +8,11 @@ import '../../models/settings_model/trash_settings_model/trash_model.dart';
 class Prefs extends ChangeNotifier {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  void deleteKey(String key)async{
+    final sp = await SharedPreferences.getInstance();
+    await sp.remove(key);
+  }
+
   Future<void> storeInt(String key, int value) async {
     final prefs = await _prefs;
     await prefs.setInt(key, value);
@@ -76,6 +81,85 @@ class Prefs extends ChangeNotifier {
     await prefs.setStringList(key, itemsList);
     notifyListeners();
   }
+
+  /// Zapisz TYLKO stany (lista booli) jako JSON-String:
+  Future<void> storeStatesLite(String key, List<SettingsModel> items) async {
+    final prefs = await SharedPreferences.getInstance();
+    final states = items.map((e) => e.isOn ?? false).toList();
+    await prefs.setString(key, jsonEncode(states));
+    notifyListeners();
+  }
+
+  /// Odczytaj TYLKO stany. Jeśli brak – zwróć domyślne.
+  // Future<List<bool>> restoreStatesLite(String key, List<SettingsModel> defaults) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final raw = prefs.getString(key);
+  //   if (raw != null) {
+  //     try {
+  //       final List decoded = jsonDecode(raw) as List;
+  //       return decoded.map((e) {
+  //         if (e is bool) return e;
+  //         if (e is num)  return e != 0;
+  //         if (e is String) return (e == '1' || e.toLowerCase() == 'true');
+  //         return false;
+  //       }).toList();
+  //     } catch (_) {/* w razie błędu spadnij do domyślnych */}
+  //   }
+  //   return defaults.map((e) => e.isOn ?? false).toList();
+  // }
+  Future<List<bool>> restoreStatesLite(
+      String key,
+      List<SettingsModel> defaults,
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // 1) Pobierz surowy obiekt bez rzutowania
+    final obj = prefs.get(key);
+
+    // A) Legacy: List<String> z pełnymi obiektami => zrób migrację
+    if (obj is List<String>) {
+      try {
+        final decoded = obj
+            .map((s) => jsonDecode(s) as Map<String, dynamic>)
+            .toList();
+
+        final states = decoded.map((m) {
+          final v = m['is_on'];
+          if (v is bool) return v;
+          if (v is num) return v != 0;
+          if (v is String) return (v == '1' || v.toLowerCase() == 'true');
+          return false;
+        }).toList();
+
+        // Nadpisz wartością w NOWYM formacie (String z JSON)
+        await prefs.remove(key); // (opcjonalnie, ale bezpiecznie przy zmianie typu)
+        await prefs.setString(key, jsonEncode(states));
+        return states;
+      } catch (_) {
+        // jeśli się nie udało – lecimy dalej do domyślnych
+      }
+    }
+
+    // B) Nowy format: String z JSON listą booli
+    if (obj is String) {
+      try {
+        final List<dynamic> decoded = jsonDecode(obj) as List<dynamic>;
+        return decoded.map((e) {
+          if (e is bool) return e;
+          if (e is num) return e != 0;
+          if (e is String) return (e == '1' || e.toLowerCase() == 'true');
+          return false;
+        }).toList();
+      } catch (_) {
+        // zły JSON -> domyślne
+      }
+    }
+
+    // C) Nic sensownego pod kluczem → domyślne z kodu
+    return defaults.map((e) => e.isOn ?? false).toList();
+  }
+
+
 
   //todo make it universal - fromMap method here:
   Future<List<SettingsModel>> restoreList(

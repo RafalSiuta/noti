@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:noti/providers/permission_provider/permission_provider.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -17,6 +19,7 @@ import '../../models/theme_model/themes_list.dart';
 import '../../styles/shapes/shape_paths/shape1.dart';
 import '../../utils/notifications/notifications_helper.dart';
 import '../../utils/prefs/prefs.dart';
+import '../../utils/constants/sets_keys.dart';
 
 class SettingsProvider extends ChangeNotifier {
 
@@ -38,6 +41,9 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   void init() async {
+
+     // _prefs.deleteKey(CALENDAR_PREFS_KEY);
+     // _prefs.deleteKey(NOTIFICATION_PREFS_KEY);
     await loadSets();
   }
 
@@ -92,7 +98,7 @@ class SettingsProvider extends ChangeNotifier {
       } else {
         currentTheme =
         await _prefs
-            .restoreInt('theme', currentTheme)
+            .restoreInt(THEME_PREFS_KEY, currentTheme)
             .then((theme)=> currentTheme = setCustomTheme(theme));
       }
     } catch (e) {
@@ -104,9 +110,9 @@ class SettingsProvider extends ChangeNotifier {
 
   void loadCurrentShape() async {
     await _prefs
-        .restoreInt("shape", 0)
+        .restoreInt(SHAPE_PREFS_KEY, 0)
         .then((shape) => setCustomShape(shape)
-     );
+    );
     notifyListeners();
   }
 
@@ -125,6 +131,13 @@ class SettingsProvider extends ChangeNotifier {
     return shapes;
   }
 
+    int safeIndex(int i, int length) {
+    if (length <= 0) return 0;
+    if (i < 0) return 0;
+    if (i >= length) return length - 1;
+    return i;
+  }
+
   setTransparency(int shape) {
     if (shape == 0 || shape == 5) {
       isShapeTransparent = true;
@@ -134,6 +147,22 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
     return isShapeTransparent;
   }
+
+  // setCustomTheme(int theme) async {
+  //   // jeśli poza zakresem → fallback na pierwszy
+  //   if (theme >= 0 && theme <= themes.themesList.length) {
+  //     theme = themes.themesList.first.id;
+  //   }
+  //   for (var item in themes.themesList) {
+  //     if (item.id == theme) {
+  //       themeData = item.themeData!;
+  //       currentTheme = theme;
+  //       break;
+  //     }
+  //   }
+  //   await _prefs.storeInt(THEME_PREFS_KEY, theme);
+  //   notifyListeners();
+  // }
 
   setCustomTheme(int theme) async {
     if(theme >= 0 && theme <= 12){
@@ -145,7 +174,8 @@ class SettingsProvider extends ChangeNotifier {
         currentTheme = theme;
       }
     }
-    await _prefs.storeInt('theme', theme);
+    await _prefs.storeInt(THEME_PREFS_KEY, theme);
+    print("LOADED THEME NUMBER IS ${theme}");
     notifyListeners();
   }
 
@@ -191,9 +221,9 @@ class SettingsProvider extends ChangeNotifier {
         shapes = shapesList.shapesList[12];
         break;
     }
-    currentShape = shape;
+    currentShape = safeIndex(shape, shapesList.shapesList.length);
     setTransparency(currentShape);
-    await _prefs.storeInt("shape", shape);
+    await _prefs.storeInt(SHAPE_PREFS_KEY, shape);
     notifyListeners();
   }
 
@@ -211,14 +241,14 @@ class SettingsProvider extends ChangeNotifier {
     carouselController.previousPage(
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
 
-    _prefs.storeInt('shape', currentShape);
+    _prefs.storeInt(SHAPE_PREFS_KEY, currentShape);
     notifyListeners();
   }
 
   void goToNext() {
     carouselController.nextPage(
         duration: const Duration(milliseconds: 300), curve: Curves.decelerate);
-    _prefs.storeInt('shape', currentShape);
+    _prefs.storeInt(SHAPE_PREFS_KEY, currentShape);
     notifyListeners();
   }
 
@@ -233,11 +263,33 @@ class SettingsProvider extends ChangeNotifier {
 
   void onCalendarSettingsChange(SettingsModel sets) async {
     sets.onChange();
-    await _prefs.storeList('calendarSettings', calendarSets.calendarSettings);
+    await _prefs.storeStatesLite(CALENDAR_PREFS_KEY, calendarSets.calendarSettings);
     calendarStartingDay();
-    isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn!;
+    isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn ?? false;
     notifyListeners();
   }
+
+  Future<void> updateCalendarSettings() async {
+    final states = await _prefs.restoreStatesLite(
+      CALENDAR_PREFS_KEY,
+      calendarSets.calendarSettings,
+    );
+    final len = math.min(states.length, calendarSets.calendarSettings.length);
+    for (int i = 0; i < len; i++) {
+      calendarSets.calendarSettings[i].isOn = states[i];
+    }
+    isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn ?? false;
+    calendarStartingDay();
+  }
+
+
+  // void onCalendarSettingsChange(SettingsModel sets) async {
+  //   sets.onChange();
+  //   await _prefs.storeList(CALENDAR_PREFS_KEY, calendarSets.calendarSettings);
+  //   calendarStartingDay();
+  //   isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn!;
+  //   notifyListeners();
+  // }
 
   StartingDayOfWeek? calendarStartingDay(){
 
@@ -249,63 +301,99 @@ class SettingsProvider extends ChangeNotifier {
     return calendarStartDay;
   }
 
-   updateCalendarSettings() async {
-
-    calendarSets.calendarSettings = await _prefs
-        .restoreList('calendarSettings', calendarSets.calendarSettings)
-        .then((value) {
-      isThemeChangeMonthly = value[1].isOn!;
-      calendarStartingDay();
-      return value;
-    });
-  }
+  // updateCalendarSettings() async {
+  //
+  //   calendarSets.calendarSettings = await _prefs
+  //       .restoreList(CALENDAR_PREFS_KEY, calendarSets.calendarSettings)
+  //       .then((value) {
+  //     isThemeChangeMonthly = value[1].isOn!;
+  //     calendarStartingDay();
+  //     return value;
+  //   });
+  // }
 
   NotificationSettings notificationSets = NotificationSettings();
+
+  // void onNotificationSettingsChange(SettingsModel sets) async {
+  //   sets.onChange();
+  //   _prefs.storeList(NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings);
+  //
+  //   if (sets.isOn == true) {
+  //     isNotification = true;
+  //
+  //     // Zapewnij wymagane capabilities (POST_NOTIF + exact alarms).
+  //     final ok = await NotificationsHelper().ensureNotificationCapabilities();
+  //
+  //     if (ok) {
+  //       // możesz też ustawić dźwięk, jeśli masz oddzielny przełącznik
+  //       // await NotificationsHelper().setSoundEnabled(settings.isNotificationSound);
+  //
+  //       // po włączeniu – przeplanuj wszystko
+  //       await _taskProvider?.resyncAllNotifications();
+  //     } else {
+  //       // Użytkownik został odesłany do ekranu „Alarmy i przypomnienia”.
+  //       // Tu możesz pokazać snackbar/toast: „Włącz dokładne alarmy i wróć do aplikacji”.
+  //     }
+  //   } else {
+  //     isNotification = false;
+  //     await NotificationsHelper().cancelAllNotifications();
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
   void onNotificationSettingsChange(SettingsModel sets) async {
     sets.onChange();
-    _prefs.storeList('notificationSettings', notificationSets.notificationSettings);
+    await _prefs.storeStatesLite(NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings);
 
     if (sets.isOn == true) {
       isNotification = true;
-
-      // Zapewnij wymagane capabilities (POST_NOTIF + exact alarms).
       final ok = await NotificationsHelper().ensureNotificationCapabilities();
-
       if (ok) {
-        // możesz też ustawić dźwięk, jeśli masz oddzielny przełącznik
-        // await NotificationsHelper().setSoundEnabled(settings.isNotificationSound);
-
-        // po włączeniu – przeplanuj wszystko
         await _taskProvider?.resyncAllNotifications();
       } else {
-        // Użytkownik został odesłany do ekranu „Alarmy i przypomnienia”.
-        // Tu możesz pokazać snackbar/toast: „Włącz dokładne alarmy i wróć do aplikacji”.
+        // pokaż snackbar/toast z instrukcją
       }
     } else {
       isNotification = false;
       await NotificationsHelper().cancelAllNotifications();
     }
-
     notifyListeners();
   }
-  void onNotificationSound(SettingsModel sets)async{
-    sets.onChange();
-    _prefs.storeList(
-        'notificationSettings', notificationSets.notificationSettings);
 
-    if(sets.isOn == true){
-      // NotificationsHelper().requestNotificationSound(sets.isOn!);
+  // void onNotificationSound(SettingsModel sets)async{
+  //   sets.onChange();
+  //   _prefs.storeList(
+  //       NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings);
+  //
+  //   if(sets.isOn == true){
+  //     // NotificationsHelper().requestNotificationSound(sets.isOn!);
+  //     NotificationsHelper().setSoundEnabled(sets.isOn!);
+  //     await _taskProvider?.resyncAllNotifications();
+  //     playSound();
+  //
+  //   }
+  //   notifyListeners();
+  // }
+  void onNotificationSound(SettingsModel sets) async {
+    sets.onChange();
+    await _prefs.storeStatesLite(
+      NOTIFICATION_PREFS_KEY,
+      notificationSets.notificationSettings,
+    );
+
+    if (sets.isOn == true) {
       NotificationsHelper().setSoundEnabled(sets.isOn!);
       await _taskProvider?.resyncAllNotifications();
       playSound();
-
     }
     notifyListeners();
   }
+
   // void onNotificationSettingsChange(SettingsModel sets) async{
   //   sets.onChange();
   //   _prefs.storeList(
-  //       'notificationSettings', notificationSets.notificationSettings);
+  //       NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings);
   //
   //   if (sets.isOn == true) {
   //     isNotification = true;
@@ -333,29 +421,42 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
-  void updateNotificationSettings() async {
-    notificationSets.notificationSettings = await _prefs
-        .restoreList(
-            'notificationSettings', notificationSets.notificationSettings)
-        .then((value) {
-      isNotification = value[0].isOn!;
-      isSoundOn = value[1].isOn!;
-      return value;
-    });
+  Future<void> updateNotificationSettings() async {
+    final states = await _prefs.restoreStatesLite(
+      NOTIFICATION_PREFS_KEY,
+      notificationSets.notificationSettings,
+    );
+    final len = math.min(states.length, notificationSets.notificationSettings.length);
+    for (int i = 0; i < len; i++) {
+      notificationSets.notificationSettings[i].isOn = states[i];
+    }
+    isNotification = notificationSets.notificationSettings[0].isOn ?? false;
+    isSoundOn     = notificationSets.notificationSettings[1].isOn ?? false;
+    notifyListeners();
   }
+  // void updateNotificationSettings() async {
+  //   notificationSets.notificationSettings = await _prefs
+  //       .restoreList(
+  //       NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings)
+  //       .then((value) {
+  //     isNotification = value[0].isOn!;
+  //     isSoundOn = value[1].isOn!;
+  //     return value;
+  //   });
+  // }
 
 
   TrashSettings trashSets = TrashSettings();
 
   void onTrashSettingsChange(TrashModel sets) {
     sets.onChange();
-    _prefs.storeList('trashSettings', trashSets.trashSettings);
+    _prefs.storeList(TRASH_PREFS_KEY, trashSets.trashSettings);
     notifyListeners();
   }
 
   void updateTrashSettings() async {
     trashSets.trashSettings = await _prefs
-        .restoreTrashList('trashSettings', trashSets.trashSettings)
+        .restoreTrashList(TRASH_PREFS_KEY, trashSets.trashSettings)
         .then((value) {
       if (value[0].isOn == true) {}
       if (value[1].isOn == true) {}
@@ -366,14 +467,14 @@ class SettingsProvider extends ChangeNotifier {
   void cancelDeleteSettings(int index) {
     if (trashSets.trashSettings[index].isOn == true) {
       trashSets.trashSettings[index].onChange();
-      _prefs.storeList('trashSettings', trashSets.trashSettings);
+      _prefs.storeList(TRASH_PREFS_KEY, trashSets.trashSettings);
     }
     notifyListeners();
   }
 
   void onSliderChange(double newValue, int index) {
     trashSets.trashSettings[index].sliderValue = newValue.floorToDouble();
-    _prefs.storeList('trashSettings', trashSets.trashSettings);
+    _prefs.storeList(TRASH_PREFS_KEY, trashSets.trashSettings);
     notifyListeners();
   }
 
@@ -381,7 +482,7 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<void> loadSets() async {
 
-    await _prefs.storeList('trashSettings', trashSets.trashSettings);
+    await _prefs.storeList(TRASH_PREFS_KEY, trashSets.trashSettings);
     updateCalendarSettings();
     themeData = await loadTheme();
     shapes = await loadShape();

@@ -1,5 +1,6 @@
 import 'package:noti/screens/settings_screen/settings_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/widgets/dialogs/warring_alert.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider/note_provider.dart';
@@ -12,6 +13,7 @@ import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
 import '../../widgets/responsive/column_row_builder.dart';
+import '../../utils/internationalization/i18_extension.dart';
 
 class SetsScreen extends StatelessWidget {
   const SetsScreen({super.key});
@@ -38,8 +40,9 @@ class SetsScreen extends StatelessWidget {
                   delegate: SliverHeader(
                       paddingHorizontal: 8.0,
                       height: headerHeight,
-                      child: const SmallHeader(
-                        title: 'Calendar',
+                      child: SmallHeader(
+                        title:context.t("headers_text.header_calendar").capitalizeFirstLetter()
+                       // title: 'Calendar',
                       ))),
             ),
             SliverList(
@@ -71,8 +74,9 @@ class SetsScreen extends StatelessWidget {
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
                     height: headerHeight,
-                    child: const SmallHeader(
-                      title: 'Notifications',
+                    child: SmallHeader(
+                      title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
+                     // title: 'Notifications',
                     ))),
             SliverList(
               delegate: SliverChildListDelegate([
@@ -82,8 +86,9 @@ class SetsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final notificationSettings = settingsProvider
                         .notificationSets.notificationSettingsList[index];
+                   // print("WHATS WRONG WITH CARD TITLE: ${notificationSettings.title!} AND DESCRIPTION: ${notificationSettings.description!}");
                     return SettingsCard(
-                      title: notificationSettings.title!,
+                      title:notificationSettings.title!,
                       description: notificationSettings.description!,
                       child: SwitchBtn(
                           iconData: Icons.circle,
@@ -108,8 +113,9 @@ class SetsScreen extends StatelessWidget {
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
                     height: headerHeight,
-                    child: const SmallHeader(
-                      title: 'Trash',
+                    child: SmallHeader(
+                      title:context.t("headers_text.header_trash").capitalizeFirstLetter()
+                      //title: 'Trash',
                     ))),
             SliverList(
               delegate: SliverChildListDelegate([

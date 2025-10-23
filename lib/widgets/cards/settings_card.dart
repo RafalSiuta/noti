@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/i18_extension.dart';
 
 class SettingsCard extends StatelessWidget {
   const SettingsCard({
@@ -35,14 +37,16 @@ class SettingsCard extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             text: TextSpan(
-                text: '$title\n',
+                text:"${context.t("settings_text.$title").capitalizeFirstLetter()}\n",
+                //text: '$title\n',
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium!
                     .copyWith(fontSize: titleFontSize),
                 children: <TextSpan>[
                   TextSpan(
-                    text: description,
+                    text: context.t("settings_text.$description").capitalizeFirstLetter(),
+                   // text: description,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
