@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 
 class IconButtonWithText extends StatelessWidget {
   const IconButtonWithText({
@@ -44,7 +45,8 @@ class IconButtonWithText extends StatelessWidget {
                 height: 7,
               ),
               Text(
-                iconName,
+                context.t(iconName),
+                //iconName,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                         color: selectedColor,

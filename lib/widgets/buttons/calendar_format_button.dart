@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../utils/dimensions/size_info.dart';
@@ -22,15 +23,29 @@ class CalendarFormatButton extends StatelessWidget {
       CalendarFormat.month
     ];
 
+
+
     // Znalezienie następnego formatu
     int currentIndex = formats.indexOf(format);
     CalendarFormat nextFormat = formats[(currentIndex + 1) % formats.length];
+    String formatName = format.name;
 
+    String getFormat(){
+      if(format == CalendarFormat.week){
+        formatName = "buttons_text.button_week";
+      }else if(format == CalendarFormat.twoWeeks){
+        formatName = "buttons_text.button_two_weeks";
+      }else{
+        formatName = "buttons_text.button_month";
+      }
+      return formatName;
+    }
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () {
         onFormatChange(nextFormat);
+        getFormat();
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -50,7 +65,9 @@ class CalendarFormatButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              format.name,
+              context.t(getFormat()),
+              //getFormat(),
+              //format.name,
               style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
             ),
           ),

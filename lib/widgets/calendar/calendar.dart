@@ -5,6 +5,7 @@ import 'package:simple_animations/animation_builder/play_animation_builder.dart'
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import '../../models/date/date_model.dart';
 import '../../models/db_model/task.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -101,7 +102,6 @@ class Calendar extends StatelessWidget {
                   selectedDayPredicate: (day) =>
                       isSameDay(selDay, day),
                   eventLoader: (day) => taskEvents?.call(day) ?? [],
-
                   calendarBuilders: CalendarBuilders(
                     headerTitleBuilder: (context, date) {
                       return Center(
@@ -114,7 +114,8 @@ class Calendar extends StatelessWidget {
                               return Transform.scale(
                                 scale: value,
                                 child: Text(
-                                  '${DateFormat('MMM yy').format(date)} ',
+                                    AppLocalizations.of(context)!.dateFormat(date, context).monthYear!.capitalizeFirstLetter(),
+                                  //'${DateFormat('MMM yy').format(date)} ',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineMedium!

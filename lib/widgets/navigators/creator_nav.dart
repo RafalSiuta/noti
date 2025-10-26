@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../responsive/screen_type_layout.dart';
 
@@ -72,7 +73,10 @@ class CreatorNav extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(titles[index].title,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+                            Text(
+                                context.t(titles[index].title),
+                              // titles[index].title,
+                              style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                               fontSize:navDotIndicatorSize * 0.52, color:selectedItem == index
                                     ? Theme.of(context).indicatorColor
                                     : Theme.of(context).unselectedWidgetColor,),)

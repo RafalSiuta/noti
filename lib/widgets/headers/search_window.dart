@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:noti/providers/search_provider/search_provider.dart';
 import 'package:noti/providers/settings_provider/settings_provider.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:noti/widgets/calendar/date_calendar.dart';
 import 'package:noti/widgets/headers/expandable_header.dart';
 import 'package:noti/widgets/headers/search_input.dart';
@@ -72,7 +74,8 @@ class SearchWindow extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SearchInput(
-                        title: searchType == "task" ? "Search tasks" : "Search notes",
+                        title:context.t(searchType == "task" ? "headers_text.header_search_tasks" : "headers_text.header_search_notes").capitalizeFirstLetter(),
+                        //title: ,
                         isExpanded: searchProvider.isExpanded,
                         searchInputController: searchProvider.searchInputController,
                         searchFocusNode: searchProvider.searchFocusNode,
@@ -114,7 +117,7 @@ class SearchWindow extends StatelessWidget {
                               children: [
                                 //scope buttons
                                 ExpandableHeader(
-                                  title: 'Select dates scope: ',
+                                  title: "headers_text.header_dates_scope",
                                   isExpanded: searchProvider.isCalendarExpanded,
                                   padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: leftEdgePadding),
                                   onTap:(){
@@ -134,32 +137,38 @@ class SearchWindow extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(vertical:
                                         8.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                        child: Wrap(
+                                          spacing: 5.0,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          // crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             CustomTextButton(
-                                              title: "date from: \n",
+                                              title:"creators_text.date_from",
+                                              //title: "date from: \n",
                                               isSelected: searchProvider.isDateScopeSelected,
-                                              date:DateFormat('dd MMM yy').format(searchProvider.startDate),
+                                              date:searchProvider.startDate,
                                               onPressed: searchProvider.onButtonSelected,
                                             ),
                                             CustomTextButton(
-                                                title: "date to: \n",
+                                                title:"creators_text.date_to",
+                                                //title: "date to: \n",
                                                 isSelected: !searchProvider.isDateScopeSelected,
-                                                date:DateFormat('dd MMM yy').format(searchProvider.endDate),
+                                                date:searchProvider.endDate,
                                                 onPressed: searchProvider.onButtonSelected
                                             ),
                                             Text(
-                                              'OR',
+                                              context.t("creators_text.or"),
+                                              //'OR',
                                               style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                                                 color: baseColor,
                                               ),
                                             ),
                                             CustomTextButton(
-                                              title: "full month\n",
+                                              title:"creators_text.full_month",
+                                              //title: "full month\n",
                                               isSelected: false,
-                                              date:DateFormat('dd MMM yy').format(searchProvider.startDate),
+                                              isFullMonth: true,
+                                              date:searchProvider.startDate,
                                               onPressed:searchProvider.getFullMonth,
                                             ),
                                           ],
@@ -204,7 +213,10 @@ class SearchWindow extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Divider(),
-                                              Text('Search by priority or finished tasks',style: Theme.of(context)
+                                              Text(
+                                                context.t("headers_text.header_priority_search").capitalizeFirstLetter(),
+                                                // 'Search by priority or finished tasks',
+                                                style: Theme.of(context)
                                                   .textTheme
                                                   .headlineMedium!
                                                   .copyWith(
@@ -241,7 +253,8 @@ class SearchWindow extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'finished tasks',
+                                                          context.t("headers_text.header_finished_tasks").capitalizeFirstLetter(),
+                                                          // 'finished tasks',
                                                           style: Theme.of(context)
                                                               .textTheme
                                                               .headlineMedium!
@@ -263,8 +276,7 @@ class SearchWindow extends StatelessWidget {
                                 ),
                                 Divider(),
                                 ExpandableHeader(
-                                  title: 'Actions: ',
-
+                                  title: "headers_text.header_actions",
                                   isExpanded: searchProvider.isActionsExpanded,
                                   padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: leftEdgePadding),
                                   onTap:(){
@@ -281,7 +293,7 @@ class SearchWindow extends StatelessWidget {
                                       children: [
                                         IconButtonWithText(
                                             iconData: Icons.refresh,
-                                            iconName: 'reset filters',
+                                            iconName: 'icons_text.reset_filters',
                                             iconSize: navIconSize,
                                             value: true,
                                             onChanged: (val) {
@@ -294,7 +306,7 @@ class SearchWindow extends StatelessWidget {
                                             }),
                                         IconButtonWithText(
                                             iconData: Icons.delete,
-                                            iconName: 'delete selected',
+                                            iconName: 'icons_text.delete_selected',
                                             iconSize: navIconSize,
                                             value: true,
                                             onChanged: (val) {

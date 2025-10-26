@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import '../../models/db_model/note.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
 import '../../providers/note_provider/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../../widgets/buttons/text_icon_button.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
@@ -162,7 +165,7 @@ class _NoteCreatorState extends State<NoteCreator>
           return
           StatefulBuilder(builder: (ctx,setDialCtx){
             return CustomDial(
-                title: 'Note icon',
+                title: "headers_text.header_category_icon",
                 child: Container(
                   constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 2.5),
 
@@ -225,27 +228,27 @@ class _NoteCreatorState extends State<NoteCreator>
   List<NavModel> noteNavTitles = [
     NavModel(
       icon: Icons.save,
-        title: 'save'
+        title: 'icons_text.save'
     ),
     NavModel(
       icon: Icons.edit,
-        title: 'edit'
+        title: 'icons_text.edit'
     ),
     NavModel(
         icon: Icons.calendar_month,
-        title: 'set date'
+        title: 'icons_text.set_date'
     ),
     NavModel(
       icon: Icons.add_photo_alternate_outlined,
-        title: 'image'
+        title: 'icons_text.image'
     ),
     NavModel(
       icon: Icons.delete,
-        title: 'delete'
+        title: 'icons_text.delete'
     ),
     NavModel(
       icon: Icons.arrow_back,
-        title: 'back'
+        title: 'icons_text.back'
     ),
   ];
 
@@ -372,7 +375,10 @@ class _NoteCreatorState extends State<NoteCreator>
                                                   pickedIcon,
                                                   size: navIconSize,
                                                 ),
-                                                Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor),)
+                                                Text(
+                                                  context.t(pickedIconText),
+                                                  //pickedIconText,
+                                                  textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:Theme.of(context).indicatorColor),)
 
                                               ],
                                             ),
@@ -387,8 +393,10 @@ class _NoteCreatorState extends State<NoteCreator>
                                             _pickDate(context);
                                           },
                                           child: Text(
-                                            DateFormat('dd MMM yy')
-                                                .format(widget.newNote.date),
+                                            AppLocalizations.of(context)!
+                                                .dateFormat(widget.newNote.date,context).fullDate!,
+                                            // DateFormat('dd MMM yy')
+                                            //     .format(widget.newNote.date),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineMedium!
@@ -417,7 +425,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     }),
                                               ),
                                               Text(
-                                                'On dash',
+                                                context.t("creators_text.on_dash"),
+                                                //'On dash',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineMedium!
@@ -470,7 +479,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                   fontSize: titleTextSize,
                                   ),
                                   decoration: InputDecoration(
-                                  helperText: 'Enter title',
+                                    helperText:  context.t("creators_text.helper_title").capitalizeFirstLetter(),
+                                  // helperText: 'Enter title',
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -513,7 +523,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                 height: 1.5,
                                 ),
                                 decoration: InputDecoration(
-                                helperText: 'Enter subtitle',
+                                  helperText:  context.t("creators_text.helper_subtitle").capitalizeFirstLetter(),
+                                // helperText: 'Enter subtitle',
                                 helperStyle: Theme.of(context)
                                     .inputDecorationTheme
                                     .helperStyle!
@@ -554,7 +565,8 @@ class _NoteCreatorState extends State<NoteCreator>
                                 height: 1.5,
                                 ),
                                 decoration: InputDecoration(
-                                helperText: 'Enter note text',
+                                  helperText:  context.t("creators_text.helper_description").capitalizeFirstLetter(),
+                                // helperText: 'Enter note text',
                                 helperStyle: Theme.of(context)
                                     .inputDecorationTheme
                                     .helperStyle!

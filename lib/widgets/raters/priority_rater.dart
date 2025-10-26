@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 
 import '../../utils/colors/priority_color.dart';
 
@@ -77,7 +78,9 @@ class Rater extends StatelessWidget {
           const SizedBox(
             height: 8.0,
           ),
-          Text('Priority',
+          Text(
+              context.t("creators_text.priority"),
+              //'Priority',
               textAlign: TextAlign.left,
               style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
                         fontSize: helperTextSize,

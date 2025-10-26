@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../models/menu_model/nav_model.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../../widgets/buttons/text_icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/task_date_picker.dart';
@@ -79,31 +82,31 @@ class _TaskCreatorState extends State<TaskCreator>
   List<NavModel> titles = [
     NavModel(
         icon: Icons.save,
-        title: 'save'
+        title: 'icons_text.save'
     ),
     NavModel(
         icon: Icons.edit,
-        title: 'edit'
+        title: 'icons_text.edit'
     ),
     NavModel(
         icon: Icons.access_time,
-        title: 'set time'
+        title: 'icons_text.set_time'
     ),
     NavModel(
         icon: Icons.calendar_month,
-        title: 'set date'
+        title: 'icons_text.set_date'
     ),
     NavModel(
         icon: Icons.delete,
-        title: 'delete'
+        title: 'icons_text.delete'
     ),
     NavModel(
         icon: Icons.check,
-        title: 'done'
+        title: 'icons_text.done'
     ),
     NavModel(
         icon: Icons.arrow_back,
-        title: 'back'
+        title: 'icons_text.back'
     ),
   ];
 
@@ -217,7 +220,8 @@ class _TaskCreatorState extends State<TaskCreator>
         builder: (context) {
           return StatefulBuilder(builder: (ctx,setDialState){
             return CustomDial(
-                title: 'Task category icon',
+              title:"headers_text.header_category_icon",
+                //title: 'Task category icon',
                 child:
                 GridView.count(
                   physics: const BouncingScrollPhysics(
@@ -392,7 +396,10 @@ class _TaskCreatorState extends State<TaskCreator>
                                                     const SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(pickedIconText, textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:isTaskDoneColor),)
+                                                    Text(
+                                                      context.t(pickedIconText),
+                                                      //pickedIconText,
+                                                      textAlign: TextAlign.center,style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(fontSize: navIconSize * 0.52, color:isTaskDoneColor),)
 
                                                   ],
                                                 ),
@@ -407,8 +414,10 @@ class _TaskCreatorState extends State<TaskCreator>
                                                 _pickDate(context);
                                               },
                                               child: Text(
-                                                DateFormat('dd MMM yy')
-                                                    .format(widget.newTask.date),
+                                                AppLocalizations.of(context)!
+                                                    .dateFormat(widget.newTask.date,context).fullDate!,
+                                                // DateFormat('dd MMM yy')
+                                                //     .format(widget.newTask.date),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineMedium!
@@ -479,7 +488,8 @@ class _TaskCreatorState extends State<TaskCreator>
                                     ),
                                     textAlign: TextAlign.start,
                                     decoration: InputDecoration(
-                                    helperText: 'Enter title',
+                                      helperText: context.t("creators_text.helper_title").capitalizeFirstLetter(),
+                                    // helperText: 'Enter title',
                                     helperStyle: Theme.of(context)
                                         .inputDecorationTheme
                                         .helperStyle!
@@ -515,7 +525,8 @@ class _TaskCreatorState extends State<TaskCreator>
                                             ),
                                           ),
                                           Text(
-                                            'notification',
+                                            context.t("creators_text.notification"),
+                                            // 'notification',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineMedium!
@@ -559,7 +570,8 @@ class _TaskCreatorState extends State<TaskCreator>
                                     fontSize: descriptionFontSize,
                                     ),
                                     decoration: InputDecoration(
-                                    helperText: 'Enter description',
+                                      helperText:  context.t("creators_text.helper_description").capitalizeFirstLetter(),
+                                    // helperText: 'Enter description',
                                     helperStyle: Theme.of(context)
                                         .inputDecorationTheme
                                         .helperStyle!

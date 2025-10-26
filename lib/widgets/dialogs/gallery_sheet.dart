@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/image_provider/gallery_image_provider.dart';
@@ -212,7 +214,8 @@ class _GallerySheetState extends State<GallerySheet>
                                               if (imageProvider.imageList.isEmpty) {
                                                 return Center(
                                                   child: Text(
-                                                    'Loading images',
+                                                    context.t("headers_text.header_gallery").capitalizeFirstLetter(),
+                                                   // 'Loading images',
                                                     style: txtStyle,
                                                   ),
                                                 );
@@ -303,7 +306,7 @@ class _GallerySheetState extends State<GallerySheet>
                                                 IconButtonWithText(
                                                   value: true,
                                                   iconData: Icons.camera,
-                                                  iconName: 'photo',
+                                                  iconName: 'icons_text.photo_shot',
                                                   padding: EdgeInsets.all(cameraPadding),
                                                   onChanged: (value)async {
                                                   final res = await _cameraController.takePicture();
@@ -316,7 +319,7 @@ class _GallerySheetState extends State<GallerySheet>
                                                 IconButtonWithText(
                                                   value: _isCameraReverse,
                                                   iconData: Icons.cameraswitch,
-                                                  iconName: 'camera switch',
+                                                  iconName: 'icons_text.camera_switch',
                                                   padding: EdgeInsets.all(cameraPadding),
                                                   onChanged: (value) async {
                                                     // setState(() {
@@ -328,7 +331,7 @@ class _GallerySheetState extends State<GallerySheet>
                                                 IconButtonWithText(
                                                   value: _isFlashOn,
                                                   iconData: Icons.flash_on,
-                                                  iconName: 'flash',
+                                                  iconName: 'icons_text.flash',
                                                   padding: EdgeInsets.all(cameraPadding),
                                                   onChanged: (value) async {
                                                     setState(() {
@@ -367,9 +370,9 @@ class _GallerySheetState extends State<GallerySheet>
                                 .unselectedLabelStyle!
                                 .copyWith(fontSize: tabTitleSize - 1),
                             controller: _tabController,
-                            tabs: const [
-                              Tab(text: 'Gallery'),
-                              Tab(text: 'Camera'),
+                            tabs:  [
+                              Tab(text: context.t("headers_text.header_gallery").capitalizeFirstLetter(),),
+                              Tab(text: context.t("headers_text.header_camera").capitalizeFirstLetter()),
                             ],
                           ),
                         ],

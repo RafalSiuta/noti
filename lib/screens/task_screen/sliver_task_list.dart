@@ -39,7 +39,8 @@ class SliverTaskList extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     DefaultText(
-                        title:context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
+                        title:"headers_text.header_no_tasks",
+                        // context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
                         // title: 'There is no assignments\nfor today '
                     ),
                     SizedBox(

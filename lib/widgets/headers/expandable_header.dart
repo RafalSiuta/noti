@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/icon_btn.dart';
@@ -26,7 +28,10 @@ class ExpandableHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title,style: Theme.of(context)
+            Text(
+              context.t(title).capitalizeFirstLetter(),
+              //title,
+              style: Theme.of(context)
                 .textTheme
                 .headlineMedium!
                 .copyWith(

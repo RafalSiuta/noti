@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -6,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../providers/settings_provider/settings_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 
 class DateCalendar extends StatelessWidget {
 
@@ -77,7 +79,8 @@ class DateCalendar extends StatelessWidget {
                   child: FadeInAnimation(
                       child: Center(
                           child: Text(
-                            '${DateFormat('E').format(date)} ',
+                            AppLocalizations.of(context)!.dateFormat(date, context).shortWeekday!.capitalizeFirstLetter(),
+                            //'${DateFormat('E').format(date)} ',
                             style: (date.weekday != 6 && date.weekday != 7)
                                 ? Theme.of(context)
                                 .textTheme

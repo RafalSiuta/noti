@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/db_model/note.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../shapes/note_shape.dart';
 import 'image_card.dart';
 import 'package:csshadow/csshadow.dart';
@@ -128,7 +129,9 @@ class NoteCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
                           child: Text(
-                            DateFormat('dd MMM yy').format(note.date),
+                            AppLocalizations.of(context)!
+                                .dateFormat(note.date,context).fullDate!,
+                            // DateFormat('dd MMM yy').format(note.date),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!

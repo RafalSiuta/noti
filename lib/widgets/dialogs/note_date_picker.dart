@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
   import 'package:intl/intl.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
   import 'package:table_calendar/table_calendar.dart';
-  import '../../utils/dimensions/size_info.dart';
-  import '../calendar/date_calendar.dart';
+  import '../../models/date/date_model.dart';
+import '../../utils/dimensions/size_info.dart';
+  import '../../utils/internationalization/app_localizations.dart';
+import '../calendar/date_calendar.dart';
 
   class NoteDatePickerDial extends StatefulWidget {
   final DateTime initialDate;
@@ -49,6 +52,7 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
+    DateModel d = AppLocalizations.of(context)!.dateFormat(focDay, context);
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setDialState) {
         return Center(
@@ -91,7 +95,8 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                             size: textSize,
                           )),
                       Text(
-                        DateFormat('MMMM yy').format(focDay),
+                        d.monthYear!.capitalizeFirstLetter(),
+                        //DateFormat('MMMM yy').format(focDay),
                         style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                       ),
                       IconButton(

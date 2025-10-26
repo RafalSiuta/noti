@@ -1,5 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class CustomDialog {
@@ -82,7 +84,8 @@ class _CustomDialState extends State<CustomDial> {
                   color: Theme.of(context).datePickerTheme.headerBackgroundColor),
               child: Center(
                 child: Text(
-                  widget.title!,
+                  context.t(widget.title!).capitalizeFirstLetter(),
+                  //widget.title!,
                   style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
                 ),
               ),
