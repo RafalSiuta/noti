@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -7,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../models/db_model/task.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../buttons/calendar_format_button.dart';
 import 'calendar_header.dart';
 import 'calendar_marker.dart';
@@ -77,7 +79,7 @@ class Calendar extends StatelessWidget {
               ),
               AnimationLimiter(
                 child: TableCalendar<Task>(
-                  // locale: 'pl_PL',
+                 // locale: 'pl_PL',
                   focusedDay: focDay,
                   availableGestures: gesturesEnable
                       ? AvailableGestures.all
@@ -133,7 +135,8 @@ class Calendar extends StatelessWidget {
                           child: FadeInAnimation(
                               child: Center(
                                   child: Text(
-                                    '${DateFormat('E').format(date)} ',
+                                      AppLocalizations.of(context)!.dateFormat(date, context).shortWeekday!.capitalizeFirstLetter(),
+                                    // '${DateFormat('E').format(date)} ',
                                     style: (date.weekday != 6 && date.weekday != 7)
                                         ? Theme.of(context)
                                         .textTheme

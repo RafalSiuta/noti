@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/note_provider/note_provider.dart';
@@ -28,8 +30,9 @@ class NoteList extends StatelessWidget {
             isGrid ? noteProvider.noteListByKeyword : noteProvider.noteList;
 
         if (noteList.isEmpty) {
-          return const DefaultText(
-            title: 'No Notes for today',
+          return DefaultText(
+              title:context.t("headers_text.header_no_notes").capitalizeFirstLetter()
+            // title: 'No Notes for today',
           );
         } else {
           return Padding(
@@ -39,7 +42,8 @@ class NoteList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NoteListHeader(
-                  title: 'You have $counter note${counter > 1 ? "s" : ""}',
+                    title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes"):context.t("headers_text.header_note")}"
+                  // title: 'You have $counter note${counter > 1 ? "s" : ""}',
                 ),
                 Expanded(
                   child: AnimationLimiter(

@@ -5,12 +5,12 @@ const String kPrefsLocaleKey = 'app_locale_code'; // przechowujemy BCP-47, np. '
 
 class LocaleProvider extends ChangeNotifier {
   LocaleProvider() {
-    // natychmiast ustaw język urządzenia, żeby nie było "mrugnięcia"
-    final device = WidgetsBinding.instance.platformDispatcher.locale;
-    _locale = _normalizeToSupported(device);
-    _hasUserChoice = false;
-
-    _init(); // potem asynchronicznie nadpisz z prefs (jeśli jest)
+    // // natychmiast ustaw język urządzenia, żeby nie było "mrugnięcia"
+    // final device = WidgetsBinding.instance.platformDispatcher.locale;
+    // _locale = _normalizeToSupported(device);
+    // _hasUserChoice = false;
+    //
+    // _init(); // potem asynchronicznie nadpisz z prefs (jeśli jest)
   }
 
   // --- public API ---
@@ -119,103 +119,3 @@ class LocaleProvider extends ChangeNotifier {
     return Locale(parts[0], parts[1]);
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-//
-// const String kPrefsLocaleKey = 'app_locale_code'; // 'en', 'pl', 'es'
-//
-// class LocaleProvider extends ChangeNotifier {
-//   LocaleProvider() {
-//     _init(); // wczytaj zapisany język przy starcie
-//   }
-//
-//   Future<void> _init() async {
-//     final prefs = await SharedPreferences.getInstance();
-//     final saved = prefs.getString(kPrefsLocaleKey);
-//
-//     if (saved != null && saved.isNotEmpty) {
-//       _locale = _localeFromCode(saved);
-//       _hasUserChoice = true;
-//     } else {
-//       // brak wyboru użytkownika → użyj locale urządzenia
-//       final device = WidgetsBinding.instance.platformDispatcher.locale;
-//       _locale = _normalizeToSupported(device);
-//       _hasUserChoice = false;
-//     }
-//     notifyListeners();
-//   }
-//
-//   Locale _locale = const Locale('en', 'GB');
-//   Locale get locale => _locale;
-//   bool _hasUserChoice = false;
-//   bool get hasUserChoice => _hasUserChoice;
-//   String get code => _locale.languageCode; // do powiązania z radiobuttonami
-//
-//   static const _supported = [
-//     Locale('pl','PL'),
-//     Locale('en','GB'),
-//     Locale('es','ES'),
-//   ];
-//
-//   static Locale _normalizeToSupported(Locale device) {
-//     // dopasuj po languageCode
-//     for (final l in _supported) {
-//       if (l.languageCode == device.languageCode) return l;
-//     }
-//     return const Locale('en','GB'); // fallback globalny
-//   }
-//
-//   /// Mapowanie krótkiego kodu na Locale spójne z supportedLocales
-//   static Locale _localeFromCode(String code) {
-//     switch (code) {
-//       case 'pl':
-//         return const Locale('pl', 'PL');
-//       case 'es':
-//         return const Locale('es', 'ES');
-//       case 'en':
-//       default:
-//         return const Locale('en', 'GB');
-//     }
-//   }
-//
-//   /// Publiczny setter przyjmujący krótki kod ('en'/'pl'/'es')
-//   Future<void> setLanguageCode(String code) async {
-//     _locale = _localeFromCode(code);
-//     _hasUserChoice = true;
-//     notifyListeners();
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(kPrefsLocaleKey, code);
-//   }
-//
-//
-//   /// Ewentualnie: bezpośredni setter Locale (np. dla przyszłych rozszerzeń)
-//   Future<void> setLocale(Locale locale) async {
-//     _locale = locale;
-//     notifyListeners();
-//     final prefs = await SharedPreferences.getInstance();
-//     await prefs.setString(kPrefsLocaleKey, locale.languageCode);
-//   }
-//
-// }
-
-// Future<void> setLanguageCode(String code) async {
-//   final next = _localeFromCode(code);
-//   // jeśli nic się nie zmienia — wyjdź
-//   if (next.languageCode == _locale.languageCode && next.countryCode == _locale.countryCode) return;
-//
-//   _locale = next;
-//   notifyListeners();
-//   final prefs = await SharedPreferences.getInstance();
-//   await prefs.setString(kPrefsLocaleKey, code);
-// }
-
-// Future<void> _init() async {
-//   final prefs = await SharedPreferences.getInstance();
-//   final saved = prefs.getString(kPrefsLocaleKey);
-//   if (saved != null && saved.isNotEmpty) {
-//     _locale = _localeFromCode(saved);
-//     notifyListeners();
-//   }
-// }

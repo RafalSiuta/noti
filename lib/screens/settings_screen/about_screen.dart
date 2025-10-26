@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/app_icon_card.dart';
@@ -36,7 +38,8 @@ class AboutScreen extends StatelessWidget {
               size: textFontSize,
             ),
             label: Text(
-              "Privacy Policy",
+                context.t("headers_text.header_policy").capitalizeFirstLetter(),
+              //"Privacy Policy",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: textFontSize,),
             ),

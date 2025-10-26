@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/screens/task_screen/task_creator_screen.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import '../../providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
@@ -37,7 +39,8 @@ class SliverTaskList extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     DefaultText(
-                        title: 'There is no assignments\nfor today '
+                        title:context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
+                        // title: 'There is no assignments\nfor today '
                     ),
                     SizedBox(
                       height: bottomSpace,

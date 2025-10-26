@@ -64,8 +64,7 @@ class SideNav extends StatelessWidget {
             selectedIndex: selectedItem,
             onDestinationSelected: onTap),
       ),
-      tablet:
-      Container(
+      tablet: Container(
         key: key,
         margin: EdgeInsets.symmetric(vertical: menuTop , horizontal: 8.0),
 
@@ -92,8 +91,10 @@ class SideNav extends StatelessWidget {
                   ),
                   label: RotatedBox(
                       quarterTurns: -1,
-                      child: Text(
-                        '${titles[index].title}  ',
+                      child:
+                      Text(
+                          context.t("menu_text.${titles[index].title}").capitalizeFirstLetter()
+                        //'${titles[index].title}  ',
                       )),
                 )).toList(),
             selectedIndex: selectedItem,

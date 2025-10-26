@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import '../../models/date/date_model.dart';
 import '../../utils/dimensions/size_info.dart';
+import '../../utils/internationalization/app_localizations.dart';
 import '../buttons/icon_btn.dart';
 
 class CalendarHeader extends StatelessWidget {
@@ -15,7 +18,7 @@ class CalendarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textSize = SizeInfo.headerSubtitleSize;
-
+    DateModel d = AppLocalizations.of(context)!.dateFormat(date, context);
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: padding,
@@ -36,13 +39,15 @@ class CalendarHeader extends StatelessWidget {
             spacing: textSize,
             children: [
               Text(
-                DateFormat('MMMM yy').format(date),
+                d.monthYear!.capitalizeFirstLetter(),
+                // DateFormat('MMMM yy').format(date),
                 style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
               ),
               widget!
             ],
           ) : Text(
-            DateFormat('MMMM yy').format(date),
+            d.monthYear!.capitalizeFirstLetter(),
+            //DateFormat('MMMM yy').format(date),
             style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
           ),
           IconBtn(

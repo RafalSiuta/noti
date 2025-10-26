@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import '../../providers/note_provider/note_provider.dart';
 import '../../utils/constants/const_values.dart';
@@ -39,7 +41,8 @@ class SliverNoteList extends StatelessWidget {
                 padding: EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
                 sliver: SliverFillRemaining(
                   child: DefaultText(
-                    title: 'There is no notes',
+                      title:context.t("headers_text.header_no_notes").capitalizeFirstLetter()
+                    // title: 'There is no notes',
                   ),
                 )
 
@@ -58,7 +61,8 @@ class SliverNoteList extends StatelessWidget {
                               // maxHeight: 60,
                               // minHeight: 55,
                               child: SmallHeader(
-                                title: 'You have $counter note${counter > 1 ? 's' : ""}',
+                                  title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes"):context.t("headers_text.header_note")}"
+                                // title: 'You have $counter note${counter > 1 ? 's' : ""}',
                               ))),
                       SliverGrid.count(
                         crossAxisSpacing: noteSpacing,

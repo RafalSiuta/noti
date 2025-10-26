@@ -17,7 +17,9 @@
     "header_notifications": "powiadomienia",
     "header_trash": "kosz",
     "header_language": "język",
-    "header_policy": "polityka prywatności"
+    "header_policy": "polityka prywatności",
+    "header_no_tasks": "Nie ma żadnych zadań na dziś",
+    "header_no_notes": "Nie ma żadnych notatek na dziś"
   },
   "icons_text": {},
   "menu_text": {

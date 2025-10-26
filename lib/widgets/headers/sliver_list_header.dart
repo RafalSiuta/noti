@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:noti/widgets/headers/sliver_header.dart';
 import 'package:noti/widgets/headers/small_header.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,8 @@ class SliverListHeader extends StatelessWidget {
                   height: headerHeight,
                   isRebuild: true,
                   child: SmallHeader(
-                    title: counter == 0 ? "" : 'You have $counter task${counter > 1 ? 's' : ""}',
+                      title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_tasks"):context.t("headers_text.header_task")}"
+                    // title: counter == 0 ? "" : 'You have $counter task${counter > 1 ? 's' : ""}',
                   )));
         });
         }}

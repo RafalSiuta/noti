@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../providers/settings_provider/settings_provider.dart';
@@ -35,8 +37,9 @@ class ThemeScreen extends StatelessWidget {
                 delegate: SliverHeader(
                     paddingHorizontal: 8.0,
                     height: headerHeight,
-                    child: const SmallHeader(
-                      title: 'Shapes',
+                    child:  SmallHeader(
+                        title:context.t("headers_text.header_shapes").capitalizeFirstLetter()
+                      // title: 'Shapes',
                     ))),
           ),
           SliverList(
@@ -49,8 +52,9 @@ class ThemeScreen extends StatelessWidget {
               delegate: SliverHeader(
                   paddingHorizontal: 8.0,
                   height: headerHeight,
-                  child: const SmallHeader(
-                    title: 'Themes',
+                  child: SmallHeader(
+                      title:context.t("headers_text.header_themes").capitalizeFirstLetter(),
+                    // title: 'Themes',
                   ))),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),

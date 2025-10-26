@@ -1,5 +1,7 @@
 import 'package:noti/screens/task_screen/task_creator_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:noti/utils/extensions/string_extension.dart';
+import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
@@ -30,8 +32,9 @@ class TaskList extends StatelessWidget {
         if (taskProvider.taskList.isEmpty) {
           return SizedBox(
             height: MediaQuery.of(context).size.height / 2,
-            child: const DefaultText(
-              title: 'There is no assignments\nfor today ',
+            child: DefaultText(
+              title:context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
+              //title: 'There is no assignments\nfor today headers_text.header_no_tasks',
             ),
           );
         } else {
@@ -43,8 +46,8 @@ class TaskList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SmallHeader(
-                  title:
-                      'You have $counter task${counter > 1 ? 's' : ""}',
+                    title:"${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_tasks"):context.t("headers_text.header_task")}"
+                  //title:'You have $counter task${counter > 1 ? 's' : ""}',
                 ),
                 AnimationLimiter(
                   child: listType == "base" ? Expanded(

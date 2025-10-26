@@ -17,7 +17,9 @@
     "header_notifications": "notifications",
     "header_trash": "trash",
     "header_language": "language",
-    "header_policy": "privacy policy"
+    "header_policy": "privacy policy",
+    "header_no_tasks": "There is no assignments for today ",
+    "header_no_notes": "There is no notes for today "
   },
   "icons_text": {},
   "menu_text": {

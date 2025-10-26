@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
                 Locale('en', 'GB'),
                 Locale('es', 'ES'),
               ],
-              locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
+              //locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -164,7 +164,7 @@ class MyApp extends StatelessWidget {
                 return supported.first;
 
                 // for (var supportedLocale in supported) {
-                //   if (supportedLocale.languageCode == locale!.languageCode &&
+                //   if (supportedLocale.languageCode == locale.languageCode &&
                 //       supportedLocale.countryCode == locale.countryCode) {
                 //     return supportedLocale;
                 //   }
