@@ -232,6 +232,7 @@ class SettingsProvider extends ChangeNotifier {
     await _prefs.storeStatesLite(CALENDAR_PREFS_KEY, calendarSets.calendarSettings);
     calendarStartingDay();
     isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn ?? false;
+
     notifyListeners();
   }
 
@@ -246,6 +247,7 @@ class SettingsProvider extends ChangeNotifier {
     }
     isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn ?? false;
     calendarStartingDay();
+    notifyListeners();
   }
 
   StartingDayOfWeek? calendarStartingDay(){
@@ -255,6 +257,7 @@ class SettingsProvider extends ChangeNotifier {
     }else{
       calendarStartDay = StartingDayOfWeek.sunday;
     }
+    notifyListeners();
     return calendarStartDay;
   }
 

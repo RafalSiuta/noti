@@ -47,17 +47,18 @@ class TaskProvider extends ChangeNotifier {
   Future<void> initTask() async {
     selDay = focDay;
 
-    // 1) format kalendarza (to u Ciebie jest async – warto poczekać)
     await loadCalendarFormat();
-
-    // 2) ustawienia (globalny przełącznik notyfikacji, itp.)
+    loadCalendarFormat();
+    // getSettingsValuesForTask().whenComplete((){
+    //   getTaskDbList();
+    //   getTasksBySearchOptions();
+    //   resyncAllNotifications();
+    // });
     await getSettingsValuesForTask();
 
-    // 3) wczytanie listy zadań i filtrów
     await getTaskDbList();
     await getTasksBySearchOptions();
 
-    // 4) pełna resynchronizacja powiadomień (na podstawie aktualnych ustawień i zadań)
     await resyncAllNotifications();
 
     notifyListeners();
@@ -303,35 +304,6 @@ class TaskProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  // void refreshNotification(Task task) {
-  //
-  //   if (settings.isNotification) {
-  //     if (task.isTaskDone || task.isNotification == false) {
-  //
-  //       NotificationsHelper().cancelNotification(task.id.hashCode);
-  //     } else {
-  //
-  //       final now = DateTime.now();
-  //
-  //       if (task.date.year == now.year &&
-  //           task.date.month == now.month &&
-  //           task.date.day == now.day &&
-  //           task.date.isAfter(DateTime(now.year, now.month, now.day, now.hour, now.minute))) {
-  //
-  //         NotificationsHelper().scheduleNotification(task, task.date);
-  //       } else if (task.date.isBefore(now)) {
-  //
-  //         NotificationsHelper().cancelNotification(task.id.hashCode);
-  //       }
-  //     }
-  //   } else {
-  //
-  //     NotificationsHelper().cancelNotification(task.id.hashCode);
-  //   }
-  //
-  //   notifyListeners();
-  // }
 
   Future<void> resyncAllNotifications() async {
     if (!settings.isNotification) {

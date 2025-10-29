@@ -494,3 +494,34 @@ class SettingsProvider extends ChangeNotifier {
   //social links
   SocialList socialList = SocialList();
 }
+
+
+  // void refreshNotification(Task task) {
+  //
+  //   if (settings.isNotification) {
+  //     if (task.isTaskDone || task.isNotification == false) {
+  //
+  //       NotificationsHelper().cancelNotification(task.id.hashCode);
+  //     } else {
+  //
+  //       final now = DateTime.now();
+  //
+  //       if (task.date.year == now.year &&
+  //           task.date.month == now.month &&
+  //           task.date.day == now.day &&
+  //           task.date.isAfter(DateTime(now.year, now.month, now.day, now.hour, now.minute))) {
+  //
+  //         NotificationsHelper().scheduleNotification(task, task.date);
+  //       } else if (task.date.isBefore(now)) {
+  //
+  //         NotificationsHelper().cancelNotification(task.id.hashCode);
+  //       }
+  //     }
+  //   } else {
+  //
+  //     NotificationsHelper().cancelNotification(task.id.hashCode);
+  //   }
+  //
+  //   notifyListeners();
+  // }
+

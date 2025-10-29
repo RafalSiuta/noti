@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../models/db_model/task.dart';
@@ -18,12 +19,10 @@ class CalendarScreen extends StatelessWidget {
     var spacingTop = SizeInfo.menuTopMargin;
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child){
-
          return CustomScrollView(
             physics:
             const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             slivers: [
-
               SliverToBoxAdapter(
                 child: Calendar(
                   key: key,
@@ -37,7 +36,7 @@ class CalendarScreen extends StatelessWidget {
                   },
                   focDay: taskProvider.focDay,
                   selDay: taskProvider.selDay,
-                  startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+                  // startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
                   onDaySelected: taskProvider.onDaySelected,
                   onMonthChange: (day) {
                     taskProvider.onMonthChange(day);
@@ -68,7 +67,6 @@ class CalendarScreen extends StatelessWidget {
               ),
               SliverListHeader(),
               SliverTaskList(),
-
             ],
           );
         });

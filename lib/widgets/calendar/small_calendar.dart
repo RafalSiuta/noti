@@ -21,7 +21,7 @@ class SmallCalendar extends StatelessWidget {
           gesturesEnable: false,
           focDay: focDay,
           selDay: taskProvider.selDay,
-          startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+          // startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
           onDaySelected: taskProvider.onDaySelected,
           onMonthChange: (day) {
           },

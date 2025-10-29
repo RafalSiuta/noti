@@ -58,18 +58,19 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     ),
     ScreenModel(
-        page: const NoteScreen(),
-        title: NavModel(
-          title: 'notes',
-        )),
-    ScreenModel(
         page: const TaskScreen(),
         title: NavModel(
           title: 'task',
         )),
+    ScreenModel(
+        page: const NoteScreen(),
+        title: NavModel(
+          title: 'notes',
+        )),
+
   ];
 
-  hideTrigger() {
+  void hideTrigger() {
     if (_animationController.isCompleted) {
       setState(() {
         _animationController.reverse();
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  trigger() {
+  void trigger() {
     setState(() {
       if (_animationController.isCompleted) {
         _animationController.reverse();
