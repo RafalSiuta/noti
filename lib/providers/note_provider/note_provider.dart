@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:noti/providers/search_provider/search_provider.dart';
 import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:flutter/foundation.dart';
 import '../../database/database_helper.dart';
@@ -35,6 +36,7 @@ class NoteProvider extends ChangeNotifier  {
   bool isDeleteNotesOnLoad = false;
 
   Future<void> initNote() async {
+    searchProvider = NoteSearchProvider();
     await getSettingsValuesForNote().whenComplete((){
       getNoteDbList();
       getNoteBySearchOptions();
@@ -144,7 +146,7 @@ class NoteProvider extends ChangeNotifier  {
     return _noteList;
   }
 
-  loadNoteListBySettingsValues(int months, bool isDeleting) async {
+  void loadNoteListBySettingsValues(int months, bool isDeleting) async {
     isDeleteNotesOnLoad = isDeleting;
     monthsToDelete = months;
     _notePrefs.storeBool("isNoteDelete", isDeleteNotesOnLoad);

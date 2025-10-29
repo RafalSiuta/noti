@@ -58,7 +58,7 @@ class TaskProvider extends ChangeNotifier {
     await getTasksBySearchOptions();
 
     // 4) pełna resynchronizacja powiadomień (na podstawie aktualnych ustawień i zadań)
-    //await resyncAllNotifications();
+    await resyncAllNotifications();
 
     notifyListeners();
   }
@@ -187,6 +187,7 @@ class TaskProvider extends ChangeNotifier {
     });
 
     _taskList = getCalendarValues(focDay);
+    _taskListByKeyword = await getTasksBySearchOptions();
     notifyListeners();
   }
 
@@ -403,7 +404,6 @@ class TaskProvider extends ChangeNotifier {
 
   Future<List<Task>> getTasksBySearchOptions() async {
     List<Task> list = _dbHelper.getAllTasks();
-
 
     if (searchProvider.keyword.isEmpty &&
         searchProvider.startDate == searchProvider.endDate &&

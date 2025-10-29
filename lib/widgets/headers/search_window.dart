@@ -147,14 +147,28 @@ class SearchWindow extends StatelessWidget {
                                               //title: "date from: \n",
                                               isSelected: searchProvider.isDateScopeSelected,
                                               date:searchProvider.startDate,
-                                              onPressed: searchProvider.onButtonSelected,
+                                              onPressed:(){
+                                                searchProvider.onButtonSelected();
+                                                if(searchType == 'task'){
+                                                  taskProvider.getTasksBySearchOptions();
+                                                }else{
+                                                  noteProvider.getNoteBySearchOptions();
+                                                }
+                                              },
                                             ),
                                             CustomTextButton(
                                                 title:"creators_text.date_to",
                                                 //title: "date to: \n",
                                                 isSelected: !searchProvider.isDateScopeSelected,
                                                 date:searchProvider.endDate,
-                                                onPressed: searchProvider.onButtonSelected
+                                                onPressed: (){
+                                                  searchProvider.onButtonSelected();
+                                                  if(searchType == 'task'){
+                                                    taskProvider.getTasksBySearchOptions();
+                                                  }else{
+                                                    noteProvider.getNoteBySearchOptions();
+                                                  }
+                                                },
                                             ),
                                             Text(
                                               context.t("creators_text.or"),
@@ -169,7 +183,14 @@ class SearchWindow extends StatelessWidget {
                                               isSelected: false,
                                               isFullMonth: true,
                                               date:searchProvider.startDate,
-                                              onPressed:searchProvider.getFullMonth,
+                                              onPressed:() {
+                                                searchProvider.getFullMonth();
+                                                if(searchType == 'task'){
+                                                  taskProvider.getTasksBySearchOptions();
+                                                }else{
+                                                  noteProvider.getNoteBySearchOptions();
+                                                }
+                                              },
                                             ),
                                           ],
                                         ),
@@ -237,6 +258,11 @@ class SearchWindow extends StatelessWidget {
                                                         rating: searchProvider.priority,
                                                         onRatingChanged: (rating) {
                                                           searchProvider.setRating(rating);
+                                                          if(searchType == 'task'){
+                                                            taskProvider.getTasksBySearchOptions();
+                                                          }else{
+                                                            noteProvider.getNoteBySearchOptions();
+                                                          }
                                                         }
                                                     ),
                                                     Column(
@@ -249,6 +275,11 @@ class SearchWindow extends StatelessWidget {
                                                               value: searchProvider.isDone,
                                                               onChanged: (value) {
                                                                 searchProvider.onCheckIsDone(value);
+                                                                if(searchType == 'task'){
+                                                                  taskProvider.getTasksBySearchOptions();
+                                                                }else{
+                                                                  noteProvider.getNoteBySearchOptions();
+                                                                }
                                                               }
                                                           ),
                                                         ),

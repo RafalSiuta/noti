@@ -6,7 +6,7 @@ class SearchProvider extends ChangeNotifier{
     _initialize();
   }
 
-  _initialize(){
+  void _initialize(){
     focDay = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
     selDay = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
     startDate = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
@@ -112,7 +112,7 @@ class SearchProvider extends ChangeNotifier{
       notifyListeners();
   }
 
-  onMonthChange(focusedDay){
+  void onMonthChange(focusedDay){
     focDay = focusedDay;
     notifyListeners();
   }
