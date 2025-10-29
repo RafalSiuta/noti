@@ -52,18 +52,18 @@ class SliverNoteList extends StatelessWidget {
                   padding: EdgeInsets.only(left: edgePadding-2, ),
                   sliver: SliverMainAxisGroup(
                     slivers: [
-                      SliverPersistentHeader(
-                          pinned: true,
-                          delegate: SliverHeader(
-                              paddingHorizontal: 8.0,
-                              paddingVertical: 5.0,
-                              height: headerHeight,
-                              // maxHeight: 60,
-                              // minHeight: 55,
-                              child: SmallHeader(
-                                  title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes"):context.t("headers_text.header_note")}"
-                                // title: 'You have $counter note${counter > 1 ? 's' : ""}',
-                              ))),
+                      // SliverPersistentHeader(
+                      //     pinned: true,
+                      //     delegate: SliverHeader(
+                      //         paddingHorizontal: 8.0,
+                      //         paddingVertical: 5.0,
+                      //         height: headerHeight,
+                      //         // maxHeight: 60,
+                      //         // minHeight: 55,
+                      //         child: SmallHeader(
+                      //             title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes"):context.t("headers_text.header_note")}"
+                      //           // title: 'You have $counter note${counter > 1 ? 's' : ""}',
+                      //         ))),
                       SliverGrid.count(
                         crossAxisSpacing: noteSpacing,
                         mainAxisSpacing: noteSpacing,
