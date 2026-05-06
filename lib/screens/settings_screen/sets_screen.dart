@@ -33,8 +33,61 @@ class SetsScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
+            //notifications list settings
             SliverPadding(
               padding: EdgeInsets.only(top: topMargin),
+              sliver: SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverHeader(
+                      paddingHorizontal: 8.0,
+                      height: headerHeight,
+                      child: SmallHeader(
+                          title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
+                        // title: 'Calendar',
+                      ))),
+            ),
+            // SliverPersistentHeader(
+            //     pinned: true,
+            //     delegate: SliverHeader(
+            //         paddingHorizontal: 8.0,
+            //         height: headerHeight,
+            //         child: SmallHeader(
+            //             title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
+            //           // title: 'Notifications',
+            //         ))),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                ColumnBuilder(
+                  itemCount: settingsProvider
+                      .notificationSets.notificationSettingsListCounter,
+                  itemBuilder: (context, index) {
+                    final notificationSettings = settingsProvider
+                        .notificationSets.notificationSettingsList[index];
+                    // print("WHATS WRONG WITH CARD TITLE: ${notificationSettings.title!} AND DESCRIPTION: ${notificationSettings.description!}");
+                    return SettingsCard(
+                      title:notificationSettings.title!,
+                      description: notificationSettings.description!,
+                      child: SwitchBtn(
+                          iconData: Icons.circle,
+                          iconSize: switchIconSize,
+                          value: notificationSettings.isOn,
+                          onChanged: (val) {
+                            if(index == 0){
+                              settingsProvider.onNotificationSettingsChange(
+                                  notificationSettings);
+                            }else{
+                              settingsProvider.onNotificationSound(notificationSettings);
+                            }
+
+                          }),
+                    );
+                  },
+                )
+              ]),
+            ),
+            //calendar settings
+            SliverPadding(
+              padding: EdgeInsets.zero,
               sliver: SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverHeader(
@@ -69,45 +122,7 @@ class SetsScreen extends StatelessWidget {
                 )
               ]),
             ),
-            SliverPersistentHeader(
-                pinned: true,
-                delegate: SliverHeader(
-                    paddingHorizontal: 8.0,
-                    height: headerHeight,
-                    child: SmallHeader(
-                      title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
-                     // title: 'Notifications',
-                    ))),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                ColumnBuilder(
-                  itemCount: settingsProvider
-                      .notificationSets.notificationSettingsListCounter,
-                  itemBuilder: (context, index) {
-                    final notificationSettings = settingsProvider
-                        .notificationSets.notificationSettingsList[index];
-                   // print("WHATS WRONG WITH CARD TITLE: ${notificationSettings.title!} AND DESCRIPTION: ${notificationSettings.description!}");
-                    return SettingsCard(
-                      title:notificationSettings.title!,
-                      description: notificationSettings.description!,
-                      child: SwitchBtn(
-                          iconData: Icons.circle,
-                          iconSize: switchIconSize,
-                          value: notificationSettings.isOn,
-                          onChanged: (val) {
-                            if(index == 0){
-                              settingsProvider.onNotificationSettingsChange(
-                                  notificationSettings);
-                            }else{
-                              settingsProvider.onNotificationSound(notificationSettings);
-                            }
-
-                          }),
-                    );
-                  },
-                )
-              ]),
-            ),
+            //trash settings
             SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverHeader(

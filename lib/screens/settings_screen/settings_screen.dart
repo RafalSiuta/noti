@@ -9,6 +9,7 @@ import '../../styles/shapes/shapes.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/navigators/side_nav.dart';
 import 'about_screen.dart';
+import 'export_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -40,6 +41,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       page: const SetsScreen(),
       title: NavModel(
         title: 'settings',
+      ),
+    ),
+    ScreenModel(
+      page: const ExportScreen(),
+      title: NavModel(
+        title: 'exports',
       ),
     ),
     ScreenModel(

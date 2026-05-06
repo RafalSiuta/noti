@@ -565,7 +565,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                     autofocus: false,
                                     textAlign: TextAlign.start,
                                     style:widget.newTask.isTaskDone ? Theme.of(context).textTheme.displayMedium!.copyWith(
-                                    fontSize: titleFontSize,
+                                    fontSize: descriptionFontSize,
                                     ): Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: descriptionFontSize,
                                     ),

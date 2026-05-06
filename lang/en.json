@@ -25,7 +25,9 @@
     "header_gallery": "gallery",
     "header_camera": "camera",
     "header_load_images": "loading images",
-    "header_category_icon": "choose category"
+    "header_category_icon": "choose category",
+    "header_export_title": "export",
+    "header_import_title": "import"
   },
   "dialogs_text": {
     "warning": "Warning!",
@@ -162,6 +164,7 @@
     "task": "tasks",
     "themes": "themes",
     "settings": "settings",
+    "exports": "exports",
     "about": "about"
   },
   "settings_text": {

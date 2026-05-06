@@ -25,7 +25,9 @@
     "header_gallery": "galeria",
     "header_camera": "aparat",
     "header_load_images": "ładuje obrazki",
-    "header_category_icon": "wybierz kategorie"
+    "header_category_icon": "wybierz kategorie",
+    "header_export_title": "eksport",
+    "header_import_title": "import"
   },
   "dialogs_text": {
     "warning": "Uwaga!",
@@ -161,6 +163,7 @@
     "task": "zadania",
     "themes": "motywy",
     "settings": "ustawienia",
+    "exports": "eksportowanie",
     "about": "o apce"
   },
   "settings_text": {
