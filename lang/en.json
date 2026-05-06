@@ -27,6 +27,12 @@
     "header_load_images": "loading images",
     "header_category_icon": "choose category"
   },
+  "dialogs_text": {
+    "warning": "Warning!",
+    "warning_message": "This action will delete selected items data permanently !!!",
+    "confirm": "potwierdź",
+    "cancel": "anuluj"
+  },
   "icons_text": {
     "delete_selected": "delete selected",
     "reset_filters": "reset filters",
