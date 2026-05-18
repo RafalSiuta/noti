@@ -28,12 +28,18 @@
     "header_category_icon": "choose category",
     "header_export_title": "export",
     "header_import_title": "import"
+
   },
   "dialogs_text": {
     "warning": "Warning!",
+    "warring": "Warning!",
     "warning_message": "This action will delete selected items data permanently !!!",
     "confirm": "potwierdź",
-    "cancel": "anuluj"
+    "cancel": "anuluj",
+    "success": "success",
+    "export_success_message": "was exported to folder:",
+    "import_overwrite_message_start": "Import",
+    "import_overwrite_message_end": "contains data, and tasks or notes already exist in the app. Overwrite data with this import?"
   },
   "icons_text": {
     "delete_selected": "delete selected",
@@ -155,7 +161,8 @@
   "buttons_text": {
     "button_month": "month",
     "button_week": "week",
-    "button_two_weeks": "two weeks"
+    "button_two_weeks": "two weeks",
+    "export_button": "export"
   },
   "menu_text": {
     "today": "today",
@@ -186,7 +193,15 @@
     "description_delete_all_tasks": "permanently deletes all tasks",
     "settings_dial_info": "This setting deletes data after",
     "settings_dial_confirm": "Are you sure?",
-    "settings_dial_month": "months"
+    "settings_dial_month": "months",
+    "export_all":"export all",
+    "export_all_description":"export all data tasks & notes",
+    "export_tasks":"export tasks",
+    "export_tasks_description":"exports all tasks only",
+    "export_notes":"export notes",
+    "export_notes_description":"exports all notes only",
+    "import_import_file_title":"import file",
+    "import_description":"choose file to import data"
   },
   "creators_text": {
     "more_options": "more options",

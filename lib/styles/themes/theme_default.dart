@@ -196,6 +196,44 @@ final themeDefault = ThemeData(
       ),
     ),
     iconTheme: const IconThemeData(color: themeDefIndicatorColor, size: 18),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+        // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+        surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
+        splashFactory:NoSplash.splashFactory,
+        textStyle: WidgetStateTextStyle.resolveWith(
+              (states) {
+            if (states.contains(WidgetState.pressed)) {
+              return GoogleFonts.exo2(
+                textStyle: const TextStyle(
+                    fontSize: 12,
+                    color: themeDefIndicatorColor,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none),
+              );
+            } else if(states.contains(WidgetState.focused)){
+              return GoogleFonts.exo2(
+                textStyle: const TextStyle(
+                    fontSize: 12,
+                    color: themeDefIndicatorColor,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none),
+              );
+            } else {
+              return GoogleFonts.exo2(
+                textStyle: const TextStyle(
+                    fontSize: 12,
+                    color: themeDefBaseTextColor,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none),
+              );
+            }
+          },
+        )
+      )
+    ),
     cardTheme: const CardThemeData(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -372,7 +410,7 @@ final themeDefault = ThemeData(
       )
     ),
 
-menuButtonTheme: MenuButtonThemeData(
+    menuButtonTheme: MenuButtonThemeData(
   style: ButtonStyle(
     backgroundColor: WidgetStateProperty.all(themeDefUnselectedColor),
     textStyle: WidgetStateProperty.all(GoogleFonts.exo2(
@@ -389,7 +427,7 @@ menuButtonTheme: MenuButtonThemeData(
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
         width: .5,
-        color: themeDefBaseTextColor,
+        color: Colors.transparent,
       )),
 
       enabledBorder: UnderlineInputBorder(
@@ -401,7 +439,7 @@ menuButtonTheme: MenuButtonThemeData(
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: themeDefBaseTextColor, fontSize: 20),
+      hintStyle: TextStyle(color: themeDefUnselectedColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
         color: themeDefTitleBoxBcgColor,

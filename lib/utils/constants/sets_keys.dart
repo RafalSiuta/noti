@@ -15,3 +15,4 @@ const SHAPE_PREFS_KEY = "shape";
 const CALENDAR_PREFS_KEY = "calendarSettings";
 const NOTIFICATION_PREFS_KEY = "notificationSettings";
 const TRASH_PREFS_KEY = "trashUserSettings";
+const EXPORT_PREFS_KEY="exportSettingsKey";

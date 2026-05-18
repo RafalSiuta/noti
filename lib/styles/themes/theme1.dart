@@ -191,6 +191,44 @@ final theme1 = ThemeData(
       ),
     ),
     iconTheme: const IconThemeData(color: theme1IndicatorColor, size: 18),
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+            // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
+            overlayColor: WidgetStatePropertyAll(Colors.transparent),
+            surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
+            splashFactory:NoSplash.splashFactory,
+            textStyle: WidgetStateTextStyle.resolveWith(
+                  (states) {
+                if (states.contains(WidgetState.pressed)) {
+                  return GoogleFonts.exo2(
+                    textStyle: const TextStyle(
+                        fontSize: 12,
+                        color: theme1IndicatorColor,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.none),
+                  );
+                } else if(states.contains(WidgetState.focused)){
+                  return GoogleFonts.exo2(
+                    textStyle: const TextStyle(
+                        fontSize: 12,
+                        color: theme1IndicatorColor,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.none),
+                  );
+                } else {
+                  return GoogleFonts.exo2(
+                    textStyle: const TextStyle(
+                        fontSize: 12,
+                        color: theme1BaseTextColor,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.none),
+                  );
+                }
+              },
+            )
+        )
+    ),
     cardTheme: const CardThemeData(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -358,7 +396,7 @@ final theme1 = ThemeData(
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             width: .5,
-            color: theme1TitleBoxBcgColor,
+            color: Colors.transparent,
           )),
       enabledBorder: UnderlineInputBorder(
           borderSide:
@@ -368,7 +406,7 @@ final theme1 = ThemeData(
       focusedErrorBorder: InputBorder.none,
       isDense: true,
       filled: false,
-      hintStyle: TextStyle(color: theme1TitleBoxBcgColor, fontSize: 20),
+      hintStyle: TextStyle(color: theme1UnselectedColor, fontSize: 20),
       contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
       suffixStyle: TextStyle(
         color: theme1TitleBoxBcgColor,

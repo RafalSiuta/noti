@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:noti/providers/export_provider/export_provider.dart';
+import 'package:noti/providers/note_provider/note_provider.dart';
+import 'package:noti/providers/task_provider/task_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/dimensions/size_info.dart';
+import '../../widgets/buttons/switch_btn.dart';
+import '../../widgets/cards/settings_card.dart';
+import '../../widgets/dialogs/custom_dialog.dart';
+import '../../widgets/dialogs/warring_alert.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
+import '../../widgets/responsive/column_row_builder.dart';
 import '../../widgets/tooltip/custom_text_toolbar.dart';
-
 
 class ExportScreen extends StatefulWidget {
   const ExportScreen({super.key});
@@ -17,7 +25,6 @@ class ExportScreen extends StatefulWidget {
 }
 
 class _ExportScreenState extends State<ExportScreen> {
-
   var titleFontSize = SizeInfo.taskCreatorTitle;
   var helpTextFontSize = SizeInfo.helpTextSize;
   int maxTitleLength = 20;
@@ -26,11 +33,14 @@ class _ExportScreenState extends State<ExportScreen> {
   var textFontSize = SizeInfo.calendarDaySize;
   double topMargin = SizeInfo.pageTopMargin;
   var headerHeight = SizeInfo.sliverHeaderHeight;
-
+  var switchIconSize = SizeInfo.switchButtonIconSize;
 
   TextEditingController titleVal = TextEditingController();
   FocusNode titleNode = FocusNode();
   bool? editTextEnable;
+  bool _isExporting = false;
+  bool _isImporting = false;
+
   @override
   void setState(VoidCallback fn) {
     titleNode.addListener(() {
@@ -48,87 +58,240 @@ class _ExportScreenState extends State<ExportScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    return CustomScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.only(top: topMargin),
-                sliver: SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverHeader(
-                        paddingHorizontal: 8.0,
-                        height: headerHeight,
-                        child:  SmallHeader(
-                            title:context.t("headers_text.header_export_title").capitalizeFirstLetter()
-                          // title: 'Shapes',
-                        ))),
+    return Consumer<ExportProvider>(
+      builder: (context, exportProvider, child) {
+        return CustomScrollView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          slivers: [
+            SliverPadding(
+              padding: EdgeInsets.only(top: topMargin),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: 8.0,
+                  height: headerHeight,
+                  child: SmallHeader(
+                    title: context
+                        .t("headers_text.header_export_title")
+                        .capitalizeFirstLetter(),
+                    // title: 'Shapes',
+                  ),
+                ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: EdgeInsets.only(left: edgePadding),
-                    child: TextField(
-                      maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                      contextMenuBuilder: (context, editableTextState) {
-                        return CustomTextSelectionToolbar(
-                            key: widget.key, editableTextState: editableTextState);
-                      },
-                      cursorWidth: 1,
-                      focusNode: titleNode,
-                      maxLines: null,
-                      maxLength: maxTitleLength,
-                      onSubmitted: (val) {
-                        setState(() {
-                          titleNode.unfocus();
-                        });
-                      },
-                      keyboardType: TextInputType.text,
-                      enabled: true,
-                      onChanged: (newText) {
-                        setState(() {
-                          // widget.newTask.title = newText;
-                          // cursorPlace(titleVal, newText);
-                        });
-                      },
-                      cursorColor: Theme.of(context).textTheme.labelMedium!.color,
-                      controller: titleVal,
-                      autofocus: false,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: titleFontSize,
-                        decoration: TextDecoration.none,
-                      ),
-                      textAlign: TextAlign.start,
-                      decoration: InputDecoration(
-                        helperText: context.t("creators_text.helper_title").capitalizeFirstLetter(),
-                        // helperText: 'Enter title',
-                        helperStyle: Theme.of(context)
-                            .inputDecorationTheme
-                            .helperStyle!
-                            .copyWith(fontSize: helpTextFontSize),
-                      ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Padding(
+                  padding: EdgeInsets.only(left: edgePadding),
+                  child: TextField(
+                    maxLengthEnforcement:
+                        MaxLengthEnforcement.truncateAfterCompositionEnds,
+                    contextMenuBuilder: (context, editableTextState) {
+                      return CustomTextSelectionToolbar(
+                        key: widget.key,
+                        editableTextState: editableTextState,
+                      );
+                    },
+
+                    cursorWidth: 1,
+                    focusNode: titleNode,
+                    maxLines: 1,
+                    maxLength: maxTitleLength,
+                    onSubmitted: (val) {
+                      setState(() {
+                        titleNode.unfocus();
+                      });
+                    },
+                    keyboardType: TextInputType.text,
+                    enabled: true,
+                    onChanged: (newText) {
+                      setState(() {
+                        // widget.newTask.title = newText;
+                        // cursorPlace(titleVal, newText);
+                      });
+                    },
+                    cursorColor: Theme.of(context).textTheme.labelMedium!.color,
+                    controller: titleVal,
+                    autofocus: false,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: titleFontSize,
+                      decoration: TextDecoration.none,
+                    ),
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      helperText: context
+                          .t("creators_text.helper_title")
+                          .capitalizeFirstLetter(),
+                      hintText: "file name",
+                      // helperText: 'Enter title',
+                      helperStyle: Theme.of(context)
+                          .inputDecorationTheme
+                          .helperStyle!
+                          .copyWith(fontSize: helpTextFontSize),
                     ),
                   ),
-                ]),
+                ),
+                ColumnBuilder(
+                  itemCount:
+                      exportProvider.exportSets.exportSettingsListCounter,
+                  itemBuilder: (context, index) {
+                    final exportsSettings =
+                        exportProvider.exportSets.exportSettingsList[index];
+                    return SettingsCard(
+                      title: exportsSettings.title!,
+                      description: exportsSettings.description!,
+                      child: SwitchBtn(
+                        iconData: Icons.circle,
+                        iconSize: switchIconSize,
+                        value: exportsSettings.isOn,
+                        onChanged: (val) {
+                          exportProvider.onExportSettingsChange(
+                            exportsSettings,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextButton(
+                    // style: ButtonStyle(
+                    //   backgroundColor: WidgetStatePropertyAll(Theme.of(context).indicatorColor)
+                    // ),
+                    onPressed: _isExporting
+                        ? null
+                        : () async {
+                            setState(() {
+                              _isExporting = true;
+                            });
+                            final exportedFile = await exportProvider
+                                .getExportSettings(fileName: titleVal.text);
+                            if (!mounted) return;
+                            setState(() {
+                              _isExporting = false;
+                            });
+                            if (exportedFile != null) {
+                              _showExportSuccessDialog(
+                                this.context,
+                                exportedFile.path.split(RegExp(r'[\\/]')).last,
+                                exportedFile.parent.path,
+                              );
+                            }
+                          },
+                    child: _isExporting
+                        ? const SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Center(
+                              child: SizedBox(
+                                width: 32,
+                                height: 32,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 8.0,
+                            children: [
+                              Text(
+                                context
+                                    .t("buttons_text.export_button")
+                                    .capitalizeFirstLetter(),
+                              ),
+                              Icon(
+                                Icons.file_upload,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium!.color,
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              ]),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.only(top: topMargin),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: 8.0,
+                  height: headerHeight,
+                  child: SmallHeader(
+                    title: context
+                        .t("headers_text.header_import_title")
+                        .capitalizeFirstLetter(),
+                    // title: 'Shapes',
+                  ),
+                ),
               ),
-              SliverPadding(
-                padding: EdgeInsets.only(top: topMargin),
-                sliver: SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverHeader(
-                        paddingHorizontal: 8.0,
-                        height: headerHeight,
-                        child:  SmallHeader(
-                            title:context.t("headers_text.header_import_title").capitalizeFirstLetter()
-                          // title: 'Shapes',
-                        ))),
-              ),
-            ],
-
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                SettingsCard(
+                  title: "import_import_file_title",
+                  description: "import_description",
+                  child: IconButton(
+                    onPressed: _isImporting
+                        ? null
+                        : () async {
+                            setState(() {
+                              _isImporting = true;
+                            });
+                            final result = await exportProvider
+                                .getImportSettings();
+                            if (!mounted) return;
+                            setState(() {
+                              _isImporting = false;
+                            });
+                            if (result.cancelled) return;
+                            if (result.needsOverwrite) {
+                              _showImportOverwriteDialog(
+                                this.context,
+                                exportProvider,
+                                result,
+                              );
+                            } else {
+                              if (result.success) {
+                                await _refreshImportedData();
+                              }
+                              if (!mounted) return;
+                              _showImportResultDialog(this.context, result);
+                            }
+                          },
+                    icon: _isImporting
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Icon(
+                            Icons.file_download,
+                            color: Theme.of(
+                              context,
+                            ).textTheme.headlineMedium!.color,
+                          ),
+                  ),
+                  // SwitchBtn(
+                  // iconData: Icons.circle,
+                  // iconSize: switchIconSize,
+                  // value: false,
+                  // onChanged: (val) {
+                  // }),
+                ),
+              ]),
+            ),
+          ],
+        );
+      },
     );
 
     //   Padding(
@@ -140,5 +303,84 @@ class _ExportScreenState extends State<ExportScreen> {
     //   ),
     //
     // );
+  }
+
+  void _showExportSuccessDialog(
+    BuildContext context,
+    String fileName,
+    String folderPath,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CustomDial(
+          title: 'dialogs_text.success',
+          child: SingleChildScrollView(
+            child: Text(
+              '$fileName ${context.t("dialogs_text.export_success_message")}\n$folderPath',
+              style: Theme.of(context).dialogTheme.contentTextStyle,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showImportOverwriteDialog(
+    BuildContext context,
+    ExportProvider exportProvider,
+    ImportResult result,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return WarringAlert(
+          message:
+              '${context.t("dialogs_text.import_overwrite_message_start").capitalizeFirstLetter()} ${result.fileName ?? ""} ${context.t("dialogs_text.import_overwrite_message_end")}',
+          onConfirm: () {
+            _confirmImportOverwrite(exportProvider);
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmImportOverwrite(ExportProvider exportProvider) async {
+    final result = await exportProvider.getImportSettings(overwrite: true);
+    if (!mounted) return;
+    if (result.success) {
+      await _refreshImportedData();
+    }
+    if (!mounted) return;
+    _showImportResultDialog(context, result);
+  }
+
+  Future<void> _refreshImportedData() async {
+    final taskProvider = context.read<TaskProvider>();
+    final noteProvider = context.read<NoteProvider>();
+    await taskProvider.refreshTasks();
+    await noteProvider.getNoteDbList();
+    await noteProvider.getNoteBySearchOptions();
+  }
+
+  void _showImportResultDialog(BuildContext context, ImportResult result) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CustomDial(
+          title: result.success
+              ? 'dialogs_text.success'
+              : 'dialogs_text.warning',
+          child: SingleChildScrollView(
+            child: Text(
+              result.success
+                  ? 'Zaimportowano ${result.fileName ?? "plik .noti"}\nZadania: ${result.tasksCount}\nNotatki: ${result.notesCount}\nFolder:\n${result.folderPath ?? ""}'
+                  : result.message,
+              style: Theme.of(context).dialogTheme.contentTextStyle,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

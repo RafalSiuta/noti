@@ -30,10 +30,15 @@
     "header_import_title": "importación"
   },
   "dialogs_text": {
-    "warning": "Warning!",
+    "warning": "¡Atención!",
+    "warring": "¡Atención!",
     "warning_message": "This action will delete selected items data permanently !!!",
     "confirm": "potwierdź",
-    "cancel": "anuluj"
+    "cancel": "anuluj",
+    "success": "éxito",
+    "export_success_message": "se exportó a la carpeta:",
+    "import_overwrite_message_start": "La importación",
+    "import_overwrite_message_end": "contiene datos, y en la aplicación ya existen tareas o notas. ¿Sobrescribir los datos con esta importación?"
   },
   "icons_text": {
     "delete_selected": "eliminar seleccionados",
@@ -155,7 +160,8 @@
   "buttons_text": {
     "button_month": "mes",
     "button_week": "semana",
-    "button_two_weeks": "dos semanas"
+    "button_two_weeks": "dos semanas",
+    "export_button": "exportar"
   },
   "menu_text": {
     "today": "hoy",
@@ -186,7 +192,16 @@
     "description_delete_all_tasks": "elimina permanentemente todas las tareas",
     "settings_dial_info": "Este ajuste elimina datos después de",
     "settings_dial_confirm": "¿Estás seguro?",
-    "settings_dial_month": "meses"
+    "settings_dial_month": "meses",
+    "export_all":"exportar todo",
+    "export_all_description":"exporta todos los datos: tareas y notas",
+    "export_tasks":"exportar tareas",
+    "export_tasks_description":"exporta solo todas las tareas",
+    "export_notes":"exportar notas",
+    "export_notes_description":"exporta solo todas las notas",
+    "import":"elegir archivo para importar datos",
+    "import_import_file_title":"importar archivo",
+    "import_description":"elige un archivo para importar datos"
   },
   "creators_text": {
     "more_options": "más opciones",

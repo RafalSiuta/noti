@@ -31,9 +31,14 @@
   },
   "dialogs_text": {
     "warning": "Uwaga!",
+    "warring": "Uwaga!",
     "warning_message": "This action will delete selected items data permanently !!!",
     "confirm": "potwierdź",
-    "cancel": "anuluj"
+    "cancel": "anuluj",
+    "success": "sukces",
+    "export_success_message": "wyeksportowano do folderu:",
+    "import_overwrite_message_start": "Import",
+    "import_overwrite_message_end": "zawiera dane, a w aplikacji istnieją już zadania lub notatki. Nadpisać dane tym importem?"
   },
   "icons_text": {
     "delete_selected": "skasuj zaznaczone",
@@ -154,7 +159,8 @@
   "buttons_text": {
     "button_month": "mies",
     "button_week": "tydz",
-    "button_two_weeks": "2 tyg"
+    "button_two_weeks": "2 tyg",
+    "export_button": "eksportuj"
   },
   "menu_text": {
     "today": "dzisiaj",
@@ -185,7 +191,16 @@
     "description_delete_all_tasks": "całkowicie usuwa wszystkie zadania",
     "settings_dial_info": "To ustawienie skasuje dane po",
     "settings_dial_confirm": "Czy napewno?",
-    "settings_dial_month": "miesięcy"
+    "settings_dial_month": "miesięcy",
+    "export_all":"eksportuj wszystko",
+    "export_all_description":"eksportuje wszystkie dane: zadania i notatki",
+    "export_tasks":"eksportuj zadania",
+    "export_tasks_description":"eksportuje tylko wszystkie zadania",
+    "export_notes":"eksportuj notatki",
+    "export_notes_description":"eksportuje tylko wszystkie notatki",
+    "import":"wybierz plik do importu danych",
+    "import_import_file_title":"importuj plik",
+    "import_description":"wybierz plik do importu danych"
   },
   "creators_text": {
     "more_options": "więcej opcji",
