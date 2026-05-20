@@ -6,12 +6,11 @@ import 'package:noti/providers/task_provider/task_search_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../database/database_helper.dart';
 import '../../models/db_model/task.dart';
+import '../../models/db_model/task_item.dart';
 import '../../utils/notifications/notifications_helper.dart';
 import '../../utils/prefs/prefs.dart';
 
-
 class TaskProvider extends ChangeNotifier {
-
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
 
   SettingsProvider settings;
@@ -29,10 +28,20 @@ class TaskProvider extends ChangeNotifier {
   }
 
   int selectedIndex = 0;
-  DateTime focDay =
-  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
-  DateTime selDay =
-  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
+  DateTime focDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+    DateTime.now().hour,
+    DateTime.now().minute,
+  );
+  DateTime selDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+    DateTime.now().hour,
+    DateTime.now().minute,
+  );
 
   RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOff;
   Map<DateTime, List<Task>> tasks = {};
@@ -96,10 +105,10 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onButtonMonthChange(String operator){
-    if(operator == "+"){
+  void onButtonMonthChange(String operator) {
+    if (operator == "+") {
       focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
-    }else{
+    } else {
       focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
     }
     notifyListeners();
@@ -120,7 +129,13 @@ class TaskProvider extends ChangeNotifier {
   void onCurrentSelected(selectedDay, focusedDay) async {
     if (!isSameDay(selDay, selectedDay)) {
       selDay = selectedDay;
-      focDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day,DateTime.now().hour,DateTime.now().minute);
+      focDay = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        DateTime.now().hour,
+        DateTime.now().minute,
+      );
       rangeSelectionMode = RangeSelectionMode.toggledOff;
     }
     _taskList = getCalendarValues(selDay);
@@ -193,17 +208,18 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<List<Task>> loadTaskListFromSettings(int month, bool toDelete) async {
-
     taskMonthsToDelete = month;
     isTaskToDelete = toDelete;
     _prefs.storeBool("isTaskToDelete", isTaskToDelete);
     _prefs.storeInt("taskMonthsToDelete", taskMonthsToDelete);
-    final currentMonth = DateTime(DateTime.now().year,
-        (DateTime.now().month + 1) - taskMonthsToDelete, 1);
+    final currentMonth = DateTime(
+      DateTime.now().year,
+      (DateTime.now().month + 1) - taskMonthsToDelete,
+      1,
+    );
 
     if (isTaskToDelete == true) {
       await getAllTasksToDelete(currentMonth).whenComplete(() {
-
         _taskList = _dbHelper.getAllTasks();
       });
     }
@@ -216,7 +232,6 @@ class TaskProvider extends ChangeNotifier {
       await _dbHelper.updateTask(task);
     } else {
       await _dbHelper.addTask(task);
-
     }
 
     await refreshTasks();
@@ -224,28 +239,40 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void addMultipleTasks(Task task, List<DateTime> dates) async {
-
-    for(int i = 0;i < dates.length; i++){
+    for (int i = 0; i < dates.length; i++) {
       Task newTask = Task(
-          id: task.id,
-          icon: task.icon,
-          priority: task.priority,
-          title: task.title,
-          description: task.description,
-          isTaskDone: task.isTaskDone,
-          items: task.items,
-          image: task.image,
-          date: dates[i]
+        icon: task.icon,
+        priority: task.priority,
+        title: task.title,
+        description: task.description,
+        isTaskDone: task.isTaskDone,
+        items: _cloneTaskItems(task.items),
+        image: task.image,
+        date: dates[i],
       );
       if (newTask.isInBox) {
         await _dbHelper.updateTask(newTask);
       } else {
         await _dbHelper.addTask(newTask);
       }
-      await refreshTasks();
     }
 
+    await refreshTasks();
     notifyListeners();
+  }
+
+  List<TaskItem>? _cloneTaskItems(List<TaskItem>? items) {
+    if (items == null) return null;
+    return items
+        .map(
+          (item) => TaskItem(
+            title: item.title,
+            text: item.text,
+            isDone: item.isDone,
+            image: item.image,
+          ),
+        )
+        .toList();
   }
 
   void updateTasks(Task task) async {
@@ -260,7 +287,6 @@ class TaskProvider extends ChangeNotifier {
 
   void deleteTask(Task task) async {
     await _dbHelper.deleteTask(task);
-
 
     final taskDate = DateTime(task.date.year, task.date.month, task.date.day);
     if (tasks[taskDate] != null) {
@@ -278,7 +304,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void refreshNotification(Task task) {
     // 1) Globalny wyłącznik
     if (!settings.isNotification) {
@@ -292,8 +317,10 @@ class TaskProvider extends ChangeNotifier {
     // 2) Stan zadania / flaga per-zadanie / przeszłość
     final bool shouldCancel =
         task.isTaskDone ||
-            (task.isNotification == false) ||
-            task.date.isBefore(DateTime(now.year, now.month, now.day, now.hour, now.minute));
+        (task.isNotification == false) ||
+        task.date.isBefore(
+          DateTime(now.year, now.month, now.day, now.hour, now.minute),
+        );
 
     if (shouldCancel) {
       NotificationsHelper().cancelNotification(task.id.hashCode);
@@ -317,8 +344,10 @@ class TaskProvider extends ChangeNotifier {
     for (final task in all) {
       final shouldCancel =
           task.isTaskDone ||
-              (task.isNotification == false) ||
-              task.date.isBefore(DateTime(now.year, now.month, now.day, now.hour, now.minute));
+          (task.isNotification == false) ||
+          task.date.isBefore(
+            DateTime(now.year, now.month, now.day, now.hour, now.minute),
+          );
 
       if (shouldCancel) {
         await NotificationsHelper().cancelNotification(task.id.hashCode);
@@ -328,19 +357,16 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-
-
-
   Future<List<Task>> getTaskDbList() async {
-
     _taskList = _dbHelper.getAllTasks();
 
-    for(Task element in _taskList){
-
-      var addDate =
-      DateTime(element.date.year, element.date.month, element.date.day);
+    for (Task element in _taskList) {
+      var addDate = DateTime(
+        element.date.year,
+        element.date.month,
+        element.date.day,
+      );
       addTaskMarker(element, addDate);
-
     }
 
     notifyListeners();
@@ -352,20 +378,19 @@ class TaskProvider extends ChangeNotifier {
         .restoreBool("isTaskToDelete", isTaskToDelete)
         .then((value) => isTaskToDelete = value)
         .whenComplete(() {
-      _prefs
-          .restoreInt("taskMonthsToDelete", taskMonthsToDelete)
-          .then((value) => taskMonthsToDelete = value)
-          .whenComplete(() {
-        loadTaskListFromSettings(taskMonthsToDelete, isTaskToDelete);
-      });
-    });
+          _prefs
+              .restoreInt("taskMonthsToDelete", taskMonthsToDelete)
+              .then((value) => taskMonthsToDelete = value)
+              .whenComplete(() {
+                loadTaskListFromSettings(taskMonthsToDelete, isTaskToDelete);
+              });
+        });
   }
 
   Future<List<Task>> getAllTasksToDelete(DateTime date) async {
-
     List<Task> tempList = _dbHelper.getAllTasks();
     for (var taskItem in tempList) {
-      if(DateTime(taskItem.date.year, taskItem.date.month, 1).isBefore(date)){
+      if (DateTime(taskItem.date.year, taskItem.date.month, 1).isBefore(date)) {
         deleteTask(taskItem);
       }
     }
@@ -387,8 +412,12 @@ class TaskProvider extends ChangeNotifier {
 
       if (searchProvider.keyword.isNotEmpty) {
         _taskListByKeyword = _taskListByKeyword.where((task) {
-          return task.title.toLowerCase().contains(searchProvider.keyword.toLowerCase()) ||
-              task.description.toLowerCase().contains(searchProvider.keyword.toLowerCase());
+          return task.title.toLowerCase().contains(
+                searchProvider.keyword.toLowerCase(),
+              ) ||
+              task.description.toLowerCase().contains(
+                searchProvider.keyword.toLowerCase(),
+              );
         }).toList();
       }
 
@@ -401,11 +430,15 @@ class TaskProvider extends ChangeNotifier {
       }
 
       if (searchProvider.isDone) {
-        _taskListByKeyword = _taskListByKeyword.where((task) => task.isTaskDone).toList();
+        _taskListByKeyword = _taskListByKeyword
+            .where((task) => task.isTaskDone)
+            .toList();
       }
 
       if (searchProvider.priority != -1) {
-        _taskListByKeyword = _taskListByKeyword.where((task) => task.priority == searchProvider.priority).toList();
+        _taskListByKeyword = _taskListByKeyword
+            .where((task) => task.priority == searchProvider.priority)
+            .toList();
       }
 
       notifyListeners();
@@ -422,17 +455,15 @@ class TaskProvider extends ChangeNotifier {
     return _taskListByKeyword;
   }
 
-
   void resetTaskSearch() {
     searchProvider.resetSearchFilters();
     _taskListByKeyword = _dbHelper.getAllTasks();
     notifyListeners();
   }
 
-  void deleteSelectedTasks()async {
-    await getTasksBySearchOptions().then((tasks){
-      for(Task task in tasks){
-
+  void deleteSelectedTasks() async {
+    await getTasksBySearchOptions().then((tasks) {
+      for (Task task in tasks) {
         deleteTask(task);
       }
     });
@@ -440,19 +471,18 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Task>> deleteAllTasks() async{
+  Future<List<Task>> deleteAllTasks() async {
     List<Task> list = _dbHelper.getAllTasks();
-    for (var taskItem in list){
+    for (var taskItem in list) {
       deleteTask(taskItem);
     }
     notifyListeners();
     return list;
   }
 
-  Future<List<Task>> getAllTasks() async{
+  Future<List<Task>> getAllTasks() async {
     List<Task> list = _dbHelper.getAllTasks();
     notifyListeners();
     return list;
   }
-
 }

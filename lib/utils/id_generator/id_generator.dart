@@ -26,6 +26,8 @@ class IdGenerator {
   final Uuid _uuid = const Uuid();
   String? _installationId;
 
+  String? get installationId => _installationId;
+
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
     final storedInstallationId = prefs.getString(installationIdKey);
@@ -50,6 +52,7 @@ class IdGenerator {
 
   bool isLegacyId(String? id) {
     if (id == null || id.isEmpty) return true;
+    if (id.startsWith('noti_mobile_')) return false;
 
     return !id.startsWith('${IdRecordType.note.prefix}_') &&
         !id.startsWith('${IdRecordType.task.prefix}_') &&
@@ -65,9 +68,7 @@ class IdGenerator {
 
 bool isLegacyId(String? id) => IdGenerator.instance.isLegacyId(id);
 
-
 String makeId() {
-
   const String prefix = 'noti_mobile_12345678-1234-5678-1234-56781234567';
   return '$prefix${uuid.v4()}';
 }

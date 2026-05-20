@@ -10,6 +10,7 @@ import '../../models/db_model/task.dart';
 import '../../models/db_model/task_item.dart';
 import '../../models/import_model/noti_import_data.dart';
 import '../../models/settings_model/settings_model/settings_model.dart';
+import '../../utils/id_generator/id_generator.dart';
 
 class ExportHelper {
   Future<File?> exportNotiData({
@@ -28,8 +29,8 @@ class ExportHelper {
       'exportedAt': DateTime.now().toUtc().toIso8601String(),
       'device': {'platform': Platform.operatingSystem},
       'payload': {
-        'notes': notes.map(_noteToJson).toList(),
-        'tasks': tasks.map(_taskToJson).toList(),
+        'notes': _notesToJson(notes),
+        'tasks': _tasksToJson(tasks),
         'settings': {
           ...settings,
           'exportSettings': exportSettings.map(_settingsToJson).toList(),
@@ -127,9 +128,23 @@ class ExportHelper {
     return '$nameWithoutJson.noti';
   }
 
-  Map<String, dynamic> _taskToJson(Task task) {
+  List<Map<String, dynamic>> _tasksToJson(List<Task> tasks) {
+    final usedTaskIds = <String>{};
+    return tasks.map((task) => _taskToJson(task, usedTaskIds)).toList();
+  }
+
+  Map<String, dynamic> _taskToJson(Task task, Set<String> usedTaskIds) {
+    var exportId = task.id ?? '';
+    if (exportId.isEmpty || usedTaskIds.contains(exportId)) {
+      exportId = makeId();
+    }
+    while (usedTaskIds.contains(exportId)) {
+      exportId = makeId();
+    }
+    usedTaskIds.add(exportId);
+
     return {
-      'id': task.id,
+      'id': exportId,
       'priority': task.priority,
       'icon': task.icon,
       'isTaskDone': task.isTaskDone,
@@ -152,9 +167,23 @@ class ExportHelper {
     };
   }
 
-  Map<String, dynamic> _noteToJson(Note note) {
+  List<Map<String, dynamic>> _notesToJson(List<Note> notes) {
+    final usedNoteIds = <String>{};
+    return notes.map((note) => _noteToJson(note, usedNoteIds)).toList();
+  }
+
+  Map<String, dynamic> _noteToJson(Note note, Set<String> usedNoteIds) {
+    var exportId = note.id ?? '';
+    if (exportId.isEmpty || usedNoteIds.contains(exportId)) {
+      exportId = makeId();
+    }
+    while (usedNoteIds.contains(exportId)) {
+      exportId = makeId();
+    }
+    usedNoteIds.add(exportId);
+
     return {
-      'id': note.id,
+      'id': exportId,
       'icon': note.icon,
       'image': _bytesToBase64(note.image),
       'keep': note.keep,

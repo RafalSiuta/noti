@@ -13,6 +13,7 @@ import 'package:noti/providers/task_provider/task_search_provider.dart';
 import 'package:noti/screens/home_screen/launcher.dart';
 import 'package:noti/screens/settings_screen/settings_screen.dart';
 import 'package:noti/utils/customPageRoute/custom_page_route.dart';
+import 'package:noti/utils/id_generator/id_generator.dart';
 import 'package:noti/utils/internationalization/app_localizations.dart';
 import 'package:noti/utils/notifications/notifications_helper.dart';
 import 'package:flutter/foundation.dart';
@@ -23,10 +24,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'database/database_helper.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.databaseHelper.initializeHive();
+  await IdGenerator.instance.init();
   await NotificationsHelper().init();
   await NotificationsHelper().requestNotificationPermissions();
   //testing
@@ -66,139 +67,147 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
-        providers:
-        [
-          ChangeNotifierProvider(create: (_) => LocaleProvider()),
-          ChangeNotifierProvider(create: (_) => HomeProvider()),
-            ChangeNotifierProvider(
-              create: (context) => PermissionProvider(),
-            ),
-          ChangeNotifierProvider(create: (_) => GalleryImageProvider()),
-          ChangeNotifierProvider(create: (_) => SearchProvider()),
-          ChangeNotifierProvider(create: (_) => NoteSearchProvider()),
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => PermissionProvider()),
+        ChangeNotifierProvider(create: (_) => GalleryImageProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
+        ChangeNotifierProvider(create: (_) => NoteSearchProvider()),
 
-          ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
-            create: (context) => SettingsProvider(
-              context.read<PermissionProvider>(),
-            ),
-            update: (context, permission, previous) {
-              final sp = previous ?? SettingsProvider(permission);
-              // jeżeli SettingsProvider potrzebuje odświeżyć referencję do permission:
-              sp.updatePermission(permission); // (dodaj metodę, jeśli potrzebujesz)
-              return sp;
-            },
-          ),
-          ChangeNotifierProvider(create: (_) => TaskSearchProvider()),
-
-          // 2) TaskProvider zależy od Settings + TaskSearch
-          ChangeNotifierProxyProvider2<SettingsProvider, TaskSearchProvider, TaskProvider>(
-            create: (context) => TaskProvider(
-              context.read<SettingsProvider>(),
-              context.read<TaskSearchProvider>(),
-            ),
-            update: (context, settings, search, previous) {
-              final tp = previous ?? TaskProvider(settings, search);
-              tp.updateDeps(settings, search);
-              return tp;
-            },
-          ),
-
-          // ------------ Twoje inne providery zależne od Settings, itd. -------------
-          ChangeNotifierProxyProvider2<SettingsProvider, NoteSearchProvider, NoteProvider>(
-            create: (context) => NoteProvider(
-              context.read<SettingsProvider>(),
-              context.read<NoteSearchProvider>(),
-            ),
-            update: (context, settings, search, previous) {
-              final np = previous ?? NoteProvider(settings, search);
-              np.updateDeps(settings, search);
-              return np;
-            },
-          ),
-          ChangeNotifierProvider(create: (_) => ExportProvider()),
-        ],
-
-        child: Consumer2<SettingsProvider,LocaleProvider>(
-          builder: (context, settings, localeProvider, child) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Noti',
-              supportedLocales: const [
-                Locale('pl', 'PL'),
-                Locale('en', 'GB'),
-                Locale('es', 'ES'),
-              ],
-              //locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              localeResolutionCallback: (locale, supported) {
-
-                if (locale == null) return supported.first;
-                // dopasuj po languageCode, a jak się da to także countryCode
-                for (final l in supported) {
-                  if (l.languageCode == locale.languageCode && (l.countryCode == locale.countryCode || l.countryCode == null)) {
-                    return l;
-                  }
-                }
-                // fallback tylko po języku
-                for (final l in supported) {
-                  if (l.languageCode == locale.languageCode) return l;
-                }
-                return supported.first;
-
-                // for (var supportedLocale in supported) {
-                //   if (supportedLocale.languageCode == locale.languageCode &&
-                //       supportedLocale.countryCode == locale.countryCode) {
-                //     return supportedLocale;
-                //   }
-                // }
-                // return supported.first;
-              },
-              theme: settings.getTheme(),
-              initialRoute: '/',
-              onGenerateRoute: (route) => onGenerateRoute(route),
-            );
+        ChangeNotifierProxyProvider<PermissionProvider, SettingsProvider>(
+          create: (context) =>
+              SettingsProvider(context.read<PermissionProvider>()),
+          update: (context, permission, previous) {
+            final sp = previous ?? SettingsProvider(permission);
+            // jeżeli SettingsProvider potrzebuje odświeżyć referencję do permission:
+            sp.updatePermission(
+              permission,
+            ); // (dodaj metodę, jeśli potrzebujesz)
+            return sp;
           },
-        ));
+        ),
+        ChangeNotifierProvider(create: (_) => TaskSearchProvider()),
+
+        // 2) TaskProvider zależy od Settings + TaskSearch
+        ChangeNotifierProxyProvider2<
+          SettingsProvider,
+          TaskSearchProvider,
+          TaskProvider
+        >(
+          create: (context) => TaskProvider(
+            context.read<SettingsProvider>(),
+            context.read<TaskSearchProvider>(),
+          ),
+          update: (context, settings, search, previous) {
+            final tp = previous ?? TaskProvider(settings, search);
+            tp.updateDeps(settings, search);
+            return tp;
+          },
+        ),
+
+        // ------------ Twoje inne providery zależne od Settings, itd. -------------
+        ChangeNotifierProxyProvider2<
+          SettingsProvider,
+          NoteSearchProvider,
+          NoteProvider
+        >(
+          create: (context) => NoteProvider(
+            context.read<SettingsProvider>(),
+            context.read<NoteSearchProvider>(),
+          ),
+          update: (context, settings, search, previous) {
+            final np = previous ?? NoteProvider(settings, search);
+            np.updateDeps(settings, search);
+            return np;
+          },
+        ),
+        ChangeNotifierProvider(create: (_) => ExportProvider()),
+      ],
+
+      child: Consumer2<SettingsProvider, LocaleProvider>(
+        builder: (context, settings, localeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Noti',
+            supportedLocales: const [
+              Locale('pl', 'PL'),
+              Locale('en', 'GB'),
+              Locale('es', 'ES'),
+            ],
+            //locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (locale, supported) {
+              if (locale == null) return supported.first;
+              // dopasuj po languageCode, a jak się da to także countryCode
+              for (final l in supported) {
+                if (l.languageCode == locale.languageCode &&
+                    (l.countryCode == locale.countryCode ||
+                        l.countryCode == null)) {
+                  return l;
+                }
+              }
+              // fallback tylko po języku
+              for (final l in supported) {
+                if (l.languageCode == locale.languageCode) return l;
+              }
+              return supported.first;
+
+              // for (var supportedLocale in supported) {
+              //   if (supportedLocale.languageCode == locale.languageCode &&
+              //       supportedLocale.countryCode == locale.countryCode) {
+              //     return supportedLocale;
+              //   }
+              // }
+              // return supported.first;
+            },
+            theme: settings.getTheme(),
+            initialRoute: '/',
+            onGenerateRoute: (route) => onGenerateRoute(route),
+          );
+        },
+      ),
+    );
   }
 
   static CustomPageRoute onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case "/":
         return CustomPageRoute(
-            child: const Main(),
-            settings: settings,
-            direction: AxisDirection.left);
+          child: const Main(),
+          settings: settings,
+          direction: AxisDirection.left,
+        );
 
       case "/settings":
         return CustomPageRoute(
-            child: const SettingsScreen(),
-            settings: settings,
-            direction: AxisDirection.left);
+          child: const SettingsScreen(),
+          settings: settings,
+          direction: AxisDirection.left,
+        );
       default:
         return CustomPageRoute(
-            child: const Main(),
-            settings: settings,
-            direction: AxisDirection.left);
+          child: const Main(),
+          settings: settings,
+          direction: AxisDirection.left,
+        );
     }
   }
 }

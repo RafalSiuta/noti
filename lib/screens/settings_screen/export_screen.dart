@@ -168,17 +168,16 @@ class _ExportScreenState extends State<ExportScreen> {
                             setState(() {
                               _isExporting = true;
                             });
-                            final exportedFile = await exportProvider
+                            final exportResult = await exportProvider
                                 .getExportSettings(fileName: titleVal.text);
                             if (!mounted) return;
                             setState(() {
                               _isExporting = false;
                             });
-                            if (exportedFile != null) {
+                            if (exportResult != null) {
                               _showExportSuccessDialog(
                                 this.context,
-                                exportedFile.path.split(RegExp(r'[\\/]')).last,
-                                exportedFile.parent.path,
+                                exportResult,
                               );
                             }
                           },
@@ -304,20 +303,31 @@ class _ExportScreenState extends State<ExportScreen> {
     // );
   }
 
-  void _showExportSuccessDialog(
-    BuildContext context,
-    String fileName,
-    String folderPath,
-  ) {
+  void _showExportSuccessDialog(BuildContext context, ExportResult result) {
     showDialog(
       context: context,
       builder: (context) {
+        final textStyle = Theme.of(context).dialogTheme.contentTextStyle;
+        final labelStyle = textStyle?.copyWith(fontWeight: FontWeight.w700);
+        final fileName = result.file.path.split(RegExp(r'[\\/]')).last;
         return CustomDial(
           title: 'dialogs_text.success',
           child: SingleChildScrollView(
-            child: Text(
-              '$fileName ${context.t("dialogs_text.export_success_message")}\n$folderPath',
-              style: Theme.of(context).dialogTheme.contentTextStyle,
+            child: RichText(
+              text: TextSpan(
+                style: textStyle,
+                children: [
+                  TextSpan(text: 'Eksport zakończony\n', style: labelStyle),
+                  TextSpan(text: 'Plik: ', style: labelStyle),
+                  TextSpan(text: '$fileName\n'),
+                  TextSpan(text: 'Zadania: ', style: labelStyle),
+                  TextSpan(text: '${result.tasksCount}\n'),
+                  TextSpan(text: 'Notatki: ', style: labelStyle),
+                  TextSpan(text: '${result.notesCount}\n'),
+                  TextSpan(text: 'Folder: ', style: labelStyle),
+                  TextSpan(text: result.file.parent.path),
+                ],
+              ),
             ),
           ),
         );
@@ -335,7 +345,10 @@ class _ExportScreenState extends State<ExportScreen> {
       builder: (context) {
         return WarringAlert(
           message:
-              '${context.t("dialogs_text.import_overwrite_message_start").capitalizeFirstLetter()} ${result.fileName ?? ""} ${context.t("dialogs_text.import_overwrite_message_end")}',
+              'Plik ${result.fileName ?? ""} zawiera rekordy o ID, które już istnieją lokalnie.\n\n'
+              'Potwierdzenie usunie lokalne dane wybranego typu i wczyta dane z pliku.\n'
+              'Zadania w pliku: ${result.tasksCount}\n'
+              'Notatki w pliku: ${result.notesCount}',
           onConfirm: () {
             _confirmImportOverwrite(exportProvider);
           },

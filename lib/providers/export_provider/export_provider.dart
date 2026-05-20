@@ -39,6 +39,18 @@ class ImportResult {
   final int notesCount;
 }
 
+class ExportResult {
+  const ExportResult({
+    required this.file,
+    required this.tasksCount,
+    required this.notesCount,
+  });
+
+  final File file;
+  final int tasksCount;
+  final int notesCount;
+}
+
 class ExportProvider extends ChangeNotifier {
   ExportProvider() {
     _initialize();
@@ -77,7 +89,7 @@ class ExportProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<File?> getExportSettings({String? fileName}) async {
+  Future<ExportResult?> getExportSettings({String? fileName}) async {
     try {
       await updateExportSettings();
       final selectedIndex = exportSets.exportSettings.indexWhere(
@@ -106,7 +118,11 @@ class ExportProvider extends ChangeNotifier {
         'Export succeeded: ${file.path} '
         '(tasks: ${tasks.length}, notes: ${notes.length})',
       );
-      return file;
+      return ExportResult(
+        file: file,
+        tasksCount: tasks.length,
+        notesCount: notes.length,
+      );
     } catch (e, stackTrace) {
       print('Export failed: $e');
       if (kDebugMode) {
@@ -136,8 +152,10 @@ class ExportProvider extends ChangeNotifier {
       final existingTasks = _dbHelper.getAllTasks();
       final existingNotes = _dbHelper.getAllNotes();
       final hasExistingImportData =
-          (importsTasks && existingTasks.isNotEmpty) ||
-          (importsNotes && existingNotes.isNotEmpty);
+          (importsTasks &&
+              _hasTaskIdConflicts(importData.tasks, existingTasks)) ||
+          (importsNotes &&
+              _hasNoteIdConflicts(importData.notes, existingNotes));
 
       if (hasExistingImportData && !overwrite) {
         return ImportResult(
@@ -197,21 +215,41 @@ class ExportProvider extends ChangeNotifier {
     return _exportHelper.readNotiData(file);
   }
 
+  bool _hasTaskIdConflicts(List<Task> importedTasks, List<Task> existingTasks) {
+    final existingIds = existingTasks
+        .map((task) => task.id)
+        .where((id) => id != null && id.isNotEmpty)
+        .toSet();
+    return importedTasks.any(
+      (task) => task.id != null && existingIds.contains(task.id),
+    );
+  }
+
+  bool _hasNoteIdConflicts(List<Note> importedNotes, List<Note> existingNotes) {
+    final existingIds = existingNotes
+        .map((note) => note.id)
+        .where((id) => id != null && id.isNotEmpty)
+        .toSet();
+    return importedNotes.any(
+      (note) => note.id != null && existingIds.contains(note.id),
+    );
+  }
+
   Future<void> _saveImportedTasks(
     List<Task> importedTasks, {
     required bool overwrite,
   }) async {
-    final existingIds = overwrite
+    final usedIds = overwrite
         ? <String?>{}
         : _dbHelper.getAllTasks().map((task) => task.id).toSet();
     for (final task in importedTasks) {
-      if (!overwrite && existingIds.contains(task.id)) {
+      if (usedIds.contains(task.id)) {
         task.id = makeId();
       }
       if (isLegacyId(task.id)) {
         task.id = makeId();
       }
-      while (!overwrite && existingIds.contains(task.id)) {
+      while (usedIds.contains(task.id)) {
         task.id = makeId();
       }
 
@@ -224,10 +262,8 @@ class ExportProvider extends ChangeNotifier {
         }
       }
 
-      if (overwrite || !existingIds.contains(task.id)) {
-        await _dbHelper.addTask(task);
-        existingIds.add(task.id);
-      }
+      await _dbHelper.addTask(task);
+      usedIds.add(task.id);
     }
   }
 
@@ -235,24 +271,22 @@ class ExportProvider extends ChangeNotifier {
     List<Note> importedNotes, {
     required bool overwrite,
   }) async {
-    final existingIds = overwrite
+    final usedIds = overwrite
         ? <String?>{}
         : _dbHelper.getAllNotes().map((note) => note.id).toSet();
     for (final note in importedNotes) {
-      if (!overwrite && existingIds.contains(note.id)) {
+      if (usedIds.contains(note.id)) {
         note.id = makeId();
       }
       if (isLegacyId(note.id)) {
         note.id = makeId();
       }
-      while (!overwrite && existingIds.contains(note.id)) {
+      while (usedIds.contains(note.id)) {
         note.id = makeId();
       }
 
-      if (overwrite || !existingIds.contains(note.id)) {
-        await _dbHelper.addNote(note);
-        existingIds.add(note.id);
-      }
+      await _dbHelper.addNote(note);
+      usedIds.add(note.id);
     }
   }
 
