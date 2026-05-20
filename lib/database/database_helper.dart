@@ -2,7 +2,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../models/db_model/note.dart';
 import '../models/db_model/task.dart';
 
-
 class DatabaseHelper {
   static final DatabaseHelper databaseHelper = DatabaseHelper._init();
 
@@ -12,7 +11,6 @@ class DatabaseHelper {
   DatabaseHelper._init();
 
   Future<void> initializeHive() async {
-
     await Hive.initFlutter();
     Hive.registerAdapter(TaskAdapter());
     Hive.registerAdapter(NoteAdapter());
@@ -28,7 +26,6 @@ class DatabaseHelper {
     } else {
       _noteBox = Hive.box<Note>('noteBox');
     }
-
   }
 
   Future<void> addTask(Task task) async {

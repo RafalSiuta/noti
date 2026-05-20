@@ -192,6 +192,7 @@
     "settings_dial_info": "To ustawienie skasuje dane po",
     "settings_dial_confirm": "Czy napewno?",
     "settings_dial_month": "miesięcy",
+    "export_file_name": "file name",
     "export_all":"eksportuj wszystko",
     "export_all_description":"eksportuje wszystkie dane: zadania i notatki",
     "export_tasks":"eksportuj zadania",

@@ -46,17 +46,16 @@ class Task extends HiveObject {
     required this.date,
     this.items,
     this.image,
-    this.isNotification = true
-  }): id = id ?? makeId();
+    this.isNotification = true,
+  }) : id = id ?? makeId();
 
   void toggleTask() {
     isTaskDone = !isTaskDone;
-    if(isTaskDone == true){
+    if (isTaskDone == true) {
       isNotification = false;
-    }else{
+    } else {
       isNotification = true;
     }
     //isNotification = !isNotification;
-
   }
 }

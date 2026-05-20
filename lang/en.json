@@ -194,6 +194,7 @@
     "settings_dial_info": "This setting deletes data after",
     "settings_dial_confirm": "Are you sure?",
     "settings_dial_month": "months",
+    "export_file_name": "file name",
     "export_all":"export all",
     "export_all_description":"export all data tasks & notes",
     "export_tasks":"export tasks",

@@ -13,6 +13,7 @@ import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../models/settings_model/trash_settings_model/trash_model.dart';
 import '../../utils/constants/sets_keys.dart';
 import '../../utils/export_helper/export_helper.dart';
+import '../../utils/id_generator/id_generator.dart';
 import '../../utils/prefs/prefs.dart';
 import '../settings_provider/trash_settings_list.dart';
 
@@ -204,8 +205,28 @@ class ExportProvider extends ChangeNotifier {
         ? <String?>{}
         : _dbHelper.getAllTasks().map((task) => task.id).toSet();
     for (final task in importedTasks) {
+      if (!overwrite && existingIds.contains(task.id)) {
+        task.id = makeId();
+      }
+      if (isLegacyId(task.id)) {
+        task.id = makeId();
+      }
+      while (!overwrite && existingIds.contains(task.id)) {
+        task.id = makeId();
+      }
+
+      final items = task.items;
+      if (items != null) {
+        for (final item in items) {
+          if (isLegacyId(item.id)) {
+            item.id = makeId();
+          }
+        }
+      }
+
       if (overwrite || !existingIds.contains(task.id)) {
         await _dbHelper.addTask(task);
+        existingIds.add(task.id);
       }
     }
   }
@@ -218,8 +239,19 @@ class ExportProvider extends ChangeNotifier {
         ? <String?>{}
         : _dbHelper.getAllNotes().map((note) => note.id).toSet();
     for (final note in importedNotes) {
+      if (!overwrite && existingIds.contains(note.id)) {
+        note.id = makeId();
+      }
+      if (isLegacyId(note.id)) {
+        note.id = makeId();
+      }
+      while (!overwrite && existingIds.contains(note.id)) {
+        note.id = makeId();
+      }
+
       if (overwrite || !existingIds.contains(note.id)) {
         await _dbHelper.addNote(note);
+        existingIds.add(note.id);
       }
     }
   }

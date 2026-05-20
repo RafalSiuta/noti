@@ -126,8 +126,7 @@ class _ExportScreenState extends State<ExportScreen> {
                       helperText: context
                           .t("creators_text.helper_title")
                           .capitalizeFirstLetter(),
-                      hintText: "file name",
-                      // helperText: 'Enter title',
+                      hintText: context.t("settings_text.export_file_name"),
                       helperStyle: Theme.of(context)
                           .inputDecorationTheme
                           .helperStyle!

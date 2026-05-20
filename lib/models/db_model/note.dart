@@ -44,5 +44,5 @@ class Note extends HiveObject {
     required this.subtitle,
     required this.description,
     required this.date,
-  }): id = id ?? makeId();
+  }) : id = id ?? makeId();
 }

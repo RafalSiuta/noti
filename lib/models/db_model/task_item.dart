@@ -10,8 +10,8 @@ class TaskItem extends HiveObject {
     required this.title,
     required this.text,
     required this.isDone,
-    required this.image
-  }): id = id ?? makeId();
+    required this.image,
+  }) : id = id ?? makeId();
 
   @HiveField(0)
   String? id;

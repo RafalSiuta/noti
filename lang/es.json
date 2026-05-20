@@ -193,6 +193,7 @@
     "settings_dial_info": "Este ajuste elimina datos después de",
     "settings_dial_confirm": "¿Estás seguro?",
     "settings_dial_month": "meses",
+    "export_file_name": "file name",
     "export_all":"exportar todo",
     "export_all_description":"exporta todos los datos: tareas y notas",
     "export_tasks":"exportar tareas",

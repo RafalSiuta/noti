@@ -210,7 +210,7 @@ class ExportHelper {
       id: _stringValue(json['id']),
       icon: _intValue(json['icon']),
       image: _base64ToBytes(json['image']),
-      keep: _boolValue(json['keep']),
+      keep: json.containsKey('keep') ? _boolValue(json['keep']) : true,
       title: _stringValue(json['title']) ?? '',
       subtitle: _stringValue(json['subtitle']) ?? '',
       description: _stringValue(json['description']) ?? '',
