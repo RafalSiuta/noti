@@ -69,6 +69,8 @@ class IdGenerator {
 bool isLegacyId(String? id) => IdGenerator.instance.isLegacyId(id);
 
 String makeId() {
-  const String prefix = 'noti_mobile_12345678-1234-5678-1234-56781234567';
-  return '$prefix${uuid.v4()}';
+  const String prefix = 'noti_mobile';
+  final installationId = IdGenerator.instance.installationId ?? uuid.v4();
+  final createdAtMicros = DateTime.now().toUtc().microsecondsSinceEpoch;
+  return '${prefix}_${installationId}_${createdAtMicros}_${uuid.v4()}';
 }
