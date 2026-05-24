@@ -156,63 +156,73 @@ class _ExportScreenState extends State<ExportScreen> {
                     );
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextButton(
-                    // style: ButtonStyle(
-                    //   backgroundColor: WidgetStatePropertyAll(Theme.of(context).indicatorColor)
-                    // ),
-                    onPressed: _isExporting
-                        ? null
-                        : () async {
-                            setState(() {
-                              _isExporting = true;
-                            });
-                            final exportResult = await exportProvider
-                                .getExportSettings(fileName: titleVal.text);
-                            if (!mounted) return;
-                            setState(() {
-                              _isExporting = false;
-                            });
-                            if (exportResult != null) {
-                              _showExportSuccessDialog(
-                                this.context,
-                                exportResult,
-                              );
-                            }
-                          },
-                    child: _isExporting
-                        ? const SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Center(
-                              child: SizedBox(
-                                width: 32,
-                                height: 32,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: TextButton(
+                        // style: ButtonStyle(
+                        //   backgroundColor: WidgetStatePropertyAll(Theme.of(context).indicatorColor)
+                        // ),
+                        onPressed: _isExporting
+                            ? null
+                            : () async {
+                                setState(() {
+                                  _isExporting = true;
+                                });
+                                final exportResult = await exportProvider
+                                    .getExportSettings(fileName: titleVal.text);
+                                if (!mounted) return;
+                                setState(() {
+                                  _isExporting = false;
+                                });
+                                if (exportResult != null) {
+                                  _showExportSuccessDialog(
+                                    this.context,
+                                    exportResult,
+                                  );
+                                }
+                              },
+                        child: _isExporting
+                            ? const SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: Center(
+                                  child: SizedBox(
+                                    width: 32,
+                                    height: 32,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  ),
                                 ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                spacing: 8.0,
+                                children: [
+                                  Text(
+                                    context
+                                        .t("buttons_text.export_button")
+                                        .capitalizeFirstLetter(),
+                                    style: Theme.of(context)
+                                        .textButtonTheme
+                                        .style
+                                        ?.textStyle
+                                        ?.resolve(<WidgetState>{}),
+                                  ),
+                                  Icon(
+                                    Icons.file_upload,
+                                    color: Theme.of(
+                                      context,
+                                    ).textTheme.headlineMedium!.color,
+                                  ),
+                                ],
                               ),
-                            ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: 8.0,
-                            children: [
-                              Text(
-                                context
-                                    .t("buttons_text.export_button")
-                                    .capitalizeFirstLetter(),
-                              ),
-                              Icon(
-                                Icons.file_upload,
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.headlineMedium!.color,
-                              ),
-                            ],
-                          ),
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ]),
             ),
@@ -307,24 +317,29 @@ class _ExportScreenState extends State<ExportScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        final textStyle = Theme.of(context).dialogTheme.contentTextStyle;
+        final textStyle = _dialogResultTextStyle(context);
         final labelStyle = textStyle?.copyWith(fontWeight: FontWeight.w700);
         final fileName = result.file.path.split(RegExp(r'[\\/]')).last;
         return CustomDial(
           title: 'dialogs_text.success',
-          child: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topLeft,
             child: RichText(
               text: TextSpan(
                 style: textStyle,
                 children: [
-                  TextSpan(text: 'Eksport zakończony\n', style: labelStyle),
-                  TextSpan(text: 'Plik: ', style: labelStyle),
+                  TextSpan(
+                    text:
+                        '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
+                    style: labelStyle,
+                  ),
+                  _labelSpan(context, 'file_label', labelStyle),
                   TextSpan(text: '$fileName\n'),
-                  TextSpan(text: 'Zadania: ', style: labelStyle),
+                  _labelSpan(context, 'tasks_label', labelStyle),
                   TextSpan(text: '${result.tasksCount}\n'),
-                  TextSpan(text: 'Notatki: ', style: labelStyle),
+                  _labelSpan(context, 'notes_label', labelStyle),
                   TextSpan(text: '${result.notesCount}\n'),
-                  TextSpan(text: 'Folder: ', style: labelStyle),
+                  _labelSpan(context, 'folder_label', labelStyle),
                   TextSpan(text: result.file.parent.path),
                 ],
               ),
@@ -345,10 +360,11 @@ class _ExportScreenState extends State<ExportScreen> {
       builder: (context) {
         return WarringAlert(
           message:
-              'Plik ${result.fileName ?? ""} zawiera rekordy o ID, które już istnieją lokalnie.\n\n'
-              'Potwierdzenie usunie lokalne dane wybranego typu i wczyta dane z pliku.\n'
-              'Zadania w pliku: ${result.tasksCount}\n'
-              'Notatki w pliku: ${result.notesCount}',
+              '${context.t("dialogs_text.file_label").capitalizeFirstLetter()}: ${result.fileName ?? ""}\n'
+              '${context.t("dialogs_text.import_overwrite_duplicate_ids").capitalizeFirstLetter()}\n\n'
+              '${context.t("dialogs_text.import_overwrite_confirm").capitalizeFirstLetter()}\n'
+              '${context.t("dialogs_text.tasks_in_file").capitalizeFirstLetter()}: ${result.tasksCount}\n'
+              '${context.t("dialogs_text.notes_in_file").capitalizeFirstLetter()}: ${result.notesCount}',
           onConfirm: () {
             _confirmImportOverwrite(exportProvider);
           },
@@ -379,20 +395,60 @@ class _ExportScreenState extends State<ExportScreen> {
     showDialog(
       context: context,
       builder: (context) {
+        final textStyle = _dialogResultTextStyle(context);
+        final labelStyle = textStyle?.copyWith(fontWeight: FontWeight.w700);
         return CustomDial(
           title: result.success
               ? 'dialogs_text.success'
               : 'dialogs_text.warning',
-          child: SingleChildScrollView(
-            child: Text(
-              result.success
-                  ? 'Zaimportowano ${result.fileName ?? "plik .noti"}\nZadania: ${result.tasksCount}\nNotatki: ${result.notesCount}\nFolder:\n${result.folderPath ?? ""}'
-                  : result.message,
-              style: Theme.of(context).dialogTheme.contentTextStyle,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                style: textStyle,
+                children: result.success
+                    ? [
+                        TextSpan(
+                          text:
+                              '${context.t("dialogs_text.import_completed").capitalizeFirstLetter()}\n',
+                          style: labelStyle,
+                        ),
+                        _labelSpan(context, 'file_label', labelStyle),
+                        TextSpan(text: '${result.fileName ?? ".noti"}\n'),
+                        _labelSpan(context, 'tasks_label', labelStyle),
+                        TextSpan(text: '${result.tasksCount}\n'),
+                        _labelSpan(context, 'notes_label', labelStyle),
+                        TextSpan(text: '${result.notesCount}\n'),
+                        _labelSpan(context, 'folder_label', labelStyle),
+                        TextSpan(text: result.folderPath ?? ""),
+                      ]
+                    : [
+                        TextSpan(
+                          text:
+                              '${context.t("dialogs_text.import_failed").capitalizeFirstLetter()}\n',
+                          style: labelStyle,
+                        ),
+                        TextSpan(text: result.message),
+                      ],
+              ),
             ),
           ),
         );
       },
+    );
+  }
+
+  TextStyle? _dialogResultTextStyle(BuildContext context) {
+    final textStyle =
+        Theme.of(context).dialogTheme.contentTextStyle ??
+        Theme.of(context).textTheme.bodyMedium;
+    return textStyle?.copyWith(height: 1.35);
+  }
+
+  TextSpan _labelSpan(BuildContext context, String key, TextStyle? labelStyle) {
+    return TextSpan(
+      text: '${context.t("dialogs_text.$key").capitalizeFirstLetter()}: ',
+      style: labelStyle,
     );
   }
 }

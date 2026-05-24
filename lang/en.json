@@ -34,12 +34,23 @@
     "warning": "Warning!",
     "warring": "Warning!",
     "warning_message": "This action will delete selected items data permanently !!!",
-    "confirm": "potwierdź",
-    "cancel": "anuluj",
+    "confirm": "confirm",
+    "cancel": "cancel",
     "success": "success",
     "export_success_message": "was exported to folder:",
+    "export_completed": "export completed",
+    "import_completed": "import completed",
+    "import_failed": "import failed",
+    "file_label": "file",
+    "tasks_label": "tasks",
+    "notes_label": "notes",
+    "folder_label": "folder",
     "import_overwrite_message_start": "Import",
-    "import_overwrite_message_end": "contains data, and tasks or notes already exist in the app. Overwrite data with this import?"
+    "import_overwrite_message_end": "contains data, and tasks or notes already exist in the app. Overwrite data with this import?",
+    "import_overwrite_duplicate_ids": "contains records with IDs that already exist locally.",
+    "import_overwrite_confirm": "confirmation will remove local data of the selected type and load data from the file.",
+    "tasks_in_file": "tasks in file",
+    "notes_in_file": "notes in file"
   },
   "icons_text": {
     "delete_selected": "delete selected",
@@ -284,4 +295,3 @@
     }
   ]
 }
-

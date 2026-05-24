@@ -60,12 +60,16 @@ class WarringAlert extends StatelessWidget {
                 vertical: 8.0,
                 horizontal: sidePadding,
               ),
-              child: Text(
-                message,
-                textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(fontSize: textSize),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  message,
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: textSize,
+                    height: 1.35,
+                  ),
+                ),
               ),
             ),
             Padding(

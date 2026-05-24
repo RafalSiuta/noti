@@ -37,8 +37,19 @@
     "cancel": "anuluj",
     "success": "sukces",
     "export_success_message": "wyeksportowano do folderu:",
+    "export_completed": "eksport zakończony",
+    "import_completed": "import zakończony",
+    "import_failed": "import nie powiódł się",
+    "file_label": "plik",
+    "tasks_label": "zadania",
+    "notes_label": "notatki",
+    "folder_label": "folder",
     "import_overwrite_message_start": "Import",
-    "import_overwrite_message_end": "zawiera dane, a w aplikacji istnieją już zadania lub notatki. Nadpisać dane tym importem?"
+    "import_overwrite_message_end": "zawiera dane, a w aplikacji istnieją już zadania lub notatki. Nadpisać dane tym importem?",
+    "import_overwrite_duplicate_ids": "zawiera rekordy o ID, które już istnieją lokalnie.",
+    "import_overwrite_confirm": "potwierdzenie usunie lokalne dane wybranego typu i wczyta dane z pliku.",
+    "tasks_in_file": "zadania w pliku",
+    "notes_in_file": "notatki w pliku"
   },
   "icons_text": {
     "delete_selected": "skasuj zaznaczone",

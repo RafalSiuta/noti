@@ -33,12 +33,23 @@
     "warning": "¡Atención!",
     "warring": "¡Atención!",
     "warning_message": "This action will delete selected items data permanently !!!",
-    "confirm": "potwierdź",
-    "cancel": "anuluj",
+    "confirm": "confirmar",
+    "cancel": "cancelar",
     "success": "éxito",
     "export_success_message": "se exportó a la carpeta:",
+    "export_completed": "exportación completada",
+    "import_completed": "importación completada",
+    "import_failed": "error de importación",
+    "file_label": "archivo",
+    "tasks_label": "tareas",
+    "notes_label": "notas",
+    "folder_label": "carpeta",
     "import_overwrite_message_start": "La importación",
-    "import_overwrite_message_end": "contiene datos, y en la aplicación ya existen tareas o notas. ¿Sobrescribir los datos con esta importación?"
+    "import_overwrite_message_end": "contiene datos, y en la aplicación ya existen tareas o notas. ¿Sobrescribir los datos con esta importación?",
+    "import_overwrite_duplicate_ids": "contiene registros con ID que ya existen localmente.",
+    "import_overwrite_confirm": "la confirmación eliminará los datos locales del tipo seleccionado y cargará los datos del archivo.",
+    "tasks_in_file": "tareas en el archivo",
+    "notes_in_file": "notas en el archivo"
   },
   "icons_text": {
     "delete_selected": "eliminar seleccionados",
@@ -284,4 +295,3 @@
     }
   ]
 }
-
