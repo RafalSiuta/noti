@@ -184,42 +184,43 @@ class _ExportScreenState extends State<ExportScreen> {
                                   );
                                 }
                               },
-                        child: _isExporting
-                            ? const SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Center(
-                                  child: SizedBox(
-                                    width: 32,
-                                    height: 32,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                spacing: 8.0,
-                                children: [
-                                  Text(
-                                    context
-                                        .t("buttons_text.export_button")
-                                        .capitalizeFirstLetter(),
-                                    style: Theme.of(context)
-                                        .textButtonTheme
-                                        .style
-                                        ?.textStyle
-                                        ?.resolve(<WidgetState>{}),
-                                  ),
-                                  Icon(
-                                    Icons.file_upload,
-                                    color: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium!.color,
-                                  ),
-                                ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 8.0,
+                          children: [
+                            Text(
+                              context
+                                  .t("buttons_text.export_button")
+                                  .capitalizeFirstLetter(),
+                              style: Theme.of(context)
+                                  .textButtonTheme
+                                  .style
+                                  ?.textStyle
+                                  ?.resolve(<WidgetState>{}),
+                            ),
+                            SizedBox(
+                              width: switchIconSize,
+                              height: switchIconSize,
+                              child: Center(
+                                child: _isExporting
+                                    ? SizedBox(
+                                        width: switchIconSize,
+                                        height: switchIconSize,
+                                        child: const CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Icon(
+                                        Icons.file_upload,
+                                        color: Theme.of(
+                                          context,
+                                        ).textTheme.headlineMedium!.color,
+                                        size: switchIconSize,
+                                      ),
                               ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
