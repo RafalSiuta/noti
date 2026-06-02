@@ -218,18 +218,6 @@ final theme9 = ThemeData(
       // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
       overlayColor: WidgetStatePropertyAll(Colors.transparent),
       surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-      ),
-      side: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.pressed) ||
-            states.contains(WidgetState.focused)) {
-          return const BorderSide(color: theme9IndicatorColor);
-        }
-        return const BorderSide(color: theme9BaseTextColor);
-      }),
       splashFactory: NoSplash.splashFactory,
       textStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.pressed)) {

@@ -5,6 +5,7 @@ import 'package:noti/providers/note_provider/note_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
+import 'package:noti/widgets/buttons/export_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/dimensions/size_info.dart';
@@ -136,8 +137,41 @@ class _ExportScreenState extends State<ExportScreen> {
                 ),
                 ColumnBuilder(
                   itemCount:
-                      exportProvider.exportSets.exportSettingsListCounter,
+                      exportProvider.exportSets.exportSettingsListCounter + 1,
                   itemBuilder: (context, index) {
+                    if (index ==
+                        exportProvider.exportSets.exportSettingsListCounter) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ExportButton(
+                            isExporting: _isExporting,
+                            onPress: _isExporting
+                                ? null
+                                : () async {
+                                    setState(() {
+                                      _isExporting = true;
+                                    });
+                                    final exportResult = await exportProvider
+                                        .getExportSettings(
+                                          fileName: titleVal.text,
+                                        );
+                                    if (!mounted) return;
+                                    setState(() {
+                                      _isExporting = false;
+                                    });
+                                    if (exportResult != null) {
+                                      _showExportSuccessDialog(
+                                        this.context,
+                                        exportResult,
+                                      );
+                                    }
+                                  },
+                          ),
+                        ],
+                      );
+                    }
+
                     final exportsSettings =
                         exportProvider.exportSets.exportSettingsList[index];
                     return SettingsCard(
@@ -155,75 +189,6 @@ class _ExportScreenState extends State<ExportScreen> {
                       ),
                     );
                   },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: TextButton(
-                        // style: ButtonStyle(
-                        //   backgroundColor: WidgetStatePropertyAll(Theme.of(context).indicatorColor)
-                        // ),
-                        onPressed: _isExporting
-                            ? null
-                            : () async {
-                                setState(() {
-                                  _isExporting = true;
-                                });
-                                final exportResult = await exportProvider
-                                    .getExportSettings(fileName: titleVal.text);
-                                if (!mounted) return;
-                                setState(() {
-                                  _isExporting = false;
-                                });
-                                if (exportResult != null) {
-                                  _showExportSuccessDialog(
-                                    this.context,
-                                    exportResult,
-                                  );
-                                }
-                              },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 8.0,
-                          children: [
-                            Text(
-                              context
-                                  .t("buttons_text.export_button")
-                                  .capitalizeFirstLetter(),
-                              style: Theme.of(context)
-                                  .textButtonTheme
-                                  .style
-                                  ?.textStyle
-                                  ?.resolve(<WidgetState>{}),
-                            ),
-                            SizedBox(
-                              width: switchIconSize,
-                              height: switchIconSize,
-                              child: Center(
-                                child: _isExporting
-                                    ? SizedBox(
-                                        width: switchIconSize,
-                                        height: switchIconSize,
-                                        child: const CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : Icon(
-                                        Icons.file_upload,
-                                        color: Theme.of(
-                                          context,
-                                        ).textTheme.headlineMedium!.color,
-                                        size: switchIconSize,
-                                      ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ]),
             ),
@@ -245,57 +210,112 @@ class _ExportScreenState extends State<ExportScreen> {
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                SettingsCard(
-                  title: "import_import_file_title",
-                  description: "import_description",
-                  child: IconButton(
-                    onPressed: _isImporting
-                        ? null
-                        : () async {
-                            setState(() {
-                              _isImporting = true;
-                            });
-                            final result = await exportProvider
-                                .getImportSettings();
-                            if (!mounted) return;
-                            setState(() {
-                              _isImporting = false;
-                            });
-                            if (result.cancelled) return;
-                            if (result.needsOverwrite) {
-                              _showImportOverwriteDialog(
-                                this.context,
-                                exportProvider,
-                                result,
-                              );
-                            } else {
-                              if (result.success) {
-                                await _refreshImportedData();
-                              }
-                              if (!mounted) return;
-                              _showImportResultDialog(this.context, result);
+                ColumnBuilder(itemBuilder: (context,index){
+                  return
+                    SettingsCard(
+                      title: "import_import_file_title",
+                      description: "import_description",
+                      child: IconButton(
+                        onPressed: _isImporting
+                            ? null
+                            : () async {
+                          setState(() {
+                            _isImporting = true;
+                          });
+                          final result = await exportProvider
+                              .getImportSettings();
+                          if (!mounted) return;
+                          setState(() {
+                            _isImporting = false;
+                          });
+                          if (result.cancelled) return;
+                          if (result.needsOverwrite) {
+                            _showImportOverwriteDialog(
+                              this.context,
+                              exportProvider,
+                              result,
+                            );
+                          } else {
+                            if (result.success) {
+                              await _refreshImportedData();
                             }
-                          },
-                    icon: _isImporting
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : Icon(
-                            Icons.file_download,
-                            color: Theme.of(
-                              context,
-                            ).textTheme.headlineMedium!.color,
-                          ),
-                  ),
-                  // SwitchBtn(
-                  // iconData: Icons.circle,
-                  // iconSize: switchIconSize,
-                  // value: false,
-                  // onChanged: (val) {
-                  // }),
+                            if (!mounted) return;
+                            _showImportResultDialog(this.context, result);
+                          }
+                        },
+                        icon: _isImporting
+                            ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                            : Icon(
+                          Icons.file_download,
+                          color: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium!.color,
+                        ),
+                      ),
+                      // SwitchBtn(
+                      // iconData: Icons.circle,
+                      // iconSize: switchIconSize,
+                      // value: false,
+                      // onChanged: (val) {
+                      // }),
+                    );
+                }, itemCount: 1
                 ),
+                // SettingsCard(
+                //   title: "import_import_file_title",
+                //   description: "import_description",
+                //   child: IconButton(
+                //     onPressed: _isImporting
+                //         ? null
+                //         : () async {
+                //             setState(() {
+                //               _isImporting = true;
+                //             });
+                //             final result = await exportProvider
+                //                 .getImportSettings();
+                //             if (!mounted) return;
+                //             setState(() {
+                //               _isImporting = false;
+                //             });
+                //             if (result.cancelled) return;
+                //             if (result.needsOverwrite) {
+                //               _showImportOverwriteDialog(
+                //                 this.context,
+                //                 exportProvider,
+                //                 result,
+                //               );
+                //             } else {
+                //               if (result.success) {
+                //                 await _refreshImportedData();
+                //               }
+                //               if (!mounted) return;
+                //               _showImportResultDialog(this.context, result);
+                //             }
+                //           },
+                //     icon: _isImporting
+                //         ? const SizedBox(
+                //             width: 24,
+                //             height: 24,
+                //             child: CircularProgressIndicator(strokeWidth: 2),
+                //           )
+                //         : Icon(
+                //             Icons.file_download,
+                //             color: Theme.of(
+                //               context,
+                //             ).textTheme.headlineMedium!.color,
+                //           ),
+                //   ),
+                //   // SwitchBtn(
+                //   // iconData: Icons.circle,
+                //   // iconSize: switchIconSize,
+                //   // value: false,
+                //   // onChanged: (val) {
+                //   // }),
+                // ),
               ]),
             ),
           ],
@@ -303,15 +323,6 @@ class _ExportScreenState extends State<ExportScreen> {
       },
     );
 
-    //   Padding(
-    //   padding:  EdgeInsets.symmetric(horizontal: sidePadding, vertical: topMargin),
-    //   child: Column(
-    //     children: [
-    //
-    //     ],
-    //   ),
-    //
-    // );
   }
 
   void _showExportSuccessDialog(BuildContext context, ExportResult result) {

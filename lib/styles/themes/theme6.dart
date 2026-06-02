@@ -217,18 +217,6 @@ final theme8 = ThemeData(
       // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
       overlayColor: WidgetStatePropertyAll(Colors.transparent),
       surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-      ),
-      side: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.pressed) ||
-            states.contains(WidgetState.focused)) {
-          return const BorderSide(color: theme8IndicatorColor);
-        }
-        return const BorderSide(color: theme8BaseTextColor);
-      }),
       splashFactory: NoSplash.splashFactory,
       textStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.pressed)) {
