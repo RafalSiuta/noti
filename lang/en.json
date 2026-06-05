@@ -173,7 +173,8 @@
     "button_month": "month",
     "button_week": "week",
     "button_two_weeks": "two weeks",
-    "export_button": "export"
+    "export_button": "export",
+    "share_button": "share"
   },
   "menu_text": {
     "today": "today",
@@ -250,38 +251,38 @@
     },
     {
       "policy_id": "012",
-      "policy_title": "Communicating with you and improving services",
-      "policy_description": "We collect information about the browsers and devices used to access Noti. We only collect personal data necessary to provide our services and keep it only as long as needed to do so. Noti collects email addresses of people who contact us, as well as information voluntarily provided through actions such as website registration or participation in surveys. We use the collected information to communicate with you directly."
+      "policy_title": "Communication with you",
+      "policy_description": "The Noti app does not create user accounts and does not collect contact details. If you contact us voluntarily by email or through notiapp.org, we may process the information you provide only to answer your message and handle your request."
     },
     {
       "policy_id": "013",
       "policy_title": "Privacy control and security",
-      "policy_description": "Created data—i.e., tasks and notes saved in the calendar—is stored locally on the user's device; the app does not share this data with third parties nor store it in the cloud. Only the user has access to it from their device. Noti will never sell your personal data to third parties or share it without your consent. When absolutely necessary, Noti uses hosting providers and services that are GDPR-compliant. In such cases, we apply the necessary safeguards to ensure GDPR compliance when transmitting data to and from third parties."
+      "policy_description": "Created data—i.e., tasks, notes, calendar entries, settings, and optional images—is stored locally on the user's device. The app does not share this data with third parties and does not store it in the cloud. Only the user has access to it from their device, unless the user independently exports or shares a Noti backup file using system tools or another app."
     },
     {
       "policy_id": "014",
       "policy_title": "Do-Not-Track support",
-      "policy_description": "Most web browsers and some operating systems and mobile applications include a Do-Not-Track (\"DNT\") feature or setting that you can activate to signal your preference not to have your online activities tracked. At this stage, there is no uniform technological standard for recognizing and implementing DNT signals. Therefore, we currently do not respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If an online tracking standard is adopted in the future that we must follow, we will inform you in an updated version of this privacy policy."
+      "policy_description": "The Noti app does not track users across apps or websites, so browser Do-Not-Track signals do not affect the app's operation. The notiapp.org website may receive standard technical requests from your browser, but we do not use them to track your activity across third-party services."
     },
     {
       "policy_id": "015",
       "policy_title": "Data deletion",
-      "policy_description": "You can delete data created in the app by selecting the settings icon (gear), then “settings” from the right-hand menu, and then the “Trash” tab—there you can decide after what time data will be deleted. Data is also deleted when the app is uninstalled from the device. Website data, such as the name and email address provided for the newsletter, can be deleted by sending us a deletion request to the contact address."
+      "policy_description": "You can delete data created in the app by selecting the settings icon (gear), then “settings” from the right-hand menu, and then the “Trash” tab—there you can decide after what time data will be deleted. Data stored by the app is also removed from the device when the app is uninstalled. If you contacted us by email or through the website, you may request deletion of the contact information you provided."
     },
     {
       "policy_id": "016",
       "policy_title": "User rights",
-      "policy_description": "In short: in some regions, such as the European Economic Area (EEA) and the United Kingdom, you have rights that give you greater access to and control over your personal data. You may review, change, or close your account at any time. In certain regions (e.g., the EEA and the United Kingdom), you have specific rights under applicable data protection laws, including the right to request access and obtain a copy of your data, to request rectification or erasure, to restrict processing, and—where applicable—to data portability. In certain circumstances, you may also object to processing. To make a request, please use the contact details below. If we rely on your consent to process your personal data, you may withdraw your consent at any time; this will not affect the lawfulness of processing prior to withdrawal nor processing based on other legal grounds. If you are a resident of the EEA or the United Kingdom and believe that we are unlawfully processing your personal data, you have the right to complain to your local data protection authority. If you are a resident of Switzerland, you may contact the appropriate Swiss data protection authority."
+      "policy_description": "In some regions, such as the European Economic Area (EEA) and the United Kingdom, you have rights regarding personal data that may be processed when you contact us or use the website. These may include the right to request access, rectification, deletion, restriction of processing, and—where applicable—data portability. In certain circumstances, you may also object to processing or withdraw consent. To make a request, please use the contact details below. If you believe that your data is being processed unlawfully, you may complain to your local data protection authority."
     },
     {
       "policy_id": "017",
       "policy_title": "California residents’ rights (Shine The Light)",
-      "policy_description": "In short: yes, if you are a California resident, you have specific rights regarding access to personal data. California Civil Code Section 1798.83, known as the “Shine The Light” law, allows our California users to request and obtain from us, once a year and free of charge, information about categories of personal data (if any) disclosed to third parties for direct marketing purposes and the names and addresses of all such third parties with which we shared personal data in the immediately preceding calendar year. If you are a California resident and would like to make such a request, please send it to the email address provided below. If you are under 18 years of age, reside in California, and have a registered account, you have the right to request the removal of unwanted data. To request removal, contact us with the email address associated with your account and a statement that you reside in California. We will make reasonable efforts to ensure that the data is not publicly displayed in the App; however, please note that the data may not be completely removed from all our systems (e.g., backups)."
+      "policy_description": "If you are a California resident, you may have specific rights regarding personal data. Noti does not sell personal data and the app does not disclose user-created notes, tasks, calendar entries, or images to third parties. If you contacted us and want to make a privacy request, please send it to the email address provided below."
     },
     {
       "policy_id": "018",
       "policy_title": "Cookies",
-      "policy_description": "Cookies are required on the Noti website. We use them to store visitor preferences and thereby better tailor the user experience. Users can disable cookies in their browser settings. However, please note that our services rely on cookies for proper operation, and disabling them may limit access to certain features of the site."
+      "policy_description": "The Noti app does not use cookies. The notiapp.org website may use technically necessary cookies or similar browser storage if needed for basic site operation. You can manage cookies in your browser settings."
     },
     {
       "policy_id": "019",
@@ -291,7 +292,7 @@
     {
       "policy_id": "020",
       "policy_title": "Contact us",
-      "policy_description": "If you have questions about this Policy, email r85unit@gmail.com with the subject 'Privacy Questions' or visit my website: notiapp.org/#contact."
+      "policy_description": "If you have questions about this Policy, email r85unit@gmail.com with the subject 'Privacy Questions' or visit notiapp.org/#contact."
     }
   ]
 }

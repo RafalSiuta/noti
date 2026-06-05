@@ -172,7 +172,8 @@
     "button_month": "mes",
     "button_week": "semana",
     "button_two_weeks": "dos semanas",
-    "export_button": "exportar"
+    "export_button": "exportar",
+    "share_button": "compartir"
   },
   "menu_text": {
     "today": "hoy",
@@ -250,38 +251,38 @@
     },
     {
       "policy_id": "012",
-      "policy_title": "Comunicación contigo y mejora de los servicios",
-      "policy_description": "Recopilamos información sobre los navegadores y dispositivos utilizados para acceder a Noti. Solo recopilamos los datos personales necesarios para prestar nuestros servicios y los conservamos únicamente el tiempo imprescindible. Noti recopila direcciones de correo de las personas que se ponen en contacto con nosotros, así como información proporcionada voluntariamente, como registros en el sitio o participación en encuestas. Utilizamos la información recopilada para comunicarnos contigo directamente."
+      "policy_title": "Comunicación contigo",
+      "policy_description": "La app Noti no crea cuentas de usuario ni recopila datos de contacto. Si te pones en contacto con nosotros voluntariamente por correo electrónico o a través de notiapp.org, podremos tratar la información que proporciones únicamente para responder a tu mensaje y gestionar tu solicitud."
     },
     {
       "policy_id": "013",
       "policy_title": "Control de privacidad y seguridad",
-      "policy_description": "Los datos creados —es decir, tareas y notas guardadas en el calendario— se almacenan localmente en el dispositivo del usuario; la app no comparte estos datos con terceros ni los guarda en la nube. Solo el usuario tiene acceso desde su dispositivo. Noti nunca venderá tus datos personales a terceros ni los compartirá sin tu consentimiento. Cuando sea estrictamente necesario, Noti utiliza proveedores y servicios de alojamiento conformes con el RGPD. En tales casos, aplicamos las salvaguardas necesarias para garantizar el cumplimiento del RGPD al transmitir datos a terceros y recibirlos."
+      "policy_description": "Los datos creados —es decir, tareas, notas, entradas del calendario, ajustes e imágenes opcionales— se almacenan localmente en el dispositivo del usuario. La app no comparte estos datos con terceros ni los guarda en la nube. Solo el usuario tiene acceso desde su dispositivo, salvo que exporte o comparta por su cuenta un archivo de copia de seguridad de Noti mediante herramientas del sistema u otra app."
     },
     {
       "policy_id": "014",
       "policy_title": "Compatibilidad con Do-Not-Track",
-      "policy_description": "La mayoría de navegadores web y algunos sistemas operativos y aplicaciones móviles ofrecen una función o ajuste Do-Not-Track (\"DNT\") que puedes activar para indicar tu preferencia de no seguimiento. En esta etapa no existe un estándar tecnológico uniforme para reconocer e implementar las señales DNT. Por lo tanto, actualmente no respondemos a las señales DNT del navegador ni a otros mecanismos que comuniquen automáticamente la elección de no seguimiento. Si en el futuro se adopta un estándar de seguimiento en línea que debamos cumplir, te informaremos en una versión actualizada de esta política de privacidad."
+      "policy_description": "La app Noti no rastrea a los usuarios entre apps o sitios web, por lo que las señales Do-Not-Track del navegador no afectan al funcionamiento de la app. El sitio notiapp.org puede recibir solicitudes técnicas estándar de tu navegador, pero no las usamos para rastrear tu actividad en servicios de terceros."
     },
     {
       "policy_id": "015",
       "policy_title": "Eliminación de datos",
-      "policy_description": "Puedes eliminar los datos creados en la app seleccionando el icono de ajustes (engranaje), luego “ajustes” en el menú derecho y, a continuación, la pestaña “Papelera”, donde puedes decidir tras cuánto tiempo se eliminan los datos. Los datos también se eliminan al desinstalar la app del dispositivo. Los datos del sitio web, como el nombre y el correo electrónico proporcionados para el boletín, pueden eliminarse enviándonos una solicitud de eliminación a la dirección de contacto."
+      "policy_description": "Puedes eliminar los datos creados en la app seleccionando el icono de ajustes (engranaje), luego “ajustes” en el menú derecho y, a continuación, la pestaña “Papelera”, donde puedes decidir tras cuánto tiempo se eliminan los datos. Los datos almacenados por la app también se eliminan del dispositivo al desinstalarla. Si te pusiste en contacto con nosotros por correo electrónico o a través del sitio web, puedes solicitar la eliminación de los datos de contacto que proporcionaste."
     },
     {
       "policy_id": "016",
       "policy_title": "Derechos de los usuarios",
-      "policy_description": "En resumen: en algunas regiones, como el Espacio Económico Europeo (EEE) y el Reino Unido, tienes derechos que te otorgan mayor acceso y control sobre tus datos personales. Puedes revisar, cambiar o cerrar tu cuenta en cualquier momento. En ciertas regiones (por ejemplo, el EEE y el Reino Unido) tienes derechos específicos conforme a la normativa de protección de datos, incluido el derecho a solicitar acceso y obtener una copia de tus datos, solicitar su rectificación o eliminación, restringir el tratamiento y, cuando proceda, la portabilidad. En determinadas circunstancias, también puedes oponerte al tratamiento. Para realizar una solicitud, utiliza los datos de contacto indicados abajo. Si basamos el tratamiento en tu consentimiento, puedes retirarlo en cualquier momento; esto no afectará a la licitud del tratamiento previo ni al tratamiento basado en otras bases legales. Si resides en el EEE o el Reino Unido y consideras que tratamos tus datos de forma ilícita, tienes derecho a presentar una reclamación ante la autoridad de protección de datos local. Si resides en Suiza, puedes contactar con la autoridad suiza competente."
+      "policy_description": "En algunas regiones, como el Espacio Económico Europeo (EEE) y el Reino Unido, tienes derechos respecto de los datos personales que puedan tratarse cuando te pones en contacto con nosotros o usas el sitio web. Estos pueden incluir el derecho de acceso, rectificación, eliminación, limitación del tratamiento y, cuando proceda, portabilidad. En determinadas circunstancias, también puedes oponerte al tratamiento o retirar tu consentimiento. Para realizar una solicitud, utiliza los datos de contacto indicados abajo. Si consideras que tus datos se tratan de forma ilícita, puedes presentar una reclamación ante la autoridad local de protección de datos."
     },
     {
       "policy_id": "017",
       "policy_title": "Derechos de residentes en California (Shine The Light)",
-      "policy_description": "En resumen: sí, si resides en California, tienes derechos específicos de acceso a datos personales. La Sección 1798.83 del Código Civil de California, conocida como ley “Shine The Light”, permite a los usuarios de California solicitar y obtener de nosotros, una vez al año y de forma gratuita, información sobre las categorías de datos personales (si las hubiera) divulgadas a terceros con fines de marketing directo y los nombres y direcciones de todos esos terceros con los que compartimos datos personales en el año natural anterior. Si eres residente en California y deseas realizar tal solicitud, envíala a la dirección de correo indicada abajo. Si eres menor de 18 años, resides en California y tienes una cuenta registrada, tienes derecho a solicitar la eliminación de datos no deseados. Para ello, contáctanos con el correo asociado a tu cuenta e indica que resides en California. Haremos esfuerzos razonables para que los datos no se muestren públicamente en la App; no obstante, pueden no eliminarse por completo de todos nuestros sistemas (p. ej., copias de seguridad)."
+      "policy_description": "Si resides en California, puedes tener derechos específicos respecto de los datos personales. Noti no vende datos personales y la app no revela a terceros las notas, tareas, entradas del calendario ni imágenes creadas por el usuario. Si te pusiste en contacto con nosotros y quieres realizar una solicitud de privacidad, envíala a la dirección de correo indicada abajo."
     },
     {
       "policy_id": "018",
       "policy_title": "Cookies",
-      "policy_description": "Las cookies son necesarias en el sitio web de Noti. Las utilizamos para guardar las preferencias de los visitantes y así ofrecer una mejor experiencia de usuario. Los usuarios pueden desactivar las cookies en la configuración del navegador. Sin embargo, nuestros servicios dependen de las cookies para funcionar correctamente, y su desactivación puede limitar el acceso a ciertas funciones del sitio."
+      "policy_description": "La app Noti no utiliza cookies. El sitio notiapp.org puede usar cookies técnicamente necesarias o almacenamiento similar del navegador si es necesario para el funcionamiento básico del sitio. Puedes gestionar las cookies en la configuración de tu navegador."
     },
     {
       "policy_id": "019",
@@ -291,7 +292,7 @@
     {
       "policy_id": "020",
       "policy_title": "Contáctanos",
-      "policy_description": "Si tienes preguntas sobre esta Política, escribe a r85unit@gmail.com con el asunto 'Privacy Questions' o visita mi sitio web: notiapp.org/#contact."
+      "policy_description": "Si tienes preguntas sobre esta Política, escribe a r85unit@gmail.com con el asunto 'Privacy Questions' o visita notiapp.org/#contact."
     }
   ]
 }

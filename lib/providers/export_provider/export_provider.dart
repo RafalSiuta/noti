@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'dart:ui' show Rect;
 import 'package:flutter/foundation.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../database/database_helper.dart';
 import '../../models/db_model/note.dart';
 import '../../models/db_model/task.dart';
@@ -51,6 +53,18 @@ class ExportResult {
   final int notesCount;
 }
 
+class _PreparedExportData {
+  const _PreparedExportData({
+    required this.tasks,
+    required this.notes,
+    required this.settings,
+  });
+
+  final List<Task> tasks;
+  final List<Note> notes;
+  final Map<String, dynamic> settings;
+}
+
 class ExportProvider extends ChangeNotifier {
   ExportProvider() {
     _initialize();
@@ -91,22 +105,12 @@ class ExportProvider extends ChangeNotifier {
 
   Future<ExportResult?> getExportSettings({String? fileName}) async {
     try {
-      await updateExportSettings();
-      final selectedIndex = exportSets.exportSettings.indexWhere(
-        (setting) => setting.isOn == true,
-      );
-      final exportAll = selectedIndex <= 0;
-      final exportTasks = exportAll || selectedIndex == 1;
-      final exportNotes = exportAll || selectedIndex == 2;
-
-      final tasks = exportTasks ? _dbHelper.getAllTasks() : <Task>[];
-      final notes = exportNotes ? _dbHelper.getAllNotes() : <Note>[];
-      final settings = await _buildUserSettingsPayload();
+      final exportData = await _prepareExportData();
       final file = await _exportHelper.exportNotiData(
-        tasks: tasks,
-        notes: notes,
+        tasks: exportData.tasks,
+        notes: exportData.notes,
         exportSettings: exportSets.exportSettings,
-        settings: settings,
+        settings: exportData.settings,
         fileName: fileName,
       );
       if (file == null) {
@@ -116,17 +120,59 @@ class ExportProvider extends ChangeNotifier {
 
       print(
         'Export succeeded: ${file.path} '
-        '(tasks: ${tasks.length}, notes: ${notes.length})',
+        '(tasks: ${exportData.tasks.length}, notes: ${exportData.notes.length})',
       );
       return ExportResult(
         file: file,
-        tasksCount: tasks.length,
-        notesCount: notes.length,
+        tasksCount: exportData.tasks.length,
+        notesCount: exportData.notes.length,
       );
     } catch (e, stackTrace) {
       print('Export failed: $e');
       if (kDebugMode) {
         print(stackTrace);
+      }
+      return null;
+    }
+  }
+
+  Future<ExportResult?> shareExportSettings({
+    String? fileName,
+    Rect? sharePositionOrigin,
+  }) async {
+    try {
+      final exportData = await _prepareExportData();
+      final file = await _exportHelper.createShareNotiData(
+        tasks: exportData.tasks,
+        notes: exportData.notes,
+        exportSettings: exportSets.exportSettings,
+        settings: exportData.settings,
+        fileName: fileName,
+      );
+
+      await SharePlus.instance.share(
+        ShareParams(
+          title: 'Noti export',
+          subject: 'Noti export',
+          text: 'Noti backup file',
+          files: [XFile(file.path)],
+          sharePositionOrigin: sharePositionOrigin,
+        ),
+      );
+
+      debugPrint(
+        'Share export prepared: ${file.path} '
+        '(tasks: ${exportData.tasks.length}, notes: ${exportData.notes.length})',
+      );
+      return ExportResult(
+        file: file,
+        tasksCount: exportData.tasks.length,
+        notesCount: exportData.notes.length,
+      );
+    } catch (e, stackTrace) {
+      debugPrint('Share export failed: $e');
+      if (kDebugMode) {
+        debugPrint('$stackTrace');
       }
       return null;
     }
@@ -213,6 +259,22 @@ class ExportProvider extends ChangeNotifier {
     final file = await _exportHelper.pickNotiFile();
     if (file == null) return null;
     return _exportHelper.readNotiData(file);
+  }
+
+  Future<_PreparedExportData> _prepareExportData() async {
+    await updateExportSettings();
+    final selectedIndex = exportSets.exportSettings.indexWhere(
+      (setting) => setting.isOn == true,
+    );
+    final exportAll = selectedIndex <= 0;
+    final exportTasks = exportAll || selectedIndex == 1;
+    final exportNotes = exportAll || selectedIndex == 2;
+
+    return _PreparedExportData(
+      tasks: exportTasks ? _dbHelper.getAllTasks() : <Task>[],
+      notes: exportNotes ? _dbHelper.getAllNotes() : <Note>[],
+      settings: await _buildUserSettingsPayload(),
+    );
   }
 
   bool _hasTaskIdConflicts(List<Task> importedTasks, List<Task> existingTasks) {

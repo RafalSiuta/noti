@@ -22,23 +22,12 @@ class ExportHelper {
   }) async {
     final directory = await resolveExportDirectory();
     final safeName = _normalizeFileName(fileName);
-    final payload = {
-      'format': 'noti_export',
-      'formatVersion': 1,
-      'appVersion': '1.0.0',
-      'exportedAt': DateTime.now().toUtc().toIso8601String(),
-      'device': {'platform': Platform.operatingSystem},
-      'payload': {
-        'notes': _notesToJson(notes),
-        'tasks': _tasksToJson(tasks),
-        'settings': {
-          ...settings,
-          'exportSettings': exportSettings.map(_settingsToJson).toList(),
-        },
-      },
-    };
-
-    final json = const JsonEncoder.withIndent('  ').convert(payload);
+    final json = _encodeNotiData(
+      tasks: tasks,
+      notes: notes,
+      exportSettings: exportSettings,
+      settings: settings,
+    );
     final savedPath = await FilePicker.saveFile(
       dialogTitle: 'Save Noti export',
       fileName: safeName,
@@ -48,6 +37,25 @@ class ExportHelper {
     );
     if (savedPath == null || savedPath.isEmpty) return null;
     return File(savedPath);
+  }
+
+  Future<File> createShareNotiData({
+    required List<Task> tasks,
+    required List<Note> notes,
+    required List<SettingsModel> exportSettings,
+    required Map<String, dynamic> settings,
+    String? fileName,
+  }) async {
+    final directory = await getTemporaryDirectory();
+    final safeName = _normalizeFileName(fileName);
+    final file = File('${directory.path}/$safeName');
+    final json = _encodeNotiData(
+      tasks: tasks,
+      notes: notes,
+      exportSettings: exportSettings,
+      settings: settings,
+    );
+    return file.writeAsBytes(Uint8List.fromList(utf8.encode(json)));
   }
 
   Future<File?> pickNotiFile() async {
@@ -126,6 +134,30 @@ class ExportHelper {
         ? sanitized.substring(0, sanitized.length - 5)
         : sanitized;
     return '$nameWithoutJson.noti';
+  }
+
+  String _encodeNotiData({
+    required List<Task> tasks,
+    required List<Note> notes,
+    required List<SettingsModel> exportSettings,
+    required Map<String, dynamic> settings,
+  }) {
+    final payload = {
+      'format': 'noti_export',
+      'formatVersion': 1,
+      'appVersion': '1.0.0',
+      'exportedAt': DateTime.now().toUtc().toIso8601String(),
+      'device': {'platform': Platform.operatingSystem},
+      'payload': {
+        'notes': _notesToJson(notes),
+        'tasks': _tasksToJson(tasks),
+        'settings': {
+          ...settings,
+          'exportSettings': exportSettings.map(_settingsToJson).toList(),
+        },
+      },
+    };
+    return const JsonEncoder.withIndent('  ').convert(payload);
   }
 
   List<Map<String, dynamic>> _tasksToJson(List<Task> tasks) {

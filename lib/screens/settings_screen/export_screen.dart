@@ -40,6 +40,7 @@ class _ExportScreenState extends State<ExportScreen> {
   FocusNode titleNode = FocusNode();
   bool? editTextEnable;
   bool _isExporting = false;
+  bool _isSharing = false;
   bool _isImporting = false;
 
   @override
@@ -142,8 +143,33 @@ class _ExportScreenState extends State<ExportScreen> {
                     if (index ==
                         exportProvider.exportSets.exportSettingsListCounter) {
                       return Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          ExportButton(
+                            isExporting: _isSharing,
+                            textKey: 'buttons_text.share_button',
+                            iconData: Icons.share,
+                            onPress: _isSharing
+                                ? null
+                                : () async {
+                                    setState(() {
+                                      _isSharing = true;
+                                    });
+                                    try {
+                                      await exportProvider.shareExportSettings(
+                                        fileName: titleVal.text,
+                                        sharePositionOrigin:
+                                            _sharePositionOrigin(),
+                                      );
+                                    } finally {
+                                      if (mounted) {
+                                        setState(() {
+                                          _isSharing = false;
+                                        });
+                                      }
+                                    }
+                                  },
+                          ),
                           ExportButton(
                             isExporting: _isExporting,
                             onPress: _isExporting
@@ -210,51 +236,53 @@ class _ExportScreenState extends State<ExportScreen> {
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                ColumnBuilder(itemBuilder: (context,index){
-                  return
-                    SettingsCard(
+                ColumnBuilder(
+                  itemBuilder: (context, index) {
+                    return SettingsCard(
                       title: "import_import_file_title",
                       description: "import_description",
                       child: IconButton(
                         onPressed: _isImporting
                             ? null
                             : () async {
-                          setState(() {
-                            _isImporting = true;
-                          });
-                          final result = await exportProvider
-                              .getImportSettings();
-                          if (!mounted) return;
-                          setState(() {
-                            _isImporting = false;
-                          });
-                          if (result.cancelled) return;
-                          if (result.needsOverwrite) {
-                            _showImportOverwriteDialog(
-                              this.context,
-                              exportProvider,
-                              result,
-                            );
-                          } else {
-                            if (result.success) {
-                              await _refreshImportedData();
-                            }
-                            if (!mounted) return;
-                            _showImportResultDialog(this.context, result);
-                          }
-                        },
+                                setState(() {
+                                  _isImporting = true;
+                                });
+                                final result = await exportProvider
+                                    .getImportSettings();
+                                if (!mounted) return;
+                                setState(() {
+                                  _isImporting = false;
+                                });
+                                if (result.cancelled) return;
+                                if (result.needsOverwrite) {
+                                  _showImportOverwriteDialog(
+                                    this.context,
+                                    exportProvider,
+                                    result,
+                                  );
+                                } else {
+                                  if (result.success) {
+                                    await _refreshImportedData();
+                                  }
+                                  if (!mounted) return;
+                                  _showImportResultDialog(this.context, result);
+                                }
+                              },
                         icon: _isImporting
                             ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
                             : Icon(
-                          Icons.file_download,
-                          color: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium!.color,
-                        ),
+                                Icons.file_download,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium!.color,
+                              ),
                       ),
                       // SwitchBtn(
                       // iconData: Icons.circle,
@@ -263,66 +291,15 @@ class _ExportScreenState extends State<ExportScreen> {
                       // onChanged: (val) {
                       // }),
                     );
-                }, itemCount: 1
+                  },
+                  itemCount: 1,
                 ),
-                // SettingsCard(
-                //   title: "import_import_file_title",
-                //   description: "import_description",
-                //   child: IconButton(
-                //     onPressed: _isImporting
-                //         ? null
-                //         : () async {
-                //             setState(() {
-                //               _isImporting = true;
-                //             });
-                //             final result = await exportProvider
-                //                 .getImportSettings();
-                //             if (!mounted) return;
-                //             setState(() {
-                //               _isImporting = false;
-                //             });
-                //             if (result.cancelled) return;
-                //             if (result.needsOverwrite) {
-                //               _showImportOverwriteDialog(
-                //                 this.context,
-                //                 exportProvider,
-                //                 result,
-                //               );
-                //             } else {
-                //               if (result.success) {
-                //                 await _refreshImportedData();
-                //               }
-                //               if (!mounted) return;
-                //               _showImportResultDialog(this.context, result);
-                //             }
-                //           },
-                //     icon: _isImporting
-                //         ? const SizedBox(
-                //             width: 24,
-                //             height: 24,
-                //             child: CircularProgressIndicator(strokeWidth: 2),
-                //           )
-                //         : Icon(
-                //             Icons.file_download,
-                //             color: Theme.of(
-                //               context,
-                //             ).textTheme.headlineMedium!.color,
-                //           ),
-                //   ),
-                //   // SwitchBtn(
-                //   // iconData: Icons.circle,
-                //   // iconSize: switchIconSize,
-                //   // value: false,
-                //   // onChanged: (val) {
-                //   // }),
-                // ),
               ]),
             ),
           ],
         );
       },
     );
-
   }
 
   void _showExportSuccessDialog(BuildContext context, ExportResult result) {
@@ -360,6 +337,12 @@ class _ExportScreenState extends State<ExportScreen> {
         );
       },
     );
+  }
+
+  Rect? _sharePositionOrigin() {
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null) return null;
+    return box.localToGlobal(Offset.zero) & box.size;
   }
 
   void _showImportOverwriteDialog(
