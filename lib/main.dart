@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:noti/providers/export_provider/export_provider.dart';
 import 'package:noti/providers/image_provider/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider/home_provider.dart';
+import 'package:noti/providers/holidays_provider.dart';
 import 'package:noti/providers/locale_provider/locale_provider.dart';
 import 'package:noti/providers/note_provider/note_provider.dart';
 import 'package:noti/providers/note_provider/note_search_provider.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => HolidaysProvider()..init()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => PermissionProvider()),
         ChangeNotifierProvider(create: (_) => GalleryImageProvider()),

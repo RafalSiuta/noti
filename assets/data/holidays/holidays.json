@@ -1,0 +1,352 @@
+[
+  {
+    "id": "new_years_day",
+    "name": {"pl": "Nowy Rok", "en": "New Year's Day", "es": "Año Nuevo"},
+    "description": {"pl": "Pierwszy dzień roku kalendarzowego.", "en": "The first day of the calendar year.", "es": "El primer día del año calendario."},
+    "date_rule": {"type": "fixed", "month": 1, "day": 1},
+    "countries": ["PL", "GB", "ES", "PH", "ET", "AR"],
+    "is_day_off_by_country": {"PL": true, "GB": true, "ES": true, "PH": true, "ET": true, "AR": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "epiphany",
+    "name": {"pl": "Święto Trzech Króli", "en": "Epiphany", "es": "Día de Reyes"},
+    "description": {"pl": "Chrześcijańskie święto Objawienia Pańskiego.", "en": "The Christian feast of the Epiphany.", "es": "Fiesta cristiana de la Epifanía."},
+    "date_rule": {"type": "fixed", "month": 1, "day": 6},
+    "countries": ["PL", "ES"],
+    "is_day_off_by_country": {"PL": true, "ES": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "western_good_friday",
+    "name": {"pl": "Wielki Piątek", "en": "Good Friday", "es": "Viernes Santo"},
+    "description": {"pl": "Piątek poprzedzający Niedzielę Wielkanocną.", "en": "The Friday before Easter Sunday.", "es": "El viernes anterior al Domingo de Pascua."},
+    "date_rule": {"type": "easter_offset", "offset_days": -2},
+    "countries": ["GB", "ES", "PH"],
+    "is_day_off_by_country": {"GB": true, "ES": true, "PH": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "maundy_thursday_ph",
+    "name": {"pl": "Wielki Czwartek", "en": "Maundy Thursday", "es": "Jueves Santo"},
+    "description": {"pl": "Czwartek poprzedzający Niedzielę Wielkanocną.", "en": "The Thursday before Easter Sunday.", "es": "El jueves anterior al Domingo de Pascua."},
+    "date_rule": {"type": "easter_offset", "offset_days": -3},
+    "countries": ["PH"],
+    "is_day_off_by_country": {"PH": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "western_easter_sunday",
+    "name": {"pl": "Wielkanoc", "en": "Easter Sunday", "es": "Domingo de Pascua"},
+    "description": {"pl": "Niedziela Zmartwychwstania Pańskiego.", "en": "The Christian celebration of the Resurrection.", "es": "Celebración cristiana de la Resurrección."},
+    "date_rule": {"type": "easter_offset", "offset_days": 0},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "western_easter_monday",
+    "name": {"pl": "Poniedziałek Wielkanocny", "en": "Easter Monday", "es": "Lunes de Pascua"},
+    "description": {"pl": "Poniedziałek po Niedzieli Wielkanocnej.", "en": "The Monday after Easter Sunday.", "es": "El lunes posterior al Domingo de Pascua."},
+    "date_rule": {"type": "easter_offset", "offset_days": 1},
+    "countries": ["PL", "GB"],
+    "is_day_off_by_country": {"PL": true, "GB": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "labour_day",
+    "name": {"pl": "Święto Pracy", "en": "Labour Day", "es": "Día del Trabajo"},
+    "description": {"pl": "Święto ludzi pracy.", "en": "A public holiday celebrating workers.", "es": "Fiesta pública dedicada a los trabajadores."},
+    "date_rule": {"type": "fixed", "month": 5, "day": 1},
+    "countries": ["PL", "ES", "PH", "ET", "AR"],
+    "is_day_off_by_country": {"PL": true, "ES": true, "PH": true, "ET": true, "AR": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "polish_constitution_day",
+    "name": {"pl": "Święto Konstytucji 3 Maja", "en": "Constitution Day", "es": "Día de la Constitución de Polonia"},
+    "description": {"pl": "Rocznica uchwalenia Konstytucji 3 maja.", "en": "Anniversary of the Constitution of 3 May.", "es": "Aniversario de la Constitución polaca del 3 de mayo."},
+    "date_rule": {"type": "fixed", "month": 5, "day": 3},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "corpus_christi_pl",
+    "name": {"pl": "Boże Ciało", "en": "Corpus Christi", "es": "Corpus Christi"},
+    "description": {"pl": "Katolicka uroczystość Najświętszego Ciała i Krwi Chrystusa.", "en": "The Catholic solemnity of Corpus Christi.", "es": "Solemnidad católica del Corpus Christi."},
+    "date_rule": {"type": "easter_offset", "offset_days": 60},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "assumption_of_mary",
+    "name": {"pl": "Wniebowzięcie Najświętszej Maryi Panny", "en": "Assumption of Mary", "es": "Asunción de la Virgen"},
+    "description": {"pl": "Chrześcijańska uroczystość Wniebowzięcia Maryi.", "en": "The Christian feast of the Assumption of Mary.", "es": "Fiesta cristiana de la Asunción de María."},
+    "date_rule": {"type": "fixed", "month": 8, "day": 15},
+    "countries": ["PL", "ES"],
+    "is_day_off_by_country": {"PL": true, "ES": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "all_saints_day",
+    "name": {"pl": "Wszystkich Świętych", "en": "All Saints' Day", "es": "Día de Todos los Santos"},
+    "description": {"pl": "Uroczystość ku czci wszystkich świętych.", "en": "A Christian solemnity honoring all saints.", "es": "Solemnidad cristiana en honor de todos los santos."},
+    "date_rule": {"type": "fixed", "month": 11, "day": 1},
+    "countries": ["PL", "ES"],
+    "is_day_off_by_country": {"PL": true, "ES": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "polish_independence_day",
+    "name": {"pl": "Narodowe Święto Niepodległości", "en": "Polish Independence Day", "es": "Día de la Independencia de Polonia"},
+    "description": {"pl": "Rocznica odzyskania przez Polskę niepodległości.", "en": "Anniversary of Poland regaining independence.", "es": "Aniversario de la recuperación de la independencia de Polonia."},
+    "date_rule": {"type": "fixed", "month": 11, "day": 11},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "christmas_day",
+    "name": {"pl": "Boże Narodzenie", "en": "Christmas Day", "es": "Navidad"},
+    "description": {"pl": "Święto upamiętniające narodziny Jezusa Chrystusa.", "en": "A Christian holiday commemorating the birth of Jesus Christ.", "es": "Fiesta cristiana que conmemora el nacimiento de Jesucristo."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 25},
+    "countries": ["PL", "GB", "ES", "PH", "AR"],
+    "is_day_off_by_country": {"PL": true, "GB": true, "ES": true, "PH": true, "AR": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "boxing_day",
+    "name": {"pl": "Boxing Day", "en": "Boxing Day", "es": "Día de San Esteban"},
+    "description": {"pl": "Święto obchodzone dzień po Bożym Narodzeniu.", "en": "A public holiday observed after Christmas Day.", "es": "Fiesta pública celebrada después de Navidad."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 26},
+    "countries": ["GB"],
+    "is_day_off_by_country": {"GB": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "second_day_of_christmas_pl",
+    "name": {"pl": "Drugi dzień Bożego Narodzenia", "en": "Second Day of Christmas", "es": "Segundo día de Navidad"},
+    "description": {"pl": "Drugi dzień świąt Bożego Narodzenia.", "en": "The second day of the Christmas celebration.", "es": "El segundo día de la celebración de Navidad."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 26},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "early_may_bank_holiday_gb",
+    "name": {"pl": "Majowe święto bankowe", "en": "Early May Bank Holiday", "es": "Fiesta bancaria de mayo"},
+    "description": {"pl": "Pierwszy poniedziałek maja w Wielkiej Brytanii.", "en": "The first Monday in May in the United Kingdom.", "es": "El primer lunes de mayo en el Reino Unido."},
+    "date_rule": {"type": "weekday_in_month", "month": 5, "weekday": 1, "ordinal": 1},
+    "countries": ["GB"],
+    "is_day_off_by_country": {"GB": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "spring_bank_holiday_gb",
+    "name": {"pl": "Wiosenne święto bankowe", "en": "Spring Bank Holiday", "es": "Fiesta bancaria de primavera"},
+    "description": {"pl": "Ostatni poniedziałek maja w Wielkiej Brytanii.", "en": "The last Monday in May in the United Kingdom.", "es": "El último lunes de mayo en el Reino Unido."},
+    "date_rule": {"type": "weekday_in_month", "month": 5, "weekday": 1, "ordinal": -1},
+    "countries": ["GB"],
+    "is_day_off_by_country": {"GB": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "summer_bank_holiday_gb",
+    "name": {"pl": "Letnie święto bankowe", "en": "Summer Bank Holiday", "es": "Fiesta bancaria de verano"},
+    "description": {"pl": "Ostatni poniedziałek sierpnia w Anglii i Walii.", "en": "The last Monday in August in England and Wales.", "es": "El último lunes de agosto en Inglaterra y Gales."},
+    "date_rule": {"type": "weekday_in_month", "month": 8, "weekday": 1, "ordinal": -1},
+    "countries": ["GB"],
+    "is_day_off_by_country": {"GB": true},
+    "category": "public",
+    "show_in_calendar": true
+  },
+  {
+    "id": "spanish_national_day",
+    "name": {"pl": "Święto Narodowe Hiszpanii", "en": "National Day of Spain", "es": "Fiesta Nacional de España"},
+    "description": {"pl": "Narodowe święto Hiszpanii.", "en": "Spain's national public holiday.", "es": "Fiesta nacional de España."},
+    "date_rule": {"type": "fixed", "month": 10, "day": 12},
+    "countries": ["ES"],
+    "is_day_off_by_country": {"ES": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "spanish_constitution_day",
+    "name": {"pl": "Dzień Konstytucji Hiszpanii", "en": "Spanish Constitution Day", "es": "Día de la Constitución"},
+    "description": {"pl": "Rocznica zatwierdzenia konstytucji Hiszpanii.", "en": "Anniversary of the approval of the Spanish Constitution.", "es": "Aniversario de la aprobación de la Constitución española."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 6},
+    "countries": ["ES"],
+    "is_day_off_by_country": {"ES": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "immaculate_conception",
+    "name": {"pl": "Niepokalane Poczęcie", "en": "Immaculate Conception", "es": "Inmaculada Concepción"},
+    "description": {"pl": "Katolicka uroczystość Niepokalanego Poczęcia Maryi.", "en": "The Catholic feast of the Immaculate Conception.", "es": "Solemnidad católica de la Inmaculada Concepción."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 8},
+    "countries": ["ES", "AR"],
+    "is_day_off_by_country": {"ES": true, "AR": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
+    "id": "day_of_valor_ph",
+    "name": {"pl": "Dzień Bohaterstwa", "en": "Day of Valor", "es": "Día del Valor"},
+    "description": {"pl": "Filipińskie święto pamięci bohaterów wojennych.", "en": "A Philippine commemoration of wartime heroism.", "es": "Conmemoración filipina del heroísmo durante la guerra."},
+    "date_rule": {"type": "fixed", "month": 4, "day": 9},
+    "countries": ["PH"],
+    "is_day_off_by_country": {"PH": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "philippine_independence_day",
+    "name": {"pl": "Dzień Niepodległości Filipin", "en": "Philippine Independence Day", "es": "Día de la Independencia de Filipinas"},
+    "description": {"pl": "Rocznica ogłoszenia niepodległości Filipin.", "en": "Anniversary of the proclamation of Philippine independence.", "es": "Aniversario de la proclamación de la independencia de Filipinas."},
+    "date_rule": {"type": "fixed", "month": 6, "day": 12},
+    "countries": ["PH"],
+    "is_day_off_by_country": {"PH": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "bonifacio_day_ph",
+    "name": {"pl": "Dzień Bonifacia", "en": "Bonifacio Day", "es": "Día de Bonifacio"},
+    "description": {"pl": "Święto ku czci Andrésa Bonifacia.", "en": "A holiday honoring Andrés Bonifacio.", "es": "Fiesta en honor a Andrés Bonifacio."},
+    "date_rule": {"type": "fixed", "month": 11, "day": 30},
+    "countries": ["PH"],
+    "is_day_off_by_country": {"PH": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "rizal_day_ph",
+    "name": {"pl": "Dzień Rizala", "en": "Rizal Day", "es": "Día de Rizal"},
+    "description": {"pl": "Święto pamięci José Rizala.", "en": "A holiday commemorating José Rizal.", "es": "Fiesta en memoria de José Rizal."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 30},
+    "countries": ["PH"],
+    "is_day_off_by_country": {"PH": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "adwa_victory_day_et",
+    "name": {"pl": "Dzień Zwycięstwa pod Aduą", "en": "Adwa Victory Day", "es": "Día de la Victoria de Adua"},
+    "description": {"pl": "Rocznica etiopskiego zwycięstwa w bitwie pod Aduą.", "en": "Anniversary of Ethiopia's victory at the Battle of Adwa.", "es": "Aniversario de la victoria etíope en la batalla de Adua."},
+    "date_rule": {"type": "fixed", "month": 3, "day": 2},
+    "countries": ["ET"],
+    "is_day_off_by_country": {"ET": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "patriots_victory_day_et",
+    "name": {"pl": "Dzień Zwycięstwa Patriotów", "en": "Patriots' Victory Day", "es": "Día de la Victoria de los Patriotas"},
+    "description": {"pl": "Upamiętnia powrót suwerenności Etiopii w 1941 roku.", "en": "Commemorates the restoration of Ethiopian sovereignty in 1941.", "es": "Conmemora la restauración de la soberanía etíope en 1941."},
+    "date_rule": {"type": "fixed", "month": 5, "day": 5},
+    "countries": ["ET"],
+    "is_day_off_by_country": {"ET": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "downfall_of_derg_et",
+    "name": {"pl": "Dzień Upadku Dergu", "en": "Downfall of the Derg", "es": "Caída del Derg"},
+    "description": {"pl": "Etiopskie święto narodowe obchodzone 28 maja.", "en": "An Ethiopian national holiday observed on 28 May.", "es": "Fiesta nacional etíope celebrada el 28 de mayo."},
+    "date_rule": {"type": "fixed", "month": 5, "day": 28},
+    "countries": ["ET"],
+    "is_day_off_by_country": {"ET": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "carnival_monday_ar",
+    "name": {"pl": "Poniedziałek Karnawałowy", "en": "Carnival Monday", "es": "Lunes de Carnaval"},
+    "description": {"pl": "Pierwszy z dwóch dni argentyńskiego karnawału.", "en": "The first of Argentina's two Carnival public holidays.", "es": "El primero de los dos feriados de Carnaval de Argentina."},
+    "date_rule": {"type": "easter_offset", "offset_days": -48},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "cultural",
+    "show_in_calendar": true
+  },
+  {
+    "id": "carnival_tuesday_ar",
+    "name": {"pl": "Wtorek Karnawałowy", "en": "Carnival Tuesday", "es": "Martes de Carnaval"},
+    "description": {"pl": "Drugi z dwóch dni argentyńskiego karnawału.", "en": "The second of Argentina's two Carnival public holidays.", "es": "El segundo de los dos feriados de Carnaval de Argentina."},
+    "date_rule": {"type": "easter_offset", "offset_days": -47},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "cultural",
+    "show_in_calendar": true
+  },
+  {
+    "id": "truth_and_justice_day_ar",
+    "name": {"pl": "Narodowy Dzień Pamięci, Prawdy i Sprawiedliwości", "en": "Day of Remembrance for Truth and Justice", "es": "Día Nacional de la Memoria por la Verdad y la Justicia"},
+    "description": {"pl": "Argentyński dzień pamięci ofiar dyktatury.", "en": "Argentina's day of remembrance for victims of the dictatorship.", "es": "Día argentino de memoria de las víctimas de la dictadura."},
+    "date_rule": {"type": "fixed", "month": 3, "day": 24},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "malvinas_day_ar",
+    "name": {"pl": "Dzień Weteranów i Poległych w Wojnie o Malwiny", "en": "Malvinas Day", "es": "Día del Veterano y de los Caídos en la Guerra de Malvinas"},
+    "description": {"pl": "Argentyński dzień pamięci weteranów i poległych.", "en": "Argentina's remembrance day for veterans and the fallen.", "es": "Día argentino de homenaje a veteranos y caídos."},
+    "date_rule": {"type": "fixed", "month": 4, "day": 2},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "may_revolution_day_ar",
+    "name": {"pl": "Dzień Rewolucji Majowej", "en": "May Revolution Day", "es": "Día de la Revolución de Mayo"},
+    "description": {"pl": "Rocznica rewolucji majowej z 1810 roku.", "en": "Anniversary of the May Revolution of 1810.", "es": "Aniversario de la Revolución de Mayo de 1810."},
+    "date_rule": {"type": "fixed", "month": 5, "day": 25},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "belgrano_day_ar",
+    "name": {"pl": "Dzień Generała Belgrano", "en": "General Belgrano Memorial Day", "es": "Paso a la Inmortalidad del General Belgrano"},
+    "description": {"pl": "Święto ku czci generała Manuela Belgrano.", "en": "A holiday honoring General Manuel Belgrano.", "es": "Feriado en honor al general Manuel Belgrano."},
+    "date_rule": {"type": "fixed", "month": 6, "day": 20},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "argentine_independence_day",
+    "name": {"pl": "Dzień Niepodległości Argentyny", "en": "Argentine Independence Day", "es": "Día de la Independencia"},
+    "description": {"pl": "Rocznica ogłoszenia niepodległości Argentyny.", "en": "Anniversary of Argentina's declaration of independence.", "es": "Aniversario de la declaración de independencia de Argentina."},
+    "date_rule": {"type": "fixed", "month": 7, "day": 9},
+    "countries": ["AR"],
+    "is_day_off_by_country": {"AR": true},
+    "category": "national",
+    "show_in_calendar": true
+  }
+]

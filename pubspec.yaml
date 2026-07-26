@@ -64,6 +64,7 @@ flutter:
   assets:
     - assets/images/
     - assets/sounds/sound.wav
+    - assets/data/holidays/holidays.json
     - lang/en.json
     - lang/pl.json
     - lang/es.json
