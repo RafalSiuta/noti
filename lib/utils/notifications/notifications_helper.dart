@@ -7,7 +7,6 @@
 // import '../../models/db_model/task.dart';
 //
 // final FlutterLocalNotificationsPlugin notifications = FlutterLocalNotificationsPlugin();
-import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -68,7 +67,7 @@ class NotificationsHelper {
     const initSettings = InitializationSettings(android: androidInit);
 
     await notifications.initialize(
-      initSettings,
+      settings: initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) async {
         await _onSelectNotification(response.payload);
       },
@@ -136,11 +135,11 @@ class NotificationsHelper {
 
     try {
       await notifications.zonedSchedule(
-        notificationId,
-        task.title,
-        task.description,
-        tzTime,
-        details,
+        id: notificationId,
+        title: task.title,
+        body: task.description,
+        scheduledDate: tzTime,
+        notificationDetails: details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         payload: task.id.toString(),
       );
@@ -148,11 +147,11 @@ class NotificationsHelper {
       if (e.code == 'exact_alarms_not_permitted') {
         // Fallback 1: planowanie nie-dokładne (działa bez specjalnego dostępu)
         await notifications.zonedSchedule(
-          notificationId,
-          task.title,
-          task.description,
-          tzTime,
-          details,
+          id: notificationId,
+          title: task.title,
+          body: task.description,
+          scheduledDate: tzTime,
+          notificationDetails: details,
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
           payload: task.id.toString(),
         );
@@ -166,7 +165,7 @@ class NotificationsHelper {
   }
 
   Future<void> cancelNotification(int id) async {
-    await notifications.cancel(id);
+    await notifications.cancel(id: id);
   }
 
   Future<void> cancelAllNotifications() async {
@@ -253,16 +252,16 @@ class NotificationsHelper {
 
     try {
       await notifications.zonedSchedule(
-        probeId,
-        'probe',
-        'probe',
-        when,
-        details,
+        id: probeId,
+        title: 'probe',
+        body: 'probe',
+        scheduledDate: when,
+        notificationDetails: details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         payload: 'probe',
       );
       // jeśli się udało — anulujemy i mamy potwierdzenie
-      await notifications.cancel(probeId);
+      await notifications.cancel(id: probeId);
       return true;
     } on PlatformException catch (e) {
       if (e.code == 'exact_alarms_not_permitted') {
@@ -284,10 +283,10 @@ class NotificationsHelper {
     const details = NotificationDetails(android: androidDetails);
 
     await notifications.show(
-      999001, // testowe ID
-      'Test natychmiastowy',
-      'Jeśli to widzisz, kanał + permission są OK.',
-      details,
+      id: 999001,
+      title: 'Test natychmiastowy',
+      body: 'Jeśli to widzisz, kanał + permission są OK.',
+      notificationDetails: details,
       payload: 'immediate_test',
     );
   }
