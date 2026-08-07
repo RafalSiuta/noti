@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:noti/providers/settings_provider/settings_provider.dart';
+import 'package:noti/providers/holidays_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
@@ -55,8 +56,9 @@ class Calendar extends StatelessWidget {
     var markerRadius = SizeInfo.rowHeight / 3.2;
     var markerFontSize = SizeInfo.calendarMarkerFontSize;
     var cellMargin = SizeInfo.calendarCellMargin;
-    return Consumer<SettingsProvider>(
-        builder: (context,settingsProvider, child){
+    double cornerRadius = 4.0;
+    return Consumer2<SettingsProvider,HolidaysProvider>(
+        builder: (context,settingsProvider, holidaysProvider, child){
           return
             ClipRect(
               child: BackdropFilter(
@@ -85,7 +87,7 @@ class Calendar extends StatelessWidget {
                       ),
                       AnimationLimiter(
                         child: TableCalendar<Task>(
-                          // locale: 'pl_PL',
+                           // locale: 'pl_PL',
                           focusedDay: focDay,
                           availableGestures: gesturesEnable
                               ? AvailableGestures.all
@@ -103,7 +105,13 @@ class Calendar extends StatelessWidget {
                           startingDayOfWeek:settingsProvider.calendarStartDay ?? StartingDayOfWeek.monday ,
                           //startingDayOfWeek:startingDayOfWeek,
                           daysOfWeekVisible: true,
-                          onPageChanged: (day) => onMonthChange(day),//dodaj do konstruktora
+                          holidayPredicate: holidaysProvider.hasHoliday,
+                          onPageChanged: (day) {
+                            onMonthChange(day);
+                            if (holidaysProvider.selectedYear != day.year) {
+                              holidaysProvider.reloadForYear(day.year);
+                            }
+                          },//dodaj do konstruktora
                           onDaySelected: onDaySelected,
                           selectedDayPredicate: (day) =>
                               isSameDay(selDay, day),
@@ -141,6 +149,7 @@ class Calendar extends StatelessWidget {
                                   scale: 0.8,
                                   child: FadeInAnimation(
                                       child: Center(
+                                        //Theme.of(context).colorScheme.secondaryFixed;
                                           child: Text(
                                             AppLocalizations.of(context)!.dateFormat(date, context).shortWeekday!.capitalizeFirstLetter(),
                                             // '${DateFormat('E').format(date)} ',
@@ -160,7 +169,11 @@ class Calendar extends StatelessWidget {
                                 ),
                               );
                             },
-                            defaultBuilder: (context, date, notes) {
+
+                            holidayBuilder: (context, date, _) {
+                              final holidays = holidaysProvider.getHolidaysForDay(date);
+                              if (holidays.isEmpty) return null;
+
                               return AnimationConfiguration.staggeredGrid(
                                 columnCount: 7,
                                 position: date.day,
@@ -168,21 +181,81 @@ class Calendar extends StatelessWidget {
                                 child: ScaleAnimation(
                                   scale: 0.8,
                                   child: FadeInAnimation(
-                                      child: Center(
-                                          child: Text(
-                                            '${date.day}',
-                                            style: (date.weekday != 6 && date.weekday != 7)
-                                                ? Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(
-                                                fontSize: calendarFontSize )
-                                                : Theme.of(context)
-                                                .textTheme
-                                                .labelMedium!
-                                                .copyWith(
-                                                fontSize: calendarFontSize),
-                                          ))),
+                                      child: Container(
+                                        margin: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          color: holidays.isNotEmpty ? Theme.of(context).colorScheme.secondaryFixed.withAlpha(80) : Colors.transparent,
+                                          borderRadius: BorderRadius.circular(cornerRadius),
+
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                              '${date.day}',
+                                              style: (date.weekday != 6 && date.weekday != 7)
+                                                  ? Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                  fontSize: calendarFontSize )
+                                                  : Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium!
+                                                  .copyWith(
+                                                  fontSize: calendarFontSize),
+                                            )),
+                                      )),
+                                ),
+                              );
+                            },
+                            //add holidays dependency to background color
+                            defaultBuilder: (context, date, notes) {
+                              final isHoliday = holidaysProvider.hasHoliday(date);
+
+                              return AnimationConfiguration.staggeredGrid(
+                                columnCount: 7,
+                                position: date.day,
+                                duration: const Duration(milliseconds: 200),
+                                child: ScaleAnimation(
+                                  scale: 0.8,
+                                  child: FadeInAnimation(
+                                      child: isHoliday
+                                          ? Container(
+                                              margin: EdgeInsets.all(2),
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).colorScheme.secondaryFixed.withAlpha(80),
+                                                borderRadius: BorderRadius.circular(cornerRadius),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                    '${date.day}',
+                                                    style: (date.weekday != 6 && date.weekday != 7)
+                                                        ? Theme.of(context)
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(
+                                                        fontSize: calendarFontSize )
+                                                        : Theme.of(context)
+                                                        .textTheme
+                                                        .labelMedium!
+                                                        .copyWith(
+                                                        fontSize: calendarFontSize),
+                                                  )),
+                                            )
+                                          : Center(
+                                              child: Text(
+                                                '${date.day}',
+                                                style: (date.weekday != 6 && date.weekday != 7)
+                                                    ? Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                    fontSize: calendarFontSize )
+                                                    : Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium!
+                                                    .copyWith(
+                                                    fontSize: calendarFontSize),
+                                              ))),
                                 ),
                               );
                             },

@@ -30,6 +30,22 @@ class HolidaysProvider extends ChangeNotifier {
     printHolidaysForSelectedLocale();
   }
 
+  Future<void> updateForLocale(Locale locale) async {
+    final countryCode = _normalizeCountryCode(locale.countryCode);
+    final languageCode = _normalizeLanguageCode(locale.languageCode);
+    if (_isLoaded &&
+        _selectedCountryCode == countryCode &&
+        _selectedLanguageCode == languageCode) {
+      return;
+    }
+
+    await loadHolidays(
+      year: _selectedYear ?? DateTime.now().year,
+      locale: locale,
+    );
+    printHolidaysForSelectedLocale();
+  }
+
   Future<void> loadHolidays({
     required int year,
     required Locale locale,

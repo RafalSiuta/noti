@@ -82,7 +82,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
-        ChangeNotifierProvider(create: (_) => HolidaysProvider()..init()),
+        ChangeNotifierProxyProvider<LocaleProvider, HolidaysProvider>(
+          create: (_) => HolidaysProvider(),
+          update: (context, localeProvider, previous) {
+            final holidaysProvider = previous ?? HolidaysProvider();
+            holidaysProvider.updateForLocale(localeProvider.locale);
+            return holidaysProvider;
+          },
+        ),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => PermissionProvider()),
         ChangeNotifierProvider(create: (_) => GalleryImageProvider()),
