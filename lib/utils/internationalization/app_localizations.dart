@@ -86,6 +86,19 @@ class AppLocalizations {
     return fallback ?? current?.toString() ?? '';
   }
 
+  /// Resolves a value keyed by language code, such as a holiday `name` from
+  /// `holidays.json`. Falls back to English and then the first available value.
+  String localizedValue(Map<String, String> values, {String fallback = ''}) {
+    if (values.isEmpty) return fallback;
+
+    final languageCode = locale.languageCode
+        .toLowerCase()
+        .split(RegExp('[-_]'))
+        .first;
+
+    return values[languageCode] ?? values['en'] ?? values.values.first;
+  }
+
   List<PolicyItem> policyRules() {
     final raw = _localizedMap['policy_rules'];
     if (raw is! List) return const [];

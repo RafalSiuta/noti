@@ -173,6 +173,8 @@ class Calendar extends StatelessWidget {
                             holidayBuilder: (context, date, _) {
                               final holidays = holidaysProvider.getHolidaysForDay(date);
                               if (holidays.isEmpty) return null;
+                              final holidayName = AppLocalizations.of(context)!
+                                  .localizedValue(holidays.first.name, fallback: holidays.first.id);
 
                               return AnimationConfiguration.staggeredGrid(
                                 columnCount: 7,
@@ -184,25 +186,45 @@ class Calendar extends StatelessWidget {
                                       child: Container(
                                         margin: EdgeInsets.all(2),
                                         decoration: BoxDecoration(
-                                          color: holidays.isNotEmpty ? Theme.of(context).colorScheme.secondaryFixed.withAlpha(80) : Colors.transparent,
+                                          color: holidays.isNotEmpty ? Theme.of(context).colorScheme.secondaryFixed.withAlpha(20) : Colors.transparent,
                                           borderRadius: BorderRadius.circular(cornerRadius),
+                                          border: Border.all(color:Theme.of(context).colorScheme.secondaryFixed,width: 0.5 )
 
                                         ),
-                                        child: Center(
-                                            child: Text(
-                                              '${date.day}',
-                                              style: (date.weekday != 6 && date.weekday != 7)
-                                                  ? Theme.of(context)
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Center(
+                                                child: Text(
+                                                  '${date.day}',
+                                                  style: (date.weekday != 6 && date.weekday != 7)
+                                                      ? Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                      fontSize: calendarFontSize )
+                                                      : Theme.of(context)
+                                                      .textTheme
+                                                      .labelMedium!
+                                                      .copyWith(
+                                                      fontSize: calendarFontSize),
+                                                )),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                              child: Text(holidayName,
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.fade,
+                                                style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!
                                                   .copyWith(
-                                                  fontSize: calendarFontSize )
-                                                  : Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium!
-                                                  .copyWith(
-                                                  fontSize: calendarFontSize),
-                                            )),
+                                                  fontSize: 6.0 ),),
+                                            )
+                                          ],
+                                        ),
+
                                       )),
                                 ),
                               );

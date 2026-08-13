@@ -131,7 +131,7 @@
   },
   {
     "id": "boxing_day",
-    "name": {"pl": "Boxing Day", "en": "Boxing Day", "es": "Día de San Esteban"},
+    "name": {"pl": "Pierwszy dzień Bożego Narodzenia", "en": "First Day of Christmas", "es": "Día de San Esteban"},
     "description": {"pl": "Święto obchodzone dzień po Bożym Narodzeniu.", "en": "A public holiday observed after Christmas Day.", "es": "Fiesta pública celebrada después de Navidad."},
     "date_rule": {"type": "fixed", "month": 12, "day": 26},
     "countries": ["GB"],
