@@ -9,6 +9,7 @@ import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/task_card.dart';
+import '../../widgets/cards/task_swipe_card.dart';
 import '../../widgets/text_display/default_text.dart';
 
 
@@ -63,7 +64,7 @@ class SliverTaskList extends StatelessWidget {
                     child: SlideAnimation(
                       verticalOffset: 20.0,
                       child: FadeInAnimation(
-                          child: TaskCard(
+                          child: TaskSwipeCard(
                               task: task,
                               isDone: (val) {
                                 taskProvider.updateTasks(task);

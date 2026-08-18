@@ -9,6 +9,7 @@ import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/cards/task_card.dart';
+import '../../widgets/cards/task_swipe_card.dart';
 import '../../widgets/headers/small_header.dart';
 import '../../widgets/text_display/default_text.dart';
 
@@ -65,7 +66,7 @@ class TaskList extends StatelessWidget {
                           child: SlideAnimation(
                             verticalOffset: 20.0,
                             child: FadeInAnimation(
-                                child: TaskCard(
+                                child: TaskSwipeCard(
                                     task: tasks,
                                     isDone: (val) {
                                       taskProvider.updateTasks(tasks);

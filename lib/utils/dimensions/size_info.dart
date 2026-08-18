@@ -50,7 +50,7 @@ class SizeInfo {
   static double socialIcons = 18;
 
   ///nav rail dimens:
-  static double leadingAndTrailingIconSize = 18;
+  static double leadingAndTrailingIconSize = 16;
   static double navSideTitleSize = 18;
 
   ///task dimens:
