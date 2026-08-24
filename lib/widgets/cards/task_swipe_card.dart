@@ -44,7 +44,7 @@ class TaskSwipeCard extends StatelessWidget {
     double radiusCircularMain = height;
 
     double taskRingWidth = SizeInfo.taskRingLineWidth;
-    double sideDifference = (height / 6) + taskRingWidth ;
+    double sideDifference = (height / 6) + taskRingWidth;
 
     double ringRadiusSize = height + sideDifference ;
 
@@ -58,9 +58,9 @@ class TaskSwipeCard extends StatelessWidget {
 
     var contentPadding = SizeInfo.taskContentPadding;
 
-    const textPadding = EdgeInsets.only(left: 6, top: 3, right: 6);
+    const textPadding = EdgeInsets.only(left: 6, top: 0, right: 6);
 
-    final marginContainer = EdgeInsets.only(top: sideDifference / 2, bottom: 0, left: sideDifference / 2 , right: 0);
+    final marginContainer = EdgeInsets.only(top: 0, bottom: 0, left: sideDifference / 2 , right: 0);
 
     final marginTimerContainer = EdgeInsets.only(  left: 0);
 
@@ -73,7 +73,7 @@ class TaskSwipeCard extends StatelessWidget {
     final innerRadiusContainer =
     BorderRadius.all(Radius.circular(sideRadius-2));
     final timerRadiusContainer =
-    BorderRadius.all(Radius.circular(sideRadius));
+    BorderRadius.all(Radius.circular(sideRadius-2));
 
     // circleFromLeft == true
     //     ? BorderRadius.only(
@@ -180,119 +180,121 @@ class TaskSwipeCard extends StatelessWidget {
     return GestureDetector(
       key: key,
       onTap: edit,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: .0,
-        children: [
-          Container(
-            // width: 15,
-            height: height,
-            padding: EdgeInsets.symmetric(horizontal: 6.0,),
-            margin: marginTimerContainer,
-                decoration: BoxDecoration(
-                  borderRadius: timerRadiusContainer,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomLeft,
-                    stops: const [0.0, 0.5, 1.0],
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).primaryColorLight,
-                      Theme.of(context).primaryColorDark
-                    ],
-                  ),
-                ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 4.0,
-              children: [
-              Icon(
-                      iconData,//iconPick.iconsList[task.icon].icon,
-                      size: iconSize,
-                      color: task.isTaskDone
-                          ? Theme.of(context).colorScheme.onSecondary
-                          : Theme.of(context).colorScheme.secondary,
-                    ),
-                RotatedBox(
-                  quarterTurns: 3,
-                  child: Text(
-                  DateFormat('HH:mm').format(task.date),style: task.isTaskDone ?
-                Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(
-                    fontSize: titleFontSize, color: task.isTaskDone
-                    ? Theme.of(context).colorScheme.onSecondary
-                    : Theme.of(context).colorScheme.secondary, ):
-                Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(
-                    fontSize: titleFontSize,
-                    decoration:TextDecoration.none,color: task.isTaskDone
-                    ? Theme.of(context).colorScheme.onSecondary
-                    : Theme.of(context).colorScheme.secondary,),textAlign: TextAlign.center,),)
+      child: Container(
+        height: height,
+        padding: EdgeInsets.all(6.0),
+        decoration: BoxDecoration(
+            borderRadius: radiusContainer,
+            color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.2),
 
-              ],
-            ),
-          ),//timer container
-          Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: height,
-                  margin: marginContainer,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Theme.of(context)
+                    .unselectedWidgetColor
+                    .withValues(alpha: 0.8),
+                offset: const Offset(0.0, 0.0),
+
+              ),
+              BoxShadow(
+                color: Theme.of(context).shadowColor,
+                offset: const Offset(0.0, 0.0),
+                spreadRadius: -1.0,
+                blurRadius: 1.0,
+              ),
+            ]
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: .0,
+          children: [
+            Container(
+              // width: 15,
+              // height: height,
+              padding: EdgeInsets.symmetric(horizontal: 6.0,),
+              margin: marginTimerContainer,
                   decoration: BoxDecoration(
-                      borderRadius: radiusContainer,
-                      color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.2),
-
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: Theme.of(context)
-                              .unselectedWidgetColor
-                              .withValues(alpha: 0.8),
-                          offset: const Offset(0.0, 0.0),
-
-                        ),
-                        BoxShadow(
-                          color: Theme.of(context).shadowColor,
-                          offset: const Offset(0.0, 0.0),
-                          spreadRadius: -2.0,
+                    borderRadius: innerRadiusContainer,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomLeft,
+                      stops: const [0.0, 0.5, 1.0],
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColorDark
+                      ],
+                    ),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),
                           blurRadius: 2.0,
-                        ),
+                          offset: const Offset(.0, .0),
+                          spreadRadius: 1.5),
+                    ]
+                  ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 4.0,
+                children: [
+                Icon(
+                        iconData,//iconPick.iconsList[task.icon].icon,
+                        size: iconSize,
+                        color: task.isTaskDone
+                            ? Theme.of(context).colorScheme.onSecondary
+                            : Theme.of(context).colorScheme.secondary,
+                      ),
+                  RotatedBox(
+                    quarterTurns: 3,
+                    child: Text(
+                    DateFormat('HH:mm').format(task.date),style: task.isTaskDone ?
+                  Theme.of(context)
+                      .textTheme
+                      .displayMedium!
+                      .copyWith(
+                      fontSize: titleFontSize, color: task.isTaskDone
+                      ? Theme.of(context).colorScheme.onSecondary
+                      : Theme.of(context).colorScheme.secondary, ):
+                  Theme.of(context)
+                      .textTheme
+                      .displayLarge!
+                      .copyWith(
+                      fontSize: titleFontSize,
+                      decoration:TextDecoration.none,color: task.isTaskDone
+                      ? Theme.of(context).colorScheme.onSecondary
+                      : Theme.of(context).colorScheme.secondary,),textAlign: TextAlign.center,),)
+        
+                ],
+              ),
+            ),//timer container
+            Expanded(
+              child:
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: height,//smallRingRadiusSize, sideDifference
+                  margin: marginContainer,
+                  decoration:
+                  BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      borderRadius: innerRadiusContainer,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),
+                            blurRadius: 2.0,
+                            offset: const Offset(.0, .0),
+                            spreadRadius: 1.5),
                       ]),
-                ), //main shape
-                Align(
-                  alignment:Alignment.topLeft,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: smallRingRadiusSize,
-                      margin: marginTextBox,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          borderRadius:innerRadiusContainer,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),
-                                blurRadius: 2.0,
-                                offset: const Offset(.0, .0),
-                                spreadRadius: 1.5),
-                          ]),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 2.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: _items),
-                      )),
-                ), //title box
-              ],
+                  child: Padding(
+                    padding:  EdgeInsets.only(left: 6.0,top: 8, bottom: 4.0, right: 6.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: _items),
+                  )), //title box
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
