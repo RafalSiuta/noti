@@ -54,7 +54,7 @@ class SizeInfo {
   static double navSideTitleSize = 18;
 
   ///task dimens:
-  static double taskCardHeight = 78;
+  static double taskCardHeight = 82;
   static double taskCardTitle = 12;
   static double taskCardDescription = 12;
   static double taskCreatorTitle = 23;

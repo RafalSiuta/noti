@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:csshadow/csshadow.dart';
 
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
+import '../../styles/shapes/task_shape.dart';
 import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/extensions/string_extension.dart';
@@ -56,9 +58,7 @@ class TaskSwipeCard extends StatelessWidget {
 
     double sideRadius = 8.0;//(height / 5);
 
-    var contentPadding = SizeInfo.taskContentPadding;
-
-    const textPadding = EdgeInsets.only(left: 6, top: 0, right: 6);
+    const textPadding = EdgeInsets.symmetric(horizontal: 10);
 
     final marginContainer = EdgeInsets.only(top: 0, bottom: 0, left: sideDifference / 2 , right: 0);
 
@@ -136,17 +136,17 @@ class TaskSwipeCard extends StatelessWidget {
           ],
         ),
       ), //text
-      Padding(
-        padding: EdgeInsets.only(right: contentPadding,top: contentPadding,bottom: 5.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Padding(
               padding: textPadding,
               child: RowBuilder(
                 key: key,
                 itemCount: task.priority,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 itemBuilder: (context, index) {
                   var markerColor = priorityColor(context,task.priority);
 
@@ -163,17 +163,17 @@ class TaskSwipeCard extends StatelessWidget {
                 },
               ),
             ),
-            Expanded(
-              child: SwitchBtn(
-                value: task.isTaskDone,
-                iconData: Icons.check,
-                iconSize: switchBtnIconSize,
-                align: Alignment.bottomRight,
-                onChanged: isDone,
-              ),
-            ),
-          ],
-        ),
+          ),
+          // Expanded(
+          //   child: SwitchBtn(
+          //     value: task.isTaskDone,
+          //     iconData: Icons.check,
+          //     iconSize: switchBtnIconSize,
+          //     align: Alignment.bottomRight,
+          //     onChanged: isDone,
+          //   ),
+          // ),
+        ],
       ),
     ];
 
@@ -269,29 +269,60 @@ class TaskSwipeCard extends StatelessWidget {
               ),
             ),//timer container
             Expanded(
-              child:
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  // height: height,//smallRingRadiusSize, sideDifference
-                  margin: marginContainer,
-                  decoration:
-                  BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      borderRadius: innerRadiusContainer,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),
-                            blurRadius: 2.0,
-                            offset: const Offset(.0, .0),
-                            spreadRadius: 1.5),
-                      ]),
-                  child: Padding(
-                    padding:  EdgeInsets.only(left: 6.0,top: 8, bottom: 4.0, right: 6.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: _items),
-                  )), //title box
+              child: SizedBox.expand(
+                child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned.fill(
+                    child: Padding(
+                      padding: marginContainer,
+                      child: CsShadow(
+                        shadow: BoxShadow(
+                          color: Theme.of(context)
+                              .shadowColor
+                              .withValues(alpha: 0.25),
+                          blurRadius: 1.5,
+                          offset: Offset.zero,
+                        ),
+                        clipper: TaskCardShape(),
+                        child: ClipPath(
+                          clipBehavior: Clip.hardEdge,
+                          clipper: TaskCardShape(),
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            color: Theme.of(context).colorScheme.onSurface,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: _items,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: SizedBox(
+                      width: 28,
+                      height: 28,
+                      child: SwitchBtn(
+                        value: task.isTaskDone,
+                        iconData: Icons.check,
+                        iconSize: switchBtnIconSize,
+                        align: Alignment.bottomRight,
+                        onChanged: isDone,
+                      ),
+                    ),
+                  ),
+                ],
+                ),
+              ), // title box
             ),
           ],
         ),
