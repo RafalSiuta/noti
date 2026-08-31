@@ -14,7 +14,6 @@ import '../../widgets/headers/small_header.dart';
 import '../../widgets/text_display/default_text.dart';
 
 class TaskList extends StatelessWidget {
-
   const TaskList({super.key, this.isSearch = false, this.listType = "base"});
 
   final bool isSearch;
@@ -28,112 +27,138 @@ class TaskList extends StatelessWidget {
         int counter = isSearch
             ? taskProvider.taskListByKeywordCounter
             : taskProvider.taskListCounter;
-        final taskList =
-        isSearch ? taskProvider.taskListByKeyword : taskProvider.taskList;
+        final taskList = isSearch
+            ? taskProvider.taskListByKeyword
+            : taskProvider.taskList;
         if (taskProvider.taskList.isEmpty) {
           return SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             child: DefaultText(
-              title:context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
+              title: context
+                  .t("headers_text.header_no_tasks")
+                  .capitalizeFirstLetter(),
               //title: 'There is no assignments\nfor today headers_text.header_no_tasks',
             ),
           );
         } else {
           return Padding(
-            padding:
-                EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
+            padding: EdgeInsets.only(
+              left: edgePadding - 2,
+              top: 10,
+              bottom: 10,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SmallHeader(
-                    title:"${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_tasks"):context.t("headers_text.header_task")}"
+                  title:
+                      "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_tasks") : context.t("headers_text.header_task")}",
                   //title:'You have $counter task${counter > 1 ? 's' : ""}',
                 ),
                 AnimationLimiter(
-                  child: listType == "base" ? Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 2),
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      shrinkWrap: true,
-                      itemCount: counter,
-                      itemBuilder: (context, index) {
-                        final tasks = taskList[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: headerDuration,
-                          child: SlideAnimation(
-                            verticalOffset: 20.0,
-                            child: FadeInAnimation(
-                                child: TaskSwipeCard(
-                                    task: tasks,
-                                    isDone: (val) {
-                                      taskProvider.updateTasks(tasks);
-                                    },
-                                    edit: () async {
-                                      await Navigator.push(
+                  child: listType == "base"
+                      ? Expanded(
+                          child: ListView.separated(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 2,
+                            ),
+                            physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics(),
+                            ),
+                            shrinkWrap: true,
+                            itemCount: counter,
+                            itemBuilder: (context, index) {
+                              final tasks = taskList[index];
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: headerDuration,
+                                child: SlideAnimation(
+                                  verticalOffset: 20.0,
+                                  child: FadeInAnimation(
+                                    child: TaskSwipeCard(
+                                      task: tasks,
+                                      isDone: (val) {
+                                        taskProvider.updateTasks(tasks);
+                                      },
+                                      delete: () {
+                                        taskProvider.deleteTask(tasks);
+                                      },
+                                      edit: () async {
+                                        await Navigator.push(
                                           context,
                                           CustomPageRoute(
-                                              child: TaskCreator(
-                                                editEnable: false,
-                                                newTask: tasks,
-                                              ),
-                                              direction: AxisDirection.up));
-                                    },
-                                    circleFromLeft:
-                                        index % 2 == 0 ? true : false)),
+                                            child: TaskCreator(
+                                              editEnable: false,
+                                              newTask: tasks,
+                                            ),
+                                            direction: AxisDirection.up,
+                                          ),
+                                        );
+                                      },
+                                      circleFromLeft: index % 2 == 0
+                                          ? true
+                                          : false,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 7);
+                            },
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: 7,
-                        );
-                      },
-                    ),
-                  ) : SingleChildScrollView(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 2),
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      shrinkWrap: true,
-                      itemCount: counter,
-                      itemBuilder: (context, index) {
-                        final tasks = taskList[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: headerDuration,
-                          child: SlideAnimation(
-                            verticalOffset: 20.0,
-                            child: FadeInAnimation(
-                                child: TaskCard(
-                                    task: tasks,
-                                    isDone: (val) {
-                                      taskProvider.updateTasks(tasks);
-                                    },
-                                    edit: () async {
-                                      await Navigator.push(
+                        )
+                      : SingleChildScrollView(
+                          child: ListView.separated(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 2,
+                            ),
+                            physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics(),
+                            ),
+                            shrinkWrap: true,
+                            itemCount: counter,
+                            itemBuilder: (context, index) {
+                              final tasks = taskList[index];
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: headerDuration,
+                                child: SlideAnimation(
+                                  verticalOffset: 20.0,
+                                  child: FadeInAnimation(
+                                    child: TaskCard(
+                                      task: tasks,
+                                      isDone: (val) {
+                                        taskProvider.updateTasks(tasks);
+                                      },
+                                      edit: () async {
+                                        await Navigator.push(
                                           context,
                                           CustomPageRoute(
-                                              child: TaskCreator(
-                                                editEnable: false,
-                                                newTask: tasks,
-                                              ),
-                                              direction: AxisDirection.up));
-                                    },
-                                    circleFromLeft:
-                                    index % 2 == 0 ? true : false)),
+                                            child: TaskCreator(
+                                              editEnable: false,
+                                              newTask: tasks,
+                                            ),
+                                            direction: AxisDirection.up,
+                                          ),
+                                        );
+                                      },
+                                      circleFromLeft: index % 2 == 0
+                                          ? true
+                                          : false,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 7);
+                            },
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: 7,
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                 ),
               ],
             ),

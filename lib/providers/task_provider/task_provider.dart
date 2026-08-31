@@ -285,9 +285,7 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(Task task) async {
-    await _dbHelper.deleteTask(task);
-
+  Future<void> deleteTask(Task task) async {
     final taskDate = DateTime(task.date.year, task.date.month, task.date.day);
     if (tasks[taskDate] != null) {
       tasks[taskDate]!.remove(task);
@@ -297,6 +295,10 @@ class TaskProvider extends ChangeNotifier {
     }
 
     _taskList = getCalendarValues(focDay);
+    _taskListByKeyword.remove(task);
+    notifyListeners();
+
+    await _dbHelper.deleteTask(task);
 
     NotificationsHelper().cancelNotification(task.id.hashCode);
     await refreshTasks();

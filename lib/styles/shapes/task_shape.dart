@@ -2,38 +2,58 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class TaskCardShape extends CustomClipper<Path> {
+  const TaskCardShape({
+    this.switchButtonSide = 28.0,
+    this.switchButtonGap = 6.0,
+  });
+
+  final double switchButtonSide;
+  final double switchButtonGap;
+
   @override
   ui.Path getClip(ui.Size size) {
     Path path_0 = Path();
     const cornerRadius = 6.0;
+    const cutoutRadius = cornerRadius;
+    final requestedCutoutExtent = switchButtonSide + switchButtonGap;
+    final maxCutoutExtent = (size.shortestSide - cornerRadius).clamp(
+      0.0,
+      double.infinity,
+    );
+    final cutoutExtent = requestedCutoutExtent > maxCutoutExtent
+        ? maxCutoutExtent
+        : requestedCutoutExtent;
+    final cutoutLeft = size.width - cutoutExtent;
+    final cutoutTop = size.height - cutoutExtent;
 
     path_0.moveTo(cornerRadius, 0);
     path_0.lineTo(size.width - cornerRadius, 0);
     path_0.quadraticBezierTo(size.width, 0, size.width, cornerRadius);
-    path_0.lineTo(size.width, size.height * 0.4618610);
+    path_0.lineTo(size.width, cutoutTop - cutoutRadius);
     path_0.cubicTo(
-        size.width,
-        size.height * 0.4963800,
-        size.width * 0.9932920,
-        size.height * 0.5243610,
-        size.width * 0.9850190,
-        size.height * 0.5243610);
-    path_0.lineTo(size.width * 0.8988760, size.height * 0.5243610);
+      size.width,
+      cutoutTop - (cutoutRadius / 2),
+      size.width - (cutoutRadius / 2),
+      cutoutTop,
+      size.width - cutoutRadius,
+      cutoutTop,
+    );
+    path_0.lineTo(cutoutLeft + cutoutRadius, cutoutTop);
     path_0.cubicTo(
-        size.width * 0.8913860,
-        size.height * 0.5243610,
-        size.width * 0.8838950,
-        size.height * 0.5888780,
-        size.width * 0.8838950,
-        size.height * 0.5888780);
-    path_0.lineTo(size.width * 0.8838950, size.height * 0.9375000);
-    path_0.cubicTo(
-        size.width * 0.8838950,
-        size.height * 0.9720170,
-        size.width * 0.8771870,
-        size.height,
-        size.width * 0.8689140,
-        size.height);
+      cutoutLeft + (cutoutRadius / 2),
+      cutoutTop,
+      cutoutLeft,
+      cutoutTop + (cutoutRadius / 2),
+      cutoutLeft,
+      cutoutTop + cutoutRadius,
+    );
+    path_0.lineTo(cutoutLeft, size.height - cornerRadius);
+    path_0.quadraticBezierTo(
+      cutoutLeft,
+      size.height,
+      cutoutLeft - cornerRadius,
+      size.height,
+    );
     path_0.lineTo(cornerRadius, size.height);
     path_0.quadraticBezierTo(0, size.height, 0, size.height - cornerRadius);
     path_0.lineTo(0, cornerRadius);
@@ -44,8 +64,8 @@ class TaskCardShape extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<ui.Path> oldClipper) {
-    return false;
+  bool shouldReclip(covariant TaskCardShape oldClipper) {
+    return oldClipper.switchButtonSide != switchButtonSide ||
+        oldClipper.switchButtonGap != switchButtonGap;
   }
-
 }
