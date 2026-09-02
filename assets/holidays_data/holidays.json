@@ -3,5 +3,5 @@
   "name": "Boże Narodzenie",
   "description": "Święta Bożego Narodzenia, Narodzenie Pańskie – święto upamiętniające narodziny Jezusa Chrystusa, obchodzone przez większość wyznań chrześcijańskich, zwykle 25 grudnia. Część Kościołów używa jednak kalendarza, w którym to święto wypada w inny dzień roku według najpopularniejszej, „standardowej” rachuby (gregoriańskiej). ",
   "locale": "('pl', 'PL'),('en', 'GB')",
-  "is_day_off": "false",
+  "is_day_off": "false"
 }

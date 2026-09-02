@@ -1,13 +1,18 @@
-import 'dart:math';
 import 'dart:ui';
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../utils/constants/const_values.dart';
+import '../../utils/dimensions/size_info.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
 
+  /// The resolved sliver extent. It is optional so ordinary, one-line headers
+  /// can use the standard header height without repeating it at every call site.
+  ///
+  /// A [SliverPersistentHeaderDelegate] cannot derive its extent directly from
+  /// [child] during layout. For content whose height changes, calculate it from
+  /// the content (for example with [TextPainter]) and provide it here.
   final double height;
   final Widget? child;
   final double paddingHorizontal;
@@ -21,11 +26,11 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
 
   SliverHeader(
       {
-        required this.height,
+      this.height = 70,//SizeInfo.sliverHeaderHeight,
       required this.child,
       this.paddingHorizontal = 8.0,
       this.paddingVertical = 0.0,
-      this.isRebuild = false});
+      this.isRebuild = true});
 
   @override
   Widget build(
@@ -55,7 +60,11 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverHeader oldDelegate) {
-    return isRebuild ;
+    return isRebuild ||
+        height != oldDelegate.height ||
+        child != oldDelegate.child ||
+        paddingHorizontal != oldDelegate.paddingHorizontal ||
+        paddingVertical != oldDelegate.paddingVertical;
   }
 
   @override

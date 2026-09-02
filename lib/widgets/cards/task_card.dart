@@ -5,7 +5,7 @@ import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../buttons/switch_btn.dart';
+import '../buttons/toogle_check.dart';
 import '../responsive/column_row_builder.dart';
 
 class TaskCard extends StatelessWidget {
@@ -196,7 +196,7 @@ class TaskCard extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: SwitchBtn(
+              child: ToogleCheck(
                 value: task.isTaskDone,
                 iconData: Icons.check,
                 iconSize: switchBtnIconSize,

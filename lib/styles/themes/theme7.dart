@@ -262,7 +262,7 @@ final theme9 = ThemeData(
     trackOutlineWidth: WidgetStateProperty.all(0.5),
     trackOutlineColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme9UnselectedColor;
+        return theme9MainBcgColor;
       } else {
         return theme9ShadowColor;
       }
@@ -276,7 +276,7 @@ final theme9 = ThemeData(
     }),
     trackColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme9UnselectedColor;
+        return theme9MainBcgColor;
       } else {
         return theme9ShadowColor;
       }

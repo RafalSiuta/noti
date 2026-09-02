@@ -4,7 +4,7 @@ import '../../providers/permission_provider/permission_provider.dart';
 import '../../providers/settings_provider/settings_provider.dart';
 import '../../styles/shapes/shapes.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/buttons/switch_btn.dart';
+import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
@@ -82,7 +82,7 @@ class _PermissionScreenLauncherState extends State<PermissionScreenLauncher>  wi
                                   return SettingsCard(
                                     title: permissionSettings.title!,
                                     description: permissionSettings.description!,
-                                    child: SwitchBtn(
+                                    child: ToogleCheck(
                                         iconData: Icons.circle,
                                         iconSize: switchIconSize,
                                         value: permissionSettings.isOn,

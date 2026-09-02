@@ -24,10 +24,10 @@ class SettingsCard extends StatelessWidget {
     const textPadding = EdgeInsets.symmetric(horizontal: 6.0);
 
     const marginContainer = EdgeInsets.all(8.0);
-    const marginTextBox = EdgeInsets.all(16);
+    const marginTextBox = EdgeInsets.all(6);
 
-    const radiusContainer = BorderRadius.all(Radius.circular(15));
-    const radiusInnerContainer = BorderRadius.all(Radius.circular(10));
+    double radiusContainer = SizeInfo.outherCardCornerRadius;//BorderRadius.all(Radius.circular(15));
+    BorderRadius radiusInnerContainer = BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius));
 
     List<Widget> items = [
       Expanded(
@@ -58,50 +58,46 @@ class SettingsCard extends StatelessWidget {
       ),
       child
     ];
-    return Stack(
-      key: key,
-      children: [
-        Container(
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: cardHeight,
+      margin: marginContainer,
+      decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.all(Radius.circular(radiusContainer)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Theme.of(
+                context,
+              ).unselectedWidgetColor.withValues(alpha: 0.8),
+              offset: const Offset(0.0, 0.0),
+            ),
+            BoxShadow(
+              color: Theme.of(context).shadowColor,
+              offset: const Offset(0.0, 0.0),
+              spreadRadius: -1.0,
+              blurRadius: 1.0,
+            ),
+          ],
+      ),
+      child: Container(
           width: MediaQuery.of(context).size.width,
-          height: cardHeight,
-          margin: marginContainer,
+          height: smallRingRadiusSize,
+          margin: marginTextBox,
           decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.2),
-              borderRadius: radiusContainer,
-              boxShadow: <BoxShadow>[
+              color: Theme.of(context).colorScheme.onSurface,
+              borderRadius: radiusInnerContainer,
+              boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context)
-                      .unselectedWidgetColor
-                      .withValues(alpha: 0.8),
-                  offset: const Offset(0.0, 0.0),
-                ),
-                BoxShadow(
-                  color: Theme.of(context).shadowColor,
-                  offset: const Offset(0.0, 0.0),
-                  spreadRadius: -2.0,
-                  blurRadius: 2.0,
-                ),
+                    color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.2),
+                    blurRadius: 2.0,
+                    offset: const Offset(.0, .0),
+                    spreadRadius: 1.5),
               ]),
-        ), //main shape
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: smallRingRadiusSize,
-            margin: marginTextBox,
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onSurface,
-                borderRadius: radiusInnerContainer,
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).shadowColor,
-                      blurRadius: 2.0,
-                      offset: const Offset(.0, .0),
-                      spreadRadius: 1.5),
-                ]),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: items)),
-      ],
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: items)),
     );
   }
 }

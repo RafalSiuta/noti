@@ -60,6 +60,16 @@
     "show_in_calendar": true
   },
   {
+    "id": "pentecost_pl",
+    "name": {"pl": "Zesłanie Ducha Świętego", "en": "Pentecost", "es": "Pentecostés"},
+    "description": {"pl": "Pierwszy dzień Zielonych Świątek, przypadający 49 dni po Wielkanocy.", "en": "The first day of Pentecost, observed 49 days after Easter.", "es": "El primer día de Pentecostés, celebrado 49 días después de Pascua."},
+    "date_rule": {"type": "easter_offset", "offset_days": 49},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "religious",
+    "show_in_calendar": true
+  },
+  {
     "id": "labour_day",
     "name": {"pl": "Święto Pracy", "en": "Labour Day", "es": "Día del Trabajo"},
     "description": {"pl": "Święto ludzi pracy.", "en": "A public holiday celebrating workers.", "es": "Fiesta pública dedicada a los trabajadores."},
@@ -117,6 +127,16 @@
     "countries": ["PL"],
     "is_day_off_by_country": {"PL": true},
     "category": "national",
+    "show_in_calendar": true
+  },
+  {
+    "id": "christmas_eve_pl",
+    "name": {"pl": "Wigilia Bożego Narodzenia", "en": "Christmas Eve", "es": "Nochebuena"},
+    "description": {"pl": "Wigilia Bożego Narodzenia, ustawowo wolna od pracy w Polsce od 2025 roku.", "en": "Christmas Eve, a statutory day off in Poland since 2025.", "es": "Nochebuena, día festivo legal en Polonia desde 2025."},
+    "date_rule": {"type": "fixed", "month": 12, "day": 24},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": true},
+    "category": "public",
     "show_in_calendar": true
   },
   {

@@ -1,6 +1,8 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 class TaskCardShape extends CustomClipper<Path> {
   const TaskCardShape({
     this.switchButtonSide = 28.0,
@@ -13,8 +15,8 @@ class TaskCardShape extends CustomClipper<Path> {
   @override
   ui.Path getClip(ui.Size size) {
     Path path_0 = Path();
-    const cornerRadius = 6.0;
-    const cutoutRadius = cornerRadius;
+    double cornerRadius = SizeInfo.innerCardCornerRadius;
+    double cutoutRadius = cornerRadius;
     final requestedCutoutExtent = switchButtonSide + switchButtonGap;
     final maxCutoutExtent = (size.shortestSide - cornerRadius).clamp(
       0.0,

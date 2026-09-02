@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
+import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/warring_alert.dart';
@@ -204,9 +205,7 @@ class _ExportScreenState extends State<ExportScreen> {
                       title: exportsSettings.title!,
                       description: exportsSettings.description!,
                       child: SwitchBtn(
-                        iconData: Icons.circle,
-                        iconSize: switchIconSize,
-                        value: exportsSettings.isOn,
+                        value: exportsSettings.isOn!,
                         onChanged: (val) {
                           exportProvider.onExportSettingsChange(
                             exportsSettings,

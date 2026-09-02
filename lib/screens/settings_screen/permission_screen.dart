@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/permission_provider/permission_provider.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/buttons/switch_btn.dart';
+import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
@@ -47,7 +47,7 @@ class PermissionScreen extends StatelessWidget {
                           return SettingsCard(
                             title: permissionSettings.title!,
                             description: permissionSettings.description!,
-                            child: SwitchBtn(
+                            child: ToogleCheck(
                                 iconData: Icons.circle,
                                 iconSize: switchIconSize,
                                 value: permissionSettings.isOn,

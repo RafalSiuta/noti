@@ -8,6 +8,7 @@ import '../../providers/settings_provider/settings_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
+import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/headers/sliver_header.dart';
@@ -68,18 +69,30 @@ class SetsScreen extends StatelessWidget {
                       title:notificationSettings.title!,
                       description: notificationSettings.description!,
                       child: SwitchBtn(
-                          iconData: Icons.circle,
-                          iconSize: switchIconSize,
-                          value: notificationSettings.isOn,
+                          value: notificationSettings.isOn!,
                           onChanged: (val) {
-                            if(index == 0){
-                              settingsProvider.onNotificationSettingsChange(
-                                  notificationSettings);
-                            }else{
-                              settingsProvider.onNotificationSound(notificationSettings);
-                            }
+                              if(index == 0){
+                                settingsProvider.onNotificationSettingsChange(
+                                    notificationSettings);
+                              }else{
+                                settingsProvider.onNotificationSound(notificationSettings);
+                              }
 
-                          }),
+                            }
+                      )
+                      // SwitchBtn(
+                      //     iconData: Icons.circle,
+                      //     iconSize: switchIconSize,
+                      //     value: notificationSettings.isOn,
+                      //     onChanged: (val) {
+                      //       if(index == 0){
+                      //         settingsProvider.onNotificationSettingsChange(
+                      //             notificationSettings);
+                      //       }else{
+                      //         settingsProvider.onNotificationSound(notificationSettings);
+                      //       }
+                      //
+                      //     }),
                     );
                   },
                 )
@@ -109,14 +122,22 @@ class SetsScreen extends StatelessWidget {
                     return SettingsCard(
                       title: calendarSettings.title!,
                       description: calendarSettings.description!,
-                      child: SwitchBtn(
-                          iconData: Icons.circle,
-                          iconSize: switchIconSize,
-                          value: calendarSettings.isOn,
-                          onChanged: (val) {
-                            settingsProvider
-                                .onCalendarSettingsChange(calendarSettings);
-                          }),
+                      child:
+                      SwitchBtn(
+                          value: calendarSettings.isOn!,
+                            onChanged: (val) {
+                              settingsProvider
+                                  .onCalendarSettingsChange(calendarSettings);
+                            }
+                      ),
+                      // ToogleCheck(
+                      //     iconData: Icons.circle,
+                      //     iconSize: switchIconSize,
+                      //     value: calendarSettings.isOn,
+                      //     onChanged: (val) {
+                      //       settingsProvider
+                      //           .onCalendarSettingsChange(calendarSettings);
+                      //     }),
                     );
                   },
                 )
@@ -144,9 +165,7 @@ class SetsScreen extends StatelessWidget {
                       title: trashSets.title!,
                       description: trashSets.description!,
                       child: index <= 1 ? SwitchBtn(
-                          iconData: Icons.circle,
-                          iconSize: switchIconSize,
-                          value: trashSets.isOn,
+                          value: trashSets.isOn!,
                           onChanged: (val) {
                             settingsProvider.onTrashSettingsChange(trashSets);
                             if (trashSets.isOn == true) {

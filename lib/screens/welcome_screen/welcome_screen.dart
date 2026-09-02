@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:noti/providers/home_provider/home_provider.dart';
+import 'package:noti/providers/holidays_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -23,7 +25,17 @@ class WelcomeScreen extends StatelessWidget {
       final taskProvider = Provider.of<TaskProvider>(context, listen: false);
       taskProvider.onDaySelected(DateTime.now(), DateTime.now());
     });
-    var headerHeight = SizeInfo.sliverLargeHeaderHeight;
+    final selectedDate = context.select<HomeProvider, DateTime>(
+      (provider) => provider.date,
+    );
+    final holidayTitle = context.select<HolidaysProvider, String?>(
+      (provider) => DateHeader.holidayTitleFor(context, selectedDate, provider),
+    );
+    final headerHeight = DateHeader.heightFor(
+      context,
+      selectedDate,
+      holidayTitle: holidayTitle,
+    );
     var calendarHeaderHeight = SizeInfo.sliverCalendarHeaderHeight;
     return Stack(
         alignment: Alignment.topLeft,
@@ -38,7 +50,8 @@ class WelcomeScreen extends StatelessWidget {
               SliverPersistentHeader(
                   pinned: true,
                   floating: true,
-                  delegate: SliverHeader(
+                  delegate:
+                  SliverHeader(
                     paddingHorizontal: .0,
                     height: headerHeight,
                     child:const DateHeader(),

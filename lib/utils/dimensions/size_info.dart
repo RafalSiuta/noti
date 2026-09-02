@@ -24,6 +24,8 @@ class SizeInfo {
   ///corner radius
   static double cornerRadius = 15.0;
   static double buttonCornerRadius = 5.0;
+  static double outherCardCornerRadius = 8.0;
+  static double innerCardCornerRadius = 6.0;
 
   ///general - repeat in other widgets:
   static double headerTitleSize = 32;

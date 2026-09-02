@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../models/date/date_model.dart';
 import '../../providers/home_provider/home_provider.dart';
+import '../../providers/holidays_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/app_localizations.dart';
@@ -16,20 +17,21 @@ class DateHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    var titleSize = SizeInfo.headerTitleSize;
-    var subtitleSize = SizeInfo.headerSubtitleSize;
-    var menuTop = SizeInfo.menuTopMargin;
-    var edgePadding = SizeInfo.edgePadding;
-    var textStyle = Theme.of(context)
-        .textTheme
-        .headlineLarge;
-    return Consumer<HomeProvider>(
-      builder: (context, homeProvider, child) {
-        DateModel date = AppLocalizations.of(context)!.dateFormat(homeProvider.date, context);
+    return Consumer2<HomeProvider, HolidaysProvider>(
+      builder: (context, homeProvider, holidaysProvider, child) {
+        final date = AppLocalizations.of(context)!
+            .dateFormat(homeProvider.date, context);
+        final holidayTitle = holidayTitleFor(
+          context,
+          homeProvider.date,
+          holidaysProvider,
+        );
         return Padding(
           padding: EdgeInsets.only(
-              top: menuTop, bottom: 10.0, right: 8.0, left: edgePadding),
+              top: SizeInfo.menuTopMargin,
+              bottom: 10.0,
+              right: 8.0,
+              left: SizeInfo.edgePadding),
           child: Align(
             alignment: Alignment.topLeft,
             child: PlayAnimationBuilder(
@@ -38,17 +40,8 @@ class DateHeader extends StatelessWidget {
                 return Transform.translate(
                   offset: value,
                   child: RichText(
-                    text: TextSpan(
-                        text:'${date.weekDay!.capitalizeFirstLetter()}\n',
-                        // text: '${homeProvider.wD.format(homeProvider.date)}\n',
-                        style: textStyle?.copyWith(fontSize: titleSize),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:date.fullDate,
-                            // text: homeProvider.mY.format(homeProvider.date),
-                            style: textStyle?.copyWith(fontSize: subtitleSize),
-                          )
-                        ]),
+                    textScaler: MediaQuery.textScalerOf(context),
+                    text: textSpan(context, date, holidayTitle: holidayTitle),
                   ),
                 );
               },
@@ -57,5 +50,72 @@ class DateHeader extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// Builds the same content used by [RichText] and by [heightFor]. Keeping it
+  /// in one place prevents an added TextSpan from being clipped by the sliver.
+  static TextSpan textSpan(
+    BuildContext context,
+    DateModel date, {
+    String? holidayTitle,
+  }) {
+    final textStyle = Theme.of(context).textTheme.headlineLarge;
+    return TextSpan(
+      text: '${date.weekDay!.capitalizeFirstLetter()}\n',
+      style: textStyle?.copyWith(fontSize: SizeInfo.headerTitleSize),
+      children: <TextSpan>[
+        TextSpan(
+          // Do not leave a trailing newline when there is no holiday: it would
+          // be measured as an empty RichText line by TextPainter.
+          text: '${date.fullDate}${holidayTitle == null ? '' : '\n'}',
+          style: textStyle?.copyWith(fontSize: SizeInfo.headerSubtitleSize),
+        ),
+        if (holidayTitle != null)
+          TextSpan(
+            text: holidayTitle,
+            style: textStyle?.copyWith(fontSize: SizeInfo.headerSubtitleSize),
+          ),
+      ],
+    );
+  }
+
+  /// Returns the exact vertical space needed by [DateHeader]'s RichText and
+  /// its vertical padding. It reacts to added lines, wrapping and accessibility
+  /// text scaling.
+  static double heightFor(
+    BuildContext context,
+    DateTime selectedDate, {
+    String? holidayTitle,
+  }) {
+    final date = AppLocalizations.of(context)!
+        .dateFormat(selectedDate, context);
+    final horizontalPadding = SizeInfo.edgePadding + 8.0;
+    final availableWidth =
+        (MediaQuery.sizeOf(context).width - horizontalPadding)
+            .clamp(0.0, double.infinity)
+            .toDouble();
+    final painter = TextPainter(
+      text: textSpan(context, date, holidayTitle: holidayTitle),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: null,
+    )..layout(maxWidth: availableWidth);
+
+    return painter.height + SizeInfo.menuTopMargin + 10.0;
+  }
+
+  /// Returns the localized title of the first holiday on [selectedDate], or
+  /// `null` when the day is not a holiday.
+  static String? holidayTitleFor(
+    BuildContext context,
+    DateTime selectedDate,
+    HolidaysProvider holidaysProvider,
+  ) {
+    final holidays = holidaysProvider.getHolidaysForDay(selectedDate);
+    if (holidays.isEmpty) return null;
+
+    final holiday = holidays.first;
+    return AppLocalizations.of(context)!
+        .localizedValue(holiday.name, fallback: holiday.id);
   }
 }
