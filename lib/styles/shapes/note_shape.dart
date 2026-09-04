@@ -159,3 +159,8 @@ class NoteCardShape extends CustomClipper<Path> {
     return false;
   }
 }
+
+// <svg width="86" height="130" viewBox="0 0 86 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+// <path d="M86 126V17H73C70.7909 17 69 15.2091 69 13V6.946e-06H0V130H82.4167C84.3957 130 86 128.209 86 126Z" fill="#F5F5F5"/>
+// <path d="M74 14L86 14L72 0V12C72 13.1046 72.8954 14 74 14Z" fill="#F5F5F5"/>
+// </svg>
