@@ -104,7 +104,20 @@ class HolidaysProvider extends ChangeNotifier {
         holiday: holiday,
       ));
     }
-    datedHolidays.sort((a, b) {
+
+    final visibleDatedHolidays = datedHolidays
+        .where((item) {
+          if (item.holiday.category != 'shopping') return true;
+          return !datedHolidays.any(
+            (other) =>
+                other.date == item.date &&
+                other.holiday.id != item.holiday.id &&
+                other.holiday.isDayOffForCountry(countryCode),
+          );
+        })
+        .toList(growable: false);
+
+    visibleDatedHolidays.sort((a, b) {
       final dateComparison = a.date.compareTo(b.date);
       if (dateComparison != 0) return dateComparison;
       final aDayOff = a.holiday.isDayOffForCountry(countryCode);
@@ -116,12 +129,12 @@ class HolidaysProvider extends ChangeNotifier {
     });
 
     final byDate = <DateTime, List<Holiday>>{};
-    for (final item in datedHolidays) {
+    for (final item in visibleDatedHolidays) {
       byDate.putIfAbsent(item.date, () => <Holiday>[]).add(item.holiday);
     }
 
     _allHolidays = parsedHolidays;
-    _filteredHolidays = datedHolidays
+    _filteredHolidays = visibleDatedHolidays
         .map((item) => item.holiday)
         .toList(growable: false);
     _holidaysByDate = byDate;

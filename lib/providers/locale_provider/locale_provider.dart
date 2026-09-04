@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../utils/constants/sets_keys.dart';
 
-const String kPrefsLocaleKey = 'app_locale_code'; // przechowujemy BCP-47, np. 'pl-PL', 'en-GB', 'es-ES'
+// const String kPrefsLocaleKey =
+//     'app_locale_code'; // przechowujemy BCP-47, np. 'pl-PL', 'en-GB', 'es-ES'
 
-class LocaleProvider extends ChangeNotifier {
+class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
   LocaleProvider() {
-    // // natychmiast ustaw język urządzenia, żeby nie było "mrugnięcia"
-    // final device = WidgetsBinding.instance.platformDispatcher.locale;
-    // _locale = _normalizeToSupported(device);
-    // _hasUserChoice = false;
-    //
-    // _init(); // potem asynchronicznie nadpisz z prefs (jeśli jest)
+    WidgetsBinding.instance.addObserver(this);
+
+    // Natychmiast ustaw język urządzenia, żeby providery zależne od locale
+    // nie startowały z domyślnym en-GB przed wczytaniem prefs.
+    final device = WidgetsBinding.instance.platformDispatcher.locale;
+    _locale = _normalizeToSupported(device);
+    _hasUserChoice = false;
+
+    _init(); // potem asynchronicznie nadpisz z prefs (jeśli jest)
   }
 
   // --- public API ---
@@ -18,6 +23,23 @@ class LocaleProvider extends ChangeNotifier {
   bool get hasUserChoice => _hasUserChoice;
   String get code => _locale.languageCode; // do radiobuttonów ('pl'/'en'/'es')
   List<Locale> get supportedLocales => _supported;
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    if (_hasUserChoice || locales == null || locales.isEmpty) return;
+
+    final next = _normalizeToSupported(locales.first);
+    if (next == _locale) return;
+
+    _locale = next;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   /// Ustaw ręcznie po 'en'/'pl'/'es'
   Future<void> setLanguageCode(String code) async {
@@ -47,7 +69,10 @@ class LocaleProvider extends ChangeNotifier {
 
   // --- private ---
 
-  Locale _locale = const Locale('en', 'GB'); // i tak nadpisujemy w konstruktorze
+  Locale _locale = const Locale(
+    'en',
+    'GB',
+  ); // i tak nadpisujemy w konstruktorze
   bool _hasUserChoice = false;
 
   static const _supported = <Locale>[
@@ -76,7 +101,10 @@ class LocaleProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> _applyUserChoice(Locale next, {required String persistTag}) async {
+  Future<void> _applyUserChoice(
+    Locale next, {
+    required String persistTag,
+  }) async {
     if (next == _locale && _hasUserChoice) return; // bez zbędnych rebuildów
     _locale = next;
     _hasUserChoice = true;

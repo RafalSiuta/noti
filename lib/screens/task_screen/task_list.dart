@@ -54,7 +54,6 @@ class TaskList extends StatelessWidget {
                 SmallHeader(
                   title:
                       "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_tasks") : context.t("headers_text.header_task")}",
-                  //title:'You have $counter task${counter > 1 ? 's' : ""}',
                 ),
                 AnimationLimiter(
                   child: listType == "base"

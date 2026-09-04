@@ -18,7 +18,12 @@ class HolidayDateRule {
   factory HolidayDateRule.fromJson(Map<String, dynamic> json) {
     final type = json['type'];
     if (type is! String ||
-        !const {'fixed', 'weekday_in_month', 'easter_offset'}.contains(type)) {
+        !const {
+          'fixed',
+          'weekday_in_month',
+          'weekday_before_fixed',
+          'easter_offset',
+        }.contains(type)) {
       throw const FormatException('Unsupported holiday date rule type.');
     }
 
@@ -77,10 +82,33 @@ class HolidayDateRule {
           return null;
         }
         return resolveWeekdayInMonth(year, ruleMonth, ruleWeekday, ruleOrdinal);
+      case 'weekday_before_fixed':
+        final ruleMonth = month;
+        final ruleDay = day;
+        final ruleWeekday = weekday;
+        final ruleOrdinal = ordinal;
+        if (ruleMonth == null ||
+            ruleDay == null ||
+            ruleWeekday == null ||
+            ruleOrdinal == null) {
+          return null;
+        }
+        return resolveWeekdayBeforeFixedDate(
+          year,
+          ruleMonth,
+          ruleDay,
+          ruleWeekday,
+          ruleOrdinal,
+        );
       case 'easter_offset':
         final offset = offsetDays;
         if (offset == null || year < 1583) return null;
-        return calculateWesternEasterDate(year).add(Duration(days: offset));
+        final easterDate = calculateWesternEasterDate(year);
+        return DateTime(
+          easterDate.year,
+          easterDate.month,
+          easterDate.day + offset,
+        );
       default:
         return null;
     }
@@ -123,15 +151,42 @@ class HolidayDateRule {
     if (ordinal == -1) {
       final lastDay = DateTime(year, month + 1, 0);
       final daysBack = (lastDay.weekday - weekday) % 7;
-      return lastDay.subtract(Duration(days: daysBack));
+      return DateTime(year, month + 1, -daysBack);
     }
 
     if (ordinal < 1 || ordinal > 5) return null;
     final firstDay = DateTime(year, month);
     final daysForward = (weekday - firstDay.weekday) % 7;
-    final result = firstDay.add(
-      Duration(days: daysForward + (ordinal - 1) * 7),
-    );
+    final result = DateTime(year, month, 1 + daysForward + (ordinal - 1) * 7);
     return result.month == month ? result : null;
+  }
+
+  static DateTime? resolveWeekdayBeforeFixedDate(
+    int year,
+    int month,
+    int day,
+    int weekday,
+    int ordinal,
+  ) {
+    if (year < 1 ||
+        month < 1 ||
+        month > 12 ||
+        day < 1 ||
+        weekday < DateTime.monday ||
+        weekday > DateTime.sunday ||
+        ordinal < 1) {
+      return null;
+    }
+
+    final targetDate = DateTime(year, month, day);
+    if (targetDate.month != month || targetDate.day != day) return null;
+
+    final daysBack = (targetDate.weekday - weekday) % 7;
+    final nearestPreviousWeekdayDistance = daysBack == 0 ? 7 : daysBack;
+    return DateTime(
+      year,
+      month,
+      day - nearestPreviousWeekdayDistance - (ordinal - 1) * 7,
+    );
   }
 }

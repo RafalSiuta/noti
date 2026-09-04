@@ -170,6 +170,86 @@
     "show_in_calendar": true
   },
   {
+    "id": "poland_trading_sunday_january",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Ostatnia niedziela stycznia, w której nie obowiązuje ustawowy zakaz handlu.", "en": "The last Sunday in January when the statutory Sunday trading ban does not apply.", "es": "El último domingo de enero en el que no se aplica la prohibición legal del comercio dominical."},
+    "date_rule": {"type": "weekday_in_month", "month": 1, "weekday": 7, "ordinal": -1},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_before_easter",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Niedziela bezpośrednio poprzedzająca pierwszy dzień Wielkiej Nocy.", "en": "The Sunday directly before Easter Sunday.", "es": "El domingo inmediatamente anterior al Domingo de Pascua."},
+    "date_rule": {"type": "easter_offset", "offset_days": -7},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_april",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Ostatnia niedziela kwietnia, w której nie obowiązuje ustawowy zakaz handlu.", "en": "The last Sunday in April when the statutory Sunday trading ban does not apply.", "es": "El último domingo de abril en el que no se aplica la prohibición legal del comercio dominical."},
+    "date_rule": {"type": "weekday_in_month", "month": 4, "weekday": 7, "ordinal": -1},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_june",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Ostatnia niedziela czerwca, w której nie obowiązuje ustawowy zakaz handlu.", "en": "The last Sunday in June when the statutory Sunday trading ban does not apply.", "es": "El último domingo de junio en el que no se aplica la prohibición legal del comercio dominical."},
+    "date_rule": {"type": "weekday_in_month", "month": 6, "weekday": 7, "ordinal": -1},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_august",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Ostatnia niedziela sierpnia, w której nie obowiązuje ustawowy zakaz handlu.", "en": "The last Sunday in August when the statutory Sunday trading ban does not apply.", "es": "El último domingo de agosto en el que no se aplica la prohibición legal del comercio dominical."},
+    "date_rule": {"type": "weekday_in_month", "month": 8, "weekday": 7, "ordinal": -1},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_before_christmas_3",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Trzecia niedziela poprzedzająca Wigilię Bożego Narodzenia.", "en": "The third Sunday before Christmas Eve.", "es": "El tercer domingo anterior a Nochebuena."},
+    "date_rule": {"type": "weekday_before_fixed", "month": 12, "day": 24, "weekday": 7, "ordinal": 3},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_before_christmas_2",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Druga niedziela poprzedzająca Wigilię Bożego Narodzenia.", "en": "The second Sunday before Christmas Eve.", "es": "El segundo domingo anterior a Nochebuena."},
+    "date_rule": {"type": "weekday_before_fixed", "month": 12, "day": 24, "weekday": 7, "ordinal": 2},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
+    "id": "poland_trading_sunday_before_christmas_1",
+    "name": {"pl": "Niedziela handlowa", "en": "Trading Sunday", "es": "Domingo comercial"},
+    "description": {"pl": "Niedziela bezpośrednio poprzedzająca Wigilię Bożego Narodzenia.", "en": "The Sunday directly before Christmas Eve.", "es": "El domingo inmediatamente anterior a Nochebuena."},
+    "date_rule": {"type": "weekday_before_fixed", "month": 12, "day": 24, "weekday": 7, "ordinal": 1},
+    "countries": ["PL"],
+    "is_day_off_by_country": {"PL": false},
+    "category": "shopping",
+    "show_in_calendar": true
+  },
+  {
     "id": "early_may_bank_holiday_gb",
     "name": {"pl": "Majowe święto bankowe", "en": "Early May Bank Holiday", "es": "Fiesta bancaria de mayo"},
     "description": {"pl": "Pierwszy poniedziałek maja w Wielkiej Brytanii.", "en": "The first Monday in May in the United Kingdom.", "es": "El primer lunes de mayo en el Reino Unido."},

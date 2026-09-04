@@ -156,7 +156,7 @@ class MyApp extends StatelessWidget {
               Locale('en', 'GB'),
               Locale('es', 'ES'),
             ],
-            //locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
+            locale: localeProvider.hasUserChoice ? localeProvider.locale : null,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

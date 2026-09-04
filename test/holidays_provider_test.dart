@@ -17,9 +17,14 @@ void main() {
         type: 'easter_offset',
         offsetDays: 1,
       );
+      const sundayBeforeEaster = HolidayDateRule(
+        type: 'easter_offset',
+        offsetDays: -7,
+      );
 
       expect(easterSunday.resolveDate(2026), DateTime(2026, 4, 5));
       expect(easterMonday.resolveDate(2026), DateTime(2026, 4, 6));
+      expect(sundayBeforeEaster.resolveDate(2026), DateTime(2026, 3, 29));
     });
 
     test('resolves first and last weekday in a month', () {
@@ -37,6 +42,32 @@ void main() {
       const invalidDate = HolidayDateRule(type: 'fixed', month: 2, day: 30);
 
       expect(invalidDate.resolveDate(2026), isNull);
+    });
+
+    test('resolves weekdays before a fixed date', () {
+      const nearestSundayBeforeChristmasEve = HolidayDateRule(
+        type: 'weekday_before_fixed',
+        month: 12,
+        day: 24,
+        weekday: DateTime.sunday,
+        ordinal: 1,
+      );
+      const thirdSundayBeforeChristmasEve = HolidayDateRule(
+        type: 'weekday_before_fixed',
+        month: 12,
+        day: 24,
+        weekday: DateTime.sunday,
+        ordinal: 3,
+      );
+
+      expect(
+        nearestSundayBeforeChristmasEve.resolveDate(2026),
+        DateTime(2026, 12, 20),
+      );
+      expect(
+        thirdSundayBeforeChristmasEve.resolveDate(2026),
+        DateTime(2026, 12, 6),
+      );
     });
   });
 
@@ -75,6 +106,43 @@ void main() {
     );
     expect(provider.hasHoliday(DateTime(2026, 4, 5)), isTrue);
     expect(provider.isDayOff(DateTime(2026, 4, 6)), isTrue);
+    expect(provider.hasHoliday(DateTime(2026, 11, 1)), isTrue);
+    expect(provider.isDayOff(DateTime(2026, 11, 1)), isTrue);
+    expect(provider.hasHoliday(DateTime(2026, 11, 11)), isTrue);
+    expect(provider.isDayOff(DateTime(2026, 11, 11)), isTrue);
     expect(provider.getHolidaysForDay(DateTime(2026, 6, 12)), isEmpty);
   });
+
+  test(
+    'provider marks Polish trading Sundays as calendar observances',
+    () async {
+      final provider = HolidaysProvider();
+      addTearDown(provider.dispose);
+
+      await provider.loadHolidays(year: 2026, locale: const Locale('pl', 'PL'));
+
+      final tradingSundayDates = <DateTime>[
+        DateTime(2026, 1, 25),
+        DateTime(2026, 3, 29),
+        DateTime(2026, 4, 26),
+        DateTime(2026, 6, 28),
+        DateTime(2026, 8, 30),
+        DateTime(2026, 12, 6),
+        DateTime(2026, 12, 13),
+        DateTime(2026, 12, 20),
+      ];
+
+      for (final date in tradingSundayDates) {
+        final holidays = provider.getHolidaysForDay(date);
+
+        expect(
+          holidays.any((holiday) => holiday.category == 'shopping'),
+          isTrue,
+          reason: date.toIso8601String(),
+        );
+        expect(provider.hasHoliday(date), isTrue);
+        expect(provider.isDayOff(date), isFalse);
+      }
+    },
+  );
 }
