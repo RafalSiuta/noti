@@ -69,17 +69,20 @@ class Carousel extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(15.0),
+
                                     ),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomLeft,
-                                      stops: const [0.0, 0.5, 1.0],
-                                      colors: [
-                                        Theme.of(context).primaryColor,
-                                        Theme.of(context).primaryColorLight,
-                                        Theme.of(context).primaryColorDark
-                                      ],
-                                    )),
+                                    color: Theme.of(context).colorScheme.tertiary,
+                                    // gradient: LinearGradient(
+                                    //   begin: Alignment.topCenter,
+                                    //   end: Alignment.bottomLeft,
+                                    //   stops: const [0.0, 0.5, 1.0],
+                                    //   colors: [
+                                    //     Theme.of(context).primaryColor,
+                                    //     Theme.of(context).primaryColorLight,
+                                    //     Theme.of(context).primaryColorDark
+                                    //   ],
+                                    // )
+                                ),
                               ),
                             ),
                           ),

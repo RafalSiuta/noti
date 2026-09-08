@@ -186,25 +186,26 @@ class TaskSwipeCard extends StatelessWidget {
       onTap: edit,
       child: Container(
         height: height,
+        margin: EdgeInsets.only(right: 2),
         padding: EdgeInsets.all(6.0),
         decoration: BoxDecoration(
           borderRadius: radiusContainer,
           color: Theme.of(
             context,
-          ).scaffoldBackgroundColor.withValues(alpha: 0.2),
+          ).scaffoldBackgroundColor,
 
           boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Theme.of(
-                context,
-              ).unselectedWidgetColor.withValues(alpha: 0.8),
-              offset: const Offset(0.0, 0.0),
-            ),
+            // BoxShadow(
+            //   color: Theme.of(
+            //     context,
+            //   ).shadowColor,//.withValues(alpha: 0.8),
+            //   offset: const Offset(0.0, 0.0),
+            // ),
             BoxShadow(
               color: Theme.of(context).shadowColor,
               offset: const Offset(0.0, 0.0),
-              spreadRadius: -1.0,
-              blurRadius: 1.0,
+              spreadRadius: 1.5,
+              blurRadius: 2.5,
             ),
           ],
         ),
@@ -232,12 +233,10 @@ class TaskSwipeCard extends StatelessWidget {
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Theme.of(
-                      context,
-                    ).unselectedWidgetColor.withValues(alpha: 0.3),
-                    blurRadius: 2.0,
-                    offset: const Offset(.0, .0),
+                    color: Theme.of(context).shadowColor,
+                    offset: const Offset(0.0, 0.0),
                     spreadRadius: 1.5,
+                    blurRadius: 2.5,
                   ),
                 ],
               ),
@@ -260,6 +259,7 @@ class TaskSwipeCard extends StatelessWidget {
                       style: task.isTaskDone
                           ? Theme.of(context).textTheme.displayMedium!.copyWith(
                               fontSize: titleFontSize,
+                              decoration: TextDecoration.none,
                               color: task.isTaskDone
                                   ? Theme.of(context).colorScheme.onSecondary
                                   : Theme.of(context).colorScheme.secondary,
@@ -280,99 +280,99 @@ class TaskSwipeCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: innerRadiusContainer,
-                child: Dismissible(
-                  key: ValueKey('task-swipe-card-${task.id}'),
-                  direction: DismissDirection.endToStart,
-                  resizeDuration: const Duration(milliseconds: 220),
-                  movementDuration: const Duration(milliseconds: 180),
-                  dismissThresholds: const {DismissDirection.endToStart: 0.4},
-                  onDismissed: (_) => delete?.call(),
-                  background: const SizedBox.shrink(),
-                  secondaryBackground: Padding(
-                    padding: marginContainer,
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: innerRadiusContainer,
-                        // color:  Theme.of(
-                        //   context,
-                        // ).scaffoldBackgroundColor,
-                        gradient: LinearGradient(
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft,
-                          colors: [
-                            Theme.of(
-                              context,
-                            ).scaffoldBackgroundColor.withValues(alpha: 0.2),
-                            Theme.of(
-                              context,
-                            ).scaffoldBackgroundColor,
-                          ],
+                child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Dismissible(
+                    key: ValueKey('task-swipe-card-${task.id}'),
+                    direction: DismissDirection.endToStart,
+                    resizeDuration: const Duration(milliseconds: 220),
+                    movementDuration: const Duration(milliseconds: 180),
+                    dismissThresholds: const {DismissDirection.endToStart: 0.4},
+                    onDismissed: (_) => delete?.call(),
+                    background: const SizedBox.shrink(),
+                    secondaryBackground: Padding(
+                      padding: marginContainer,
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 14),
+                        decoration: BoxDecoration(
+                          borderRadius: innerRadiusContainer,
+                          // color:  Theme.of(
+                          //   context,
+                          // ).scaffoldBackgroundColor,
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [
+                              Theme.of(
+                                context,
+                              ).scaffoldBackgroundColor.withValues(alpha: 0.2),
+                              Theme.of(
+                                context,
+                              ).scaffoldBackgroundColor,
+                            ],
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.delete_outline,
+                          color: Theme.of(context).unselectedWidgetColor,
+                          size: iconSize,
                         ),
                       ),
-                      child: Icon(
-                        Icons.delete_outline,
-                        color: Theme.of(context).unselectedWidgetColor,
-                        size: iconSize,
-                      ),
                     ),
-                  ),
-                  child: SizedBox.expand(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned.fill(
-                          child: Padding(
-                            padding: marginContainer,
-                            child: CsShadow(
-                              shadow: BoxShadow(
-                                color: Theme.of(
-                                  context,
-                                ).shadowColor.withValues(alpha: 0.25),
-                                blurRadius: 1.5,
-                                spreadRadius: 1.5,
-                                offset: Offset(1,1),
-                                blurStyle: BlurStyle.outer
-                              ),
-                              clipper: taskCardClipper,
-                              child: ClipPath(
-                                clipBehavior: Clip.hardEdge,
+                    child: SizedBox.expand(
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Positioned.fill(
+                            child: Padding(
+                              padding: marginContainer,
+                              child: CsShadow(
+                                shadow: BoxShadow(
+                                  color: Theme.of(context).shadowColor,
+                                  offset: const Offset(0.0, 0.0),
+                                  spreadRadius: 2.5,
+                                  blurRadius: 2.5,
+                                ),
                                 clipper: taskCardClipper,
-                                child: Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: _items,
+                                child: ClipPath(
+                                  clipBehavior: Clip.hardEdge,
+                                  clipper: taskCardClipper,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    color: Theme.of(context).colorScheme.onSurface,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: _items,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: SizedBox(
-                            width: switchButtonSide,
-                            height: switchButtonSide,
-                            child: ToogleCheck(
-                              value: task.isTaskDone,
-                              iconData: Icons.check,
-                              iconSize: switchBtnIconSize,
-                              align: Alignment.bottomRight,
-                              onChanged: isDone,
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: SizedBox(
+                              width: switchButtonSide,
+                              height: switchButtonSide,
+                              child: ToogleCheck(
+                                value: task.isTaskDone,
+                                iconData: Icons.check,
+                                iconSize: switchBtnIconSize,
+                                align: Alignment.bottomRight,
+                                onChanged: isDone,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

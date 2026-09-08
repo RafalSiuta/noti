@@ -27,18 +27,20 @@ class BackgroundShape extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(microseconds: 500),
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomLeft,
-                      stops: const [0.0, 0.5, 1.0],
-                      colors: [
-                        Theme.of(context).primaryColor.withValues(alpha: opacity),
-                        Theme.of(context)
-                            .primaryColorLight
-                            .withValues(alpha: opacity),
-                        Theme.of(context).primaryColorDark.withValues(alpha: opacity),
-                      ],
-                    )),
+                  color: Theme.of(context).colorScheme.tertiary
+                    // gradient: LinearGradient(
+                    //   begin: Alignment.topCenter,
+                    //   end: Alignment.bottomLeft,
+                    //   stops: const [0.0, 0.5, 1.0],
+                    //   colors: [
+                    //     Theme.of(context).primaryColor.withValues(alpha: opacity),
+                    //     Theme.of(context)
+                    //         .primaryColorLight
+                    //         .withValues(alpha: opacity),
+                    //     Theme.of(context).primaryColorDark.withValues(alpha: opacity),
+                    //   ],
+                    // )
+                ),
               ),
             ),
           ),

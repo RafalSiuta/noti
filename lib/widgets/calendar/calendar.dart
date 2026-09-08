@@ -313,7 +313,7 @@ class Calendar extends StatelessWidget {
                               fontSize: calendarFontSize,),
                             selectedTextStyle: Theme.of(context)
                                 .textTheme
-                                .headlineMedium!
+                                .titleSmall!
                                 .copyWith(
                               fontSize: calendarFontSize,
                             ),

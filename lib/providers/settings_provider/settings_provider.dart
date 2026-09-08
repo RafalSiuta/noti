@@ -188,7 +188,7 @@ class SettingsProvider extends ChangeNotifier {
         break;
     }
     currentShape = safeIndex(shape, shapesList.shapesList.length);
-    setTransparency(currentShape);
+    //setTransparency(currentShape);
     await _prefs.storeInt(SHAPE_PREFS_KEY, shape);
     notifyListeners();
   }

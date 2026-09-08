@@ -129,19 +129,21 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   void _toggleKeyboard() {
-    if (!titleNode.hasFocus && !descriptionNode.hasFocus) {
-      setState(() {
-        editText(titleNode);
-        cursorPlace(titleVal, titleVal.text, moveToEnd: true);
-      });
-    } else if (titleNode.hasFocus) {
-      setState(() {
-        editText(descriptionNode);
-        cursorPlace(descVal, descVal.text, moveToEnd: true);
-      });
-    } else if (descriptionNode.hasFocus) {
-      FocusScope.of(context).unfocus();
-    }
+    setState(() {
+      if (!titleNode.hasFocus && !descriptionNode.hasFocus) {
+        setState(() {
+          editText(titleNode);
+          cursorPlace(titleVal, titleVal.text, moveToEnd: true);
+        });
+      } else if (titleNode.hasFocus) {
+        setState(() {
+          editText(descriptionNode);
+          cursorPlace(descVal, descVal.text, moveToEnd: true);
+        });
+      } else if (descriptionNode.hasFocus) {
+        FocusScope.of(context).unfocus();
+      }
+    });
   }
 
   List<DateTime> scopeDatesList = [];

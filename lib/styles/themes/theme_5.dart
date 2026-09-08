@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const theme2MainBcgColor = Color(0xFFE6E6E6);
-const theme2TitleBoxBcgColor = Color(0xFFF8F8F8);
+const theme_5MainBackgroundColor = Color(0xFFF7FDFD); //main-background
+const theme_5PatternColor = Color(0xFFE0F5F5); //pattern
+const theme_5CardBackgroundColor = Color(0xFFFFFFFF); //card-background
+const theme_5TimerTextColor = Color(0xFFFFFFFF); //timer-text
+const theme_5CardTimerFirstColor = Color(0xFFC1EAEB); //card-timer-first
+const theme_5CardTimerMiddleColor = Color(0xFF8AC3C4); //card-timer-middle
+const theme_5CardTimerLastColor = Color(0xFF6DB3B5); //card-timer-last
+const theme_5UnselectedTaskTimerColor = Color(0xFF4B9395); //unselected-task-timer
+const theme_5ButtonOutlineColor = Color(0xFF90A4A4); //button-outline
+const theme_5BaseTextColor = Color(0xFF0C2627); //base-text
+const theme_5Accent1Color = Color(0xFF26B6AB); //accent-1
+const theme_5Accent2Color = Color(0xFF1B8880); //accent-2
+const theme_5Accent3Color = Color(0xFF156660); //accent-3
+const theme_5ErrorColor = Color(0xFFFF5252); //error
+const theme_5UnselectedColor = Color(0xFF90A4A4); //unselected
+const theme_5DividerColor = Color(0xFF0C2627); //divider
+const theme_5ShadowColor = Color(0xCC7E9595); //shadow
+const theme_5FabIconColor = Color(0xFF041B4B); //fab-icon
+const theme_5CalendarCellSelectedColor = Color(0xFFD0FBFD); //calendar-cell-selected
+const theme_5CalendarSelectedTextColor = Color(0xFF0C2627); //calendar-selected-text
+const theme_5CalendarBaseTextColor = Color(0xFF0C2627); //calendar-base-text
+const theme_5CalendarWeekendTextColor = Color(0xFF26B6AB); //calendar-weekend-text
+const theme_5CalendarNextMonthColor = Color(0xFF184C4E); //calendar-next-month
 
-const theme2SelDayColor = Color(0xFFA6A5A5);
-const theme2FirstGradientColor = Color(0xFF979696);
-const theme2MiddleGradientColor = Color(0xFF7B7B7B);
-const theme2LastGradientColor = Color(0xFF575757);
-const theme2UnselectedTaskIcon = Color(0xFF5D5D5D);
-const theme2OutlineColor = Colors.transparent;
-const theme2DividerColor = Color(0xFF636363);
-const theme2UnselectedColor = Color(0xFF666666);
-const theme2ShadowColor = Color(0xFFC0C0C0);
-
-const theme2IndicatorColor = Color(0xFFEDBB4C);
-const theme2CalendarMarkerColorOne = Color(0xFFCD664C);
-const theme2CalendarMarkerColorTwo = Color(0xFFE08D52);
-
-const theme2BaseTextColor = Color(0xff161616);
-const theme2BtnTextColor = Color(0xff161616);
-
-const theme2PickerTextColor = Color(0xFF575757);
-
-final theme2PickersBaseTextStyle = GoogleFonts.inter(
+final theme1PickersBaseTextStyle = GoogleFonts.exo2(
   textStyle: const TextStyle(
-    color: theme2PickerTextColor,
+    color: theme_5BaseTextColor,
     fontSize: 12,
     fontWeight: FontWeight.w500,
   ),
 );
 
-final theme2PickersTitleTextStyle = GoogleFonts.inter(
+final theme1PickersTitleTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
-    color: theme2BaseTextColor,
+    color: theme_5BaseTextColor,
     fontSize: 18,
     fontWeight: FontWeight.w700,
   ),
@@ -41,143 +43,164 @@ final theme2PickersTitleTextStyle = GoogleFonts.inter(
 //TEXT STYLES:
 //headers:
 //Large header:
-final TextStyle theme2LargeHeaderTextStyle = GoogleFonts.inter(
+
+final TextStyle theme1LargeHeaderTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
-    color: theme2BaseTextColor,
+    color: theme_5BaseTextColor,
     fontSize: 32,
     fontWeight: FontWeight.w700,
   ),
 );
 //Subtitle header:
-final TextStyle theme2SubtitleHeaderTextStyle = GoogleFonts.inter(
+
+final TextStyle theme1SubtitleHeaderTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 18,
-    color: theme2BaseTextColor,
+    color: theme_5BaseTextColor,
     fontWeight: FontWeight.w700,
     decoration: TextDecoration.none,
   ),
 );
 //task & note card style:
 //title text style:
-final TextStyle theme2CardTitleTextStyle = GoogleFonts.inter(
+
+final TextStyle theme1CardTitleTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2BaseTextColor,
+    color: theme_5BaseTextColor,
     fontWeight: FontWeight.w700,
     decoration: TextDecoration.none,
   ),
 );
 //content text:
-final TextStyle theme2ContentTextStyle = GoogleFonts.inter(
+
+final TextStyle theme1ContentTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2BaseTextColor,
+    color: theme_5BaseTextColor,
     fontWeight: FontWeight.w400,
     decoration: TextDecoration.none,
   ),
 );
 //unselected text (is done):
-final TextStyle theme2UnselectedTextStyle = GoogleFonts.inter(
+
+final TextStyle theme1UnselectedTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2UnselectedColor,
+    color: theme_5UnselectedColor,
     fontWeight: FontWeight.w400,
-    decorationColor: theme2DividerColor,
+    decorationColor: theme_5DividerColor,
     decoration: TextDecoration.lineThrough,
   ),
 );
 //calendar text style:
 //day text style:
-final theme2CalendarDayWeekendTextStyle = GoogleFonts.inter(
+
+final theme1CalendarDayWeekendTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2UnselectedColor,
+    color: theme_5UnselectedColor,
     fontWeight: FontWeight.w700,
-    decorationColor: theme2DividerColor,
+    decorationColor: theme_5DividerColor,
+  ),
+);
+
+//calendar selected text style:
+
+final theme_5CalendarSelectedDayTextStyle = GoogleFonts.inter(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    color: theme_5CalendarSelectedTextColor,
+    fontWeight: FontWeight.w600,
+    decorationColor: theme_5CalendarSelectedTextColor,
   ),
 );
 
 //next month text style:
-final theme2CalendarNextMonthTextStyle = GoogleFonts.inter(
+
+final theme1CalendarNextMonthTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2UnselectedColor,
+    color: theme_5UnselectedColor,
     fontWeight: FontWeight.w200,
-    decorationColor: theme2UnselectedColor,
+    decorationColor: theme_5UnselectedColor,
   ),
 );
 
-final theme2CalendarWeekendTextStyle = GoogleFonts.inter(
+final theme1CalendarWeekendTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
-    color: theme2UnselectedColor,
+    color: theme_5UnselectedColor,
     fontWeight: FontWeight.w400,
-    decorationColor: theme2DividerColor,
+    decorationColor: theme_5DividerColor,
   ),
 );
 
-final theme2 = ThemeData(
+final theme_5 = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: theme2MainBcgColor,
+  scaffoldBackgroundColor: theme_5MainBackgroundColor,
   colorScheme: const ColorScheme(
-    primary: theme2BtnTextColor,
-    secondary: theme2TitleBoxBcgColor,
-    primaryFixed: theme2CalendarMarkerColorOne,
-    secondaryFixed: theme2CalendarMarkerColorTwo,
-    surface: theme2TitleBoxBcgColor,
+    primary: theme_5FabIconColor,
+    secondary: theme_5CardBackgroundColor,
+    primaryFixed: theme_5Accent2Color,
+    secondaryFixed: theme_5Accent3Color,
+    surface: theme_5CardBackgroundColor,
     error: Colors.redAccent,
-    onPrimary: theme2SelDayColor,
-    onSecondary: theme2UnselectedTaskIcon,
-    onSurface: theme2TitleBoxBcgColor,
+    onPrimary: theme_5CalendarCellSelectedColor,
+    onSecondary: theme_5UnselectedTaskTimerColor,
+    onSurface: theme_5CardBackgroundColor,
     onError: Colors.white,
+    tertiary: theme_5PatternColor,
     brightness: Brightness.light,
-    shadow: theme2LastGradientColor,
-    outline: theme2OutlineColor,
+    shadow: theme_5CardTimerLastColor,
+    outline: theme_5ButtonOutlineColor,
   ),
-  canvasColor: theme2TitleBoxBcgColor,
-  focusColor: theme2FirstGradientColor,
-  unselectedWidgetColor: theme2UnselectedColor,
-  primaryColor: theme2FirstGradientColor,
-  primaryColorLight: theme2MiddleGradientColor,
-  primaryColorDark: theme2LastGradientColor,
-  cardColor: theme2TitleBoxBcgColor,
-  indicatorColor: theme2IndicatorColor,
-  shadowColor: theme2ShadowColor,
-  dialogBackgroundColor: theme2LastGradientColor,
+  canvasColor: theme_5CardBackgroundColor,
+  focusColor: theme_5CardTimerFirstColor,
+  unselectedWidgetColor: theme_5UnselectedColor,
+  primaryColor: theme_5CardTimerFirstColor,
+  primaryColorLight: theme_5CardTimerMiddleColor,
+  primaryColorDark: theme_5CardTimerLastColor,
+  cardColor: theme_5CardBackgroundColor,
+  //todo: update material themes
+  indicatorColor: theme_5Accent1Color,
+  shadowColor: theme_5ShadowColor,
+  dialogBackgroundColor: theme_5CardTimerLastColor,
   primarySwatch: Colors.blue,
   highlightColor: Colors.transparent,
   splashColor: Colors.transparent,
   splashFactory: NoSplash.splashFactory,
   textTheme: TextTheme(
     /// main big title
-    headlineLarge: theme2LargeHeaderTextStyle,
+    headlineLarge: theme1LargeHeaderTextStyle,
 
     /// list title & small headers
-    headlineMedium: theme2SubtitleHeaderTextStyle,
+    headlineMedium: theme1SubtitleHeaderTextStyle,
 
     ///note & task description text style date header style
-    displayLarge: theme2CardTitleTextStyle,
+    displayLarge: theme1CardTitleTextStyle,
 
     ///unselected text
-    displayMedium: theme2UnselectedTextStyle,
+    displayMedium: theme1UnselectedTextStyle,
     //content text style
-    bodyMedium: theme2ContentTextStyle,
+    bodyMedium: theme1ContentTextStyle,
 
+    titleSmall: theme_5CalendarSelectedDayTextStyle,
     ///calendar default text style
-    labelLarge: theme2CalendarDayWeekendTextStyle,
+    labelLarge: theme1CalendarDayWeekendTextStyle,
     //calendar next month text style:
-    labelSmall: theme2CalendarNextMonthTextStyle,
+    labelSmall: theme1CalendarNextMonthTextStyle,
 
     ///calendar weekend text style:
-    labelMedium: theme2CalendarWeekendTextStyle,
+    labelMedium: theme1CalendarWeekendTextStyle,
   ),
   textSelectionTheme: const TextSelectionThemeData(
-    selectionHandleColor: theme2IndicatorColor,
-    selectionColor: theme2UnselectedColor,
-    cursorColor: theme2IndicatorColor,
+    selectionHandleColor: theme_5Accent1Color,
+    selectionColor: theme_5UnselectedColor,
+    cursorColor: theme_5Accent1Color,
   ),
   dividerTheme: const DividerThemeData(
-    color: theme2DividerColor,
+    color: theme_5DividerColor,
     thickness: 0.5,
   ),
   navigationRailTheme: NavigationRailThemeData(
@@ -186,30 +209,30 @@ final theme2 = ThemeData(
     useIndicator: true,
     indicatorColor: Colors.transparent,
     selectedIconTheme: const IconThemeData(
-      color: theme2IndicatorColor,
+      color: theme_5Accent1Color,
       fill: 0.0,
     ),
     unselectedIconTheme: const IconThemeData(
-      color: theme2UnselectedColor,
+      color: theme_5UnselectedColor,
       fill: 0.0,
     ),
-    selectedLabelTextStyle: GoogleFonts.inter(
+    selectedLabelTextStyle: GoogleFonts.openSans(
       textStyle: const TextStyle(
-        color: theme2BaseTextColor,
+        color: theme_5BaseTextColor,
         fontSize: 18,
         fontWeight: FontWeight.w900,
         backgroundColor: Colors.transparent,
       ),
     ),
-    unselectedLabelTextStyle: GoogleFonts.inter(
+    unselectedLabelTextStyle: GoogleFonts.openSans(
       textStyle: const TextStyle(
-        color: theme2UnselectedColor,
+        color: theme_5UnselectedColor,
         fontSize: 17,
         fontWeight: FontWeight.w900,
       ),
     ),
   ),
-  iconTheme: const IconThemeData(color: theme2IndicatorColor, size: 18),
+  iconTheme: const IconThemeData(color: theme_5Accent1Color, size: 18),
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(Colors.transparent),
@@ -222,7 +245,7 @@ final theme2 = ThemeData(
           return GoogleFonts.exo2(
             textStyle: const TextStyle(
               fontSize: 12,
-              color: theme2IndicatorColor,
+              color: theme_5Accent1Color,
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.none,
             ),
@@ -231,7 +254,7 @@ final theme2 = ThemeData(
           return GoogleFonts.exo2(
             textStyle: const TextStyle(
               fontSize: 12,
-              color: theme2IndicatorColor,
+              color: theme_5Accent1Color,
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.none,
             ),
@@ -240,7 +263,7 @@ final theme2 = ThemeData(
           return GoogleFonts.exo2(
             textStyle: const TextStyle(
               fontSize: 12,
-              color: theme2BaseTextColor,
+              color: theme_5BaseTextColor,
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.none,
             ),
@@ -253,30 +276,30 @@ final theme2 = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(15)),
     ),
-    shadowColor: theme2UnselectedColor,
+    shadowColor: theme_5UnselectedColor,
     elevation: 5,
   ),
   switchTheme: SwitchThemeData(
     trackOutlineWidth: WidgetStateProperty.all(0.5),
     trackOutlineColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2MainBcgColor;
+        return theme_5MainBackgroundColor;
       } else {
-        return theme2ShadowColor;
+        return theme_5ShadowColor;
       }
     }),
     thumbColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2IndicatorColor;
+        return theme_5Accent1Color;
       } else {
-        return theme2UnselectedColor;
+        return theme_5UnselectedColor;
       }
     }),
     trackColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2MainBcgColor;
+        return theme_5MainBackgroundColor;
       } else {
-        return theme2ShadowColor;
+        return theme_5ShadowColor;
       }
     }),
   ),
@@ -287,30 +310,30 @@ final theme2 = ThemeData(
       minHeight: 48,
       minWidth: 48,
     ),
-    backgroundColor: theme2IndicatorColor,
+    backgroundColor: theme_5Accent1Color,
   ),
   dialogTheme: DialogThemeData(
     elevation: 5.0,
-    titleTextStyle: theme2SubtitleHeaderTextStyle,
-    contentTextStyle: theme2ContentTextStyle,
-    backgroundColor: theme2MainBcgColor,
+    titleTextStyle: theme1SubtitleHeaderTextStyle,
+    contentTextStyle: theme1ContentTextStyle,
+    backgroundColor: theme_5MainBackgroundColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
   ),
   datePickerTheme: DatePickerThemeData(
-    headerBackgroundColor: theme2FirstGradientColor,
-    headerHeadlineStyle: theme2PickersTitleTextStyle,
-    headerForegroundColor: theme2BaseTextColor,
-    weekdayStyle: theme2PickersBaseTextStyle,
-    dayStyle: theme2PickersBaseTextStyle,
+    headerBackgroundColor: theme_5CardTimerFirstColor,
+    headerHeadlineStyle: theme1PickersTitleTextStyle,
+    headerForegroundColor: theme_5BaseTextColor,
+    weekdayStyle: theme1PickersBaseTextStyle,
+    dayStyle: theme1PickersBaseTextStyle,
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-        theme2IndicatorColor.withValues(alpha: 0.5),
+        theme_5Accent1Color.withValues(alpha: 0.5),
       ),
-      foregroundColor: WidgetStateProperty.all(theme2BaseTextColor),
+      foregroundColor: WidgetStateProperty.all(theme_5BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
           textStyle: const TextStyle(
-            color: theme2BaseTextColor,
+            color: theme_5BaseTextColor,
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
@@ -321,12 +344,12 @@ final theme2 = ThemeData(
       ),
     ),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(theme2TitleBoxBcgColor),
-      foregroundColor: WidgetStateProperty.all(theme2UnselectedColor),
+      backgroundColor: WidgetStateProperty.all(theme_5CardBackgroundColor),
+      foregroundColor: WidgetStateProperty.all(theme_5UnselectedColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
           textStyle: const TextStyle(
-            color: theme2BaseTextColor,
+            color: theme_5BaseTextColor,
             fontSize: 12,
             fontWeight: FontWeight.w200,
           ),
@@ -337,86 +360,86 @@ final theme2 = ThemeData(
       ),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
-          side: const BorderSide(color: theme2UnselectedColor, width: 0.5),
+          side: const BorderSide(color: theme_5UnselectedColor, width: 0.5),
           borderRadius: BorderRadius.circular(20),
         ),
       ),
     ),
     todayBorder: const BorderSide(
-      color: theme2BaseTextColor,
+      color: theme_5BaseTextColor,
       style: BorderStyle.solid,
       width: 0.5,
     ),
     todayForegroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2BaseTextColor; // selected element text color
+        return theme_5BaseTextColor; // selected element text color
       }
-      return theme2UnselectedColor; // unselected element text color
+      return theme_5UnselectedColor; // unselected element text color
     }),
     todayBackgroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2IndicatorColor.withValues(alpha: 0.5);
+        return theme_5Accent1Color.withValues(alpha: 0.5);
       }
       return Colors.transparent; // unselected element text color
     }),
     dayOverlayColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2IndicatorColor.withValues(alpha: 0.5);
+        return theme_5Accent1Color.withValues(alpha: 0.5);
       }
-      return theme2UnselectedColor; // unselected element text color
+      return theme_5UnselectedColor; // unselected element text color
     }),
     dayBackgroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2IndicatorColor.withValues(alpha: 0.5);
+        return theme_5Accent1Color.withValues(alpha: 0.5);
       }
       return Colors.transparent; // unselected element text color
     }),
     dayForegroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2BaseTextColor; // selected element text color
+        return theme_5BaseTextColor; // selected element text color
       }
-      return theme2UnselectedColor; // unselected element text color
+      return theme_5UnselectedColor; // unselected element text color
     }),
   ),
   timePickerTheme: TimePickerThemeData(
     elevation: 0.2,
-    dayPeriodColor: theme2IndicatorColor.withValues(alpha: 0.5),
-    dayPeriodTextStyle: theme2PickersBaseTextStyle,
-    hourMinuteTextStyle: theme2PickersBaseTextStyle,
-    dialTextStyle: theme2PickersBaseTextStyle,
-    dialHandColor: theme2IndicatorColor, // color handles
-    hourMinuteTextColor: theme2BaseTextColor, // text colors
-    backgroundColor: theme2TitleBoxBcgColor, // background color
+    dayPeriodColor: theme_5Accent1Color.withValues(alpha: 0.5),
+    dayPeriodTextStyle: theme1PickersBaseTextStyle,
+    hourMinuteTextStyle: theme1PickersBaseTextStyle,
+    dialTextStyle: theme1PickersBaseTextStyle,
+    dialHandColor: theme_5Accent1Color, // color handles
+    hourMinuteTextColor: theme_5BaseTextColor, // text colors
+    backgroundColor: theme_5CardBackgroundColor, // background color
     dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2BaseTextColor; // selected element text color
+        return theme_5BaseTextColor; // selected element text color
       }
-      return theme2UnselectedColor; // unselected element text color
+      return theme_5UnselectedColor; // unselected element text color
     }),
     dialTextColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2BaseTextColor; // selected element text color
+        return theme_5BaseTextColor; // selected element text color
       }
-      return theme2UnselectedColor; // unselected element text color
+      return theme_5UnselectedColor; // unselected element text color
     }),
-    entryModeIconColor: theme2BaseTextColor, // entry mode icon color
+    entryModeIconColor: theme_5BaseTextColor, // entry mode icon color
     hourMinuteColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme2IndicatorColor.withValues(
+        return theme_5Accent1Color.withValues(
           alpha: 0.5,
         ); // selected hour/minute background color
       }
-      return theme2TitleBoxBcgColor; // unselected hour/minute background color
+      return theme_5CardBackgroundColor; // unselected hour/minute background color
     }),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-        theme2IndicatorColor.withValues(alpha: 0.5),
+        theme_5Accent1Color.withValues(alpha: 0.5),
       ),
-      foregroundColor: WidgetStateProperty.all(theme2BaseTextColor),
+      foregroundColor: WidgetStateProperty.all(theme_5BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
           textStyle: const TextStyle(
-            color: theme2BaseTextColor,
+            color: theme_5BaseTextColor,
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
@@ -427,12 +450,12 @@ final theme2 = ThemeData(
       ),
     ),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all(theme2TitleBoxBcgColor),
-      foregroundColor: WidgetStateProperty.all(theme2UnselectedColor),
+      backgroundColor: WidgetStateProperty.all(theme_5CardBackgroundColor),
+      foregroundColor: WidgetStateProperty.all(theme_5UnselectedColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
           textStyle: const TextStyle(
-            color: theme2BaseTextColor,
+            color: theme_5BaseTextColor,
             fontSize: 12,
             fontWeight: FontWeight.w200,
           ),
@@ -443,7 +466,7 @@ final theme2 = ThemeData(
       ),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
-          side: const BorderSide(color: theme2UnselectedColor, width: 0.5),
+          side: const BorderSide(color: theme_5UnselectedColor, width: 0.5),
           borderRadius: BorderRadius.circular(20),
         ),
       ),
@@ -455,21 +478,21 @@ final theme2 = ThemeData(
       borderSide: BorderSide(width: .5, color: Colors.transparent),
     ),
     enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(width: .5, color: theme2UnselectedColor),
+      borderSide: BorderSide(width: .5, color: theme_5UnselectedColor),
     ),
     errorBorder: InputBorder.none,
     disabledBorder: InputBorder.none,
     focusedErrorBorder: InputBorder.none,
     isDense: true,
     filled: false,
-    hintStyle: TextStyle(color: theme2UnselectedColor, fontSize: 20),
+    hintStyle: TextStyle(color: theme_5UnselectedColor, fontSize: 20),
     contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
-    suffixStyle: TextStyle(color: theme2TitleBoxBcgColor),
+    suffixStyle: TextStyle(color: theme_5CardBackgroundColor),
     helperMaxLines: 1,
-    helperStyle: TextStyle(color: theme2UnselectedColor, fontSize: 8.0),
-    labelStyle: TextStyle(color: theme2UnselectedColor, fontSize: 20),
+    helperStyle: TextStyle(color: theme_5UnselectedColor, fontSize: 8.0),
+    labelStyle: TextStyle(color: theme_5UnselectedColor, fontSize: 20),
     alignLabelWithHint: true,
-    prefixStyle: TextStyle(color: theme2UnselectedColor),
+    prefixStyle: TextStyle(color: theme_5UnselectedColor),
   ),
   bottomSheetTheme: const BottomSheetThemeData(
     backgroundColor: Colors.transparent,
@@ -483,15 +506,15 @@ final theme2 = ThemeData(
   ),
   tabBarTheme: TabBarThemeData(
     indicator: const UnderlineTabIndicator(
-      borderSide: BorderSide(width: 2.0, color: theme2IndicatorColor),
+      borderSide: BorderSide(width: 2.0, color: theme_5Accent1Color),
       insets: EdgeInsets.symmetric(horizontal: 16.0),
     ),
-    labelColor: theme2BaseTextColor,
-    unselectedLabelColor: theme2UnselectedColor,
+    labelColor: theme_5BaseTextColor,
+    unselectedLabelColor: theme_5UnselectedColor,
     unselectedLabelStyle: GoogleFonts.inter(
       textStyle: const TextStyle(
         fontSize: 12,
-        color: theme2UnselectedColor,
+        color: theme_5UnselectedColor,
         fontWeight: FontWeight.w200,
         decoration: TextDecoration.none,
       ),
@@ -499,7 +522,7 @@ final theme2 = ThemeData(
     labelStyle: GoogleFonts.inter(
       textStyle: const TextStyle(
         fontSize: 12,
-        color: theme2BaseTextColor,
+        color: theme_5BaseTextColor,
         fontWeight: FontWeight.w500,
         decoration: TextDecoration.none,
       ),
@@ -507,8 +530,8 @@ final theme2 = ThemeData(
   ),
   sliderTheme: const SliderThemeData(
     trackHeight: 1.5,
-    activeTrackColor: theme2IndicatorColor,
-    inactiveTrackColor: theme2UnselectedColor,
+    activeTrackColor: theme_5Accent1Color,
+    inactiveTrackColor: theme_5UnselectedColor,
     trackShape: RoundedRectSliderTrackShape(),
     thumbColor: Colors.white,
   ),
