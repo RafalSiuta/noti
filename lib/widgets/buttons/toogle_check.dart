@@ -38,10 +38,11 @@ class ToogleCheck extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 boxShadow: [
                   BoxShadow(
-                      color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.3),
-                      blurRadius: 2.0,
-                      offset: const Offset(.0, .0),
-                      spreadRadius: 1.5),
+                    color: Theme.of(context).shadowColor,
+                    offset: const Offset(0.0, 0.0),
+                    spreadRadius: 1,
+                    blurRadius: 1.5,
+                  ),
                 ]
             ),
             child: Icon(

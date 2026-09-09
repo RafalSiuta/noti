@@ -5,6 +5,7 @@ import 'package:csshadow/csshadow.dart';
 import '../../models/db_model/task.dart';
 import '../../models/menu_model/category_icon_list.dart';
 import '../../styles/shapes/task_shape.dart';
+import '../../utils/colors/inner_shadow_decoration.dart';
 import '../../utils/colors/priority_color.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/extensions/string_extension.dart';
@@ -77,7 +78,7 @@ class TaskSwipeCard extends StatelessWidget {
       right: 0,
     );
 
-    final marginTimerContainer = EdgeInsets.only(left: 0);
+    final marginTimerContainer = EdgeInsets.only(left: 3,top: 3,bottom: 3);
 
     final marginTextBox = EdgeInsets.only(
       top: sideDifference,
@@ -187,27 +188,14 @@ class TaskSwipeCard extends StatelessWidget {
       child: Container(
         height: height,
         margin: EdgeInsets.only(right: 2),
-        padding: EdgeInsets.all(6.0),
+        padding: EdgeInsets.all(3.0),
         decoration: BoxDecoration(
           borderRadius: radiusContainer,
-          color: Theme.of(
-            context,
-          ).scaffoldBackgroundColor,
-
-          boxShadow: <BoxShadow>[
-            // BoxShadow(
-            //   color: Theme.of(
-            //     context,
-            //   ).shadowColor,//.withValues(alpha: 0.8),
-            //   offset: const Offset(0.0, 0.0),
-            // ),
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              offset: const Offset(0.0, 0.0),
-              spreadRadius: 1.5,
-              blurRadius: 2.5,
-            ),
-          ],
+          color: Theme.of(context).scaffoldBackgroundColor,
+        ),
+        foregroundDecoration: InnerShadowDecoration(
+          borderRadius: radiusContainer,
+          color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -215,8 +203,6 @@ class TaskSwipeCard extends StatelessWidget {
           spacing: .0,
           children: [
             Container(
-              // width: 15,
-              // height: height,
               padding: EdgeInsets.symmetric(horizontal: 6.0),
               margin: marginTimerContainer,
               decoration: BoxDecoration(
@@ -233,17 +219,17 @@ class TaskSwipeCard extends StatelessWidget {
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Theme.of(context).shadowColor,
+                    color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
                     offset: const Offset(0.0, 0.0),
                     spreadRadius: 1.5,
-                    blurRadius: 2.5,
+                    blurRadius: 1.5,
                   ),
                 ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: 4.0,
+                spacing: 8.0,
                 children: [
                   Icon(
                     iconData, //iconPick.iconsList[task.icon].icon,
@@ -256,6 +242,7 @@ class TaskSwipeCard extends StatelessWidget {
                     quarterTurns: 3,
                     child: Text(
                       DateFormat('HH:mm').format(task.date),
+                      overflow: TextOverflow.fade,
                       style: task.isTaskDone
                           ? Theme.of(context).textTheme.displayMedium!.copyWith(
                               fontSize: titleFontSize,
@@ -281,7 +268,7 @@ class TaskSwipeCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: innerRadiusContainer,
                 child: Padding(
-                  padding: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.only(right: 3,top: 3,bottom: 3),
                   child: Dismissible(
                     key: ValueKey('task-swipe-card-${task.id}'),
                     direction: DismissDirection.endToStart,
@@ -329,10 +316,10 @@ class TaskSwipeCard extends StatelessWidget {
                               padding: marginContainer,
                               child: CsShadow(
                                 shadow: BoxShadow(
-                                  color: Theme.of(context).shadowColor,
+                                  color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
                                   offset: const Offset(0.0, 0.0),
-                                  spreadRadius: 2.5,
-                                  blurRadius: 2.5,
+                                  spreadRadius: 3,
+                                  blurRadius: 3,
                                 ),
                                 clipper: taskCardClipper,
                                 child: ClipPath(

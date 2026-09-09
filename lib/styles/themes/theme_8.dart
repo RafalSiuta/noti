@@ -144,8 +144,8 @@ final theme_8 = ThemeData(
   colorScheme: const ColorScheme(
     primary: theme_8FabIconColor,
     secondary: theme_8CardBackgroundColor,
-    primaryFixed: theme_8Accent2Color,
-    secondaryFixed: theme_8Accent3Color,
+    primaryFixed: theme_8Accent3Color,
+    secondaryFixed: theme_8Accent2Color,
     surface: theme_8CardBackgroundColor,
     error: Colors.redAccent,
     onPrimary: theme_8CalendarCellSelectedColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
+import '../../utils/colors/inner_shadow_decoration.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/i18_extension.dart';
 
@@ -63,22 +64,12 @@ class SettingsCard extends StatelessWidget {
       height: cardHeight,
       margin: marginContainer,
       decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.2),
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(radiusContainer)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Theme.of(
-                context,
-              ).unselectedWidgetColor.withValues(alpha: 0.8),
-              offset: const Offset(0.0, 0.0),
-            ),
-            BoxShadow(
-              color: Theme.of(context).shadowColor,
-              offset: const Offset(0.0, 0.0),
-              spreadRadius: -1.0,
-              blurRadius: 1.0,
-            ),
-          ],
+      ),
+      foregroundDecoration: InnerShadowDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radiusContainer)),
+        color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
       ),
       child: Container(
           width: MediaQuery.of(context).size.width,

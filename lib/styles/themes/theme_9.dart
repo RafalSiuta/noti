@@ -140,8 +140,8 @@ final theme_9 = ThemeData(
 
   colorScheme:  ColorScheme(
     primary: theme_9FabIconColor,
-    primaryFixed: theme_9Accent2Color,
-    secondaryFixed: theme_9Accent3Color,
+    primaryFixed: theme_9Accent3Color,
+    secondaryFixed: theme_9Accent2Color,
     secondary: theme_9CardBackgroundColor,
     surface: theme_9CardBackgroundColor,
     error: Colors.redAccent,
