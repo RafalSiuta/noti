@@ -282,14 +282,14 @@ class _GallerySheetState extends State<GallerySheet>
                                         padding: EdgeInsets.all(cameraPadding),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           spacing: cameraPadding,
                                           children: [
                                             Expanded(
                                               child: FadeTransition(
                                                 opacity: _fadeAnimation,
                                                 child: RotatedBox(
-                                                    quarterTurns: _isCameraReverse ? 3 : 1,
+                                                    quarterTurns: 0,//_isCameraReverse ? 3 : 0,
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.all(Radius.circular(bottomSheetBorderRadius/2)),
                                                       child: CameraPreview(
