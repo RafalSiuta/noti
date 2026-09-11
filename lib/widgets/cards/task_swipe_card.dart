@@ -43,33 +43,15 @@ class TaskSwipeCard extends StatelessWidget {
 
     IconData iconData = iconPick.getPickedIcon(task.icon).icon;
 
-    var switchBtnIconSize = SizeInfo.switchButtonIconSize;
     var height = SizeInfo.taskCardHeight;
-    const switchButtonSide = 28.0;
-    const switchButtonGap = 6.0;
-    const taskCardClipper = TaskCardShape(
-      switchButtonSide: switchButtonSide,
-      switchButtonGap: switchButtonGap,
+
+    var taskCardClipper = TaskCardShape(
+      switchButtonSide: SizeInfo.toogleButtonSide,
+      switchButtonGap: SizeInfo.cardInnerPadding,
     );
 
-    double radiusCircularMain = height;
-
     double taskRingWidth = SizeInfo.taskRingLineWidth;
-    double sideDifference = (height / 6) + taskRingWidth;
-
-    double ringRadiusSize = height + sideDifference;
-
-    double smallRingRadiusSize = height - sideDifference;
-
-    double iconCircleSize = height - sideDifference;
-
-    double iconSize = SizeInfo.leadingAndTrailingIconSize;
-
-    double sideRadius = SizeInfo.outherCardCornerRadius;//8.0; //(height / 5);
-
-    double innerRadius = SizeInfo.innerCardCornerRadius;
-
-    const textPadding = EdgeInsets.symmetric(horizontal: 10);
+    double sideDifference = (height / SizeInfo.cardInnerPadding) + taskRingWidth;
 
     final marginContainer = EdgeInsets.only(
       top: 0,
@@ -78,32 +60,25 @@ class TaskSwipeCard extends StatelessWidget {
       right: 0,
     );
 
-    final marginTimerContainer = EdgeInsets.only(left: 3,top: 3,bottom: 3);
+    final marginTimerContainer = EdgeInsets.only(left: SizeInfo.cardInnerPadding/2,top: SizeInfo.cardInnerPadding/2,bottom: SizeInfo.cardInnerPadding/2);
 
-    final marginTextBox = EdgeInsets.only(
-      top: sideDifference,
-      bottom: sideDifference,
-      left: sideDifference,
-      right: sideDifference / 2,
-    );
-
-    final radiusContainer = BorderRadius.all(Radius.circular(sideRadius));
+    final radiusContainer = BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius));
 
     final innerRadiusContainer = BorderRadius.all(
-      Radius.circular(innerRadius),
+      Radius.circular(SizeInfo.innerCardCornerRadius),
     );
     final timerRadiusContainer = BorderRadius.all(
-      Radius.circular(sideRadius),
+      Radius.circular(SizeInfo.outherCardCornerRadius),
     );
 
-    List<Widget> _items = [
+    List<Widget> items = [
       Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: textPadding,
+              padding: EdgeInsets.symmetric(horizontal: SizeInfo.taskCardContentPadding,),
               child: Text(
                 task.title.capitalizeFirstLetter(),
                 maxLines: 1,
@@ -122,7 +97,7 @@ class TaskSwipeCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: textPadding,
+                padding: EdgeInsets.symmetric(horizontal: SizeInfo.taskCardContentPadding,),
                 child: Text(
                   task.description,
                   textAlign: TextAlign.left,
@@ -147,7 +122,7 @@ class TaskSwipeCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: textPadding,
+              padding: EdgeInsets.symmetric(horizontal: SizeInfo.taskCardContentPadding,),
               child: RowBuilder(
                 key: key,
                 itemCount: task.priority,
@@ -156,7 +131,7 @@ class TaskSwipeCard extends StatelessWidget {
                   var markerColor = priorityColor(context, task.priority);
 
                   return Padding(
-                    padding: const EdgeInsets.only(left: 3.0, top: 3.0),
+                    padding: EdgeInsets.only(left: SizeInfo.cardInnerPadding/2, top: SizeInfo.cardInnerPadding/2),
                     child: Icon(
                       Icons.circle,
                       color: task.isTaskDone
@@ -169,15 +144,7 @@ class TaskSwipeCard extends StatelessWidget {
               ),
             ),
           ),
-          // Expanded(
-          //   child: SwitchBtn(
-          //     value: task.isTaskDone,
-          //     iconData: Icons.check,
-          //     iconSize: switchBtnIconSize,
-          //     align: Alignment.bottomRight,
-          //     onChanged: isDone,
-          //   ),
-          // ),
+
         ],
       ),
     ];
@@ -188,14 +155,14 @@ class TaskSwipeCard extends StatelessWidget {
       child: Container(
         height: height,
         margin: EdgeInsets.only(right: 2),
-        padding: EdgeInsets.all(3.0),
+        padding: EdgeInsets.all(SizeInfo.cardInnerPadding/2),
         decoration: BoxDecoration(
           borderRadius: radiusContainer,
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
         foregroundDecoration: InnerShadowDecoration(
           borderRadius: radiusContainer,
-          color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
+          color: Theme.of(context).shadowColor,//.withValues(alpha: 0.8),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -203,7 +170,7 @@ class TaskSwipeCard extends StatelessWidget {
           spacing: .0,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 6.0),
+              padding: EdgeInsets.symmetric(horizontal: SizeInfo.cardInnerPadding),
               margin: marginTimerContainer,
               decoration: BoxDecoration(
                 borderRadius: innerRadiusContainer,
@@ -219,7 +186,7 @@ class TaskSwipeCard extends StatelessWidget {
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
+                    color: Theme.of(context).shadowColor,//.withValues(alpha: 0.8),
                     offset: const Offset(0.0, 0.0),
                     spreadRadius: 1.5,
                     blurRadius: 1.5,
@@ -233,7 +200,7 @@ class TaskSwipeCard extends StatelessWidget {
                 children: [
                   Icon(
                     iconData, //iconPick.iconsList[task.icon].icon,
-                    size: iconSize,
+                    size: SizeInfo.leadingAndTrailingIconSize,
                     color: task.isTaskDone
                         ? Theme.of(context).colorScheme.onSecondary
                         : Theme.of(context).colorScheme.secondary,
@@ -268,7 +235,7 @@ class TaskSwipeCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: innerRadiusContainer,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 3,top: 3,bottom: 3),
+                  padding: EdgeInsets.only(right: SizeInfo.cardInnerPadding/2,top: SizeInfo.cardInnerPadding/2,bottom: SizeInfo.cardInnerPadding/2),
                   child: Dismissible(
                     key: ValueKey('task-swipe-card-${task.id}'),
                     direction: DismissDirection.endToStart,
@@ -277,33 +244,34 @@ class TaskSwipeCard extends StatelessWidget {
                     dismissThresholds: const {DismissDirection.endToStart: 0.4},
                     onDismissed: (_) => delete?.call(),
                     background: const SizedBox.shrink(),
-                    secondaryBackground: Padding(
+                    secondaryBackground: Container(
+                      alignment: Alignment.centerRight,
                       padding: marginContainer,
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.only(right: 14),
-                        decoration: BoxDecoration(
-                          borderRadius: innerRadiusContainer,
-                          // color:  Theme.of(
-                          //   context,
-                          // ).scaffoldBackgroundColor,
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [
-                              Theme.of(
-                                context,
-                              ).scaffoldBackgroundColor.withValues(alpha: 0.2),
-                              Theme.of(
-                                context,
-                              ).scaffoldBackgroundColor,
-                            ],
-                          ),
+                      decoration: BoxDecoration(
+                        borderRadius: innerRadiusContainer,
+                        // color:  Colors.blue, //testing color
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            Theme.of(
+                              context,
+                            ).scaffoldBackgroundColor.withValues(alpha: 0.2),
+                            Theme.of(
+                              context,
+                            ).scaffoldBackgroundColor,
+                          ],
                         ),
-                        child: Icon(
-                          Icons.delete_outline,
-                          color: Theme.of(context).unselectedWidgetColor,
-                          size: iconSize,
+                      ),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(SizeInfo.taskCardContentPadding),
+                          child: Icon(
+                            Icons.delete_outline,
+                            color: Theme.of(context).unselectedWidgetColor,
+                            size: SizeInfo.leadingAndTrailingIconSize,
+                          ),
                         ),
                       ),
                     ),
@@ -316,7 +284,7 @@ class TaskSwipeCard extends StatelessWidget {
                               padding: marginContainer,
                               child: CsShadow(
                                 shadow: BoxShadow(
-                                  color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
+                                  color: Theme.of(context).shadowColor,//.withValues(alpha: 0.8),
                                   offset: const Offset(0.0, 0.0),
                                   spreadRadius: 3,
                                   blurRadius: 3,
@@ -335,7 +303,7 @@ class TaskSwipeCard extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: _items,
+                                        children: items,
                                       ),
                                     ),
                                   ),
@@ -347,12 +315,12 @@ class TaskSwipeCard extends StatelessWidget {
                             right: 0,
                             bottom: 0,
                             child: SizedBox(
-                              width: switchButtonSide,
-                              height: switchButtonSide,
+                              width: SizeInfo.toogleButtonSide,
+                              height: SizeInfo.toogleButtonSide,
                               child: ToogleCheck(
                                 value: task.isTaskDone,
                                 iconData: Icons.check,
-                                iconSize: switchBtnIconSize,
+                                iconSize: SizeInfo.switchButtonIconSize,
                                 align: Alignment.bottomRight,
                                 onChanged: isDone,
                               ),

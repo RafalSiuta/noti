@@ -284,7 +284,7 @@ final theme_9 = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return theme_9MainBackgroundColor;
       } else {
-        return theme_9ShadowColor;
+        return Colors.transparent;
       }
     }),
     thumbColor: WidgetStateProperty.resolveWith((states) {
@@ -298,7 +298,7 @@ final theme_9 = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return theme_9MainBackgroundColor;
       } else {
-        return theme_9ShadowColor;
+        return theme_9MainBackgroundColor;
       }
     }),
   ),

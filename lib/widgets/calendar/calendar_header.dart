@@ -40,6 +40,8 @@ class CalendarHeader extends StatelessWidget {
             children: [
               Text(
                 d.monthYear!.capitalizeFirstLetter(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 // DateFormat('MMMM yy').format(date),
                 style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
               ),

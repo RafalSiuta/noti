@@ -16,14 +16,11 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var radius = 8.0;
-    var searchBarFontSize = SizeInfo.headerSubtitleSize;
-    var searchBarHeight = SizeInfo.searchBarHeight;
-    BorderRadius searchBarBorderRadius = BorderRadius.only(topLeft: Radius.circular(radius),topRight: Radius.circular(radius), bottomLeft: isExpanded ? Radius.circular(.0) : Radius.circular(radius),  bottomRight: isExpanded ? Radius.circular(.0) : Radius.circular(radius));
+    BorderRadius searchBarBorderRadius = BorderRadius.only(topLeft: Radius.circular(SizeInfo.innerCardCornerRadius),topRight: Radius.circular(SizeInfo.innerCardCornerRadius), bottomLeft: isExpanded ? Radius.circular(.0) : Radius.circular(SizeInfo.innerCardCornerRadius),  bottomRight: isExpanded ? Radius.circular(.0) : Radius.circular(SizeInfo.innerCardCornerRadius));
     return  Container(
       key: key,
       width: MediaQuery.of(context).size.width,
-      height: searchBarHeight,
+      height: SizeInfo.searchBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
       decoration: BoxDecoration(
         borderRadius: searchBarBorderRadius,
@@ -60,7 +57,7 @@ class SearchInput extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium!
-            .copyWith(fontSize: searchBarFontSize),
+            .copyWith(fontSize: SizeInfo.headerSubtitleSize),
         decoration: InputDecoration(
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
@@ -72,7 +69,7 @@ class SearchInput extends StatelessWidget {
             hintStyle: Theme.of(context)
                 .textTheme
                 .bodyMedium!
-                .copyWith(fontSize: searchBarFontSize, letterSpacing: 1),
+                .copyWith(fontSize: SizeInfo.headerSubtitleSize, letterSpacing: 1),
             suffixIcon: suffixIcon,
             suffixIconConstraints: BoxConstraints(maxWidth: 40, maxHeight: 40)),
       ),

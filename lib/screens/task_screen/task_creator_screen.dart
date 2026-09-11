@@ -11,6 +11,7 @@ import '../../models/menu_model/nav_model.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/app_localizations.dart';
+import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/buttons/text_icon_button.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/dialogs/task_date_picker.dart';
@@ -519,8 +520,12 @@ class _TaskCreatorState extends State<TaskCreator>
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
+                                          // SwitchBtn(
+                                          //     value: widget.newTask.isNotification!,
+                                          //     onChanged: addNotification
+                                          // ),
                                           Transform.scale(
-                                            scale: 0.8,
+                                            scale: 0.6,
                                             child: Switch(
                                                 value: widget.newTask.isNotification ?? true,
                                                 onChanged: addNotification

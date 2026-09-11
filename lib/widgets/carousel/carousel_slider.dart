@@ -14,9 +14,6 @@ class Carousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SettingsProvider>(
       builder: (context, settingsProvider, child) {
-        var chevronIconSize = SizeInfo.switchButtonIconSize;
-        var carouselHeight = SizeInfo.carouselHeight;
-        var textSize = SizeInfo.headerSubtitleSize;
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +26,7 @@ class Carousel extends StatelessWidget {
                   options: CarouselOptions(
                       aspectRatio: 4.5 / 8,
                       height:
-                          MediaQuery.of(context).size.height / carouselHeight,
+                          MediaQuery.of(context).size.height / SizeInfo.carouselHeight,
                       initialPage: settingsProvider.currentShape,
                       enlargeCenterPage: true,
                       autoPlay: false,
@@ -53,9 +50,9 @@ class Carousel extends StatelessWidget {
                         scale: value,
                         child: Card(
                           elevation: 2,
-                          shape: const RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(15)),
+                            BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
                           ),
                           color: Theme.of(context).scaffoldBackgroundColor,
                           shadowColor: Theme.of(context).shadowColor,
@@ -67,21 +64,11 @@ class Carousel extends StatelessWidget {
                               clipper: carousel,
                               child: Container(
                                 decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(15.0),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(SizeInfo.outherCardCornerRadius),
 
                                     ),
                                     color: Theme.of(context).colorScheme.tertiary,
-                                    // gradient: LinearGradient(
-                                    //   begin: Alignment.topCenter,
-                                    //   end: Alignment.bottomLeft,
-                                    //   stops: const [0.0, 0.5, 1.0],
-                                    //   colors: [
-                                    //     Theme.of(context).primaryColor,
-                                    //     Theme.of(context).primaryColorLight,
-                                    //     Theme.of(context).primaryColorDark
-                                    //   ],
-                                    // )
                                 ),
                               ),
                             ),
@@ -100,13 +87,13 @@ class Carousel extends StatelessWidget {
               children: <Widget>[
                 IconBtn(
                   icon: Icons.arrow_left,
-                  iconSize: textSize,
+                  iconSize: SizeInfo.headerSubtitleSize,
                   iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
                   onPressed: () => settingsProvider.goToPrevious(),
                 ),
                 IconBtn(
                   icon: Icons.arrow_right,
-                  iconSize: textSize,
+                  iconSize: SizeInfo.headerSubtitleSize,
                   iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
                   onPressed: () => settingsProvider.goToNext(),
                 ),

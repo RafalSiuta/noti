@@ -37,7 +37,7 @@ class ExportButton extends StatelessWidget {
           surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
             ),
           ),
           side: WidgetStateProperty.resolveWith((states) {
@@ -112,17 +112,5 @@ class ExportButton extends StatelessWidget {
         ),
       ),
     );
-    //   PlayAnimationBuilder(
-    //   tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero),
-    //   duration: headerDuration,
-    //   builder: (context,value,child){
-    //     return
-    //       Transform.translate(
-    //         offset: value,
-    //         child:
-    //       );
-    //   },
-    //   // child:
-    // );
   }
 }

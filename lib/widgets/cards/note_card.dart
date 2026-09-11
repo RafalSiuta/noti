@@ -18,14 +18,11 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var titleFontSize = SizeInfo.noteCardTitle;
-    var contentFontSize = SizeInfo.noteCardContent;
-    var cardImageSize = SizeInfo.noteCardImageSize;
-    var leftPadding = SizeInfo.noteLeftPadding;
-    final attachmentWidth = isGrid ? leftPadding - 2 : leftPadding - 6;
-    final noteCardClipper = NoteCardShape(
-      attachmentWidth: attachmentWidth,
-    );
+
+    final attachmentWidth = isGrid ? SizeInfo.noteLeftPadding - 2 : SizeInfo.noteLeftPadding - 6;
+    // final noteCardClipper = NoteCardShape(
+    //   attachmentWidth: attachmentWidth,
+    // );
 
     return GestureDetector(
       onTap: edit,
@@ -35,7 +32,7 @@ class NoteCard extends StatelessWidget {
           CsShadow(
             clipper: NoteCardShapeAttachment(),
               shadow: BoxShadow(
-                color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
+                color: Theme.of(context).shadowColor,
                 offset: const Offset(0, 1.5),
                 blurRadius: 1.5,
               ),
@@ -61,8 +58,8 @@ class NoteCard extends StatelessWidget {
             child: CsShadow(
               clipper: NoteCardShape(),
               shadow: BoxShadow(
-                color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
-                offset: const Offset(0.5, 1.5),
+                color: Theme.of(context).shadowColor,
+                offset: const Offset(1, 1.5),
                 blurRadius: 1.5,
               ),
               child: ClipPath(
@@ -93,7 +90,7 @@ class NoteCard extends StatelessWidget {
                                       .textTheme
                                       .displayLarge!
                                       .copyWith(
-                                    fontSize: titleFontSize,),
+                                    fontSize: SizeInfo.noteCardTitle,),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -106,7 +103,7 @@ class NoteCard extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayLarge!
-                                      .copyWith(fontSize: contentFontSize, height: 1.5),
+                                      .copyWith(fontSize: SizeInfo.noteCardContent, height: 1.5),
                                   maxLines: 1,
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.ellipsis,
@@ -117,7 +114,7 @@ class NoteCard extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
-                                    .copyWith(fontSize: contentFontSize, height:1.5),
+                                    .copyWith(fontSize: SizeInfo.noteCardContent, height:1.5),
                                 maxLines: note.image != null && note.image != []
                                     ? 5
                                     : 10,
@@ -128,11 +125,11 @@ class NoteCard extends StatelessWidget {
                                   ? ImageCard(
                                 img: note.image!,
                                 width: isGrid
-                                    ? cardImageSize
-                                    : cardImageSize - 10,
+                                    ? SizeInfo.noteCardImageSize
+                                    : SizeInfo.noteCardImageSize - 10,
                                 height: isGrid
-                                    ? cardImageSize
-                                    : cardImageSize - 10,
+                                    ? SizeInfo.noteCardImageSize
+                                    : SizeInfo.noteCardImageSize - 10,
                                 cornerRadius: 8,
                               )
                                   : Container(),
@@ -154,7 +151,7 @@ class NoteCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
-                                .copyWith(fontSize: contentFontSize),
+                                .copyWith(fontSize: SizeInfo.noteCardContent),
                           ),
                         ),
                       ),

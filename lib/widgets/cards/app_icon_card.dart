@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 class AppIconCard extends StatelessWidget {
   const AppIconCard({
     super.key,
@@ -13,20 +15,18 @@ class AppIconCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var borderRadius = 15.0;
-
      return
        Card(
          margin: const EdgeInsets.all(15),
          color: Colors.transparent,
          shadowColor: Colors.transparent,
          shape: RoundedRectangleBorder(
-           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+           borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
          ),
          child: SizedBox(
            width: cardSize,
            child: ClipRRect(
-             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+             borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
              child: Image.asset(
                'assets/images/splash.png',
                width: cardSize,

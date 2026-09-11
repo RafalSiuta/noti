@@ -123,7 +123,7 @@ class AppLocalizations {
     model.shortDate     = DateFormat('dd MMM ', tag).format(date);
     model.fullDate      = DateFormat('dd MMM yy', tag).format(date);
     model.weekDay       = DateFormat('EEEE', tag).format(date);
-    model.monthYear     = DateFormat('MMM yyyy', tag).format(date);
+    model.monthYear     = DateFormat('MMMM yyyy', tag).format(date);
     model.shortMonthYear     = DateFormat('MMM yy', tag).format(date);
     model.shortWeekday  = DateFormat('E', tag).format(date);
     return model;

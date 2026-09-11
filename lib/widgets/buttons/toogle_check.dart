@@ -20,7 +20,7 @@ class ToogleCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius = SizeInfo.buttonCornerRadius;
+
     return
       AspectRatio(
         aspectRatio: 2/2,
@@ -35,7 +35,7 @@ class ToogleCheck extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onSurface,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+                borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
                 boxShadow: [
                   BoxShadow(
                     color: Theme.of(context).shadowColor,
@@ -55,23 +55,6 @@ class ToogleCheck extends StatelessWidget {
           ),
         ),
       );
-      // IconButton(
-      //   padding: EdgeInsets.zero,
-      //   alignment: align,
-      //   onPressed: () {
-      //
-      //     onChanged!(value!);
-      //   },
-      //     style: IconButton.styleFrom(backgroundColor: Colors.redAccent),
-      //   splashRadius: 1,
-      //   splashColor: Colors.transparent,
-      //   disabledColor: Theme.of(context).shadowColor,
-      //   icon: Icon(
-      //     iconData,
-      //     size: iconSize,
-      //     color: value == true
-      //         ? Theme.of(context).indicatorColor
-      //         : Theme.of(context).unselectedWidgetColor,
-      //   ));
+
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../utils/custom_icon_helper/noti_system_icons_icons.dart';
 import '../../utils/dimensions/size_info.dart';
 
 
@@ -14,7 +15,7 @@ class CalendarFormatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius =  SizeInfo.buttonCornerRadius;
+    //var borderRadius =  SizeInfo.innerCardCornerRadius;
 
     // Lista dostępnych formatów
     final List<CalendarFormat> formats = [
@@ -29,16 +30,20 @@ class CalendarFormatButton extends StatelessWidget {
     int currentIndex = formats.indexOf(format);
     CalendarFormat nextFormat = formats[(currentIndex + 1) % formats.length];
     String formatName = format.name;
+    IconData icon = NotiSystemIcons.month;
 
-    String getFormat(){
+    IconData getFormat(){
       if(format == CalendarFormat.week){
+        icon = NotiSystemIcons.oneweek;
         formatName = "buttons_text.button_week";
       }else if(format == CalendarFormat.twoWeeks){
         formatName = "buttons_text.button_two_weeks";
+        icon = NotiSystemIcons.twooweeks;
       }else{
         formatName = "buttons_text.button_month";
+        icon = NotiSystemIcons.month;
       }
-      return formatName;
+      return icon;
     }
     return InkWell(
       splashColor: Colors.transparent,
@@ -47,30 +52,25 @@ class CalendarFormatButton extends StatelessWidget {
         onFormatChange(nextFormat);
         getFormat();
       },
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-        ),
-        child: Container(
-          height: textSize * 2,
-          padding: EdgeInsets.symmetric(horizontal: borderRadius * 1.5),
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: Border.all(
-              color: Theme.of(context).dialogTheme.titleTextStyle!.color!,
-              width: 0.5,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-          ),
-          child: Center(
-            child: Text(
-              context.t(getFormat()),
-              //getFormat(),
-              //format.name,
-              style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
-            ),
-          ),
+      child: Container(
+       // height: textSize * 2,
+        padding: EdgeInsets.symmetric(horizontal:SizeInfo.cardInnerPadding),
+        // decoration: BoxDecoration(
+        //   shape: BoxShape.rectangle,
+        //   border: Border.all(
+        //     color: Theme.of(context).dialogTheme.titleTextStyle!.color!,
+        //     width: 0.5,
+        //   ),
+        //   borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
+        // ),
+        child: Center(
+          child: Icon(getFormat(), color: Theme.of(context).dialogTheme.titleTextStyle!.color!)
+          // Text(
+          //   context.t(getFormat()),
+          //   //getFormat(),
+          //   //format.name,
+          //   style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+          // ),
         ),
       ),
     );

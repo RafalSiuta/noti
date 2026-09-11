@@ -11,6 +11,7 @@ import '../../models/menu_model/nav_model.dart';
 import '../../providers/note_provider/note_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/app_localizations.dart';
+import '../../widgets/buttons/switch_btn.dart';
 import '../../widgets/buttons/text_icon_button.dart';
 import '../../widgets/cards/image_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
@@ -413,9 +414,15 @@ class _NoteCreatorState extends State<NoteCreator>
                                                 MainAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-
+                                              // SwitchBtn(
+                                              //     value: widget.newNote.keep,
+                                              //     onChanged: (value) {
+                                              //       setState(() {
+                                              //       widget.newNote.keep = value;
+                                              //       });
+                                              //       }),
                                               Transform.scale(
-                                                scale: 0.8,
+                                                scale: 0.6,
                                                 child: Switch(
                                                     value: widget.newNote.keep,
                                                     onChanged: (value) {

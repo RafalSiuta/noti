@@ -69,6 +69,12 @@ class SizeInfo {
   static double taskRingLineWidth = 2.5;
   static double taskContentPadding = 0.0;
 
+  ///task_swipe_card dimens:
+  static double taskCardContentPadding = 10.0;
+  static double cardInnerPadding = 6.0;
+  static double toogleButtonSide = 28.0;
+
+
 
   ///note dimens:
   static double noteCardImageSize = 50;
@@ -169,6 +175,10 @@ class SizeInfo {
     taskMarginRadius = 16;
     taskRingLineWidth = 5.0;
     taskContentPadding = 5.0;
+
+    ///swipe task card dimens
+    taskCardContentPadding = 12.0;
+    cardInnerPadding = 8.0;
 
     ///note card:
     noteCardTitle = 18;

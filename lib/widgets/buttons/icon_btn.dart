@@ -11,7 +11,7 @@ class IconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius = SizeInfo.buttonCornerRadius;
+    var borderRadius = SizeInfo.innerCardCornerRadius;
     return
       InkWell(
         splashColor: Colors.transparent,

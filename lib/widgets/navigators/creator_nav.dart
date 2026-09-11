@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 import '../../models/menu_model/nav_model.dart';
+import '../../utils/dimensions/size_info.dart';
 import '../responsive/screen_type_layout.dart';
 
 
@@ -32,8 +33,8 @@ class CreatorNav extends StatelessWidget {
         margin:  EdgeInsets.only( bottom: 8.0, left: 8.0),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+            borderRadius:  BorderRadius.only(
+                topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
             boxShadow: [
               BoxShadow(
                   color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
@@ -42,8 +43,8 @@ class CreatorNav extends StatelessWidget {
                   spreadRadius: 1.0)
             ]),
         child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+          borderRadius:  BorderRadius.only(
+              topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
           child: Padding(
             padding:  EdgeInsets.symmetric(vertical: menuTop),
             child: Wrap(
@@ -57,7 +58,7 @@ class CreatorNav extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 10.0),
                       child: InkWell(
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        borderRadius:  BorderRadius.all(Radius.circular(10)),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,8 +103,8 @@ class CreatorNav extends StatelessWidget {
         margin: EdgeInsets.only(top: menuTop, bottom: 8.0, left: 8.0),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+            borderRadius:  BorderRadius.only(
+                topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
             boxShadow: [
               BoxShadow(
                   color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
@@ -111,8 +112,8 @@ class CreatorNav extends StatelessWidget {
                   spreadRadius: 1.0)
             ]),
         child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+          borderRadius:  BorderRadius.only(
+              topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8.0),
             child: Wrap(

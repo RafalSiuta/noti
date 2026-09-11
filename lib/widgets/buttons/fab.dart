@@ -132,7 +132,7 @@ class CustomFab extends StatelessWidget {
               child: FloatingActionButton(
                 elevation: 2,
                 isExtended: true,
-                child: Icon(Icons.edit,
+                child: Icon(NotiSystemIcons.edit,
                     size: iconSize,
                     color: Theme.of(context).colorScheme.primary,),
                 onPressed: () {

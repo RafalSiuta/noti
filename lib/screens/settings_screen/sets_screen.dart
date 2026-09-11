@@ -8,7 +8,6 @@ import '../../providers/settings_provider/settings_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
-import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
 import '../../widgets/headers/sliver_header.dart';

@@ -18,22 +18,11 @@ class SettingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var titleFontSize = SizeInfo.settingsCardTitleFontSize;
-    var descriptionFontSize = SizeInfo.settingsCardDescriptionFontSize;
-    var cardHeight = SizeInfo.settingsCardHeight;
-    double smallRingRadiusSize = cardHeight - 17;
-    const textPadding = EdgeInsets.symmetric(horizontal: 6.0);
-
-    const marginContainer = EdgeInsets.all(8.0);
-    const marginTextBox = EdgeInsets.all(6);
-
-    double radiusContainer = SizeInfo.outherCardCornerRadius;//BorderRadius.all(Radius.circular(15));
-    BorderRadius radiusInnerContainer = BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius));
 
     List<Widget> items = [
       Expanded(
         child: Padding(
-          padding: textPadding,
+          padding: EdgeInsets.symmetric(horizontal: SizeInfo.cardInnerPadding),
           child: RichText(
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -43,7 +32,7 @@ class SettingsCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium!
-                    .copyWith(fontSize: titleFontSize),
+                    .copyWith(fontSize: SizeInfo.settingsCardTitleFontSize),
                 children: <TextSpan>[
                   TextSpan(
                     text: context.t("settings_text.$description").capitalizeFirstLetter(),
@@ -51,7 +40,7 @@ class SettingsCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(fontSize: descriptionFontSize),
+                        .copyWith(fontSize: SizeInfo.settingsCardDescriptionFontSize),
                   )
                 ]),
           ),
@@ -61,26 +50,26 @@ class SettingsCard extends StatelessWidget {
     ];
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: cardHeight,
-      margin: marginContainer,
+      //height: cardHeight,
+      margin: EdgeInsets.all(SizeInfo.edgePadding),
       decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(radiusContainer)),
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
       ),
       foregroundDecoration: InnerShadowDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(radiusContainer)),
-        color: Theme.of(context).shadowColor.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
+        color: Theme.of(context).shadowColor,//.withValues(alpha: 0.8),
       ),
       child: Container(
           width: MediaQuery.of(context).size.width,
-          height: smallRingRadiusSize,
-          margin: marginTextBox,
+          margin: EdgeInsets.all(SizeInfo.cardInnerPadding),
+          padding: EdgeInsets.only(top:SizeInfo.cardInnerPadding/2,left:SizeInfo.cardInnerPadding,bottom:SizeInfo.cardInnerPadding/2,),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onSurface,
-              borderRadius: radiusInnerContainer,
+              borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
               boxShadow: [
                 BoxShadow(
-                    color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.2),
+                    color: Theme.of(context).unselectedWidgetColor,//.withValues(alpha: 0.2),
                     blurRadius: 2.0,
                     offset: const Offset(.0, .0),
                     spreadRadius: 1.5),

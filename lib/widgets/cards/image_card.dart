@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 
+import '../../utils/dimensions/size_info.dart';
+
 class ImageAssetCard extends StatelessWidget {
   const ImageAssetCard(
       {super.key,
       required this.img,
       this.size = 100,
       this.onTap,
-      this.onHold,
-      this.cornerRadius = 15});
+      this.onHold,});
 
   final AssetEntity img;
   final double size;
   final Function()? onTap;
   final Function()? onHold;
-  final double cornerRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class ImageAssetCard extends StatelessWidget {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(cornerRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(cornerRadius - 1)),
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius - 1)),
           child:
           Image(
             image: AssetEntityImageProvider(

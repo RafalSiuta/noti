@@ -290,7 +290,7 @@ final theme_1 = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return theme_1MainBackgroundColor;
       } else {
-        return theme_1ShadowColor;
+        return Colors.transparent;//theme_1ShadowColor;
       }
     }),
     thumbColor: WidgetStateProperty.resolveWith((states) {
@@ -304,7 +304,7 @@ final theme_1 = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return theme_1MainBackgroundColor;
       } else {
-        return theme_1ShadowColor;
+        return theme_1MainBackgroundColor;
       }
     }),
   ),
