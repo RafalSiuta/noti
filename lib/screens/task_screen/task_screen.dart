@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/screens/task_screen/sliver_task_list.dart';
 import 'package:provider/provider.dart';
 import '../../providers/task_provider/task_search_provider.dart';
@@ -10,7 +11,8 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return AnimationLimiter(
+      child: CustomScrollView(
         key: key,
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(
@@ -34,7 +36,8 @@ class TaskScreen extends StatelessWidget {
               height: 10.0,
             ),
           )
-        ]
+        ],
+      ),
     );
   }
 }

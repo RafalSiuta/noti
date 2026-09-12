@@ -11,10 +11,10 @@ class SwitchBtn extends StatelessWidget {
     return Transform.scale(
       scale: 0.6,
       child: Switch(
-          value: value,
-          onChanged: (val) {
-            onChanged!(value);
-          }
+        value: value,
+        onChanged: (val) {
+          onChanged?.call(val);
+        },
       ),
     );
   }

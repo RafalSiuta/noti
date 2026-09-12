@@ -35,30 +35,40 @@ class CalendarHeader extends StatelessWidget {
             onPressed: previous,
           ),
           widget != null ? Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 4,
-                children: [
-                  Text(
-                    d.monthYear!.capitalizeFirstLetter(),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    // DateFormat('MMMM yy').format(date),
-                    style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+            child: LayoutBuilder(
+              builder: (context,constraints){
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 4,
+                      children: [
+                        Text(
+                          d.monthYear!.capitalizeFirstLetter(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                        ),
+                        widget!
+                      ],
+                    ),
                   ),
-                  widget!
-                ],
-              ),
+                );
+              }
             ),
-          ) : Text(
-            d.monthYear!.capitalizeFirstLetter(),
-            //DateFormat('MMMM yy').format(date),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+          ) : SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              d.monthYear!.capitalizeFirstLetter(),
+              //DateFormat('MMMM yy').format(date),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+            ),
           ),
           IconBtn(
             icon: Icons.arrow_right,

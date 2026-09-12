@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:noti/providers/home_provider/home_provider.dart';
 import 'package:noti/providers/holidays_provider.dart';
@@ -44,7 +45,8 @@ class WelcomeScreen extends StatelessWidget {
       alignment: Alignment.topLeft,
       fit: StackFit.expand,
       children: [
-        CustomScrollView(
+        AnimationLimiter(
+          child: CustomScrollView(
           key: key,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(
@@ -76,6 +78,7 @@ class WelcomeScreen extends StatelessWidget {
               child: SizedBox(height: MediaQuery.of(context).size.height / 3.7),
             ),
           ],
+          ),
         ),
         Align(
           alignment: Alignment.bottomLeft,

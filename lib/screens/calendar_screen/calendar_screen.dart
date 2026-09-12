@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -19,7 +20,8 @@ class CalendarScreen extends StatelessWidget {
     var spacingTop = SizeInfo.menuTopMargin;
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child){
-         return CustomScrollView(
+         return AnimationLimiter(
+           child: CustomScrollView(
             physics:
             const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             slivers: [
@@ -68,7 +70,8 @@ class CalendarScreen extends StatelessWidget {
               SliverListHeader(),
               SliverTaskList(),
             ],
-          );
+          ),
+        );
         });
   }
 }

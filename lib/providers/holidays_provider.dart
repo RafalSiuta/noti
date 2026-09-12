@@ -105,17 +105,7 @@ class HolidaysProvider extends ChangeNotifier {
       ));
     }
 
-    final visibleDatedHolidays = datedHolidays
-        .where((item) {
-          if (item.holiday.category != 'shopping') return true;
-          return !datedHolidays.any(
-            (other) =>
-                other.date == item.date &&
-                other.holiday.id != item.holiday.id &&
-                other.holiday.isDayOffForCountry(countryCode),
-          );
-        })
-        .toList(growable: false);
+    final visibleDatedHolidays = datedHolidays.toList(growable: false);
 
     visibleDatedHolidays.sort((a, b) {
       final dateComparison = a.date.compareTo(b.date);

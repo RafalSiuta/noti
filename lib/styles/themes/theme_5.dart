@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/dimensions/size_info.dart';
+import 'package:noti/styles/themes/style_exports.dart';
 
-const theme_5MainBackgroundColor = Color(0xFFF7FDFD); //main-background
+const theme_5MainBackgroundColor = Color(0xFFDDEEEE); //main-background
 const theme_5PatternColor = Color(0xFFE0F5F5); //pattern
 const theme_5CardBackgroundColor = Color(0xFFFFFFFF); //card-background
 const theme_5TimerTextColor = Color(0xFFFFFFFF); //timer-text
@@ -534,5 +536,17 @@ final theme_5 = ThemeData(
     inactiveTrackColor: theme_5UnselectedColor,
     trackShape: RoundedRectSliderTrackShape(),
     thumbColor: Colors.white,
+  ),
+  tooltipTheme: TooltipThemeData(
+    textStyle: GoogleFonts.exo2(
+      textStyle: const TextStyle(
+        color: theme_5BaseTextColor,
+        fontSize: 12,
+      ),
+    ),
+    decoration: BoxDecoration(
+      color: theme_5CardBackgroundColor,
+      borderRadius: BorderRadius.circular(SizeInfo.innerCardCornerRadius),
+    ),
   ),
 );

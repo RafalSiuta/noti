@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/dimensions/size_info.dart';
 
 const theme_7MainBackgroundColor = Color(0xFF3C372E); //main-background
 const theme_7PatternColor = Color(0xFF454035); //pattern
@@ -540,5 +541,17 @@ final theme_7 = ThemeData(
     inactiveTrackColor: theme_7UnselectedColor,
     trackShape: RoundedRectSliderTrackShape(),
     thumbColor: Colors.white,
+  ),
+  tooltipTheme: TooltipThemeData(
+    textStyle: GoogleFonts.poppins(
+      textStyle: const TextStyle(
+        color: theme_7BaseTextColor,
+        fontSize: 12,
+      ),
+    ),
+    decoration: BoxDecoration(
+      color: theme_7CardBackgroundColor,
+      borderRadius: BorderRadius.circular(SizeInfo.innerCardCornerRadius),
+    ),
   ),
 );

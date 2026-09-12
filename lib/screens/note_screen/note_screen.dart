@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/screens/note_screen/sliver_note_list.dart';
 import 'package:provider/provider.dart';
 import 'package:noti/providers/note_provider/note_search_provider.dart';
@@ -11,7 +12,8 @@ class NoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      CustomScrollView(
+      AnimationLimiter(
+      child: CustomScrollView(
           key: key,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(
@@ -40,7 +42,8 @@ class NoteScreen extends StatelessWidget {
                 height: 10.0,
               ),
             )
-          ]
+          ],
+        ),
       );
 
   }

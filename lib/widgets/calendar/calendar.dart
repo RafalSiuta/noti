@@ -20,7 +20,7 @@ import 'calendar_marker.dart';
 class Calendar extends StatelessWidget {
   const Calendar({required this.focDay,
     required this.onMonthChange,
-   // required this.startingDayOfWeek,
+    // required this.startingDayOfWeek,
     required this.selDay,
     required this.onDaySelected,
     this.onDayLongPressed,
@@ -35,7 +35,7 @@ class Calendar extends StatelessWidget {
   final double topSpacing;
   final DateTime focDay;
   final DateTime selDay;
- // final StartingDayOfWeek startingDayOfWeek;
+  // final StartingDayOfWeek startingDayOfWeek;
   final Function(DateTime, DateTime)? onDaySelected;
   final Function(DateTime, DateTime)? onDayLongPressed;
   final Function(DateTime) onMonthChange;
@@ -87,7 +87,7 @@ class Calendar extends StatelessWidget {
                       ),
                       AnimationLimiter(
                         child: TableCalendar<Task>(
-                           // locale: 'pl_PL',
+                          // locale: 'pl_PL',
                           focusedDay: focDay,
                           availableGestures: gesturesEnable
                               ? AvailableGestures.all
@@ -186,9 +186,9 @@ class Calendar extends StatelessWidget {
                                       child: Container(
                                         margin: EdgeInsets.all(2),
                                         decoration: BoxDecoration(
-                                          color: holidays.isNotEmpty ? Theme.of(context).colorScheme.secondaryFixed.withAlpha(20) : Colors.transparent,
-                                          borderRadius: BorderRadius.circular(cornerRadius),
-                                          border: Border.all(color:Theme.of(context).colorScheme.secondaryFixed,width: 0.5 )
+                                            color: holidays.isNotEmpty ? Theme.of(context).colorScheme.secondaryFixed.withAlpha(20) : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(cornerRadius),
+                                            border: Border.all(color:Theme.of(context).colorScheme.secondaryFixed,width: 0.5 )
 
                                         ),
                                         child: Column(
@@ -217,10 +217,10 @@ class Calendar extends StatelessWidget {
                                                 maxLines: 1,
                                                 overflow: TextOverflow.fade,
                                                 style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(
-                                                  fontSize: 6.0 ),),
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                    fontSize: 6.0 ),),
                                             )
                                           ],
                                         ),
@@ -242,42 +242,42 @@ class Calendar extends StatelessWidget {
                                   child: FadeInAnimation(
                                       child: isHoliday
                                           ? Container(
-                                              margin: EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
-                                                color: Theme.of(context).colorScheme.secondaryFixed.withAlpha(80),
-                                                borderRadius: BorderRadius.circular(cornerRadius),
-                                              ),
-                                              child: Center(
-                                                  child: Text(
-                                                    '${date.day}',
-                                                    style: (date.weekday != 6 && date.weekday != 7)
-                                                        ? Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                        fontSize: calendarFontSize )
-                                                        : Theme.of(context)
-                                                        .textTheme
-                                                        .labelMedium!
-                                                        .copyWith(
-                                                        fontSize: calendarFontSize),
-                                                  )),
-                                            )
+                                        margin: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).colorScheme.secondaryFixed.withAlpha(80),
+                                          borderRadius: BorderRadius.circular(cornerRadius),
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                              '${date.day}',
+                                              style: (date.weekday != 6 && date.weekday != 7)
+                                                  ? Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                  fontSize: calendarFontSize )
+                                                  : Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium!
+                                                  .copyWith(
+                                                  fontSize: calendarFontSize),
+                                            )),
+                                      )
                                           : Center(
-                                              child: Text(
-                                                '${date.day}',
-                                                style: (date.weekday != 6 && date.weekday != 7)
-                                                    ? Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                    fontSize: calendarFontSize )
-                                                    : Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium!
-                                                    .copyWith(
-                                                    fontSize: calendarFontSize),
-                                              ))),
+                                          child: Text(
+                                            '${date.day}',
+                                            style: (date.weekday != 6 && date.weekday != 7)
+                                                ? Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                fontSize: calendarFontSize )
+                                                : Theme.of(context)
+                                                .textTheme
+                                                .labelMedium!
+                                                .copyWith(
+                                                fontSize: calendarFontSize),
+                                          ))),
                                 ),
                               );
                             },
@@ -406,3 +406,12 @@ class Calendar extends StatelessWidget {
         });
   }
 }
+
+/*
+return _HolidayTooltip(
+                                message: holidayTooltip,
+                                onTooltipReady: (showTooltip) {
+                                  _holidayTooltipCallbacks[DateUtils.dateOnly(date)] =
+                                      showTooltip;
+                                },
+ */

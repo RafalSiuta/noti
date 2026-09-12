@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../utils/dimensions/size_info.dart';
 
 const theme_1MainBackgroundColor = Color(0xFFE9E9E9); //main-background
 const theme_1PatternColor = Color(0xFFDBDBDB); //pattern
@@ -17,7 +18,7 @@ const theme_1Accent3Color = Color(0xFFE1663F); //accent-3
 const theme_1ErrorColor = Color(0xFFFF5252); //error
 const theme_1UnselectedColor = Color(0xFF9E9E9E); //unselected
 const theme_1DividerColor = Color(0xFF9E9E9E); //divider
-const theme_1ShadowColor = Color(0xCC9E9E9E); //shadow
+const theme_1ShadowColor = Color(0xCCAFAFAF); //shadow
 const theme_1FabIconColor = Color(0xFF061841); //fab-icon
 const theme_1CalendarCellSelectedColor = Color(0xFF1551D6); //calendar-cell-selected
 const theme_1CalendarSelectedTextColor = Color(0xFFF5F5F5); //calendar-selected-text
@@ -478,16 +479,6 @@ final theme_1 = ThemeData(
       ),
     ),
   ),
-  tooltipTheme: TooltipThemeData(
-    textStyle: GoogleFonts.exo2(
-      textStyle: const TextStyle(
-        fontSize: 8.0,
-        color: theme_1BaseTextColor,
-        fontWeight: FontWeight.w400,
-      ),
-    ),
-    decoration: BoxDecoration(color: theme_1UnselectedColor),
-  ),
 
   menuButtonTheme: MenuButtonThemeData(
     style: ButtonStyle(
@@ -576,5 +567,17 @@ final theme_1 = ThemeData(
     inactiveTrackColor: theme_1UnselectedColor,
     trackShape: RoundedRectSliderTrackShape(),
     thumbColor: Colors.white,
+  ),
+  tooltipTheme: TooltipThemeData(
+    textStyle: GoogleFonts.exo2(
+      textStyle: const TextStyle(
+        color: theme_1BaseTextColor,
+        fontSize: 12,
+      ),
+    ),
+    decoration: BoxDecoration(
+      color: theme_1CardBackgroundColor,
+      borderRadius: BorderRadius.circular(SizeInfo.innerCardCornerRadius),
+    ),
   ),
 );
