@@ -26,6 +26,7 @@ class CalendarHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 4,
         children: [
           IconBtn(
             icon: Icons.arrow_left,
@@ -33,23 +34,30 @@ class CalendarHeader extends StatelessWidget {
             iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
             onPressed: previous,
           ),
-          widget != null ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: textSize,
-            children: [
-              Text(
-                d.monthYear!.capitalizeFirstLetter(),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                // DateFormat('MMMM yy').format(date),
-                style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+          widget != null ? Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 4,
+                children: [
+                  Text(
+                    d.monthYear!.capitalizeFirstLetter(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    // DateFormat('MMMM yy').format(date),
+                    style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                  ),
+                  widget!
+                ],
               ),
-              widget!
-            ],
+            ),
           ) : Text(
             d.monthYear!.capitalizeFirstLetter(),
             //DateFormat('MMMM yy').format(date),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
           ),
           IconBtn(
