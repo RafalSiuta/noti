@@ -34,7 +34,7 @@ class CustomFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var fabSize = SizeInfo.fabSize;
-    double btnRadius = 15.0;
+    double btnRadius = 10.0;
     double iconSize = SizeInfo.leadingAndTrailingIconSize;
     return Padding(
       padding: EdgeInsets.only(bottom: fabSize * 0.2),
@@ -131,6 +131,9 @@ class CustomFab extends StatelessWidget {
             child: FittedBox(
               child: FloatingActionButton(
                 elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(btnRadius))
+                ),
                 isExtended: true,
                 child: Icon(NotiSystemIcons.edit,
                     size: iconSize,

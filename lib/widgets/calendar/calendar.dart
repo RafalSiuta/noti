@@ -28,7 +28,7 @@ class Calendar extends StatelessWidget {
     this.prev,
     required this.calendarFormat,
     required this.onFormatChanged,
-    required this.taskEvents,super.key, this.isHeaderVisible = true,this.gesturesEnable = true, this.topSpacing = 3.0});
+    required this.taskEvents,super.key, this.isHeaderVisible = true,this.gesturesEnable = true, this.topSpacing = 3.0, });
 
   final bool isHeaderVisible;
   final bool gesturesEnable;
@@ -44,6 +44,7 @@ class Calendar extends StatelessWidget {
   final List<Task> Function(DateTime)? taskEvents;
   final VoidCallback? next;
   final VoidCallback? prev;
+  //final GlobalKey<TooltipState>? holidaysTooltipKey;
 
 
   @override
@@ -59,6 +60,8 @@ class Calendar extends StatelessWidget {
     double cornerRadius = 4.0;
     return Consumer2<SettingsProvider,HolidaysProvider>(
         builder: (context,settingsProvider, holidaysProvider, child){
+          //final GlobalKey<TooltipState> holidaysTooltipKey = GlobalKey<TooltipState>();
+
           return
             ClipRect(
               child: BackdropFilter(
@@ -112,7 +115,11 @@ class Calendar extends StatelessWidget {
                               holidaysProvider.reloadForYear(day.year);
                             }
                           },//dodaj do konstruktora
-                          onDaySelected: onDaySelected,
+                          onDaySelected:onDaySelected,
+                          //     (selectedDay, focusedDay){
+                          //   onDaySelected!(selectedDay, focusedDay);
+                          //
+                          // },
                           selectedDayPredicate: (day) =>
                               isSameDay(selDay, day),
                           eventLoader: (day) => taskEvents?.call(day) ?? [],
@@ -242,12 +249,12 @@ class Calendar extends StatelessWidget {
                                   child: FadeInAnimation(
                                       child: isHoliday
                                           ? Container(
-                                        margin: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
+                                                                                  margin: EdgeInsets.all(2),
+                                                                                  decoration: BoxDecoration(
                                           color: Theme.of(context).colorScheme.secondaryFixed.withAlpha(80),
                                           borderRadius: BorderRadius.circular(cornerRadius),
-                                        ),
-                                        child: Center(
+                                                                                  ),
+                                                                                  child: Center(
                                             child: Text(
                                               '${date.day}',
                                               style: (date.weekday != 6 && date.weekday != 7)
@@ -262,7 +269,7 @@ class Calendar extends StatelessWidget {
                                                   .copyWith(
                                                   fontSize: calendarFontSize),
                                             )),
-                                      )
+                                                                                )
                                           : Center(
                                           child: Text(
                                             '${date.day}',
@@ -407,11 +414,3 @@ class Calendar extends StatelessWidget {
   }
 }
 
-/*
-return _HolidayTooltip(
-                                message: holidayTooltip,
-                                onTooltipReady: (showTooltip) {
-                                  _holidayTooltipCallbacks[DateUtils.dateOnly(date)] =
-                                      showTooltip;
-                                },
- */

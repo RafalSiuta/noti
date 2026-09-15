@@ -65,6 +65,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       key: widget.key,
       backgroundColor: const Color(0xFFEEEEEE),
       body: Center(

@@ -32,6 +32,7 @@ class NoteList extends StatelessWidget {
         if (noteList.isEmpty) {
           return DefaultText(
               title: "headers_text.header_no_notes",
+              isNotes: true,
               //title:context.t("headers_text.header_no_notes").capitalizeFirstLetter()
             // title: 'No Notes for today',
           );

@@ -12,6 +12,7 @@ import '../../widgets/calendar/small_calendar.dart';
 import '../../widgets/headers/date_header.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/sliver_list_header.dart';
+import '../../widgets/headers/task_header.dart';
 import '../note_screen/note_list.dart';
 import '../task_screen/sliver_task_list.dart';
 
@@ -70,7 +71,8 @@ class WelcomeScreen extends StatelessWidget {
                 child: SmallCalendar(),
               ),
             ),
-            SliverListHeader(),
+            //SliverListHeader(),
+            TaskHeader(),
             SliverTaskList(
               bottomSpace: MediaQuery.of(context).size.height / 3.5,
             ),

@@ -8,6 +8,7 @@ import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/headers/sliver_list_header.dart';
+import '../../widgets/headers/task_header.dart';
 import '../task_screen/sliver_task_list.dart';
 import '../task_screen/task_creator_screen.dart';
 import '../../widgets/calendar/calendar.dart';
@@ -20,6 +21,8 @@ class CalendarScreen extends StatelessWidget {
     var spacingTop = SizeInfo.menuTopMargin;
     return Consumer<TaskProvider>(
         builder: (context, taskProvider, child){
+          final GlobalKey<TooltipState> holidaysTooltipKey = GlobalKey<TooltipState>();
+
          return AnimationLimiter(
            child: CustomScrollView(
             physics:
@@ -28,6 +31,7 @@ class CalendarScreen extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Calendar(
                   key: key,
+                  //holidaysTooltipKey: holidaysTooltipKey,
                   topSpacing: spacingTop,
                   isHeaderVisible: true,
                   next: (){
@@ -67,7 +71,8 @@ class CalendarScreen extends StatelessWidget {
                   },
                 ),
               ),
-              SliverListHeader(),
+              //SliverListHeader(),
+              TaskHeader(),
               SliverTaskList(),
             ],
           ),

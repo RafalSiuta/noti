@@ -17,6 +17,7 @@ class SmallCalendar extends StatelessWidget {
       builder: (context,taskProvider,child){
         DateTime focDay = DateTime.now();
         return Calendar(
+          key: key,
           isHeaderVisible: false,
           gesturesEnable: false,
           focDay: focDay,

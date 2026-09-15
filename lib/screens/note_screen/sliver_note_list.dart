@@ -41,7 +41,8 @@ class SliverNoteList extends StatelessWidget {
                 padding: EdgeInsets.only(left: edgePadding-2, top: 10, bottom: 10),
                 sliver: SliverFillRemaining(
                   child: DefaultText(
-                      title:"headers_text.header_no_notes"
+                      title:"headers_text.header_no_notes",
+                      isNotes: true,
                     // title: 'There is no notes',
                   ),
                 )
