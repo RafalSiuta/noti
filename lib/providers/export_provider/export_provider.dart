@@ -16,6 +16,7 @@ import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../models/settings_model/trash_settings_model/trash_model.dart';
 import '../../utils/constants/sets_keys.dart';
 import '../../utils/export_helper/export_helper.dart';
+import '../../utils/crypto_helper/crypto_helper.dart';
 import '../../utils/id_generator/id_generator.dart';
 import '../../utils/prefs/prefs.dart';
 import '../settings_provider/trash_settings_list.dart';
@@ -25,6 +26,7 @@ class ImportResult {
     required this.success,
     this.cancelled = false,
     this.needsOverwrite = false,
+    this.needsPassword = false,
     this.message = '',
     this.fileName,
     this.folderPath,
@@ -35,6 +37,7 @@ class ImportResult {
   final bool success;
   final bool cancelled;
   final bool needsOverwrite;
+  final bool needsPassword;
   final String message;
   final String? fileName;
   final String? folderPath;
@@ -79,7 +82,20 @@ class ExportProvider extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.databaseHelper;
   final ExportHelper _exportHelper = ExportHelper();
   NotiImportData? _pendingImportData;
+  File? _pendingEncryptedFile;
   ExportSettings exportSets = ExportSettings();
+  bool protectExport = false;
+
+  Future<void> setProtectExport(bool value) async {
+    protectExport = value;
+    notifyListeners();
+    await _prefs.storeBool(EXPORT_PROTECT_PREFS_KEY, value);
+  }
+
+  void cancelPendingImport() {
+    _pendingEncryptedFile = null;
+    _pendingImportData = null;
+  }
 
   void onExportSettingsChange(SettingsModel sets) async {
     for (final item in exportSets.exportSettings) {
@@ -104,8 +120,16 @@ class ExportProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ExportResult?> getExportSettings({String? fileName}) async {
+  Future<ExportResult?> getExportSettings({
+    String? fileName,
+    String? password,
+  }) async {
     try {
+      if (protectExport &&
+          (password == null ||
+              password.length < CryptoHelper.minimumPasswordLength)) {
+        throw const FormatException('Export password is required.');
+      }
       final exportData = await _prepareExportData();
       final file = await _exportHelper.exportNotiData(
         tasks: exportData.tasks,
@@ -113,6 +137,7 @@ class ExportProvider extends ChangeNotifier {
         exportSettings: exportSets.exportSettings,
         settings: exportData.settings,
         fileName: fileName,
+        password: protectExport ? password : null,
       );
       if (file == null) {
         print('Export cancelled.');
@@ -140,8 +165,14 @@ class ExportProvider extends ChangeNotifier {
   Future<ExportResult?> shareExportSettings({
     String? fileName,
     Rect? sharePositionOrigin,
+    String? password,
   }) async {
     try {
+      if (protectExport &&
+          (password == null ||
+              password.length < CryptoHelper.minimumPasswordLength)) {
+        throw const FormatException('Export password is required.');
+      }
       final exportData = await _prepareExportData();
       final file = await _exportHelper.createShareNotiData(
         tasks: exportData.tasks,
@@ -149,6 +180,7 @@ class ExportProvider extends ChangeNotifier {
         exportSettings: exportSets.exportSettings,
         settings: exportData.settings,
         fileName: fileName,
+        password: protectExport ? password : null,
       );
 
       await SharePlus.instance.share(
@@ -179,15 +211,18 @@ class ExportProvider extends ChangeNotifier {
     }
   }
 
-
   Future<bool> openExportFolder(File file) async {
-    debugPrint('[Export] Open folder requested: platform=${Platform.operatingSystem}, file=${file.path}');
+    debugPrint(
+      '[Export] Open folder requested: platform=${Platform.operatingSystem}, file=${file.path}',
+    );
 
     try {
       if (Platform.isAndroid) {
         debugPrint('[Export] Opening Android document browser');
         final selectedFile = await FilePicker.pickFile(type: FileType.any);
-        debugPrint('[Export] Android document browser closed; selected=${selectedFile?.name ?? 'none'}');
+        debugPrint(
+          '[Export] Android document browser closed; selected=${selectedFile?.name ?? 'none'}',
+        );
         return true;
       }
 
@@ -219,15 +254,20 @@ class ExportProvider extends ChangeNotifier {
       return false;
     }
 
-    debugPrint('[Export] Opening export location is unsupported on ${Platform.operatingSystem}');
+    debugPrint(
+      '[Export] Opening export location is unsupported on ${Platform.operatingSystem}',
+    );
     return false;
   }
 
-  Future<ImportResult> getImportSettings({bool overwrite = false}) async {
+  Future<ImportResult> getImportSettings({
+    bool overwrite = false,
+    String? password,
+  }) async {
     try {
       final importData = overwrite
           ? _pendingImportData
-          : await _pickAndReadImportFile();
+          : await _pickAndReadImportFile(password: password);
 
       if (importData == null) {
         return const ImportResult(
@@ -291,7 +331,16 @@ class ExportProvider extends ChangeNotifier {
         notesCount: importData.notes.length,
         message: 'Import succeeded.',
       );
+    } on ExportPasswordRequiredException {
+      return const ImportResult(success: false, needsPassword: true);
+    } on ExportInvalidPasswordException {
+      return const ImportResult(
+        success: false,
+        needsPassword: true,
+        message: 'invalid_password',
+      );
     } catch (e, stackTrace) {
+      _pendingEncryptedFile = null;
       print('Import failed: $e');
       if (kDebugMode) {
         print(stackTrace);
@@ -300,10 +349,20 @@ class ExportProvider extends ChangeNotifier {
     }
   }
 
-  Future<NotiImportData?> _pickAndReadImportFile() async {
-    final file = await _exportHelper.pickNotiFile();
+  Future<NotiImportData?> _pickAndReadImportFile({String? password}) async {
+    final file = _pendingEncryptedFile ?? await _exportHelper.pickNotiFile();
     if (file == null) return null;
-    return _exportHelper.readNotiData(file);
+    try {
+      final data = await _exportHelper.readNotiData(file, password: password);
+      _pendingEncryptedFile = null;
+      return data;
+    } on ExportPasswordRequiredException {
+      _pendingEncryptedFile = file;
+      rethrow;
+    } on ExportInvalidPasswordException {
+      _pendingEncryptedFile = file;
+      rethrow;
+    }
   }
 
   Future<_PreparedExportData> _prepareExportData() async {
@@ -606,5 +665,7 @@ class ExportProvider extends ChangeNotifier {
 
   Future<void> loadSets() async {
     await updateExportSettings();
+    protectExport = await _prefs.restoreBool(EXPORT_PROTECT_PREFS_KEY, false);
+    notifyListeners();
   }
 }

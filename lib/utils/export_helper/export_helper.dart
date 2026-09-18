@@ -11,14 +11,17 @@ import '../../models/db_model/task_item.dart';
 import '../../models/import_model/noti_import_data.dart';
 import '../../models/settings_model/settings_model/settings_model.dart';
 import '../../utils/id_generator/id_generator.dart';
+import '../crypto_helper/crypto_helper.dart';
 
 class ExportHelper {
+  final CryptoHelper _cryptoHelper = CryptoHelper();
   Future<File?> exportNotiData({
     required List<Task> tasks,
     required List<Note> notes,
     required List<SettingsModel> exportSettings,
     required Map<String, dynamic> settings,
     String? fileName,
+    String? password,
   }) async {
     final directory = await resolveExportDirectory();
     final safeName = _normalizeFileName(fileName);
@@ -28,12 +31,15 @@ class ExportHelper {
       exportSettings: exportSettings,
       settings: settings,
     );
+    final bytes = password == null
+        ? Uint8List.fromList(utf8.encode(json))
+        : await _cryptoHelper.encrypt(json, password);
     final savedPath = await FilePicker.saveFile(
       dialogTitle: 'Save Noti export',
       fileName: safeName,
       initialDirectory: directory.path,
       type: FileType.any,
-      bytes: Uint8List.fromList(utf8.encode(json)),
+      bytes: bytes,
     );
     if (savedPath == null || savedPath.isEmpty) return null;
     return File(savedPath);
@@ -45,6 +51,7 @@ class ExportHelper {
     required List<SettingsModel> exportSettings,
     required Map<String, dynamic> settings,
     String? fileName,
+    String? password,
   }) async {
     final directory = await getTemporaryDirectory();
     final safeName = _normalizeFileName(fileName);
@@ -55,7 +62,10 @@ class ExportHelper {
       exportSettings: exportSettings,
       settings: settings,
     );
-    return file.writeAsBytes(Uint8List.fromList(utf8.encode(json)));
+    final bytes = password == null
+        ? Uint8List.fromList(utf8.encode(json))
+        : await _cryptoHelper.encrypt(json, password);
+    return file.writeAsBytes(bytes);
   }
 
   Future<File?> pickNotiFile() async {
@@ -73,11 +83,17 @@ class ExportHelper {
     return File(path);
   }
 
-  Future<NotiImportData> readNotiData(File file) async {
+  Future<NotiImportData> readNotiData(File file, {String? password}) async {
     final raw = await file.readAsString(encoding: utf8);
-    final root = jsonDecode(raw);
+    var root = jsonDecode(raw);
     if (root is! Map<String, dynamic>) {
       throw const FormatException('Invalid .noti file root.');
+    }
+    if (_cryptoHelper.isEncrypted(root)) {
+      root = jsonDecode(await _cryptoHelper.decrypt(root, password));
+      if (root is! Map<String, dynamic>) {
+        throw const FormatException('Invalid decrypted .noti file root.');
+      }
     }
     if (root['format'] != 'noti_export') {
       throw const FormatException('Unsupported import format.');

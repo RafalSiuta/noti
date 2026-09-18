@@ -50,7 +50,17 @@
     "import_overwrite_confirm": "la confirmación eliminará los datos locales del tipo seleccionado y cargará los datos del archivo.",
     "tasks_in_file": "tareas en el archivo",
     "notes_in_file": "notas en el archivo",
-    "open_folder_failed": "no se pudo abrir la carpeta de exportación"
+    "open_folder_failed": "no se pudo abrir la carpeta de exportación",
+    "export_password_title": "proteger exportación",
+    "import_password_title": "desbloquear importación",
+    "export_password_explanation": "Usa al menos 12 caracteres. Necesitarás esta contraseña para importar el archivo en otro dispositivo. Si la pierdes, no podrás recuperar el archivo.",
+    "import_password_explanation": "Introduce la contraseña utilizada al exportar este archivo.",
+    "password_label": "contraseña",
+    "confirm_password_label": "confirmar contraseña",
+    "password_required": "introduce una contraseña",
+    "password_too_short": "usa al menos 12 caracteres",
+    "passwords_differ": "las contraseñas no coinciden",
+    "password_incorrect": "contraseña incorrecta o archivo dañado"
   },
   "icons_text": {
     "delete_selected": "eliminar seleccionados",
@@ -214,7 +224,8 @@
     "export_tasks_description":"exporta solo todas las tareas",
     "export_notes":"exportar notas",
     "export_notes_description":"exporta solo todas las notas",
-    "import":"elegir archivo para importar datos",
+        "protect_export":"proteger exportación con contraseña",
+    "protect_export_description":"cifra el archivo .noti; se requiere la contraseña al importarlo",
     "import_import_file_title":"importar archivo",
     "import_description":"elige un archivo para importar datos"
   },

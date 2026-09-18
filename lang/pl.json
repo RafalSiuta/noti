@@ -50,7 +50,17 @@
     "import_overwrite_confirm": "potwierdzenie usunie lokalne dane wybranego typu i wczyta dane z pliku.",
     "tasks_in_file": "zadania w pliku",
     "notes_in_file": "notatki w pliku",
-    "open_folder_failed": "nie można otworzyć folderu eksportu"
+    "open_folder_failed": "nie można otworzyć folderu eksportu",
+    "export_password_title": "chroń eksport",
+    "import_password_title": "odblokuj import",
+    "export_password_explanation": "Użyj co najmniej 12 znaków. To hasło będzie potrzebne do importu pliku na innym urządzeniu. Jeśli je utracisz, nie odzyskasz danych z pliku.",
+    "import_password_explanation": "Wpisz hasło użyte podczas eksportu tego pliku.",
+    "password_label": "hasło",
+    "confirm_password_label": "potwierdź hasło",
+    "password_required": "wpisz hasło",
+    "password_too_short": "użyj co najmniej 12 znaków",
+    "passwords_differ": "hasła są różne",
+    "password_incorrect": "nieprawidłowe hasło lub uszkodzony plik"
   },
   "icons_text": {
     "delete_selected": "skasuj zaznaczone",
@@ -213,7 +223,8 @@
     "export_tasks_description":"eksportuje tylko wszystkie zadania",
     "export_notes":"eksportuj notatki",
     "export_notes_description":"eksportuje tylko wszystkie notatki",
-    "import":"wybierz plik do importu danych",
+        "protect_export":"chroń eksport hasłem",
+    "protect_export_description":"szyfruje plik .noti; hasło jest wymagane przy imporcie",
     "import_import_file_title":"importuj plik",
     "import_description":"wybierz plik do importu danych"
   },

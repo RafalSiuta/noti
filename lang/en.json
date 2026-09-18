@@ -51,7 +51,17 @@
     "import_overwrite_confirm": "confirmation will remove local data of the selected type and load data from the file.",
     "tasks_in_file": "tasks in file",
     "notes_in_file": "notes in file",
-    "open_folder_failed": "could not open the export folder"
+    "open_folder_failed": "could not open the export folder",
+    "export_password_title": "protect export",
+    "import_password_title": "unlock import",
+    "export_password_explanation": "Use at least 12 characters. You will need this password to import the file on another device. If you lose it, the file cannot be restored.",
+    "import_password_explanation": "Enter the password used when this file was exported.",
+    "password_label": "password",
+    "confirm_password_label": "confirm password",
+    "password_required": "enter a password",
+    "password_too_short": "use at least 12 characters",
+    "passwords_differ": "passwords do not match",
+    "password_incorrect": "incorrect password or damaged file"
   },
   "icons_text": {
     "delete_selected": "delete selected",
@@ -215,6 +225,8 @@
     "export_tasks_description":"exports all tasks only",
     "export_notes":"export notes",
     "export_notes_description":"exports all notes only",
+        "protect_export":"protect export with password",
+    "protect_export_description":"encrypt the .noti file; the password is required when importing",
     "import_import_file_title":"import file",
     "import_description":"choose file to import data"
   },

@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 
 import '../../utils/dimensions/size_info.dart';
 import '../../widgets/buttons/switch_btn.dart';
-import '../../widgets/buttons/toogle_check.dart';
 import '../../widgets/cards/settings_card.dart';
 import '../../widgets/dialogs/custom_dialog.dart';
+import '../../widgets/dialogs/export_password_dialog.dart';
 import '../../widgets/dialogs/warring_alert.dart';
 import '../../widgets/headers/sliver_header.dart';
 import '../../widgets/headers/small_header.dart';
@@ -139,65 +139,30 @@ class _ExportScreenState extends State<ExportScreen> {
                 ),
                 ColumnBuilder(
                   itemCount:
-                      exportProvider.exportSets.exportSettingsListCounter + 1,
+                      exportProvider.exportSets.exportSettingsListCounter ,
                   itemBuilder: (context, index) {
-                    if (index ==
-                        exportProvider.exportSets.exportSettingsListCounter) {
-                      return Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ExportButton(
-                            isExporting: _isSharing,
-                            textKey: 'buttons_text.share_button',
-                            iconData: Icons.share,
-                            onPress: _isSharing
-                                ? null
-                                : () async {
-                                    setState(() {
-                                      _isSharing = true;
-                                    });
-                                    try {
-                                      await exportProvider.shareExportSettings(
-                                        fileName: titleVal.text,
-                                        sharePositionOrigin:
-                                            _sharePositionOrigin(),
-                                      );
-                                    } finally {
-                                      if (mounted) {
-                                        setState(() {
-                                          _isSharing = false;
-                                        });
-                                      }
-                                    }
-                                  },
-                          ),
-                          ExportButton(
-                            isExporting: _isExporting,
-                            onPress: _isExporting
-                                ? null
-                                : () async {
-                                    setState(() {
-                                      _isExporting = true;
-                                    });
-                                    final exportResult = await exportProvider
-                                        .getExportSettings(
-                                          fileName: titleVal.text,
-                                        );
-                                    if (!mounted) return;
-                                    setState(() {
-                                      _isExporting = false;
-                                    });
-                                    if (exportResult != null) {
-                                      _showExportSuccessDialog(
-                                        this.context,
-                                        exportResult,
-                                      );
-                                    }
-                                  },
-                          ),
-                        ],
-                      );
-                    }
+                    // if (index ==
+                    //     exportProvider.exportSets.exportSettingsListCounter) {
+                    //   return Row(
+                    //     // mainAxisAlignment: MainAxisAlignment.end,
+                    //     children: [
+                    //       ExportButton(
+                    //         isExporting: _isSharing,
+                    //         textKey: 'buttons_text.share_button',
+                    //         iconData: Icons.share,
+                    //         onPress: _isSharing
+                    //             ? null
+                    //             : () => _runShare(exportProvider),
+                    //       ),
+                    //       ExportButton(
+                    //         isExporting: _isExporting,
+                    //         onPress: _isExporting
+                    //             ? null
+                    //             : () => _runExport(exportProvider),
+                    //       ),
+                    //     ],
+                    //   );
+                    // }
 
                     final exportsSettings =
                         exportProvider.exportSets.exportSettingsList[index];
@@ -215,6 +180,34 @@ class _ExportScreenState extends State<ExportScreen> {
                     );
                   },
                 ),
+                SettingsCard(
+                  title: 'protect_export',
+                  description: 'protect_export_description',
+                  child: SwitchBtn(
+                    value: exportProvider.protectExport,
+                    onChanged: exportProvider.setProtectExport,
+                  ),
+                ),
+        Row(
+        // mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+        ExportButton(
+        isExporting: _isSharing,
+        textKey: 'buttons_text.share_button',
+        iconData: Icons.share,
+        onPress: _isSharing
+        ? null
+            : () => _runShare(exportProvider),
+        ),
+        ExportButton(
+        isExporting: _isExporting,
+        onPress: _isExporting
+        ? null
+            : () => _runExport(exportProvider),
+        ),
+        ],
+        ),
+
               ]),
             ),
             SliverPadding(
@@ -243,31 +236,7 @@ class _ExportScreenState extends State<ExportScreen> {
                       child: IconButton(
                         onPressed: _isImporting
                             ? null
-                            : () async {
-                                setState(() {
-                                  _isImporting = true;
-                                });
-                                final result = await exportProvider
-                                    .getImportSettings();
-                                if (!mounted) return;
-                                setState(() {
-                                  _isImporting = false;
-                                });
-                                if (result.cancelled) return;
-                                if (result.needsOverwrite) {
-                                  _showImportOverwriteDialog(
-                                    this.context,
-                                    exportProvider,
-                                    result,
-                                  );
-                                } else {
-                                  if (result.success) {
-                                    await _refreshImportedData();
-                                  }
-                                  if (!mounted) return;
-                                  _showImportResultDialog(this.context, result);
-                                }
-                              },
+                            : () => _runImport(exportProvider),
                         icon: _isImporting
                             ? const SizedBox(
                                 width: 24,
@@ -301,6 +270,87 @@ class _ExportScreenState extends State<ExportScreen> {
     );
   }
 
+  Future<void> _runShare(ExportProvider exportProvider) async {
+    if (_isSharing) return;
+    setState(() => _isSharing = true);
+    try {
+      final isProtected = exportProvider.protectExport;
+      final password = isProtected ? await _askPassword() : null;
+      if (!mounted || (isProtected && password == null)) return;
+      await exportProvider.shareExportSettings(
+        fileName: titleVal.text,
+        sharePositionOrigin: _sharePositionOrigin(),
+        password: password,
+      );
+    } finally {
+      if (mounted) setState(() => _isSharing = false);
+    }
+  }
+
+  Future<void> _runExport(ExportProvider exportProvider) async {
+    if (_isExporting) return;
+    setState(() => _isExporting = true);
+    try {
+      final isProtected = exportProvider.protectExport;
+      final password = isProtected ? await _askPassword() : null;
+      if (!mounted || (isProtected && password == null)) return;
+      final exportResult = await exportProvider.getExportSettings(
+        fileName: titleVal.text,
+        password: password,
+      );
+      if (!mounted) return;
+      if (exportResult != null) {
+        _showExportSuccessDialog(context, exportResult);
+      }
+    } finally {
+      if (mounted) setState(() => _isExporting = false);
+    }
+  }
+
+  Future<String?> _askPassword({
+    bool forImport = false,
+    bool invalidPassword = false,
+  }) {
+    return showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => ExportPasswordDialog(
+        forImport: forImport,
+        invalidPassword: invalidPassword,
+      ),
+    );
+  }
+
+  Future<void> _runImport(ExportProvider exportProvider) async {
+    setState(() => _isImporting = true);
+    try {
+      var result = await exportProvider.getImportSettings();
+      while (mounted && result.needsPassword) {
+        final password = await _askPassword(
+          forImport: true,
+          invalidPassword: result.message == 'invalid_password',
+        );
+        if (password == null) {
+          exportProvider.cancelPendingImport();
+          return;
+        }
+        result = await exportProvider.getImportSettings(password: password);
+      }
+      if (!mounted || result.cancelled) return;
+      if (result.needsOverwrite) {
+        _showImportOverwriteDialog(context, exportProvider, result);
+      } else {
+        if (result.success) {
+          await _refreshImportedData();
+        }
+        if (!mounted) return;
+        _showImportResultDialog(context, result);
+      }
+    } finally {
+      if (mounted) setState(() => _isImporting = false);
+    }
+  }
+
   void _showExportSuccessDialog(BuildContext context, ExportResult result) {
     showDialog(
       context: context,
@@ -313,58 +363,60 @@ class _ExportScreenState extends State<ExportScreen> {
           child: Padding(
             padding: EdgeInsets.all(SizeInfo.edgePadding),
             child: Column(
-               mainAxisSize: MainAxisSize.min,
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Expanded(child:
-                 Align(
-                   alignment: Alignment.topLeft,
-                   child: RichText(
-                     text: TextSpan(
-                       style: textStyle,
-                       children: [
-                         TextSpan(
-                           text:
-                               '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
-                           style: labelStyle,
-                         ),
-                         _labelSpan(context, 'file_label', labelStyle),
-                         TextSpan(text: '$fileName\n'),
-                         _labelSpan(context, 'tasks_label', labelStyle),
-                         TextSpan(text: '${result.tasksCount}\n'),
-                         _labelSpan(context, 'notes_label', labelStyle),
-                         TextSpan(text: '${result.notesCount}\n'),
-                         _labelSpan(context, 'folder_label', labelStyle),
-                         TextSpan(text: result.file.parent.path),
-                       ],
-                     ),
-                   ),
-                 )),
-                 const SizedBox(height: 8),
-                 ExportButton(
-                   textKey: 'buttons_text.open_folder',
-                   iconData: Icons.folder_open,
-                   onPress: () async {
-                     final exportProvider = context.read<ExportProvider>();
-                     Navigator.of(context).pop();
-                     final opened = await exportProvider.openExportFolder(result.file);
-                     if (!opened && mounted) {
-                       ScaffoldMessenger.of(this.context).showSnackBar(
-                         SnackBar(
-                           content: Text(
-                             this.context
-                                 .t('dialogs_text.open_folder_failed')
-                                 .capitalizeFirstLetter(),
-                           ),
-                         ),
-                       );
-                     }
-                   },
-                 ),
-               ],
-             ),
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: RichText(
+                      text: TextSpan(
+                        style: textStyle,
+                        children: [
+                          TextSpan(
+                            text:
+                                '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
+                            style: labelStyle,
+                          ),
+                          _labelSpan(context, 'file_label', labelStyle),
+                          TextSpan(text: '$fileName\n'),
+                          _labelSpan(context, 'tasks_label', labelStyle),
+                          TextSpan(text: '${result.tasksCount}\n'),
+                          _labelSpan(context, 'notes_label', labelStyle),
+                          TextSpan(text: '${result.notesCount}\n'),
+                          _labelSpan(context, 'folder_label', labelStyle),
+                          TextSpan(text: result.file.parent.path),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ExportButton(
+                  textKey: 'buttons_text.open_folder',
+                  iconData: Icons.folder_open,
+                  onPress: () async {
+                    final exportProvider = context.read<ExportProvider>();
+                    Navigator.of(context).pop();
+                    final opened = await exportProvider.openExportFolder(
+                      result.file,
+                    );
+                    if (!opened && mounted) {
+                      ScaffoldMessenger.of(this.context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            this.context
+                                .t('dialogs_text.open_folder_failed')
+                                .capitalizeFirstLetter(),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
-
         );
       },
     );
