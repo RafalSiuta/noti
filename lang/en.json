@@ -50,7 +50,8 @@
     "import_overwrite_duplicate_ids": "contains records with IDs that already exist locally.",
     "import_overwrite_confirm": "confirmation will remove local data of the selected type and load data from the file.",
     "tasks_in_file": "tasks in file",
-    "notes_in_file": "notes in file"
+    "notes_in_file": "notes in file",
+    "open_folder_failed": "could not open the export folder"
   },
   "icons_text": {
     "delete_selected": "delete selected",
@@ -174,7 +175,8 @@
     "button_week": "week",
     "button_two_weeks": "two weeks",
     "export_button": "export",
-    "share_button": "share"
+    "share_button": "share",
+    "open_folder": "open folder"
   },
   "menu_text": {
     "today": "today",

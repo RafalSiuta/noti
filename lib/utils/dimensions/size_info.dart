@@ -178,7 +178,7 @@ class SizeInfo {
 
     ///swipe task card dimens
     taskCardContentPadding = 12.0;
-    cardInnerPadding = 8.0;
+    cardInnerPadding = 10.0;
 
     ///note card:
     noteCardTitle = 18;

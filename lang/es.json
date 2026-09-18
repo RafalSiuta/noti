@@ -49,7 +49,8 @@
     "import_overwrite_duplicate_ids": "contiene registros con ID que ya existen localmente.",
     "import_overwrite_confirm": "la confirmación eliminará los datos locales del tipo seleccionado y cargará los datos del archivo.",
     "tasks_in_file": "tareas en el archivo",
-    "notes_in_file": "notas en el archivo"
+    "notes_in_file": "notas en el archivo",
+    "open_folder_failed": "no se pudo abrir la carpeta de exportación"
   },
   "icons_text": {
     "delete_selected": "eliminar seleccionados",
@@ -173,7 +174,8 @@
     "button_week": "semana",
     "button_two_weeks": "dos semanas",
     "export_button": "exportar",
-    "share_button": "compartir"
+    "share_button": "compartir",
+    "open_folder": "abrir carpeta"
   },
   "menu_text": {
     "today": "hoy",

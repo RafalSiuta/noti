@@ -61,7 +61,7 @@ class Calendar extends StatelessWidget {
     return Consumer2<SettingsProvider,HolidaysProvider>(
         builder: (context,settingsProvider, holidaysProvider, child){
           //final GlobalKey<TooltipState> holidaysTooltipKey = GlobalKey<TooltipState>();
-
+          final isHolidayColor = holidaysProvider.hasHoliday(selDay);
           return
             ClipRect(
               child: BackdropFilter(
@@ -203,19 +203,14 @@ class Calendar extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Center(
+                                              //Theme.of(context).colorScheme.secondaryFixed
                                                 child: Text(
                                                   '${date.day}',
-                                                  style: (date.weekday != 6 && date.weekday != 7)
-                                                      ? Theme.of(context)
+                                                  style: Theme.of(context)
                                                       .textTheme
                                                       .bodyMedium!
                                                       .copyWith(
-                                                      fontSize: calendarFontSize )
-                                                      : Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium!
-                                                      .copyWith(
-                                                      fontSize: calendarFontSize),
+                                                      fontSize: calendarFontSize,color: Theme.of(context).colorScheme.secondaryFixed )
                                                 )),
                                             Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -227,7 +222,7 @@ class Calendar extends StatelessWidget {
                                                     .textTheme
                                                     .bodyMedium!
                                                     .copyWith(
-                                                    fontSize: 6.0 ),),
+                                                    fontSize: SizeInfo.helpTextSize, color: Theme.of(context).colorScheme.secondaryFixed),),
                                             )
                                           ],
                                         ),
@@ -305,6 +300,7 @@ class Calendar extends StatelessWidget {
                             },
                           ),
                           calendarStyle: CalendarStyle(
+
                             cellMargin: EdgeInsets.symmetric(
                                 horizontal: cellMargin / 5, vertical: cellMargin / 5),
                             isTodayHighlighted: true,
@@ -338,10 +334,10 @@ class Calendar extends StatelessWidget {
                                 border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.2)
                             ),
                             selectedDecoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.onPrimary,
+                                color: isHolidayColor ? Theme.of(context).colorScheme.secondaryFixed : Theme.of(context).colorScheme.onPrimary,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.5)
+                                border: Border.all(color: isHolidayColor ? Theme.of(context).colorScheme.secondaryFixed : Theme.of(context).colorScheme.outline, width: 0.5)
                             ),
                             defaultDecoration: BoxDecoration(
                               color: Colors.transparent,

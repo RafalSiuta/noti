@@ -310,29 +310,61 @@ class _ExportScreenState extends State<ExportScreen> {
         final fileName = result.file.path.split(RegExp(r'[\\/]')).last;
         return CustomDial(
           title: 'dialogs_text.success',
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: RichText(
-              text: TextSpan(
-                style: textStyle,
-                children: [
-                  TextSpan(
-                    text:
-                        '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
-                    style: labelStyle,
-                  ),
-                  _labelSpan(context, 'file_label', labelStyle),
-                  TextSpan(text: '$fileName\n'),
-                  _labelSpan(context, 'tasks_label', labelStyle),
-                  TextSpan(text: '${result.tasksCount}\n'),
-                  _labelSpan(context, 'notes_label', labelStyle),
-                  TextSpan(text: '${result.notesCount}\n'),
-                  _labelSpan(context, 'folder_label', labelStyle),
-                  TextSpan(text: result.file.parent.path),
-                ],
-              ),
-            ),
+          child: Padding(
+            padding: EdgeInsets.all(SizeInfo.edgePadding),
+            child: Column(
+               mainAxisSize: MainAxisSize.min,
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Expanded(child:
+                 Align(
+                   alignment: Alignment.topLeft,
+                   child: RichText(
+                     text: TextSpan(
+                       style: textStyle,
+                       children: [
+                         TextSpan(
+                           text:
+                               '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
+                           style: labelStyle,
+                         ),
+                         _labelSpan(context, 'file_label', labelStyle),
+                         TextSpan(text: '$fileName\n'),
+                         _labelSpan(context, 'tasks_label', labelStyle),
+                         TextSpan(text: '${result.tasksCount}\n'),
+                         _labelSpan(context, 'notes_label', labelStyle),
+                         TextSpan(text: '${result.notesCount}\n'),
+                         _labelSpan(context, 'folder_label', labelStyle),
+                         TextSpan(text: result.file.parent.path),
+                       ],
+                     ),
+                   ),
+                 )),
+                 const SizedBox(height: 8),
+                 ExportButton(
+                   textKey: 'buttons_text.open_folder',
+                   iconData: Icons.folder_open,
+                   onPress: () async {
+                     final exportProvider = context.read<ExportProvider>();
+                     Navigator.of(context).pop();
+                     final opened = await exportProvider.openExportFolder(result.file);
+                     if (!opened && mounted) {
+                       ScaffoldMessenger.of(this.context).showSnackBar(
+                         SnackBar(
+                           content: Text(
+                             this.context
+                                 .t('dialogs_text.open_folder_failed')
+                                 .capitalizeFirstLetter(),
+                           ),
+                         ),
+                       );
+                     }
+                   },
+                 ),
+               ],
+             ),
           ),
+
         );
       },
     );

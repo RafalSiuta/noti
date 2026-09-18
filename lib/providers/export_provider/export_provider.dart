@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' show Rect;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../database/database_helper.dart';
@@ -176,6 +177,50 @@ class ExportProvider extends ChangeNotifier {
       }
       return null;
     }
+  }
+
+
+  Future<bool> openExportFolder(File file) async {
+    debugPrint('[Export] Open folder requested: platform=${Platform.operatingSystem}, file=${file.path}');
+
+    try {
+      if (Platform.isAndroid) {
+        debugPrint('[Export] Opening Android document browser');
+        final selectedFile = await FilePicker.pickFile(type: FileType.any);
+        debugPrint('[Export] Android document browser closed; selected=${selectedFile?.name ?? 'none'}');
+        return true;
+      }
+
+      final folder = file.parent;
+      final folderExists = await folder.exists();
+      debugPrint('[Export] Folder=${folder.path}, exists=$folderExists');
+      if (!folderExists) return false;
+
+      if (Platform.isWindows) {
+        debugPrint('[Export] Launching Windows Explorer');
+        await Process.start('explorer.exe', [folder.path]);
+        return true;
+      }
+
+      if (Platform.isMacOS) {
+        debugPrint('[Export] Launching macOS Finder');
+        await Process.start('open', [folder.path]);
+        return true;
+      }
+
+      if (Platform.isLinux) {
+        debugPrint('[Export] Launching Linux file manager');
+        await Process.start('xdg-open', [folder.path]);
+        return true;
+      }
+    } on Object catch (error, stackTrace) {
+      debugPrint('[Export] Could not open export location: $error');
+      debugPrint('[Export] Stack trace: $stackTrace');
+      return false;
+    }
+
+    debugPrint('[Export] Opening export location is unsupported on ${Platform.operatingSystem}');
+    return false;
   }
 
   Future<ImportResult> getImportSettings({bool overwrite = false}) async {
