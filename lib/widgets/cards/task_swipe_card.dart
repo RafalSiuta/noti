@@ -239,7 +239,7 @@ class TaskSwipeCard extends StatelessWidget {
                   child: Dismissible(
                     key: ValueKey('task-swipe-card-${task.id}'),
                     direction: DismissDirection.endToStart,
-                    resizeDuration: const Duration(milliseconds: 220),
+                    resizeDuration: null,
                     movementDuration: const Duration(milliseconds: 180),
                     dismissThresholds: const {DismissDirection.endToStart: 0.4},
                     onDismissed: (_) => delete?.call(),

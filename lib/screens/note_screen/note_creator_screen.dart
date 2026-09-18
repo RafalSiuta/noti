@@ -66,6 +66,7 @@ class _NoteCreatorState extends State<NoteCreator>
   CategoryIconsList categoryIcons = CategoryIconsList();
 
   int selectedIndex = 0;
+  bool _isSaving = false;
 
   int selectedCategory = 0;
 
@@ -105,22 +106,84 @@ class _NoteCreatorState extends State<NoteCreator>
     if (!titleNode.hasFocus &&
         !subtitleNode.hasFocus &&
         !descriptionNode.hasFocus) {
-      setState(() {
-        _editText(titleNode);
-        cursorPlace(titleVal, titleVal.text, moveToEnd: true);
-      });
+      _editText(titleNode);
+      cursorPlace(titleVal, titleVal.text, moveToEnd: true);
     } else if (titleNode.hasFocus) {
-      setState(() {
-        _editText(subtitleNode);
-        cursorPlace(subtitleVal, subtitleVal.text, moveToEnd: true);
-      });
+      _editText(subtitleNode);
+      cursorPlace(subtitleVal, subtitleVal.text, moveToEnd: true);
     } else if (subtitleNode.hasFocus) {
-      setState(() {
-        _editText(descriptionNode);
-        cursorPlace(descVal, descVal.text, moveToEnd: true);
-      });
+      _editText(descriptionNode);
+      cursorPlace(descVal, descVal.text, moveToEnd: true);
     } else if (descriptionNode.hasFocus) {
       FocusScope.of(context).unfocus();
+    }
+  }
+
+  Future<void> _hideKeyboard({bool waitForDismissal = false}) async {
+    final view = View.of(context);
+    final keyboardWasVisible = view.viewInsets.bottom > 0;
+
+    setState(() {
+      editTextEnable = false;
+    });
+    titleNode.unfocus();
+    subtitleNode.unfocus();
+    descriptionNode.unfocus();
+    FocusScope.of(context).unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    await SystemChannels.textInput.invokeMethod<void>('TextInput.hide');
+    if (waitForDismissal && keyboardWasVisible) {
+      final stopwatch = Stopwatch()..start();
+      while (mounted &&
+          view.viewInsets.bottom > 0 &&
+          stopwatch.elapsed < const Duration(milliseconds: 500)) {
+        await Future<void>.delayed(const Duration(milliseconds: 16));
+      }
+    }
+  }
+
+  Future<void> _onNavTap(int index, NoteProvider noteProvider) async {
+    if (_isSaving) return;
+
+    setState(() {
+      selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        _isSaving = true;
+        try {
+          await _hideKeyboard(waitForDismissal: true);
+          await noteProvider.addNote(widget.newNote);
+          if (mounted) {
+            Navigator.pop(context, true);
+          }
+        } finally {
+          _isSaving = false;
+        }
+        break;
+      case 1:
+        _toggleKeyboard();
+        break;
+      case 2:
+        _pickDate(context);
+        break;
+      case 3:
+        _bottomDrawer(context);
+        break;
+      case 4:
+        noteProvider.deleteNote(widget.newNote);
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+        break;
+      case 5:
+        await _hideKeyboard();
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+        break;
     }
   }
 
@@ -681,39 +744,7 @@ class _NoteCreatorState extends State<NoteCreator>
                       itemCount: noteNavTitles.length,
                       selectedItem: selectedIndex,
                       titles: noteNavTitles,
-                      onTap: (int index) {
-                        setState(() {
-                          selectedIndex = index;
-                          switch (selectedIndex) {
-                            case 0:
-                              noteProvider.addNote(widget.newNote);
-                              Navigator.pop(context, true);
-                              break;
-                            case 1:
-                              _toggleKeyboard();
-                              break;
-                            case 2:
-                              _pickDate(context);
-
-                              break;
-                            case 3:
-                              _bottomDrawer(context);
-
-                              break;
-                            case 4:
-                              noteProvider.deleteNote(widget.newNote);
-                              Navigator.pop(context, true);
-                              break;
-                            case 5:
-                              setState(() {
-                                editTextEnable = false;
-                              });
-
-                              Navigator.pop(context, true);
-                              break;
-                          }
-                        });
-                      },
+                      onTap: (int index) => _onNavTap(index, noteProvider),
                     ),
                   ), //nav rail menu
                 ],

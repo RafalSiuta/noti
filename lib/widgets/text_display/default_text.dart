@@ -44,7 +44,7 @@ class DefaultText extends StatelessWidget {
                      text: context.t(title).capitalizeFirstLetter(),
                      children: <TextSpan>[
                        TextSpan(
-                         text: holidayName.isNotEmpty ? "\n$holidayName" : "",
+                         text: "\n$holidayName",//.isNotEmpty ? "\n$holidayName" : "",
                          style: Theme.of(context)
                              .textTheme
                              .headlineMedium!
@@ -61,7 +61,7 @@ class DefaultText extends StatelessWidget {
                          letterSpacing: 1),
                    ),
                     //title,
-                    maxLines: 2,
+                    maxLines: 10,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -84,6 +84,7 @@ class _TaskCreatorState extends State<TaskCreator>
   }
 
   int selectedIndex = 0;
+  bool _isSaving = false;
 
   int priorityRating = 1;
 
@@ -124,19 +125,92 @@ class _TaskCreatorState extends State<TaskCreator>
   void _toggleKeyboard() {
     setState(() {
       if (!titleNode.hasFocus && !descriptionNode.hasFocus) {
-        setState(() {
-          editText(titleNode);
-          cursorPlace(titleVal, titleVal.text, moveToEnd: true);
-        });
+        editText(titleNode);
+        cursorPlace(titleVal, titleVal.text, moveToEnd: true);
       } else if (titleNode.hasFocus) {
-        setState(() {
-          editText(descriptionNode);
-          cursorPlace(descVal, descVal.text, moveToEnd: true);
-        });
+        editText(descriptionNode);
+        cursorPlace(descVal, descVal.text, moveToEnd: true);
       } else if (descriptionNode.hasFocus) {
         FocusScope.of(context).unfocus();
       }
     });
+  }
+
+  Future<void> _hideKeyboard({bool waitForDismissal = false}) async {
+    final view = View.of(context);
+    final keyboardWasVisible = view.viewInsets.bottom > 0;
+
+    if (mounted) {
+      setState(() {
+        editTextEnable = false;
+      });
+    }
+
+    titleNode.unfocus();
+    descriptionNode.unfocus();
+    FocusScope.of(context).unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    await SystemChannels.textInput.invokeMethod<void>('TextInput.hide');
+    if (waitForDismissal && keyboardWasVisible) {
+      final stopwatch = Stopwatch()..start();
+      while (mounted &&
+          view.viewInsets.bottom > 0 &&
+          stopwatch.elapsed < const Duration(milliseconds: 500)) {
+        await Future<void>.delayed(const Duration(milliseconds: 16));
+      }
+    }
+  }
+
+  Future<void> _onNavTap(int index, TaskProvider taskProvider) async {
+    if (_isSaving) return;
+
+    setState(() {
+      selectedIndex = index;
+    });
+
+    switch (selectedIndex) {
+      case 0:
+        _isSaving = true;
+        try {
+          await _hideKeyboard(waitForDismissal: true);
+          if (scopeDatesList.isEmpty) {
+            await taskProvider.addTask(widget.newTask);
+          } else {
+            await taskProvider.addMultipleTasks(widget.newTask, scopeDatesList);
+          }
+          if (mounted) {
+            Navigator.pop(context, true);
+          }
+        } finally {
+          _isSaving = false;
+        }
+        break;
+      case 1:
+        _toggleKeyboard();
+        break;
+      case 2:
+        _pickTime(context);
+        break;
+      case 3:
+        _pickDate(context);
+        break;
+      case 4:
+        taskProvider.deleteTask(widget.newTask);
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+        break;
+      case 5:
+        taskProvider.updateTasks(widget.newTask);
+        break;
+      case 6:
+        await _hideKeyboard();
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+        break;
+    }
   }
 
   List<DateTime> scopeDatesList = [];
@@ -665,47 +739,7 @@ class _TaskCreatorState extends State<TaskCreator>
                       itemCount: titles.length,
                       titles: titles,
                       selectedItem: selectedIndex,
-                      onTap: (int index) {
-                        setState(() {
-                          selectedIndex = index;
-                          switch (selectedIndex) {
-                            case 0:
-                              if (scopeDatesList.isEmpty) {
-                                taskProvider.addTask(widget.newTask);
-                              } else {
-                                taskProvider.addMultipleTasks(
-                                  widget.newTask,
-                                  scopeDatesList,
-                                );
-                              }
-
-                              Navigator.pop(context, true);
-                              break;
-                            case 1:
-                              _toggleKeyboard();
-                              break;
-                            case 2:
-                              _pickTime(context);
-                              break;
-                            case 3:
-                              _pickDate(context);
-                              break;
-                            case 4:
-                              taskProvider.deleteTask(widget.newTask);
-                              Navigator.pop(context, true);
-                              break;
-                            case 5:
-                              taskProvider.updateTasks(widget.newTask);
-                              break;
-                            case 6:
-                              setState(() {
-                                editTextEnable = false;
-                              });
-                              Navigator.pop(context, true);
-                              break;
-                          }
-                        });
-                      },
+                      onTap: (int index) => _onNavTap(index, taskProvider),
                     ),
                   ), //nav rail menu
                 ],

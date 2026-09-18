@@ -227,7 +227,7 @@ class TaskProvider extends ChangeNotifier {
     return _taskList;
   }
 
-  void addTask(Task task) async {
+  Future<void> addTask(Task task) async {
     if (task.isInBox) {
       await _dbHelper.updateTask(task);
     } else {
@@ -238,7 +238,7 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addMultipleTasks(Task task, List<DateTime> dates) async {
+  Future<void> addMultipleTasks(Task task, List<DateTime> dates) async {
     for (int i = 0; i < dates.length; i++) {
       Task newTask = Task(
         icon: task.icon,

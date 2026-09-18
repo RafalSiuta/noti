@@ -60,7 +60,7 @@ class NoteProvider extends ChangeNotifier  {
     return _noteList.length;
   }
 
-  void addNote(Note note) async {
+  Future<void> addNote(Note note) async {
 
     if(note.isInBox){
       await _dbHelper.updateNote(note);
