@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noti/providers/holidays_provider.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/widgets/headers/sliver_header.dart';

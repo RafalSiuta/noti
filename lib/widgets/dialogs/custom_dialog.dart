@@ -77,7 +77,7 @@ class _CustomDialState extends State<CustomDial> {
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: screenSize.width * 6 / 7,
-          maxHeight: screenSize.height * 2 / 3,
+          maxHeight: screenSize.height * 2 / 2.5,
         ),
         child: Card(
           elevation: 5.0,
@@ -133,6 +133,7 @@ class _CustomDialState extends State<CustomDial> {
                     padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
                     child: TextButton(
                       onPressed: () => Navigator.pop(context),
+                      style: Theme.of(context).datePickerTheme.confirmButtonStyle,
                       child: Text(
                         'Ok',
                         style: Theme.of(context).dialogTheme.contentTextStyle!

@@ -154,6 +154,7 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
                   child: TextButton(
+                      style: Theme.of(context).datePickerTheme.confirmButtonStyle,
                       onPressed: () {
                         Navigator.pop(context);
                       },

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:noti/providers/export_provider/export_provider.dart';
 import 'package:noti/providers/image_provider/gallery_image_provider.dart';
 import 'package:noti/providers/home_provider/home_provider.dart';
-import 'package:noti/providers/holidays_provider.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 import 'package:noti/providers/locale_provider/locale_provider.dart';
 import 'package:noti/providers/note_provider/note_provider.dart';
 import 'package:noti/providers/note_provider/note_search_provider.dart';

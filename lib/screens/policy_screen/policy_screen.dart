@@ -31,100 +31,76 @@ class PolicyScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Theme(
             data: settingsProvider.getTheme(),
-            child: Stack(
-              children:[
-
-                CustomScrollView(
-                  key: key,
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.only(top: topMargin),
-                      sliver: SliverPersistentHeader(
-                          pinned: true,
-                          delegate: SliverHeader(
-                              paddingHorizontal: 8.0,
-                              height: headerHeight,
-                              child: SmallHeader(
-                                title:AppLocalizations.of(context)!.tr('headers_text.header_policy').capitalizeFirstLetter()
-                               // title: 'headers_text.header_policy',
-                                // title: 'PrivacyPolicy',
-                              ))),
-                    ),
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        // ColumnBuilder(
-                        //   itemCount: settingsProvider.policyList.policyListCounter,
-                        //   itemBuilder: (context, index) {
-                        //     final policy = settingsProvider.policyList.policy[index];
-                        //     return Padding(
-                        //       padding: marginContainer ,
-                        //       child: RichText(
-                        //           text: TextSpan(
-                        //               text: '${policy.title}\n',
-                        //               style:  Theme.of(context)
-                        //                   .textTheme
-                        //                   .headlineMedium!
-                        //                   .copyWith(fontSize: titleFontSize, height: 2.0),
-                        //               children: <TextSpan>[
-                        //                 TextSpan(
-                        //                   text: policy.link,
-                        //                   style: Theme.of(context)
-                        //                       .textTheme
-                        //                       .bodyMedium!
-                        //                       .copyWith(fontSize: descriptionFontSize, height: 1.8),
-                        //                 )
-                        //               ]),
-                        //       ),
-                        //     );
-                        //   },
-                        // )
-                        ColumnBuilder(
-                        itemCount: rules.length,
-                        itemBuilder: (context, index) {
-                    final policy = rules[index];
-                    return Padding(
-                    padding: marginContainer,
-                    child: RichText(
-                    text: TextSpan(
-                    text: '${policy.title}\n',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(fontSize: titleFontSize, height: 2.0),
-                    children: <TextSpan>[
-                    TextSpan(
-                    text: policy.description,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: descriptionFontSize, height: 1.8),
-                    ),
-                    ],
-                    ),
-                    ),
-                    );
-                    },
-                    )
-                      ]),
-                    ),
-                  ]),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                      padding: const EdgeInsets.all(20),
-                      onPressed: () async {
-                        Navigator.pop(context, true);
+            child: Padding(
+              padding: EdgeInsets.all(SizeInfo.edgePadding),
+              child: Stack(
+                children:[
+                  CustomScrollView(
+                    key: key,
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    slivers: [
+                      SliverPadding(
+                        padding: EdgeInsets.only(top: topMargin),
+                        sliver: SliverPersistentHeader(
+                            pinned: true,
+                            delegate: SliverHeader(
+                                paddingHorizontal: 8.0,
+                                height: headerHeight,
+                                child: SmallHeader(
+                                  title:AppLocalizations.of(context)!.tr('headers_text.header_policy').capitalizeFirstLetter()
+                                 // title: 'headers_text.header_policy',
+                                  // title: 'PrivacyPolicy',
+                                ))),
+                      ),
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          ColumnBuilder(
+                          itemCount: rules.length,
+                          itemBuilder: (context, index) {
+                      final policy = rules[index];
+                      return Padding(
+                      padding: marginContainer,
+                      child: RichText(
+                      text: TextSpan(
+                      text: '${policy.title}\n',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: titleFontSize, height: 2.0),
+                      children: <TextSpan>[
+                      TextSpan(
+                      text: policy.description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: descriptionFontSize, height: 1.8),
+                      ),
+                      ],
+                      ),
+                      ),
+                      );
                       },
-                      icon:
-                      Icon(
-                          Icons.arrow_back,
-                          color: Theme.of(context).textTheme.displayLarge!.color,
-                          size: navIconSize)),
-                ),
+                      )
+                        ]),
+                      ),
+                    ]),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        padding: const EdgeInsets.all(20),
+                        onPressed: () async {
+                          Navigator.pop(context, true);
+                        },
+                        icon:
+                        Icon(
+                            Icons.arrow_back,
+                            color: Theme.of(context).textTheme.displayLarge!.color,
+                            size: navIconSize)),
+                  ),
 
-            ]
+              ]
+              ),
             ),
           ),
         );

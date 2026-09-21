@@ -294,39 +294,44 @@ class _TaskCreatorState extends State<TaskCreator>
             return CustomDial(
               title: "headers_text.header_category_icon",
               //title: 'Task category icon',
-              child: GridView.count(
-                physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics(),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height / 1.8,
                 ),
-                crossAxisSpacing: 4.0,
-                shrinkWrap: true,
-                mainAxisSpacing: 4.0,
-                crossAxisCount: iconListCrossCount,
-                children: List.generate(
-                  categoryIcons.iconsList.length,
-                  (index) => IconButtonWithText(
-                    iconData: categoryIcons.iconsList[index].icon,
-                    iconSize: navIconSize,
-                    iconName: categoryIcons.iconsList[index].name,
-                    value:
-                        widget.newTask.icon ==
-                            categoryIcons.iconsList[index].id!
-                        ? true
-                        : false,
-                    onChanged: (val) {
-                      setState(() {
-                        setDialState(() {
-                          widget.newTask.icon =
-                              categoryIcons.iconsList[index].id!;
-                          pickedIcon = categoryIcons
-                              .getPickedIcon(widget.newTask.icon)
-                              .icon;
-                          pickedIconText = categoryIcons
-                              .getPickedIcon(widget.newTask.icon)
-                              .name;
+                child: GridView.count(
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  crossAxisSpacing: 4.0,
+                  shrinkWrap: true,
+                  mainAxisSpacing: 4.0,
+                  crossAxisCount: iconListCrossCount,
+                  children: List.generate(
+                    categoryIcons.iconsList.length,
+                    (index) => IconButtonWithText(
+                      iconData: categoryIcons.iconsList[index].icon,
+                      iconSize: navIconSize,
+                      iconName: categoryIcons.iconsList[index].name,
+                      value:
+                          widget.newTask.icon ==
+                              categoryIcons.iconsList[index].id!
+                          ? true
+                          : false,
+                      onChanged: (val) {
+                        setState(() {
+                          setDialState(() {
+                            widget.newTask.icon =
+                                categoryIcons.iconsList[index].id!;
+                            pickedIcon = categoryIcons
+                                .getPickedIcon(widget.newTask.icon)
+                                .icon;
+                            pickedIconText = categoryIcons
+                                .getPickedIcon(widget.newTask.icon)
+                                .name;
+                          });
                         });
-                      });
-                    },
+                      },
+                    ),
                   ),
                 ),
               ),

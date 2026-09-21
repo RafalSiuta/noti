@@ -289,26 +289,31 @@
     },
     {
       "policy_id": "016",
+      "policy_title": "Data export and import",
+      "policy_description": "The app may allow the user to export and import data created in Noti, such as tasks, notes, calendar entries, settings, and optional images. Export is performed only when initiated by the user, who chooses where to save or share the file, for example to move data to another device. The user may protect exported records with a password by using the available encryption option. The password and the storage of the exported file remain under the user's control; Noti does not receive the password, does not store export copies in the cloud, and does not share this data with third parties."
+    },
+    {
+      "policy_id": "017",
       "policy_title": "User rights",
       "policy_description": "In some regions, such as the European Economic Area (EEA) and the United Kingdom, you have rights regarding personal data that may be processed when you contact us or use the website. These may include the right to request access, rectification, deletion, restriction of processing, and—where applicable—data portability. In certain circumstances, you may also object to processing or withdraw consent. To make a request, please use the contact details below. If you believe that your data is being processed unlawfully, you may complain to your local data protection authority."
     },
     {
-      "policy_id": "017",
+      "policy_id": "018",
       "policy_title": "California residents’ rights (Shine The Light)",
       "policy_description": "If you are a California resident, you may have specific rights regarding personal data. Noti does not sell personal data and the app does not disclose user-created notes, tasks, calendar entries, or images to third parties. If you contacted us and want to make a privacy request, please send it to the email address provided below."
     },
     {
-      "policy_id": "018",
+      "policy_id": "019",
       "policy_title": "Cookies",
       "policy_description": "The Noti app does not use cookies. The notiapp.org website may use technically necessary cookies or similar browser storage if needed for basic site operation. You can manage cookies in your browser settings."
     },
     {
-      "policy_id": "019",
+      "policy_id": "020",
       "policy_title": "Changes to this Policy",
       "policy_description": "If we make changes to this Privacy Policy in the future, we will not reduce your rights under this Policy without your explicit consent. We will always indicate the date of the last update. If the changes are significant, we will provide more prominent notice (including—where appropriate for certain services—an email notification about changes to the Privacy Policy). Please check for updates periodically. By continuing to use Noti, you accept the updated policy."
     },
     {
-      "policy_id": "020",
+      "policy_id": "021",
       "policy_title": "Contact us",
       "policy_description": "If you have questions about this Policy, email r85unit@gmail.com with the subject 'Privacy Questions' or visit notiapp.org/#contact."
     }

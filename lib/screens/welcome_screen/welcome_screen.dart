@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:noti/providers/home_provider/home_provider.dart';
-import 'package:noti/providers/holidays_provider.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';

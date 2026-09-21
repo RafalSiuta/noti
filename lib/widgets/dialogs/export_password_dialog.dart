@@ -80,6 +80,9 @@ class _ExportPasswordDialogState extends State<ExportPasswordDialog> {
                     ? 'dialogs_text.import_password_explanation'
                     : 'dialogs_text.export_password_explanation',
               ),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: SizeInfo.taskCardDescription,
+              ),
             ),
             PasswordInput(
               controller: _password,

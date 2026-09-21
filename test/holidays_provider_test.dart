@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:noti/models/holiday.dart';
 import 'package:noti/models/holiday_date_rule.dart';
-import 'package:noti/providers/holidays_provider.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

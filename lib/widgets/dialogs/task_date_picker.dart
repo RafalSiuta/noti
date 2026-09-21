@@ -510,124 +510,6 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                                         });
                                       }
                               ),
-                              // TextButton(
-                              //     style: ButtonStyle(
-                              //         shape:WidgetStateProperty.all(
-                              //           RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(10.0),
-                              //           ),
-                              //         ) ,
-                              //         side: WidgetStateProperty.all(BorderSide(
-                              //             width: 0.5,
-                              //             color: isDateScopeSelected ? selectedDateColor : baseColor!,
-                              //         ))
-                              //     ),
-                              //     onPressed: (){
-                              //   setDialState((){
-                              //     isDateScopeSelected = true;
-                              //   });
-                              // }, child: RichText(
-                              //   text: TextSpan(
-                              //       text: "date from: \n",
-                              //       style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                              //         color: isDateScopeSelected ? selectedDateColor : baseColor,
-                              //       ),
-                              //       children: <TextSpan>[
-                              //         TextSpan(
-                              //           text: DateFormat('dd MMM yy').format(startDate),
-                              //           style: Theme.of(context).textTheme
-                              //           .headlineMedium!
-                              //           .copyWith(
-                              //             height: 1.5,
-                              //             color: isDateScopeSelected ? selectedDateColor : baseColor,
-                              //             fontSize:pickerSubtitle),
-                              //
-                              //         )
-                              //       ]
-                              //   ),
-                              // )),
-                              // TextButton(
-                              //     style: ButtonStyle(
-                              //         shape:WidgetStateProperty.all(
-                              //           RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(10.0),
-                              //           ),
-                              //         ) ,
-                              //         side: WidgetStateProperty.all(BorderSide(
-                              //           width: 0.5,
-                              //           color: isDateScopeSelected ? baseColor! : selectedDateColor,
-                              //         ))
-                              //     ),
-                              //     onPressed: (){
-                              //   setDialState((){
-                              //     isDateScopeSelected = false;
-                              //   });
-                              // }, child: RichText(
-                              //   text: TextSpan(
-                              //       text: "date to: \n",
-                              //       style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                              //         color: !isDateScopeSelected ? selectedDateColor : baseColor,
-                              //       ),
-                              //       children: <TextSpan>[
-                              //         TextSpan(
-                              // text: DateFormat('dd MMM yy').format(endDate),
-                              //     style: Theme.of(context)
-                              //         .textTheme
-                              //         .headlineMedium!
-                              //         .copyWith(
-                              //       height: 1.5,
-                              //       fontSize:pickerSubtitle,
-                              //       color: !isDateScopeSelected ? selectedDateColor : baseColor,)
-                              //
-                              //         )
-                              //       ]
-                              //   ),
-                              // )),
-                              // Text(
-                              //   'OR',
-                              //   style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                              //     color: baseColor,
-                              //   ),
-                              // ),
-                              // TextButton(
-                              //     style: ButtonStyle(
-                              //         shape:WidgetStateProperty.all(
-                              //           RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(10.0),
-                              //           ),
-                              //         ) ,
-                              //         side: WidgetStateProperty.all(BorderSide(
-                              //           width: 0.5,
-                              //           color: baseColor!,
-                              //         ))
-                              //     ),
-                              //     onPressed: (){
-                              //
-                              //       setState((){
-                              //         getFullMonth(focDay);
-                              //       });
-                              //     }, child: RichText(
-                              //   text: TextSpan(
-                              //       text: "full month\n",
-                              //       style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                              //         color: !isDateScopeSelected ? selectedDateColor : baseColor,
-                              //       ),
-                              //       children: <TextSpan>[
-                              //         TextSpan(
-                              //             text: DateFormat('MMM yy').format(focDay),
-                              //             style: Theme.of(context)
-                              //                 .textTheme
-                              //                 .headlineMedium!
-                              //                 .copyWith(
-                              //               height: 1.5,
-                              //               fontSize:pickerSubtitle,
-                              //               color: !isDateScopeSelected ? selectedDateColor : baseColor,)
-                              //
-                              //         )
-                              //       ]
-                              //   ),
-                              // )),
-
                             ],
                           ),
                         ),
@@ -841,6 +723,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0,bottom: 8.0),
                   child: TextButton(
+                      style: Theme.of(context).datePickerTheme.confirmButtonStyle,
                       onPressed: () {
                         Navigator.pop(context);
                       },

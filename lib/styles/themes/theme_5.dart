@@ -158,7 +158,7 @@ final theme_5 = ThemeData(
     onPrimary: theme_5CalendarCellSelectedColor,
     onSecondary: theme_5UnselectedTaskTimerColor,
     onSurface: theme_5CardBackgroundColor,
-    onError: Colors.white,
+    onError: Colors.red,
     tertiary: theme_5PatternColor,
     brightness: Brightness.light,
     shadow: theme_5CardTimerLastColor,

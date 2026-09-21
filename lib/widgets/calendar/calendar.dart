@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:noti/providers/settings_provider/settings_provider.dart';
-import 'package:noti/providers/holidays_provider.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';

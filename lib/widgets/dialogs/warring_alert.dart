@@ -34,23 +34,34 @@ class WarringAlert extends StatelessWidget {
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),
-                color: Theme.of(context).datePickerTheme.headerBackgroundColor,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomLeft,
+                  stops: const [0.0, 0.5, 1.0],
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).primaryColorLight,
+                    Theme.of(context).primaryColorDark,
+                  ],
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: 10,
+                spacing: SizeInfo.edgePadding,
                 children: [
                   Icon(
                     Icons.warning_rounded,
-                    color: Theme.of(context).colorScheme.primaryFixed,
-                    size: textSize,
+                    color: Theme.of(context).colorScheme.error,
+                    size: textSize*1.2,
                   ),
                   Text(
                     context.t("dialogs_text.warring").capitalizeFirstLetter(),
+                    textAlign: TextAlign.center,
                     style: Theme.of(
                       context,
-                    ).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                    ).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize,color:Theme.of(context).colorScheme.secondary,),
+
                   ),
                 ],
               ),
@@ -60,15 +71,12 @@ class WarringAlert extends StatelessWidget {
                 vertical: 8.0,
                 horizontal: sidePadding,
               ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  message,
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: textSize,
-                    height: 1.35,
-                  ),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: SizeInfo.taskCardDescription,
+                 // height: 1.35,
                 ),
               ),
             ),
@@ -78,8 +86,9 @@ class WarringAlert extends StatelessWidget {
                 horizontal: sidePadding,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: SizeInfo.edgePadding,
                 children: [
                   DialogButton(onConfirm: () {}),
                   DialogButton(isConfirmed: true, onConfirm: onConfirm),

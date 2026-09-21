@@ -210,6 +210,7 @@ class _NoteCreatorState extends State<NoteCreator>
       builder: (context) {
         return NoteDatePickerDial(
           initialDate: widget.newNote.date,
+
           onDateSelected: (DateTime date, TimeOfDay time) {
             setState(() {
               currentDate(date);
@@ -241,7 +242,7 @@ class _NoteCreatorState extends State<NoteCreator>
               title: "headers_text.header_category_icon",
               child: Container(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height / 2.5,
+                  maxHeight: MediaQuery.of(context).size.height / 1.8,
                 ),
 
                 child: GridView.count(

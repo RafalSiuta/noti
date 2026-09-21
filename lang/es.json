@@ -288,26 +288,31 @@
     },
     {
       "policy_id": "016",
+      "policy_title": "Exportación e importación de datos",
+      "policy_description": "La app puede permitir al usuario exportar e importar los datos creados en Noti, como tareas, notas, entradas del calendario, ajustes e imágenes opcionales. La exportación se realiza únicamente cuando la inicia el usuario, que elige dónde guardar o compartir el archivo, por ejemplo para trasladar los datos a otro dispositivo. El usuario puede proteger los registros exportados con una contraseña mediante la opción de cifrado disponible. La contraseña y el almacenamiento del archivo exportado permanecen bajo el control del usuario; Noti no recibe la contraseña, no guarda copias de exportación en la nube ni comparte estos datos con terceros."
+    },
+    {
+      "policy_id": "017",
       "policy_title": "Derechos de los usuarios",
       "policy_description": "En algunas regiones, como el Espacio Económico Europeo (EEE) y el Reino Unido, tienes derechos respecto de los datos personales que puedan tratarse cuando te pones en contacto con nosotros o usas el sitio web. Estos pueden incluir el derecho de acceso, rectificación, eliminación, limitación del tratamiento y, cuando proceda, portabilidad. En determinadas circunstancias, también puedes oponerte al tratamiento o retirar tu consentimiento. Para realizar una solicitud, utiliza los datos de contacto indicados abajo. Si consideras que tus datos se tratan de forma ilícita, puedes presentar una reclamación ante la autoridad local de protección de datos."
     },
     {
-      "policy_id": "017",
+      "policy_id": "018",
       "policy_title": "Derechos de residentes en California (Shine The Light)",
       "policy_description": "Si resides en California, puedes tener derechos específicos respecto de los datos personales. Noti no vende datos personales y la app no revela a terceros las notas, tareas, entradas del calendario ni imágenes creadas por el usuario. Si te pusiste en contacto con nosotros y quieres realizar una solicitud de privacidad, envíala a la dirección de correo indicada abajo."
     },
     {
-      "policy_id": "018",
+      "policy_id": "019",
       "policy_title": "Cookies",
       "policy_description": "La app Noti no utiliza cookies. El sitio notiapp.org puede usar cookies técnicamente necesarias o almacenamiento similar del navegador si es necesario para el funcionamiento básico del sitio. Puedes gestionar las cookies en la configuración de tu navegador."
     },
     {
-      "policy_id": "019",
+      "policy_id": "020",
       "policy_title": "Cambios en esta Política",
       "policy_description": "Si en el futuro realizamos cambios en esta Política de Privacidad, no reduciremos tus derechos en virtud de esta Política sin tu consentimiento expreso. Siempre indicaremos la fecha de la última actualización. Si los cambios son significativos, proporcionaremos un aviso más destacado (incluido —en algunos servicios— un correo sobre los cambios). Revisa periódicamente si hay actualizaciones. Al seguir usando Noti, aceptas la política actualizada."
     },
     {
-      "policy_id": "020",
+      "policy_id": "021",
       "policy_title": "Contáctanos",
       "policy_description": "Si tienes preguntas sobre esta Política, escribe a r85unit@gmail.com con el asunto 'Privacy Questions' o visita notiapp.org/#contact."
     }

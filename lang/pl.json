@@ -287,26 +287,31 @@
     },
     {
       "policy_id": "016",
+      "policy_title": "Export i import danych",
+      "policy_description": "Aplikacja może umożliwiać użytkownikowi samodzielny eksport i import danych utworzonych w Noti, takich jak zadania, notatki, wpisy kalendarza, ustawienia oraz opcjonalne obrazy. Eksport jest wykonywany wyłącznie z inicjatywy użytkownika, który sam wybiera miejsce zapisania lub udostępnienia pliku, na przykład w celu przeniesienia danych na inne urządzenie. Użytkownik może zabezpieczyć eksportowane zapisy hasłem, jeśli skorzysta z dostępnej opcji szyfrowania. Hasło oraz sposób przechowywania wyeksportowanego pliku pozostają pod kontrolą użytkownika; Noti nie otrzymuje hasła, nie przechowuje kopii eksportu w chmurze i nie udostępnia tych danych podmiotom trzecim."
+    },
+    {
+      "policy_id": "017",
       "policy_title": "Prawa użytkowników",
       "policy_description": "W niektórych regionach, takich jak Europejski Obszar Gospodarczy (EOG) i Zjednoczone Królestwo, przysługują Ci prawa dotyczące danych osobowych, które mogą być przetwarzane, gdy kontaktujesz się z nami lub korzystasz ze strony internetowej. Mogą one obejmować prawo dostępu, sprostowania, usunięcia, ograniczenia przetwarzania oraz — w stosownych przypadkach — przenoszenia danych. W pewnych okolicznościach możesz także wnieść sprzeciw wobec przetwarzania albo wycofać zgodę. Aby złożyć wniosek, skorzystaj z danych kontaktowych poniżej. Jeśli uważasz, że Twoje dane są przetwarzane niezgodnie z prawem, możesz wnieść skargę do lokalnego organu ochrony danych."
     },
     {
-      "policy_id": "017",
+      "policy_id": "018",
       "policy_title": "Prawa mieszkańców Kalifornii (Shine The Light)",
       "policy_description": "Jeśli mieszkasz w Kalifornii, mogą przysługiwać Ci określone prawa dotyczące danych osobowych. Noti nie sprzedaje danych osobowych, a aplikacja nie ujawnia podmiotom trzecim notatek, zadań, wpisów kalendarza ani obrazów utworzonych przez użytkownika. Jeśli kontaktowałeś się z nami i chcesz złożyć wniosek dotyczący prywatności, wyślij go na adres e-mail podany poniżej."
     },
     {
-      "policy_id": "018",
+      "policy_id": "019",
       "policy_title": "Pliki cookie",
       "policy_description": "Aplikacja Noti nie używa plików cookie. Strona notiapp.org może używać technicznie niezbędnych plików cookie lub podobnej pamięci przeglądarki, jeśli jest to potrzebne do podstawowego działania strony. Plikami cookie możesz zarządzać w ustawieniach przeglądarki."
     },
     {
-      "policy_id": "019",
+      "policy_id": "020",
       "policy_title": "Zmiany niniejszej Polityki",
       "policy_description": "Jeśli w przyszłości wprowadzimy zmiany w niniejszej Polityce Prywatności, nie ograniczymy Twoich praw wynikających z tej Polityki bez Twojej wyraźnej zgody. Zawsze wskazujemy datę publikacji ostatnich zmian. Jeśli zmiany będą istotne, przekażemy wyraźniejsze powiadomienie (w tym — w przypadku niektórych usług — wiadomość e-mail o zmianach w Polityce Prywatności). Prosimy o okresowe sprawdzanie aktualizacji. Kontynuując korzystanie z Noti, akceptujesz zaktualizowaną politykę."
     },
     {
-      "policy_id": "020",
+      "policy_id": "021",
       "policy_title": "Skontaktuj się z nami",
       "policy_description": "Jeśli masz pytania dotyczące niniejszej Polityki, napisz na r85unit@gmail.com z tematem: 'Privacy Questions' w tytule wiadomości lub odwiedź notiapp.org/#contact."
     }

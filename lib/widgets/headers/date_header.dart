@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../models/date/date_model.dart';
 import '../../providers/home_provider/home_provider.dart';
-import '../../providers/holidays_provider.dart';
+import '../../providers/holiday_provider/holidays_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/app_localizations.dart';

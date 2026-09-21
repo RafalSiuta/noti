@@ -3,7 +3,7 @@ import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
-import '../../providers/holidays_provider.dart';
+import '../../providers/holiday_provider/holidays_provider.dart';
 import '../../providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
