@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:noti/utils/crypto_helper/crypto_helper.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 
+import '../../utils/dimensions/size_info.dart';
+import '../buttons/custom_text_button.dart';
+import '../buttons/dialog_button.dart';
+import '../text_display/password_input.dart';
 import 'custom_dialog.dart';
 
 class ExportPasswordDialog extends StatefulWidget {
@@ -68,6 +72,7 @@ class _ExportPasswordDialogState extends State<ExportPasswordDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: SizeInfo.edgePadding,
           children: [
             Text(
               context.t(
@@ -76,44 +81,34 @@ class _ExportPasswordDialogState extends State<ExportPasswordDialog> {
                     : 'dialogs_text.export_password_explanation',
               ),
             ),
-            const SizedBox(height: 12),
-            TextField(
+            PasswordInput(
               controller: _password,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              decoration: InputDecoration(
-                labelText: context.t('dialogs_text.password_label'),
-              ),
+              labelText: context.t('dialogs_text.password_label'),
+              helperText: widget.forImport && _errorKey != null
+                  ? context.t(_errorKey!)
+                  : null,
             ),
             if (!widget.forImport)
-              TextField(
+              PasswordInput(
                 controller: _confirmation,
-                obscureText: true,
-                autocorrect: false,
-                enableSuggestions: false,
-                decoration: InputDecoration(
-                  labelText: context.t('dialogs_text.confirm_password_label'),
-                ),
+                labelText: context.t('dialogs_text.confirm_password_label'),
+                helperText: _errorKey != null ? context.t(_errorKey!) : null,
               ),
-            if (_errorKey != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                context.t(_errorKey!),
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
-            ],
-            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              spacing: SizeInfo.edgePadding * 2,
               children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(context.t('dialogs_text.cancel')),
+                DialogButton(
+                  isConfirmed: false,
+                  popOnConfirm: true,
+                  onConfirm: () => Navigator.of(context).pop(),
+                  // child: Text(context.t('dialogs_text.cancel')),
                 ),
-                TextButton(
-                  onPressed: _confirm,
-                  child: Text(context.t('dialogs_text.confirm')),
+                DialogButton(
+                  isConfirmed: true,
+                  popOnConfirm: false,
+                  onConfirm: _confirm,
+                  // child: Text(context.t('dialogs_text.confirm')),
                 ),
               ],
             ),

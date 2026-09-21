@@ -340,7 +340,17 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
-                      color: Theme.of(context).datePickerTheme.headerBackgroundColor),
+                      // color: Theme.of(context).datePickerTheme.headerBackgroundColor),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomLeft,
+                      stops: const [0.0, 0.5, 1.0],
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColorDark,
+                      ],
+                    ),),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +358,7 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                       IconBtn(
                         icon: Icons.arrow_left,
                         iconSize: textSize,
-                        iconColor:  baseColor,
+                        iconColor:  Theme.of(context).colorScheme.secondary,
                         onPressed: (){
                           setDialState(() {
                             focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
@@ -358,12 +368,12 @@ class _TaskDatePickerDialState extends State<TaskDatePickerDial> {
                       Text(
                         d.monthYear!.capitalizeFirstLetter(),
                         //DateFormat('MMMM yy').format(focDay),
-                        style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                        style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize,color: Theme.of(context).colorScheme.secondary,),
                       ),
                       IconBtn(
                         icon: Icons.arrow_right,
                         iconSize: textSize,
-                        iconColor:  baseColor,
+                        iconColor:  Theme.of(context).colorScheme.secondary,
                         onPressed: (){
                           setDialState(() {
                             focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);

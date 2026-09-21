@@ -9,7 +9,9 @@ const theme_8TimerTextColor = Color(0xFF2E260F); //timer-text
 const theme_8CardTimerFirstColor = Color(0xFF9C8A6D); //card-timer-first
 const theme_8CardTimerMiddleColor = Color(0xFFA8997F); //card-timer-middle
 const theme_8CardTimerLastColor = Color(0xFFB5A792); //card-timer-last
-const theme_8UnselectedTaskTimerColor = Color(0xFF807057); //unselected-task-timer
+const theme_8UnselectedTaskTimerColor = Color(
+  0xFF807057,
+); //unselected-task-timer
 const theme_8ButtonOutlineColor = Color(0xFF675C46); //button-outline
 const theme_8BaseTextColor = Color(0xFF2E260F); //base-text
 const theme_8Accent1Color = Color(0xFFDBB136); //accent-1
@@ -20,10 +22,16 @@ const theme_8UnselectedColor = Color(0xFFC0B7A5); //unselected
 const theme_8DividerColor = Color(0xFFC0B7A5); //divider
 const theme_8ShadowColor = Color(0xCCAB9F87); //shadow
 const theme_8FabIconColor = Color(0xFF2E260F); //fab-icon
-const theme_8CalendarCellSelectedColor = Color(0xFFBBA685); //calendar-cell-selected
-const theme_8CalendarSelectedTextColor = Color(0xFF2E260F); //calendar-selected-text
+const theme_8CalendarCellSelectedColor = Color(
+  0xFFBBA685,
+); //calendar-cell-selected
+const theme_8CalendarSelectedTextColor = Color(
+  0xFF2E260F,
+); //calendar-selected-text
 const theme_8CalendarBaseTextColor = Color(0xFF2E260F); //calendar-base-text
-const theme_8CalendarWeekendTextColor = Color(0xFFDBB136); //calendar-weekend-text
+const theme_8CalendarWeekendTextColor = Color(
+  0xFFDBB136,
+); //calendar-weekend-text
 const theme_8CalendarNextMonthColor = Color(0xFF9C8A6D); //calendar-next-month
 
 const theme_8PickerTextColor = Color(0xFF2E260F); //picker-text
@@ -188,6 +196,7 @@ final theme_8 = ThemeData(
     bodyMedium: theme5ContentTextStyle,
 
     titleSmall: theme_8CalendarSelectedDayTextStyle,
+
     ///calendar default text style
     labelLarge: theme5CalendarDayWeekendTextStyle,
     //calendar next month text style:
@@ -332,6 +341,13 @@ final theme_8 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_8Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_8BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.poppins(
@@ -364,7 +380,9 @@ final theme_8 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_8UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -438,6 +456,13 @@ final theme_8 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_8Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_8BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.poppins(
@@ -470,7 +495,9 @@ final theme_8 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_8UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -540,10 +567,7 @@ final theme_8 = ThemeData(
   ),
   tooltipTheme: TooltipThemeData(
     textStyle: GoogleFonts.poppins(
-      textStyle: const TextStyle(
-        color: theme_8BaseTextColor,
-        fontSize: 12,
-      ),
+      textStyle: const TextStyle(color: theme_8BaseTextColor, fontSize: 12),
     ),
     decoration: BoxDecoration(
       color: theme_8CardBackgroundColor,

@@ -52,7 +52,7 @@ class ExportButton extends StatelessWidget {
             if (states.contains(WidgetState.pressed)) {
               return GoogleFonts.exo2(
                 textStyle: TextStyle(
-                  fontSize: 12,
+                  fontSize: SizeInfo.settingsCardTitleFontSize,
                   color: selectedColor,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.none,
@@ -61,7 +61,7 @@ class ExportButton extends StatelessWidget {
             } else if (states.contains(WidgetState.focused)) {
               return GoogleFonts.exo2(
                 textStyle: TextStyle(
-                  fontSize: 12,
+                  fontSize: SizeInfo.settingsCardTitleFontSize,
                   color: selectedColor,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.none,
@@ -70,7 +70,7 @@ class ExportButton extends StatelessWidget {
             } else {
               return GoogleFonts.exo2(
                 textStyle: TextStyle(
-                  fontSize: 12,
+                  fontSize: SizeInfo.settingsCardTitleFontSize,
                   color: borderColor,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.none,
@@ -87,7 +87,8 @@ class ExportButton extends StatelessWidget {
               context.t(textKey).capitalizeFirstLetter(),
               style: Theme.of(
                 context,
-              ).textButtonTheme.style?.textStyle?.resolve(<WidgetState>{}),
+
+              ).textButtonTheme.style?.textStyle?.resolve(<WidgetState>{})!.copyWith(fontSize:SizeInfo.settingsCardTitleFontSize ),
             ),
             SizedBox(
               width: switchIconSize,

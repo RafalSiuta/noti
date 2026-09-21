@@ -9,7 +9,9 @@ const theme_3TimerTextColor = Color(0xFFAA8657); //timer-text
 const theme_3CardTimerFirstColor = Color(0xFF344051); //card-timer-first
 const theme_3CardTimerMiddleColor = Color(0xFF28323E); //card-timer-middle
 const theme_3CardTimerLastColor = Color(0xFF1C232C); //card-timer-last
-const theme_3UnselectedTaskTimerColor = Color(0xFF101419); //unselected-task-timer
+const theme_3UnselectedTaskTimerColor = Color(
+  0xFF101419,
+); //unselected-task-timer
 const theme_3ButtonOutlineColor = Color(0xFF0B0F11); //button-outline
 const theme_3BaseTextColor = Color(0xFFA9A9A9); //base-text
 const theme_3Accent1Color = Color(0xFFAA8657); //accent-1
@@ -20,10 +22,16 @@ const theme_3UnselectedColor = Color(0xFF101419); //unselected
 const theme_3DividerColor = Color(0xFF070A0B); //divider
 const theme_3ShadowColor = Color(0xCC101519); //shadow
 const theme_3FabIconColor = Color(0xFF1C232C); //fab-icon
-const theme_3CalendarCellSelectedColor = Color(0xFF2F3A49); //calendar-cell-selected
-const theme_3CalendarSelectedTextColor = Color(0xFFA9A9A9); //calendar-selected-text
+const theme_3CalendarCellSelectedColor = Color(
+  0xFF2F3A49,
+); //calendar-cell-selected
+const theme_3CalendarSelectedTextColor = Color(
+  0xFFA9A9A9,
+); //calendar-selected-text
 const theme_3CalendarBaseTextColor = Color(0xFFA9A9A9); //calendar-base-text
-const theme_3CalendarWeekendTextColor = Color(0xFFAA8657); //calendar-weekend-text
+const theme_3CalendarWeekendTextColor = Color(
+  0xFFAA8657,
+); //calendar-weekend-text
 const theme_3CalendarNextMonthColor = Color(0xFF101419); //calendar-next-month
 
 const theme_3HelperTextColor = Color(0xff696969); //helper-text
@@ -189,6 +197,7 @@ final theme_3 = ThemeData(
     bodyMedium: theme3ContentTextStyle,
 
     titleSmall: theme_3CalendarSelectedDayTextStyle,
+
     ///calendar default text style
     labelLarge: theme3CalendarDayWeekendTextStyle,
     //calendar next month text style:
@@ -332,6 +341,13 @@ final theme_3 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_3Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_3BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -364,7 +380,9 @@ final theme_3 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_3UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -438,6 +456,13 @@ final theme_3 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_3Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_3BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -470,7 +495,9 @@ final theme_3 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_3UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -544,10 +571,7 @@ final theme_3 = ThemeData(
   ),
   tooltipTheme: TooltipThemeData(
     textStyle: GoogleFonts.exo2(
-      textStyle: const TextStyle(
-        color: theme_3BaseTextColor,
-        fontSize: 12,
-      ),
+      textStyle: const TextStyle(color: theme_3BaseTextColor, fontSize: 12),
     ),
     decoration: BoxDecoration(
       color: theme_3CardBackgroundColor,

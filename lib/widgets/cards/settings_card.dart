@@ -22,7 +22,7 @@ class SettingsCard extends StatelessWidget {
     List<Widget> items = [
       Expanded(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeInfo.cardInnerPadding),
+          padding: EdgeInsets.symmetric(horizontal: SizeInfo.cardInnerPadding,vertical: SizeInfo.cardInnerPadding),
           child: RichText(
             maxLines: 3,
             overflow: TextOverflow.ellipsis,

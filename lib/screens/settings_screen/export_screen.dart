@@ -117,11 +117,11 @@ class _ExportScreenState extends State<ExportScreen> {
                         // cursorPlace(titleVal, newText);
                       });
                     },
-                    cursorColor: Theme.of(context).textTheme.labelMedium!.color,
+                    cursorColor: Theme.of(context).indicatorColor,
                     controller: titleVal,
                     autofocus: false,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: titleFontSize,
+                      fontSize: SizeInfo.settingsCardTitleFontSize,
                       decoration: TextDecoration.none,
                     ),
                     textAlign: TextAlign.start,
@@ -139,75 +139,58 @@ class _ExportScreenState extends State<ExportScreen> {
                 ),
                 ColumnBuilder(
                   itemCount:
-                      exportProvider.exportSets.exportSettingsListCounter ,
+                      exportProvider.exportSets.exportSettingsListCounter,
                   itemBuilder: (context, index) {
-                    // if (index ==
-                    //     exportProvider.exportSets.exportSettingsListCounter) {
-                    //   return Row(
-                    //     // mainAxisAlignment: MainAxisAlignment.end,
-                    //     children: [
-                    //       ExportButton(
-                    //         isExporting: _isSharing,
-                    //         textKey: 'buttons_text.share_button',
-                    //         iconData: Icons.share,
-                    //         onPress: _isSharing
-                    //             ? null
-                    //             : () => _runShare(exportProvider),
-                    //       ),
-                    //       ExportButton(
-                    //         isExporting: _isExporting,
-                    //         onPress: _isExporting
-                    //             ? null
-                    //             : () => _runExport(exportProvider),
-                    //       ),
-                    //     ],
-                    //   );
-                    // }
-
                     final exportsSettings =
                         exportProvider.exportSets.exportSettingsList[index];
+                    final isPasswordOption =
+                        exportsSettings.title == 'protect_export';
+
                     return SettingsCard(
                       title: exportsSettings.title!,
                       description: exportsSettings.description!,
                       child: SwitchBtn(
-                        value: exportsSettings.isOn!,
-                        onChanged: (val) {
-                          exportProvider.onExportSettingsChange(
-                            exportsSettings,
-                          );
+                        value: isPasswordOption
+                            ? exportProvider.protectExport
+                            : exportsSettings.isOn!,
+                        onChanged: (value) {
+                          if (isPasswordOption) {
+                            exportProvider.setProtectExport(value);
+                          } else {
+                            exportProvider.onExportSettingsChange(
+                              exportsSettings,
+                            );
+                          }
                         },
                       ),
                     );
                   },
                 ),
-                SettingsCard(
-                  title: 'protect_export',
-                  description: 'protect_export_description',
-                  child: SwitchBtn(
-                    value: exportProvider.protectExport,
-                    onChanged: exportProvider.setProtectExport,
+                Padding(
+                  padding:EdgeInsets.all(SizeInfo.edgePadding),
+                  child: RowBuilder(
+                    itemCount: 2,
+                    itemBuilder: (context, index) {
+                      return ExportButton(
+                        isExporting: index == 1 ? _isSharing : _isExporting,
+                        textKey: index == 1
+                            ? 'buttons_text.share_button'
+                            : 'buttons_text.export_button',
+                        iconData: index == 1 ? Icons.share : Icons.file_upload,
+                        onPress: index == 1
+                            ? (_isSharing
+                                  ? null
+                                  : () => _runShare(exportProvider))
+                            : (_isExporting
+                                  ? null
+                                  : () => _runExport(exportProvider)),
+                      );
+                    },
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
                   ),
                 ),
-        Row(
-        // mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-        ExportButton(
-        isExporting: _isSharing,
-        textKey: 'buttons_text.share_button',
-        iconData: Icons.share,
-        onPress: _isSharing
-        ? null
-            : () => _runShare(exportProvider),
-        ),
-        ExportButton(
-        isExporting: _isExporting,
-        onPress: _isExporting
-        ? null
-            : () => _runExport(exportProvider),
-        ),
-        ],
-        ),
-
               ]),
             ),
             SliverPadding(
@@ -247,17 +230,12 @@ class _ExportScreenState extends State<ExportScreen> {
                               )
                             : Icon(
                                 Icons.file_download,
+                                size: SizeInfo.switchButtonIconSize,
                                 color: Theme.of(
                                   context,
                                 ).textTheme.headlineMedium!.color,
                               ),
                       ),
-                      // SwitchBtn(
-                      // iconData: Icons.circle,
-                      // iconSize: switchIconSize,
-                      // value: false,
-                      // onChanged: (val) {
-                      // }),
                     );
                   },
                   itemCount: 1,
@@ -366,28 +344,26 @@ class _ExportScreenState extends State<ExportScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: RichText(
-                      text: TextSpan(
-                        style: textStyle,
-                        children: [
-                          TextSpan(
-                            text:
-                                '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
-                            style: labelStyle,
-                          ),
-                          _labelSpan(context, 'file_label', labelStyle),
-                          TextSpan(text: '$fileName\n'),
-                          _labelSpan(context, 'tasks_label', labelStyle),
-                          TextSpan(text: '${result.tasksCount}\n'),
-                          _labelSpan(context, 'notes_label', labelStyle),
-                          TextSpan(text: '${result.notesCount}\n'),
-                          _labelSpan(context, 'folder_label', labelStyle),
-                          TextSpan(text: result.file.parent.path),
-                        ],
-                      ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: RichText(
+                    text: TextSpan(
+                      style: textStyle,
+                      children: [
+                        TextSpan(
+                          text:
+                              '${context.t("dialogs_text.export_completed").capitalizeFirstLetter()}\n',
+                          style: labelStyle,
+                        ),
+                        _labelSpan(context, 'file_label', labelStyle),
+                        TextSpan(text: '$fileName\n'),
+                        _labelSpan(context, 'tasks_label', labelStyle),
+                        TextSpan(text: '${result.tasksCount}\n'),
+                        _labelSpan(context, 'notes_label', labelStyle),
+                        TextSpan(text: '${result.notesCount}\n'),
+                        _labelSpan(context, 'folder_label', labelStyle),
+                        TextSpan(text: result.file.parent.path),
+                      ],
                     ),
                   ),
                 ),

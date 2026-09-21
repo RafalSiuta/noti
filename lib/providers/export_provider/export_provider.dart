@@ -98,13 +98,17 @@ class ExportProvider extends ChangeNotifier {
   }
 
   void onExportSettingsChange(SettingsModel sets) async {
-    for (final item in exportSets.exportSettings) {
+    for (final item in _exportScopeSettings) {
       item.isOn = identical(item, sets);
     }
     await _prefs.storeStatesLite(EXPORT_PREFS_KEY, exportSets.exportSettings);
 
     notifyListeners();
   }
+
+  List<SettingsModel> get _exportScopeSettings => exportSets.exportSettings
+      .where((setting) => setting.title != 'protect_export')
+      .toList();
 
   Future<void> updateExportSettings() async {
     final states = await _prefs.restoreStatesLite(
@@ -367,7 +371,7 @@ class ExportProvider extends ChangeNotifier {
 
   Future<_PreparedExportData> _prepareExportData() async {
     await updateExportSettings();
-    final selectedIndex = exportSets.exportSettings.indexWhere(
+    final selectedIndex = _exportScopeSettings.indexWhere(
       (setting) => setting.isOn == true,
     );
     final exportAll = selectedIndex <= 0;
@@ -533,12 +537,13 @@ class ExportProvider extends ChangeNotifier {
   }
 
   void _normalizeSingleExportSetting() {
-    final selectedIndex = exportSets.exportSettings.indexWhere(
+    final exportScopeSettings = _exportScopeSettings;
+    final selectedIndex = exportScopeSettings.indexWhere(
       (setting) => setting.isOn == true,
     );
     final activeIndex = selectedIndex == -1 ? 0 : selectedIndex;
-    for (int i = 0; i < exportSets.exportSettings.length; i++) {
-      exportSets.exportSettings[i].isOn = i == activeIndex;
+    for (int i = 0; i < exportScopeSettings.length; i++) {
+      exportScopeSettings[i].isOn = i == activeIndex;
     }
   }
 

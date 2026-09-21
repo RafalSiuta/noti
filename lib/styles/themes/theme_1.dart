@@ -336,6 +336,11 @@ final theme_1 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_1Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_1BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -368,7 +373,7 @@ final theme_1 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: BorderSide(color: theme_1UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
         ),
       ),
     ),
@@ -455,6 +460,11 @@ final theme_1 = ThemeData(
       padding: WidgetStateProperty.all(
         EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
+        ),
+      ),
     ),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(theme_1CardBackgroundColor),
@@ -474,7 +484,7 @@ final theme_1 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: BorderSide(color: theme_1UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
         ),
       ),
     ),

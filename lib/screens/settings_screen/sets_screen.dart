@@ -20,7 +20,6 @@ class SetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
     var headerHeight = SizeInfo.sliverHeaderHeight;
@@ -31,20 +30,25 @@ class SetsScreen extends StatelessWidget {
         return CustomScrollView(
           key: key,
           physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           slivers: [
             //notifications list settings
             SliverPadding(
               padding: EdgeInsets.only(top: topMargin),
               sliver: SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverHeader(
-                      paddingHorizontal: 8.0,
-                      height: headerHeight,
-                      child: SmallHeader(
-                          title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
-                        // title: 'Calendar',
-                      ))),
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: 8.0,
+                  height: headerHeight,
+                  child: SmallHeader(
+                    title: context
+                        .t("headers_text.header_notifications")
+                        .capitalizeFirstLetter(),
+                    // title: 'Calendar',
+                  ),
+                ),
+              ),
             ),
             // SliverPersistentHeader(
             //     pinned: true,
@@ -59,26 +63,30 @@ class SetsScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 ColumnBuilder(
                   itemCount: settingsProvider
-                      .notificationSets.notificationSettingsListCounter,
+                      .notificationSets
+                      .notificationSettingsListCounter,
                   itemBuilder: (context, index) {
                     final notificationSettings = settingsProvider
-                        .notificationSets.notificationSettingsList[index];
+                        .notificationSets
+                        .notificationSettingsList[index];
                     // print("WHATS WRONG WITH CARD TITLE: ${notificationSettings.title!} AND DESCRIPTION: ${notificationSettings.description!}");
                     return SettingsCard(
-                      title:notificationSettings.title!,
+                      title: notificationSettings.title!,
                       description: notificationSettings.description!,
                       child: SwitchBtn(
-                          value: notificationSettings.isOn!,
-                          onChanged: (val) {
-                              if(index == 0){
-                                settingsProvider.onNotificationSettingsChange(
-                                    notificationSettings);
-                              }else{
-                                settingsProvider.onNotificationSound(notificationSettings);
-                              }
-
-                            }
-                      )
+                        value: notificationSettings.isOn!,
+                        onChanged: (val) {
+                          if (index == 0) {
+                            settingsProvider.onNotificationSettingsChange(
+                              notificationSettings,
+                            );
+                          } else {
+                            settingsProvider.onNotificationSound(
+                              notificationSettings,
+                            );
+                          }
+                        },
+                      ),
                       // SwitchBtn(
                       //     iconData: Icons.circle,
                       //     iconSize: switchIconSize,
@@ -94,21 +102,25 @@ class SetsScreen extends StatelessWidget {
                       //     }),
                     );
                   },
-                )
+                ),
               ]),
             ),
             //calendar settings
             SliverPadding(
               padding: EdgeInsets.zero,
               sliver: SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverHeader(
-                      paddingHorizontal: 8.0,
-                      height: headerHeight,
-                      child: SmallHeader(
-                        title:context.t("headers_text.header_calendar").capitalizeFirstLetter()
-                       // title: 'Calendar',
-                      ))),
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: 8.0,
+                  height: headerHeight,
+                  child: SmallHeader(
+                    title: context
+                        .t("headers_text.header_calendar")
+                        .capitalizeFirstLetter(),
+                    // title: 'Calendar',
+                  ),
+                ),
+              ),
             ),
             SliverList(
               delegate: SliverChildListDelegate([
@@ -117,17 +129,18 @@ class SetsScreen extends StatelessWidget {
                       settingsProvider.calendarSets.calendarSettingsListCounter,
                   itemBuilder: (context, index) {
                     final calendarSettings = settingsProvider
-                        .calendarSets.calendarSettingsList[index];
+                        .calendarSets
+                        .calendarSettingsList[index];
                     return SettingsCard(
                       title: calendarSettings.title!,
                       description: calendarSettings.description!,
-                      child:
-                      SwitchBtn(
-                          value: calendarSettings.isOn!,
-                            onChanged: (val) {
-                              settingsProvider
-                                  .onCalendarSettingsChange(calendarSettings);
-                            }
+                      child: SwitchBtn(
+                        value: calendarSettings.isOn!,
+                        onChanged: (val) {
+                          settingsProvider.onCalendarSettingsChange(
+                            calendarSettings,
+                          );
+                        },
                       ),
                       // ToogleCheck(
                       //     iconData: Icons.circle,
@@ -139,19 +152,23 @@ class SetsScreen extends StatelessWidget {
                       //     }),
                     );
                   },
-                )
+                ),
               ]),
             ),
             //trash settings
             SliverPersistentHeader(
-                pinned: true,
-                delegate: SliverHeader(
-                    paddingHorizontal: 8.0,
-                    height: headerHeight,
-                    child: SmallHeader(
-                      title:context.t("headers_text.header_trash").capitalizeFirstLetter()
-                      //title: 'Trash',
-                    ))),
+              pinned: true,
+              delegate: SliverHeader(
+                paddingHorizontal: 8.0,
+                height: headerHeight,
+                child: SmallHeader(
+                  title: context
+                      .t("headers_text.header_trash")
+                      .capitalizeFirstLetter(),
+                  //title: 'Trash',
+                ),
+              ),
+            ),
             SliverList(
               delegate: SliverChildListDelegate([
                 ColumnBuilder(
@@ -163,35 +180,43 @@ class SetsScreen extends StatelessWidget {
                     return SettingsCard(
                       title: trashSets.title!,
                       description: trashSets.description!,
-                      child: index <= 1 ? SwitchBtn(
-                          value: trashSets.isOn!,
-                          onChanged: (val) {
-                            settingsProvider.onTrashSettingsChange(trashSets);
-                            if (trashSets.isOn == true) {
-                              _pickDate(context, index);
-                            } else {
-                              settingsProvider.cancelDeleteSettings(index);
-                              if (index == 0 && trashSets.isOn == true) {
-                                noteProvider.loadNoteListBySettingsValues(
-                                    0, false);
-                              } else if(index == 1 && trashSets.isOn == true){
-                                taskProvider.loadTaskListFromSettings(0, false);
-                              }
-                            }
-                          }): IconButton(
-                              icon: Icon(Icons.delete_forever,color: Theme.of(context).textTheme.headlineMedium!.color),
+                      child: index <= 1
+                          ? SwitchBtn(
+                              value: trashSets.isOn!,
+                              onChanged: (value) {
+                                settingsProvider.onTrashSettingsChange(
+                                  trashSets,
+                                );
+                                if (value) {
+                                  _pickDate(context, index);
+                                } else {
+                                  _disableAutomaticDeletion(
+                                    settingsProvider: settingsProvider,
+                                    taskProvider: taskProvider,
+                                    noteProvider: noteProvider,
+                                    index: index,
+                                  );
+                                }
+                              },
+                            )
+                          : IconButton(
+                              icon: Icon(
+                                Icons.delete_forever,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium!.color,
+                              ),
                               iconSize: switchIconSize,
-                              onPressed: (){
-                                _warringAlert(context, index, (){
-                                  if(index == 2){
+                              onPressed: () {
+                                _warringAlert(context, index, () {
+                                  if (index == 2) {
                                     taskProvider.deleteAllTasks();
-                                  }else if(index == 3){
+                                  } else if (index == 3) {
                                     noteProvider.deleteAllNotes();
                                   }
                                 });
-
                               },
-                      ),
+                            ),
                     );
                   },
                 ),
@@ -203,28 +228,79 @@ class SetsScreen extends StatelessWidget {
     );
   }
 
-  static _pickDate(BuildContext context, int index, ) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomDial(
-              title: 'Delete old ${index == 0 ? "note" : "task"} after:',
-              isBtnVisible: false,
-              child: SliderDialog(
-                index: index,
-              ));
-        });
+  static Future<void> _pickDate(BuildContext context, int index) async {
+    final wasConfirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return CustomDial(
+          title: index == 0
+              ? 'dialogs_text.delete_old_notes_after'
+              : 'dialogs_text.delete_old_tasks_after',
+          isBtnVisible: false,
+          child: SliderDialog(index: index),
+        );
+      },
+    );
+
+    if (!context.mounted) return;
+
+    final settingsProvider = context.read<SettingsProvider>();
+    final taskProvider = context.read<TaskProvider>();
+    final noteProvider = context.read<NoteProvider>();
+
+    if (wasConfirmed == true) {
+      final months = settingsProvider
+          .trashSets
+          .trashSettings[index]
+          .sliderValue!
+          .floor();
+      if (index == 0) {
+        noteProvider.loadNoteListBySettingsValues(months, true);
+      } else {
+        taskProvider.loadTaskListFromSettings(months, true);
+      }
+      return;
+    }
+
+    _disableAutomaticDeletion(
+      settingsProvider: settingsProvider,
+      taskProvider: taskProvider,
+      noteProvider: noteProvider,
+      index: index,
+    );
   }
 
-  static _warringAlert(BuildContext context, int index,VoidCallback confirm) {
+  static void _disableAutomaticDeletion({
+    required SettingsProvider settingsProvider,
+    required TaskProvider taskProvider,
+    required NoteProvider noteProvider,
+    required int index,
+  }) {
+    settingsProvider.cancelDeleteSettings(index);
+    if (index == 0) {
+      noteProvider.loadNoteListBySettingsValues(0, false);
+    } else {
+      taskProvider.loadTaskListFromSettings(0, false);
+    }
+  }
+
+  static void _warringAlert(
+    BuildContext context,
+    int index,
+    VoidCallback confirm,
+  ) {
     showDialog(
-        context: context,
-        builder: (context) {
-          return
-            WarringAlert(
-              message: "This action will delete all ${index == 2 ? "tasks" : "notes"} data permanently !!!",
-              onConfirm: confirm
-            );
-        });
+      context: context,
+      builder: (context) {
+        return WarringAlert(
+          message: context.t(
+            index == 2
+                ? 'dialogs_text.delete_all_tasks_warning'
+                : 'dialogs_text.delete_all_notes_warning',
+          ),
+          onConfirm: confirm,
+        );
+      },
+    );
   }
 }

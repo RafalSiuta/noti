@@ -15,6 +15,10 @@ class ExportSettings {
         title: "export_notes",
         description: "export_notes_description",
         isOn: false),
+    SettingsModel(
+        title: 'protect_export',
+        description: 'protect_export_description',
+        isOn: false),
   ];
 
   UnmodifiableListView<SettingsModel> get exportSettingsList {

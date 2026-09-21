@@ -70,71 +70,80 @@ class CustomDial extends StatefulWidget {
 class _CustomDialState extends State<CustomDial> {
   @override
   Widget build(BuildContext context) {
-    var textSize = SizeInfo.headerSubtitleSize;
+    final textSize = SizeInfo.headerSubtitleSize;
     final screenSize = MediaQuery.of(context).size;
-    return Card(
-      elevation: 5.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: screenSize.width / 14,
-        vertical: screenSize.height / 6,
-      ),
-      color: Theme.of(context).colorScheme.onSurface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            width: screenSize.width,
-            height: textSize * 3,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-              color: Theme.of(context).datePickerTheme.headerBackgroundColor,
-            ),
-            child: Center(
-              child: Text(
-                context
-                    .t(widget.title!, fallback: widget.title)
-                    .capitalizeFirstLetter(),
-                //widget.title!,
-                style: Theme.of(
-                  context,
-                ).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
-              ),
-            ),
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: screenSize.width * 6 / 7,
+          maxHeight: screenSize.height * 2 / 3,
+        ),
+        child: Card(
+          elevation: 5.0,
+          margin: EdgeInsets.zero,
+          color: Theme.of(context).colorScheme.onSurface,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          Flexible(
-            fit: FlexFit.loose,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 8.0,
-              ),
-              child: widget.child!,
-            ),
-          ),
-          Visibility(visible: widget.isBtnVisible, child: const Divider()),
-          Visibility(
-            visible: widget.isBtnVisible,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'Ok',
-                  style: Theme.of(
-                    context,
-                  ).dialogTheme.contentTextStyle!.copyWith(fontSize: textSize),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: textSize * 3,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomLeft,
+                      stops: const [0.0, 0.5, 1.0],
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColorDark,
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      context
+                          .t(widget.title!, fallback: widget.title)
+                          .capitalizeFirstLetter(),
+                      style: Theme.of(context).dialogTheme.titleTextStyle!
+                          .copyWith(
+                            fontSize: textSize,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.all(SizeInfo.edgePadding * 2),
+                  child: widget.child!,
+                ),
+                if (widget.isBtnVisible) const Divider(),
+                if (widget.isBtnVisible)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        'Ok',
+                        style: Theme.of(context).dialogTheme.contentTextStyle!
+                            .copyWith(fontSize: textSize),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -9,7 +9,9 @@ const theme_2TimerTextColor = Color(0xFFB1B6C4); //timer-text
 const theme_2CardTimerFirstColor = Color(0xFF434B60); //card-timer-first
 const theme_2CardTimerMiddleColor = Color(0xFF373D4E); //card-timer-middle
 const theme_2CardTimerLastColor = Color(0xFF2A2F3C); //card-timer-last
-const theme_2UnselectedTaskTimerColor = Color(0xFF191C24); //unselected-task-timer
+const theme_2UnselectedTaskTimerColor = Color(
+  0xFF191C24,
+); //unselected-task-timer
 const theme_2ButtonOutlineColor = Color(0xFF24262E); //button-outline
 const theme_2BaseTextColor = Color(0xFFB1B6C4); //base-text
 
@@ -22,10 +24,16 @@ const theme_2UnselectedColor = Color(0xFF191C24); //unselected
 const theme_2DividerColor = Color(0xFF444C5F); //divider
 const theme_2ShadowColor = Color(0xCC16181D); //shadow
 const theme_2FabIconColor = Color(0xFF16181D); //fab-icon
-const theme_2CalendarCellSelectedColor = Color(0xFF65718D); //calendar-cell-selected
-const theme_2CalendarSelectedTextColor = Color(0xFFB1B6C4); //calendar-selected-text
+const theme_2CalendarCellSelectedColor = Color(
+  0xFF65718D,
+); //calendar-cell-selected
+const theme_2CalendarSelectedTextColor = Color(
+  0xFFB1B6C4,
+); //calendar-selected-text
 const theme_2CalendarBaseTextColor = Color(0xFFB1B6C4); //calendar-base-text
-const theme_2CalendarWeekendTextColor = Color(0xFFFBC02D); //calendar-weekend-text
+const theme_2CalendarWeekendTextColor = Color(
+  0xFFFBC02D,
+); //calendar-weekend-text
 const theme_2CalendarNextMonthColor = Color(0xFF828AA1); //calendar-next-month
 
 const theme_2PickerTextColor = Color(0xffA0A6B1); //picker-text
@@ -190,6 +198,7 @@ final theme_2 = ThemeData(
     bodyMedium: theme6ContentTextStyle,
 
     titleSmall: theme_2CalendarSelectedDayTextStyle,
+
     ///calendar default text style
     labelLarge: theme6CalendarDayWeekendTextStyle,
     //calendar next month text style:
@@ -289,7 +298,7 @@ final theme_2 = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return theme_2MainBackgroundColor;
       } else {
-        return Colors.transparent;//theme_2ShadowColor;
+        return Colors.transparent; //theme_2ShadowColor;
       }
     }),
     thumbColor: WidgetStateProperty.resolveWith((states) {
@@ -333,6 +342,13 @@ final theme_2 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_2Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_2BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -365,7 +381,9 @@ final theme_2 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_2UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -439,6 +457,13 @@ final theme_2 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_2Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_2BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -471,7 +496,9 @@ final theme_2 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_2UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -541,10 +568,7 @@ final theme_2 = ThemeData(
   ),
   tooltipTheme: TooltipThemeData(
     textStyle: GoogleFonts.exo2(
-      textStyle: const TextStyle(
-        color: theme_2BaseTextColor,
-        fontSize: 12,
-      ),
+      textStyle: const TextStyle(color: theme_2BaseTextColor, fontSize: 12),
     ),
     decoration: BoxDecoration(
       color: theme_2CardBackgroundColor,

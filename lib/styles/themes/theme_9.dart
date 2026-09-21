@@ -9,7 +9,9 @@ const theme_9TimerTextColor = Color(0xFFF5F5F5); //timer-text
 const theme_9CardTimerFirstColor = Color(0xFF366BE0); //card-timer-first
 const theme_9CardTimerMiddleColor = Color(0xFF0032A1); //card-timer-middle
 const theme_9CardTimerLastColor = Color(0xFF0B2A70); //card-timer-last
-const theme_9UnselectedTaskTimerColor = Color(0xFF071C4A); //unselected-task-timer
+const theme_9UnselectedTaskTimerColor = Color(
+  0xFF071C4A,
+); //unselected-task-timer
 const theme_9ButtonOutlineColor = Color(0xFF011E62); //button-outline
 const theme_9BaseTextColor = Color(0xFF041B4B); //base-text
 const theme_9Accent1Color = Color(0xFFFBC720); //accent-1
@@ -20,10 +22,16 @@ const theme_9UnselectedColor = Color(0xFFC2C2C2); //unselected
 const theme_9DividerColor = Color(0xFF9E9E9E); //divider
 const theme_9ShadowColor = Color(0xCC949494); //shadow
 const theme_9FabIconColor = Color(0xFF041B4B); //fab-icon
-const theme_9CalendarCellSelectedColor = Color(0xFF3B75F6); //calendar-cell-selected
-const theme_9CalendarSelectedTextColor = Color(0xFF041B4B); //calendar-selected-text
+const theme_9CalendarCellSelectedColor = Color(
+  0xFF3B75F6,
+); //calendar-cell-selected
+const theme_9CalendarSelectedTextColor = Color(
+  0xFF041B4B,
+); //calendar-selected-text
 const theme_9CalendarBaseTextColor = Color(0xFF041B4B); //calendar-base-text
-const theme_9CalendarWeekendTextColor = Color(0xFFE1663F); //calendar-weekend-text
+const theme_9CalendarWeekendTextColor = Color(
+  0xFFE1663F,
+); //calendar-weekend-text
 const theme_9CalendarNextMonthColor = Color(0xFF8F8F8F); //calendar-next-month
 
 const theme_9SplashColor = Colors.transparent; //splash
@@ -139,7 +147,7 @@ final theme_9 = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: theme_9MainBackgroundColor,
 
-  colorScheme:  ColorScheme(
+  colorScheme: ColorScheme(
     primary: theme_9FabIconColor,
     primaryFixed: theme_9Accent3Color,
     secondaryFixed: theme_9Accent2Color,
@@ -185,6 +193,7 @@ final theme_9 = ThemeData(
     bodyMedium: contentTextStyle,
 
     titleSmall: theme_9CalendarSelectedDayTextStyle,
+
     ///calendar default text style
     labelLarge: calendarDayWeekendTextStyle,
     //calendar next month text style:
@@ -330,6 +339,13 @@ final theme_9 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_9Accent1Color.withOpacity(0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_9BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -362,7 +378,9 @@ final theme_9 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: BorderSide(color: theme_9UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -436,6 +454,13 @@ final theme_9 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_9Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_9BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.exo2(
@@ -468,7 +493,9 @@ final theme_9 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: BorderSide(color: theme_9UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -498,10 +525,7 @@ final theme_9 = ThemeData(
     enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(width: .5, color: theme_9UnselectedColor),
     ),
-    activeIndicatorBorder: BorderSide(
-      width: .5,
-      color: theme_9UnselectedColor,
-    ),
+    activeIndicatorBorder: BorderSide(width: .5, color: theme_9UnselectedColor),
     errorBorder: InputBorder.none,
     disabledBorder: InputBorder.none,
     focusedErrorBorder: InputBorder.none,
@@ -564,10 +588,7 @@ final theme_9 = ThemeData(
   ),
   tooltipTheme: TooltipThemeData(
     textStyle: GoogleFonts.exo2(
-      textStyle: const TextStyle(
-        color: theme_9BaseTextColor,
-        fontSize: 12,
-      ),
+      textStyle: const TextStyle(color: theme_9BaseTextColor, fontSize: 12),
     ),
     decoration: BoxDecoration(
       color: theme_9CardBackgroundColor,

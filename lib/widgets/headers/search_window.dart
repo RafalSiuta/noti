@@ -7,7 +7,7 @@ import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:noti/widgets/calendar/date_calendar.dart';
 import 'package:noti/widgets/headers/expandable_header.dart';
-import 'package:noti/widgets/headers/search_input.dart';
+import 'package:noti/widgets/text_display/search_input.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 import 'package:table_calendar/table_calendar.dart';

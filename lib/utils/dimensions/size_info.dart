@@ -132,7 +132,7 @@ class SizeInfo {
 
     gridColumnCount = 3;
     calendarDaySize = 23;
-    smallIndicatorIconSize = 15;
+    smallIndicatorIconSize = 12;
     menuTopMargin = 32;
 
     appBarCollapsedHeight = 100.0;
@@ -152,8 +152,8 @@ class SizeInfo {
 
     ///headers:
     ///
-    headerTitleSize = 42;
-    headerSubtitleSize = 32;
+    headerTitleSize = 38;
+    headerSubtitleSize = 28;
     verticalHeaderPadding = 16;
     sliverHeaderHeight = 70;
     sliverLargeHeaderHeight = 120;
@@ -162,19 +162,20 @@ class SizeInfo {
     ///calendar
     rowHeight = 72;
     calendarMarkerSize = 23;
-    calendarMarkerFontSize = 15;
+    calendarMarkerFontSize = 12;
     calendarCellMargin = 12;
-    switchButtonIconSize = 15.0;
+    switchButtonIconSize = 8.0;
 
     ///task card:
     taskCardHeight = 132;
-    taskCardTitle = 23.0;
-    taskCardDescription = 18;
+    taskCardTitle = 18.0;
+    taskCardDescription = 14;
     taskCreatorTitle = 32;
-    taskCreatorDescription = 23;
+    taskCreatorDescription = 18;
     taskMarginRadius = 16;
     taskRingLineWidth = 5.0;
     taskContentPadding = 5.0;
+    toogleButtonSide = 36.0;
 
     ///swipe task card dimens
     taskCardContentPadding = 12.0;
@@ -196,8 +197,8 @@ class SizeInfo {
 
     ///settings card:
     settingsCardHeight = 90;
-    settingsCardTitleFontSize = 23;
-    settingsCardDescriptionFontSize = 18;
+    settingsCardTitleFontSize = 18;
+    settingsCardDescriptionFontSize = 14;
     switchButtonIconSize = 30;
 
     ///carousel:

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/dimensions/size_info.dart';
-import 'package:noti/styles/themes/style_exports.dart';
 
 const theme_5MainBackgroundColor = Color(0xFFDDEEEE); //main-background
 const theme_5PatternColor = Color(0xFFE0F5F5); //pattern
@@ -10,7 +9,9 @@ const theme_5TimerTextColor = Color(0xFFFFFFFF); //timer-text
 const theme_5CardTimerFirstColor = Color(0xFFC1EAEB); //card-timer-first
 const theme_5CardTimerMiddleColor = Color(0xFF8AC3C4); //card-timer-middle
 const theme_5CardTimerLastColor = Color(0xFF6DB3B5); //card-timer-last
-const theme_5UnselectedTaskTimerColor = Color(0xFF4B9395); //unselected-task-timer
+const theme_5UnselectedTaskTimerColor = Color(
+  0xFF4B9395,
+); //unselected-task-timer
 const theme_5ButtonOutlineColor = Color(0xFF90A4A4); //button-outline
 const theme_5BaseTextColor = Color(0xFF0C2627); //base-text
 const theme_5Accent1Color = Color(0xFF26B6AB); //accent-1
@@ -21,10 +22,16 @@ const theme_5UnselectedColor = Color(0xFF90A4A4); //unselected
 const theme_5DividerColor = Color(0xFF0C2627); //divider
 const theme_5ShadowColor = Color(0xCC7E9595); //shadow
 const theme_5FabIconColor = Color(0xFF041B4B); //fab-icon
-const theme_5CalendarCellSelectedColor = Color(0xFFD0FBFD); //calendar-cell-selected
-const theme_5CalendarSelectedTextColor = Color(0xFF0C2627); //calendar-selected-text
+const theme_5CalendarCellSelectedColor = Color(
+  0xFFD0FBFD,
+); //calendar-cell-selected
+const theme_5CalendarSelectedTextColor = Color(
+  0xFF0C2627,
+); //calendar-selected-text
 const theme_5CalendarBaseTextColor = Color(0xFF0C2627); //calendar-base-text
-const theme_5CalendarWeekendTextColor = Color(0xFF26B6AB); //calendar-weekend-text
+const theme_5CalendarWeekendTextColor = Color(
+  0xFF26B6AB,
+); //calendar-weekend-text
 const theme_5CalendarNextMonthColor = Color(0xFF184C4E); //calendar-next-month
 
 final theme1PickersBaseTextStyle = GoogleFonts.exo2(
@@ -188,6 +195,7 @@ final theme_5 = ThemeData(
     bodyMedium: theme1ContentTextStyle,
 
     titleSmall: theme_5CalendarSelectedDayTextStyle,
+
     ///calendar default text style
     labelLarge: theme1CalendarDayWeekendTextStyle,
     //calendar next month text style:
@@ -331,6 +339,13 @@ final theme_5 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_5Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_5BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
@@ -363,7 +378,9 @@ final theme_5 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_5UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -437,6 +454,13 @@ final theme_5 = ThemeData(
       backgroundColor: WidgetStateProperty.all(
         theme_5Accent1Color.withValues(alpha: 0.5),
       ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
+        ),
+      ),
       foregroundColor: WidgetStateProperty.all(theme_5BaseTextColor),
       textStyle: WidgetStateProperty.all(
         GoogleFonts.inter(
@@ -469,7 +493,9 @@ final theme_5 = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           side: const BorderSide(color: theme_5UnselectedColor, width: 0.5),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.innerCardCornerRadius),
+          ),
         ),
       ),
     ),
@@ -539,10 +565,7 @@ final theme_5 = ThemeData(
   ),
   tooltipTheme: TooltipThemeData(
     textStyle: GoogleFonts.exo2(
-      textStyle: const TextStyle(
-        color: theme_5BaseTextColor,
-        fontSize: 12,
-      ),
+      textStyle: const TextStyle(color: theme_5BaseTextColor, fontSize: 12),
     ),
     decoration: BoxDecoration(
       color: theme_5CardBackgroundColor,

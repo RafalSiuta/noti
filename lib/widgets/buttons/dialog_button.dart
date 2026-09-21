@@ -7,11 +7,14 @@ class DialogButton extends StatelessWidget {
   const DialogButton({
     this.isConfirmed = false,
     required this.onConfirm,
+    this.popOnConfirm = true,
     super.key,
   });
 
   final bool isConfirmed;
   final VoidCallback onConfirm;
+  final bool popOnConfirm;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class DialogButton extends StatelessWidget {
         if (isConfirmed == true) {
           onConfirm();
         }
-        Navigator.pop(context);
+        popOnConfirm ? Navigator.pop(context) : null;
       },
     );
   }

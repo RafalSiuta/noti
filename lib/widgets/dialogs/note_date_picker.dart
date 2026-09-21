@@ -5,6 +5,7 @@ import 'package:noti/utils/extensions/string_extension.dart';
   import '../../models/date/date_model.dart';
 import '../../utils/dimensions/size_info.dart';
   import '../../utils/internationalization/app_localizations.dart';
+import '../buttons/icon_btn.dart';
 import '../calendar/date_calendar.dart';
 
   class NoteDatePickerDial extends StatefulWidget {
@@ -78,38 +79,43 @@ class _NoteDatePickerDialState extends State<NoteDatePickerDial> {
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
-                      color: Theme.of(context).datePickerTheme.headerBackgroundColor),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomLeft,
+                      stops: const [0.0, 0.5, 1.0],
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColorDark,
+                      ],
+                    ),),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      IconButton(
-                          splashColor: Colors.transparent,
+                      IconBtn(
                           onPressed: (){
                             setState(() {
                               focDay = DateTime(focDay.year, focDay.month - 1, focDay.day);
                             });
                           },
-                          icon: Icon(
-                            Icons.arrow_left,
-                            size: textSize,
-                          )),
+                          iconSize: textSize,
+                          iconColor: Theme.of(context).colorScheme.secondary,
+                          icon:Icons.arrow_left),
                       Text(
                         d.monthYear!.capitalizeFirstLetter(),
                         //DateFormat('MMMM yy').format(focDay),
-                        style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                        style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize, color: Theme.of(context).colorScheme.secondary,),
                       ),
-                      IconButton(
-                          splashColor: Colors.transparent,
+                      IconBtn(
                           onPressed: (){
                             setState(() {
                               focDay = DateTime(focDay.year, focDay.month + 1, focDay.day);
                             });
                           },
-                          icon: Icon(
-                            Icons.arrow_right,
-                            size: textSize,
-                          )),
+                          iconSize: textSize,
+                          iconColor: Theme.of(context).colorScheme.secondary,
+                          icon:Icons.arrow_left),
                     ],
                   ),
                 ),
