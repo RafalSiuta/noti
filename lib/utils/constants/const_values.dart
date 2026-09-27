@@ -1,5 +1,4 @@
-
-const notiAppVersion = "1.0.8";//"1.0.0+8";
+const notiAppVersion = "1.0.8";
 
 const headerDuration = Duration(milliseconds: 400);
 

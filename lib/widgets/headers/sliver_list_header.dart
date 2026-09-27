@@ -10,37 +10,40 @@ import '../../utils/dimensions/size_info.dart';
 import '../../utils/extensions/numeral_form_extension.dart';
 
 class SliverListHeader extends StatelessWidget {
-  const SliverListHeader({this.isSearch = false,super.key});
+  const SliverListHeader({this.isSearch = false, super.key});
   final bool isSearch;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskProvider>(
-        builder: (context, taskProvider, child) {
-          var edgePadding = SizeInfo.edgePadding;
-          var headerHeight = SizeInfo.sliverHeaderHeight;
-          int counter = isSearch
-              ? taskProvider.taskListByKeywordCounter
-              : taskProvider.taskListCounter;
-          final tasksLabel = plForm(
-            context,
-            count: counter,
-            oneKey:  "headers_text.header_task",     // "zadanie"
-            fewKey:  "headers_text.header_tasks",    // "zadania"
-            manyKey: "headers_text.header_tasks_s",  // "zadań"
-          );
-          return SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverHeader(
-                  paddingHorizontal: edgePadding,
-                  paddingVertical: 5.0,
-                  height: headerHeight,
-                  isRebuild: true,
-                  child: SmallHeader(
-                      title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter $tasksLabel"
-                    // title: counter == 0 ? "" : 'You have $counter task${counter > 1 ? 's' : ""}',
-                  )));
-        });
-        }}
-
-
+      builder: (context, taskProvider, child) {
+        var edgePadding = SizeInfo.edgePadding;
+        var headerHeight = SizeInfo.sliverHeaderHeight;
+        int counter = isSearch
+            ? taskProvider.taskListByKeywordCounter
+            : taskProvider.taskListCounter;
+        final tasksLabel = plForm(
+          context,
+          count: counter,
+          oneKey: "headers_text.header_task",
+          fewKey: "headers_text.header_tasks",
+          manyKey: "headers_text.header_tasks_s",
+        );
+        return SliverPersistentHeader(
+          pinned: true,
+          delegate: SliverHeader(
+            paddingHorizontal: edgePadding,
+            paddingVertical: 5.0,
+            height: headerHeight,
+            isRebuild: true,
+            child: SmallHeader(
+              title: counter == 0
+                  ? ""
+                  : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter $tasksLabel",
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

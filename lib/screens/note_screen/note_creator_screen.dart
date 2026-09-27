@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:intl/intl.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +25,6 @@ class NoteCreator extends StatefulWidget {
   const NoteCreator({super.key, required this.newNote, this.editEnable = true});
 
   @override
-  // ignore: library_private_types_in_public_api
   _NoteCreatorState createState() => _NoteCreatorState();
 }
 
@@ -202,7 +200,7 @@ class _NoteCreatorState extends State<NoteCreator>
     });
   }
 
-  _pickDate(BuildContext context) async {
+  Future<void> _pickDate(BuildContext context) async {
     DateTime? picked;
 
     await showDialog<DateTime>(
@@ -232,7 +230,7 @@ class _NoteCreatorState extends State<NoteCreator>
   IconData pickedIcon = Icons.circle;
   String pickedIconText = "";
 
-  _pickIcon(BuildContext context) {
+  void _pickIcon(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -289,7 +287,7 @@ class _NoteCreatorState extends State<NoteCreator>
     );
   }
 
-  _bottomDrawer(BuildContext context) async {
+  Future<void> _bottomDrawer(BuildContext context) async {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -297,14 +295,14 @@ class _NoteCreatorState extends State<NoteCreator>
     );
   }
 
-  selectOptions(int index) {
+  void selectOptions(int index) {
     setState(() {
       selectedIndex = index;
     });
     switch (selectedIndex) {}
   }
 
-  setImage(Uint8List img) {
+  void setImage(Uint8List img) {
     setState(() {
       widget.newNote.image = img;
     });
@@ -463,7 +461,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                   ),
                                                   Text(
                                                     context.t(pickedIconText),
-                                                    //pickedIconText,
+
                                                     textAlign: TextAlign.center,
                                                     style: Theme.of(context)
                                                         .inputDecorationTheme
@@ -496,8 +494,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                     context,
                                                   )
                                                   .fullDate!,
-                                              // DateFormat('dd MMM yy')
-                                              //     .format(widget.newNote.date),
+
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineMedium!
@@ -531,7 +528,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                                   context.t(
                                                     "creators_text.on_dash",
                                                   ),
-                                                  //'On dash',
+
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headlineMedium!
@@ -570,8 +567,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                 maxLength: maxTitleLength,
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.text,
-                                enabled:
-                                    true, // Pole zawsze aktywne, sterujemy tylko focus
+                                enabled: true,
                                 onSubmitted: (val) {
                                   setState(() {
                                     fieldFocusChange(
@@ -599,7 +595,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   helperText: context
                                       .t("creators_text.helper_title")
                                       .capitalizeFirstLetter(),
-                                  // helperText: 'Enter title',
+
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -654,7 +650,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   helperText: context
                                       .t("creators_text.helper_subtitle")
                                       .capitalizeFirstLetter(),
-                                  // helperText: 'Enter subtitle',
+
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -705,7 +701,7 @@ class _NoteCreatorState extends State<NoteCreator>
                                   helperText: context
                                       .t("creators_text.helper_description")
                                       .capitalizeFirstLetter(),
-                                  // helperText: 'Enter note text',
+
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -747,7 +743,7 @@ class _NoteCreatorState extends State<NoteCreator>
                       titles: noteNavTitles,
                       onTap: (int index) => _onNavTap(index, noteProvider),
                     ),
-                  ), //nav rail menu
+                  ),
                 ],
               );
             },

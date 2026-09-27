@@ -1,5 +1,5 @@
-
 import 'package:permission_handler/permission_handler.dart';
+
 class PermissionModel {
   String? title;
   String? description;

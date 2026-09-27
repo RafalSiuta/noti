@@ -23,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   int _currentPage = 0;
 
-  onPageChange(int page) {
+  void onPageChange(int page) {
     setState(() {
       _pageController.jumpToPage(page);
       _currentPage = page;
@@ -33,27 +33,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final List<ScreenModel> _pages = [
     ScreenModel(
       page: const ThemeScreen(),
-      title: NavModel(
-        title: 'themes',
-      ),
+      title: NavModel(title: 'themes'),
     ),
     ScreenModel(
       page: const SetsScreen(),
-      title: NavModel(
-        title: 'settings',
-      ),
+      title: NavModel(title: 'settings'),
     ),
     ScreenModel(
       page: const ExportScreen(),
-      title: NavModel(
-        title: 'exports',
-      ),
+      title: NavModel(title: 'exports'),
     ),
     ScreenModel(
-        page: const AboutScreen(),
-        title: NavModel(
-          title: 'about',
-        ))
+      page: const AboutScreen(),
+      title: NavModel(title: 'about'),
+    ),
   ];
 
   @override
@@ -70,72 +63,78 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        key: widget.key,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Consumer<SettingsProvider>(
-          builder: (context, settingsProvider, child) {
-            var navIconSize = SizeInfo.leadingAndTrailingIconSize;
-            var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
-            return Theme(
-              data: settingsProvider.getTheme(),
-              child: Stack(
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  const BackgroundShape(),
-                  SafeArea(
-                    child: Container(
-                      key: widget.key,
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(left: leftEdgePadding ),
-                                child: Center(
-                                    child: PageView.builder(
-                                        physics: const BouncingScrollPhysics(
-                                            parent:
-                                                AlwaysScrollableScrollPhysics()),
-                                        itemCount: _pages.length,
-                                        controller: _pageController,
-                                        onPageChanged: onPageChange,
-                                        itemBuilder: (context, index) {
-                                          return _pages
-                                              .map((e) => e.page!)
-                                              .toList()
-                                              .elementAt(index);
-                                        })),
-                              )),
-                          SideNav(
-                            key: widget.key,
-                            leading: IconButton(
-                                padding: const EdgeInsets.all(20),
-                                onPressed: () async {
-                                  Navigator.pop(context, true);
-                                  setState(() {});
+      key: widget.key,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Consumer<SettingsProvider>(
+        builder: (context, settingsProvider, child) {
+          var navIconSize = SizeInfo.leadingAndTrailingIconSize;
+          var leftEdgePadding = SizeInfo.leftEdgeMainPadding;
+          return Theme(
+            data: settingsProvider.getTheme(),
+            child: Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                const BackgroundShape(),
+                SafeArea(
+                  child: Container(
+                    key: widget.key,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: leftEdgePadding),
+                            child: Center(
+                              child: PageView.builder(
+                                physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics(),
+                                ),
+                                itemCount: _pages.length,
+                                controller: _pageController,
+                                onPageChanged: onPageChange,
+                                itemBuilder: (context, index) {
+                                  return _pages
+                                      .map((e) => e.page!)
+                                      .toList()
+                                      .elementAt(index);
                                 },
-                                icon:
-                                    Icon(
-                                        Icons.arrow_back,
-                                        color: Theme.of(context).textTheme.displayLarge!.color,
-                                        size: navIconSize)),
-                            itemCount: _pages.length,
-                            titles: _pages.map((e) => e.title!).toList(),
-                            selectedItem: _currentPage,
-                            onTap: (int sel) {
-                              onPageChange(sel);
-                            },
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SideNav(
+                          key: widget.key,
+                          leading: IconButton(
+                            padding: const EdgeInsets.all(20),
+                            onPressed: () async {
+                              Navigator.pop(context, true);
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.displayLarge!.color,
+                              size: navIconSize,
+                            ),
+                          ),
+                          itemCount: _pages.length,
+                          titles: _pages.map((e) => e.title!).toList(),
+                          selectedItem: _currentPage,
+                          onTap: (int sel) {
+                            onPageChange(sel);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        ));
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

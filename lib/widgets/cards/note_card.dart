@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../models/db_model/note.dart';
 import '../../styles/shapes/note_shape_attachment.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -13,29 +12,29 @@ class NoteCard extends StatelessWidget {
   final Note note;
   final bool isGrid;
 
-  const NoteCard(
-      {super.key, required this.edit, required this.note, this.isGrid = false});
+  const NoteCard({
+    super.key,
+    required this.edit,
+    required this.note,
+    this.isGrid = false,
+  });
   @override
   Widget build(BuildContext context) {
-
-
-    final attachmentWidth = isGrid ? SizeInfo.noteLeftPadding - 2 : SizeInfo.noteLeftPadding - 6;
-    // final noteCardClipper = NoteCardShape(
-    //   attachmentWidth: attachmentWidth,
-    // );
+    final attachmentWidth = isGrid
+        ? SizeInfo.noteLeftPadding - 2
+        : SizeInfo.noteLeftPadding - 6;
 
     return GestureDetector(
       onTap: edit,
-      child:
-      Row(
+      child: Row(
         children: [
           CsShadow(
             clipper: NoteCardShapeAttachment(),
-              shadow: BoxShadow(
-                color: Theme.of(context).shadowColor,
-                offset: const Offset(0, 1.5),
-                blurRadius: 1.5,
-              ),
+            shadow: BoxShadow(
+              color: Theme.of(context).shadowColor,
+              offset: const Offset(0, 1.5),
+              blurRadius: 1.5,
+            ),
             child: ClipPath(
               clipper: NoteCardShapeAttachment(),
               child: Container(
@@ -66,17 +65,19 @@ class NoteCard extends StatelessWidget {
                 clipper: NoteCardShape(),
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: 5.0, top: 5.0, right: isGrid ? 8.0 : 12.0, bottom: 3.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
+                    left: 5.0,
+                    top: 5.0,
+                    right: isGrid ? 8.0 : 12.0,
+                    bottom: 3.0,
                   ),
+                  decoration: BoxDecoration(color: Theme.of(context).cardColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
-                          physics:NeverScrollableScrollPhysics(),
+                          physics: NeverScrollableScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -85,12 +86,13 @@ class NoteCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  note.title, //capitalTitle,
+                                  note.title,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayLarge!
                                       .copyWith(
-                                    fontSize: SizeInfo.noteCardTitle,),
+                                        fontSize: SizeInfo.noteCardTitle,
+                                      ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -103,7 +105,10 @@ class NoteCard extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayLarge!
-                                      .copyWith(fontSize: SizeInfo.noteCardContent, height: 1.5),
+                                      .copyWith(
+                                        fontSize: SizeInfo.noteCardContent,
+                                        height: 1.5,
+                                      ),
                                   maxLines: 1,
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.ellipsis,
@@ -111,10 +116,11 @@ class NoteCard extends StatelessWidget {
                               ),
                               Text(
                                 note.description,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: SizeInfo.noteCardContent, height:1.5),
+                                style: Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(
+                                      fontSize: SizeInfo.noteCardContent,
+                                      height: 1.5,
+                                    ),
                                 maxLines: note.image != null && note.image != []
                                     ? 5
                                     : 10,
@@ -123,19 +129,17 @@ class NoteCard extends StatelessWidget {
                               ),
                               note.image != null && note.image!.isNotEmpty
                                   ? ImageCard(
-                                img: note.image!,
-                                width: isGrid
-                                    ? SizeInfo.noteCardImageSize
-                                    : SizeInfo.noteCardImageSize - 10,
-                                height: isGrid
-                                    ? SizeInfo.noteCardImageSize
-                                    : SizeInfo.noteCardImageSize - 10,
-                                cornerRadius: 8,
-                              )
+                                      img: note.image!,
+                                      width: isGrid
+                                          ? SizeInfo.noteCardImageSize
+                                          : SizeInfo.noteCardImageSize - 10,
+                                      height: isGrid
+                                          ? SizeInfo.noteCardImageSize
+                                          : SizeInfo.noteCardImageSize - 10,
+                                      cornerRadius: 8,
+                                    )
                                   : Container(),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
+                              const SizedBox(height: 5.0),
                             ],
                           ),
                         ),
@@ -143,14 +147,16 @@ class NoteCard extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0,
+                            vertical: 2.0,
+                          ),
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .dateFormat(note.date,context).fullDate!,
-                            // DateFormat('dd MMM yy').format(note.date),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
+                            AppLocalizations.of(
+                              context,
+                            )!.dateFormat(note.date, context).fullDate!,
+
+                            style: Theme.of(context).textTheme.bodyMedium!
                                 .copyWith(fontSize: SizeInfo.noteCardContent),
                           ),
                         ),

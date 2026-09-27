@@ -16,7 +16,8 @@ class TaskScreen extends StatelessWidget {
         key: key,
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
         slivers: [
           SliverToBoxAdapter(
             child: SearchWindow(
@@ -25,17 +26,9 @@ class TaskScreen extends StatelessWidget {
               searchType: "task",
             ),
           ),
-          SliverListHeader(
-            isSearch: true,
-          ),
-          SliverTaskList(
-            isSearch: true,
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10.0,
-            ),
-          )
+          SliverListHeader(isSearch: true),
+          SliverTaskList(isSearch: true),
+          SliverToBoxAdapter(child: SizedBox(height: 10.0)),
         ],
       ),
     );

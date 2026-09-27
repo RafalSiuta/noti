@@ -15,7 +15,6 @@ class DialogButton extends StatelessWidget {
   final VoidCallback onConfirm;
   final bool popOnConfirm;
 
-
   @override
   Widget build(BuildContext context) {
     var fontSize = SizeInfo.settingsCardTitleFontSize;

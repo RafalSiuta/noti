@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' show Rect;
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:share_plus/share_plus.dart';
 import '../../database/database_helper.dart';
 import '../../models/db_model/note.dart';
@@ -144,24 +144,15 @@ class ExportProvider extends ChangeNotifier {
         password: protectExport ? password : null,
       );
       if (file == null) {
-        print('Export cancelled.');
         return null;
       }
 
-      print(
-        'Export succeeded: ${file.path} '
-        '(tasks: ${exportData.tasks.length}, notes: ${exportData.notes.length})',
-      );
       return ExportResult(
         file: file,
         tasksCount: exportData.tasks.length,
         notesCount: exportData.notes.length,
       );
-    } catch (e, stackTrace) {
-      print('Export failed: $e');
-      if (kDebugMode) {
-        print(stackTrace);
-      }
+    } catch (_) {
       return null;
     }
   }
@@ -197,70 +188,45 @@ class ExportProvider extends ChangeNotifier {
         ),
       );
 
-      debugPrint(
-        'Share export prepared: ${file.path} '
-        '(tasks: ${exportData.tasks.length}, notes: ${exportData.notes.length})',
-      );
       return ExportResult(
         file: file,
         tasksCount: exportData.tasks.length,
         notesCount: exportData.notes.length,
       );
-    } catch (e, stackTrace) {
-      debugPrint('Share export failed: $e');
-      if (kDebugMode) {
-        debugPrint('$stackTrace');
-      }
+    } catch (_) {
       return null;
     }
   }
 
   Future<bool> openExportFolder(File file) async {
-    debugPrint(
-      '[Export] Open folder requested: platform=${Platform.operatingSystem}, file=${file.path}',
-    );
-
     try {
       if (Platform.isAndroid) {
-        debugPrint('[Export] Opening Android document browser');
-        final selectedFile = await FilePicker.pickFile(type: FileType.any);
-        debugPrint(
-          '[Export] Android document browser closed; selected=${selectedFile?.name ?? 'none'}',
-        );
+        await FilePicker.pickFile(type: FileType.any);
         return true;
       }
 
       final folder = file.parent;
       final folderExists = await folder.exists();
-      debugPrint('[Export] Folder=${folder.path}, exists=$folderExists');
       if (!folderExists) return false;
 
       if (Platform.isWindows) {
-        debugPrint('[Export] Launching Windows Explorer');
         await Process.start('explorer.exe', [folder.path]);
         return true;
       }
 
       if (Platform.isMacOS) {
-        debugPrint('[Export] Launching macOS Finder');
         await Process.start('open', [folder.path]);
         return true;
       }
 
       if (Platform.isLinux) {
-        debugPrint('[Export] Launching Linux file manager');
         await Process.start('xdg-open', [folder.path]);
         return true;
       }
-    } on Object catch (error, stackTrace) {
-      debugPrint('[Export] Could not open export location: $error');
-      debugPrint('[Export] Stack trace: $stackTrace');
+    } on Object {
       return false;
     }
 
-    debugPrint(
-      '[Export] Opening export location is unsupported on ${Platform.operatingSystem}',
-    );
     return false;
   }
 
@@ -323,10 +289,6 @@ class ExportProvider extends ChangeNotifier {
       _pendingImportData = null;
       notifyListeners();
 
-      print(
-        'Import succeeded: ${importData.file.path} '
-        '(tasks: ${importData.tasks.length}, notes: ${importData.notes.length})',
-      );
       return ImportResult(
         success: true,
         fileName: _fileName(importData.file),
@@ -343,12 +305,8 @@ class ExportProvider extends ChangeNotifier {
         needsPassword: true,
         message: 'invalid_password',
       );
-    } catch (e, stackTrace) {
+    } catch (e) {
       _pendingEncryptedFile = null;
-      print('Import failed: $e');
-      if (kDebugMode) {
-        print(stackTrace);
-      }
       return ImportResult(success: false, message: 'Import failed: $e');
     }
   }
@@ -661,12 +619,6 @@ class ExportProvider extends ChangeNotifier {
   }
 
   String _fileName(File file) => file.path.split(RegExp(r'[\\/]')).last;
-
-  //filename for input
-  //export options
-  //tasks, notes, all
-  //encrypt exports
-  //store to custom file .noti - json like
 
   Future<void> loadSets() async {
     await updateExportSettings();

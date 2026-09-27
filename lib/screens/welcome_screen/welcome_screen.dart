@@ -11,7 +11,6 @@ import '../../widgets/calendar/sliver_calendar_wrapper.dart';
 import '../../widgets/calendar/small_calendar.dart';
 import '../../widgets/headers/date_header.dart';
 import '../../widgets/headers/sliver_header.dart';
-import '../../widgets/headers/sliver_list_header.dart';
 import '../../widgets/headers/task_header.dart';
 import '../note_screen/note_list.dart';
 import '../task_screen/sliver_task_list.dart';
@@ -48,38 +47,40 @@ class WelcomeScreen extends StatelessWidget {
       children: [
         AnimationLimiter(
           child: CustomScrollView(
-          key: key,
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: SliverHeader(
-                paddingHorizontal: .0,
-                height: headerHeight,
-                child: const DateHeader(),
+            key: key,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: .0,
+                  height: headerHeight,
+                  child: const DateHeader(),
+                ),
               ),
-            ),
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverCalendarWrapper(
-                height: calendarHeaderHeight,
-                isRebuild: false,
-                child: SmallCalendar(),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverCalendarWrapper(
+                  height: calendarHeaderHeight,
+                  isRebuild: false,
+                  child: SmallCalendar(),
+                ),
               ),
-            ),
-            //SliverListHeader(),
-            TaskHeader(),
-            SliverTaskList(
-              bottomSpace: MediaQuery.of(context).size.height / 3.5,
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(height: MediaQuery.of(context).size.height / 3.7),
-            ),
-          ],
+
+              TaskHeader(),
+              SliverTaskList(
+                bottomSpace: MediaQuery.of(context).size.height / 3.5,
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 3.7,
+                ),
+              ),
+            ],
           ),
         ),
         Align(

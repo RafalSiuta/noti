@@ -4,57 +4,52 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../models/permission_model/permission_model.dart';
 import '../../utils/prefs/prefs.dart';
 
-//todo futures in next version fix permission choices for user
-class PermissionProvider extends ChangeNotifier{
+class PermissionProvider extends ChangeNotifier {
+  PermissionProvider();
 
-
-  PermissionProvider(){
-    //initPermissions();
-  }
-
-  void initPermissions() async {
-    // updatePermissionSettings();
-  }
+  void initPermissions() async {}
 
   final Prefs _prefs = Prefs();
 
-   List<PermissionModel> _permissionSettings = [
+  List<PermissionModel> _permissionSettings = [
     PermissionModel(
-        title: "File storage",
-        description: "Allows an application to write and read from external storage.",
-        isOn: false,
-        permission: Permission.storage
-    ),
-     PermissionModel(
-         title: "Media location",
-         description: "Required to be able to access photo albums.",
-         isOn: false,
-         permission: Permission.storage
-         ),
-    PermissionModel(
-        title: "Camera access",
-        description: "Required to be able to access the camera device.",
-        isOn: false,
-        permission: Permission.camera
+      title: "File storage",
+      description:
+          "Allows an application to write and read from external storage.",
+      isOn: false,
+      permission: Permission.storage,
     ),
     PermissionModel(
-        title: "Notifications",
-        description: "Allows an app to post notifications",
-        isOn: false,
-        permission: Permission.notification
-        ),
-    PermissionModel(
-        title: "Wake lock",
-        description: "Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming.",
-        isOn: false,
-        permission: Permission.accessMediaLocation
+      title: "Media location",
+      description: "Required to be able to access photo albums.",
+      isOn: false,
+      permission: Permission.storage,
     ),
     PermissionModel(
-        title: "Media library",
-        description: "Allows access to device's media library.",
-        isOn: false,
-        permission: Permission.mediaLibrary
-        ),
+      title: "Camera access",
+      description: "Required to be able to access the camera device.",
+      isOn: false,
+      permission: Permission.camera,
+    ),
+    PermissionModel(
+      title: "Notifications",
+      description: "Allows an app to post notifications",
+      isOn: false,
+      permission: Permission.notification,
+    ),
+    PermissionModel(
+      title: "Wake lock",
+      description:
+          "Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming.",
+      isOn: false,
+      permission: Permission.accessMediaLocation,
+    ),
+    PermissionModel(
+      title: "Media library",
+      description: "Allows access to device's media library.",
+      isOn: false,
+      permission: Permission.mediaLibrary,
+    ),
   ];
 
   UnmodifiableListView<PermissionModel> get permissionSettingsList {
@@ -65,39 +60,30 @@ class PermissionProvider extends ChangeNotifier{
     return _permissionSettings.length;
   }
 
-  void permissionHandler(PermissionModel permissionModel)async {
-
+  void permissionHandler(PermissionModel permissionModel) async {
     permissionModel.onChange();
 
-    PermissionStatus status = await checkPermissionStatus(permissionModel.permission);
+    PermissionStatus status = await checkPermissionStatus(
+      permissionModel.permission,
+    );
 
     switch (status) {
       case PermissionStatus.granted:
-        print("Permission granted.");
         permissionModel.isOn = true;
         break;
       case PermissionStatus.denied:
-        print("Permission denied.");
         permissionModel.isOn = false;
-       // openAppSettings();
+
         break;
       case PermissionStatus.permanentlyDenied:
-        print("Permission permanently denied.");
         permissionModel.isOn = false;
         openAppSettings();
         break;
       default:
-      // Obsługa innych statusów
-        print("Permission status: $status");
         break;
     }
-    //aktualizuj elementy listy
-    await _prefs.storeList('permissionSettings',permissionSettingsList);
-    for(var el in permissionSettingsList){
-      print("\n###########  PERMISSION FOR ${el.title} set on -> ${el.isOn} ###############\n");
-    }
 
-   //notifyListeners();
+    await _prefs.storeList('permissionSettings', permissionSettingsList);
   }
 
   Future<PermissionStatus> checkPermissionStatus(Permission? permission) async {
@@ -109,19 +95,17 @@ class PermissionProvider extends ChangeNotifier{
   }
 
   void updatePermissionSettings() async {
-    _permissionSettings = await _prefs.restorePermissionsList('permissionSettings',permissionSettingsList);
+    _permissionSettings = await _prefs.restorePermissionsList(
+      'permissionSettings',
+      permissionSettingsList,
+    );
 
     notifyListeners();
   }
-  Future<bool> checkAllPermissions() async {
-    // _permissionSettings = await _prefs.restorePermissionsList(
-    //   'permissionSettings',
-    //   permissionSettingsList,
-    // );
 
+  Future<bool> checkAllPermissions() async {
     for (var item in _permissionSettings) {
       if (!item.isOn!) {
-
         return false;
       }
     }

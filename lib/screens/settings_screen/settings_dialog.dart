@@ -53,7 +53,7 @@ class SliderDialog extends StatelessWidget {
                   text: context
                       .t("settings_text.settings_dial_info")
                       .capitalizeFirstLetter(),
-                  // text: "This setting delete data after\n",
+
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: sliderValueFontSize,
                   ),
@@ -66,7 +66,7 @@ class SliderDialog extends StatelessWidget {
                       text: context
                           .t("settings_text.settings_dial_confirm")
                           .capitalizeFirstLetter(),
-                      // text: "Are You sure?",
+
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
                         fontSize: sliderValueFontSize,
                       ),

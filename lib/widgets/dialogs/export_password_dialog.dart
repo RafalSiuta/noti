@@ -3,7 +3,6 @@ import 'package:noti/utils/crypto_helper/crypto_helper.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
 
 import '../../utils/dimensions/size_info.dart';
-import '../buttons/custom_text_button.dart';
 import '../buttons/dialog_button.dart';
 import '../text_display/password_input.dart';
 import 'custom_dialog.dart';
@@ -105,13 +104,11 @@ class _ExportPasswordDialogState extends State<ExportPasswordDialog> {
                   isConfirmed: false,
                   popOnConfirm: true,
                   onConfirm: () => Navigator.of(context).pop(),
-                  // child: Text(context.t('dialogs_text.cancel')),
                 ),
                 DialogButton(
                   isConfirmed: true,
                   popOnConfirm: false,
                   onConfirm: _confirm,
-                  // child: Text(context.t('dialogs_text.confirm')),
                 ),
               ],
             ),

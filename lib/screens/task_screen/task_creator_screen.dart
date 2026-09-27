@@ -24,7 +24,6 @@ class TaskCreator extends StatefulWidget {
   final bool editEnable;
   const TaskCreator({super.key, required this.newTask, this.editEnable = true});
   @override
-  // ignore: library_private_types_in_public_api
   _TaskCreatorState createState() => _TaskCreatorState();
 }
 
@@ -293,7 +292,7 @@ class _TaskCreatorState extends State<TaskCreator>
           builder: (ctx, setDialState) {
             return CustomDial(
               title: "headers_text.header_category_icon",
-              //title: 'Task category icon',
+
               child: Container(
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height / 1.8,
@@ -504,7 +503,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                   const SizedBox(height: 5),
                                                   Text(
                                                     context.t(pickedIconText),
-                                                    //pickedIconText,
+
                                                     textAlign: TextAlign.center,
                                                     style: Theme.of(context)
                                                         .inputDecorationTheme
@@ -536,8 +535,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                                     context,
                                                   )
                                                   .fullDate!,
-                                              // DateFormat('dd MMM yy')
-                                              //     .format(widget.newTask.date),
+
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineMedium!
@@ -625,7 +623,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                   helperText: context
                                       .t("creators_text.helper_title")
                                       .capitalizeFirstLetter(),
-                                  // helperText: 'Enter title',
+
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -661,7 +659,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                       ),
                                       Text(
                                         context.t("creators_text.notification"),
-                                        // 'notification',
+
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium!
@@ -721,7 +719,7 @@ class _TaskCreatorState extends State<TaskCreator>
                                   helperText: context
                                       .t("creators_text.helper_description")
                                       .capitalizeFirstLetter(),
-                                  // helperText: 'Enter description',
+
                                   helperStyle: Theme.of(context)
                                       .inputDecorationTheme
                                       .helperStyle!
@@ -746,7 +744,7 @@ class _TaskCreatorState extends State<TaskCreator>
                       selectedItem: selectedIndex,
                       onTap: (int index) => _onNavTap(index, taskProvider),
                     ),
-                  ), //nav rail menu
+                  ),
                 ],
               );
             },

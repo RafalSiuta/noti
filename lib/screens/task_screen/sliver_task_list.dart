@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:noti/screens/task_screen/task_creator_screen.dart';
-import 'package:noti/utils/extensions/string_extension.dart';
-import 'package:noti/utils/internationalization/i18_extension.dart';
 import 'package:provider/provider.dart';
 import '../../providers/task_provider/task_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/cards/task_card.dart';
 import '../../widgets/cards/task_swipe_card.dart';
 import '../../widgets/text_display/default_text.dart';
 
@@ -43,11 +40,7 @@ class SliverTaskList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  DefaultText(
-                    title: "headers_text.header_no_tasks",
-                    // context.t("headers_text.header_no_tasks").capitalizeFirstLetter()
-                    // title: 'There is no assignments\nfor today '
-                  ),
+                  DefaultText(title: "headers_text.header_no_tasks"),
                   SizedBox(height: bottomSpace),
                 ],
               ),

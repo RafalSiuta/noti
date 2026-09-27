@@ -58,11 +58,7 @@ class TaskProvider extends ChangeNotifier {
 
     await loadCalendarFormat();
     loadCalendarFormat();
-    // getSettingsValuesForTask().whenComplete((){
-    //   getTaskDbList();
-    //   getTasksBySearchOptions();
-    //   resyncAllNotifications();
-    // });
+
     await getSettingsValuesForTask();
 
     await getTaskDbList();
@@ -73,16 +69,6 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> initTask() async {
-  //   selDay = focDay;
-  //   loadCalendarFormat();
-  //   getSettingsValuesForTask().whenComplete((){
-  //     getTaskDbList();
-  //     getTasksBySearchOptions();
-  //     resyncAllNotifications();
-  //   });
-  //   notifyListeners();
-  // }
   List<Task> _taskListByKeyword = [];
   UnmodifiableListView<Task> get taskListByKeyword {
     return UnmodifiableListView(_taskListByKeyword);
@@ -307,7 +293,6 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void refreshNotification(Task task) {
-    // 1) Globalny wyłącznik
     if (!settings.isNotification) {
       NotificationsHelper().cancelNotification(task.id.hashCode);
       notifyListeners();
@@ -316,7 +301,6 @@ class TaskProvider extends ChangeNotifier {
 
     final now = DateTime.now();
 
-    // 2) Stan zadania / flaga per-zadanie / przeszłość
     final bool shouldCancel =
         task.isTaskDone ||
         (task.isNotification == false) ||
@@ -327,7 +311,6 @@ class TaskProvider extends ChangeNotifier {
     if (shouldCancel) {
       NotificationsHelper().cancelNotification(task.id.hashCode);
     } else {
-      // 3) Jednorazowe zaplanowanie na konkretną przyszłą datę+czas
       NotificationsHelper().scheduleNotification(task, task.date);
     }
 

@@ -81,7 +81,6 @@ class _ExportScreenState extends State<ExportScreen> {
                     title: context
                         .t("headers_text.header_export_title")
                         .capitalizeFirstLetter(),
-                    // title: 'Shapes',
                   ),
                 ),
               ),
@@ -112,10 +111,7 @@ class _ExportScreenState extends State<ExportScreen> {
                     keyboardType: TextInputType.text,
                     enabled: true,
                     onChanged: (newText) {
-                      setState(() {
-                        // widget.newTask.title = newText;
-                        // cursorPlace(titleVal, newText);
-                      });
+                      setState(() {});
                     },
                     cursorColor: Theme.of(context).indicatorColor,
                     controller: titleVal,
@@ -167,7 +163,7 @@ class _ExportScreenState extends State<ExportScreen> {
                   },
                 ),
                 Padding(
-                  padding:EdgeInsets.all(SizeInfo.edgePadding),
+                  padding: EdgeInsets.all(SizeInfo.edgePadding),
                   child: RowBuilder(
                     itemCount: 2,
                     itemBuilder: (context, index) {
@@ -188,7 +184,6 @@ class _ExportScreenState extends State<ExportScreen> {
                     },
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                   ),
                 ),
               ]),
@@ -204,7 +199,6 @@ class _ExportScreenState extends State<ExportScreen> {
                     title: context
                         .t("headers_text.header_import_title")
                         .capitalizeFirstLetter(),
-                    // title: 'Shapes',
                   ),
                 ),
               ),

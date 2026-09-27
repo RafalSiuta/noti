@@ -65,8 +65,6 @@ class DateHeader extends StatelessWidget {
     );
   }
 
-  /// Builds the same content used by [RichText] and by [heightFor]. Keeping it
-  /// in one place prevents an added TextSpan from being clipped by the sliver.
   static TextSpan textSpan(
     BuildContext context,
     DateModel date, {
@@ -85,8 +83,6 @@ class DateHeader extends StatelessWidget {
             style: textStyle?.copyWith(fontSize: SizeInfo.headerSubtitleSize),
           ),
         TextSpan(
-          // Do not leave a trailing newline when there is no holiday: it would
-          // be measured as an empty RichText line by TextPainter.
           text: '${date.fullDate}${hasDetails ? '\n' : ''}',
           style: textStyle?.copyWith(fontSize: SizeInfo.headerSubtitleSize),
         ),
@@ -95,14 +91,10 @@ class DateHeader extends StatelessWidget {
             text: '$holidayTitle${tradingSundayTitle == null ? '' : '\n'}',
             style: textStyle?.copyWith(fontSize: SizeInfo.headerSubtitleSize),
           ),
-
       ],
     );
   }
 
-  /// Returns the exact vertical space needed by [DateHeader]'s RichText and
-  /// its vertical padding. It reacts to added lines, wrapping and accessibility
-  /// text scaling.
   static double heightFor(
     BuildContext context,
     DateTime selectedDate, {
@@ -132,8 +124,6 @@ class DateHeader extends StatelessWidget {
     return painter.height + SizeInfo.menuTopMargin + 10.0;
   }
 
-  /// Returns the localized title of the first holiday on [selectedDate], or
-  /// `null` when the day is not a holiday.
   static String? holidayTitleFor(
     BuildContext context,
     DateTime selectedDate,
@@ -151,8 +141,6 @@ class DateHeader extends StatelessWidget {
     return null;
   }
 
-  /// Returns the localized trading Sunday title on [selectedDate], or `null`
-  /// when that day has no visible trading Sunday entry.
   static String? tradingSundayTitleFor(
     BuildContext context,
     DateTime selectedDate,

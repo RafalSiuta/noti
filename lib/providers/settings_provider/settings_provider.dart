@@ -20,7 +20,6 @@ import '../../utils/prefs/prefs.dart';
 import '../../utils/constants/sets_keys.dart';
 
 class SettingsProvider extends ChangeNotifier {
-
   PermissionProvider permissionProvider;
   TaskProvider? _taskProvider;
 
@@ -33,13 +32,10 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   void updatePermission(PermissionProvider sp) {
-
     permissionProvider = sp;
-
   }
 
   void init() async {
-
     await loadSets();
   }
 
@@ -53,7 +49,6 @@ class SettingsProvider extends ChangeNotifier {
 
   StartingDayOfWeek? calendarStartDay;
 
-  ///themes
   final Prefs _prefs = Prefs();
   ThemeData themeData = ThemeData();
   ThemeMode themeMode = ThemeMode.system;
@@ -78,10 +73,11 @@ class SettingsProvider extends ChangeNotifier {
         setCustomTheme(currentMonthByTheme);
         setCustomShape(currentMonthByTheme);
       } else {
-        currentTheme =
-        await _prefs
-            .restoreInt(THEME_PREFS_KEY, currentTheme)
-            .then((theme)=> currentTheme = setCustomTheme(theme));
+        final storedTheme = await _prefs.restoreInt(
+          THEME_PREFS_KEY,
+          currentTheme,
+        );
+        currentTheme = await setCustomTheme(storedTheme);
       }
     } catch (e) {
       currentTheme = 0;
@@ -93,8 +89,7 @@ class SettingsProvider extends ChangeNotifier {
   void loadCurrentShape() async {
     await _prefs
         .restoreInt(SHAPE_PREFS_KEY, 0)
-        .then((shape) => setCustomShape(shape)
-    );
+        .then((shape) => setCustomShape(shape));
     notifyListeners();
   }
 
@@ -113,7 +108,7 @@ class SettingsProvider extends ChangeNotifier {
     return shapes;
   }
 
-    int safeIndex(int i, int length) {
+  int safeIndex(int i, int length) {
     if (length <= 0) return 0;
     if (i < 0) return 0;
     if (i >= length) return length - 1;
@@ -130,12 +125,12 @@ class SettingsProvider extends ChangeNotifier {
     return isShapeTransparent;
   }
 
-   setCustomTheme(int theme) async {
-    if(theme >= 0 && theme <= 12){
+  Future<int> setCustomTheme(int theme) async {
+    if (theme >= 0 && theme <= 12) {
       theme = themes.themesList.first.id;
     }
     for (var item in themes.themesList) {
-      if(item.id == theme){
+      if (item.id == theme) {
         themeData = item.themeData!;
         currentTheme = theme;
       }
@@ -188,13 +183,13 @@ class SettingsProvider extends ChangeNotifier {
         break;
     }
     currentShape = safeIndex(shape, shapesList.shapesList.length);
-    //setTransparency(currentShape);
+
     await _prefs.storeInt(SHAPE_PREFS_KEY, shape);
     notifyListeners();
   }
 
-  ///shapes logic:
-  final CarouselSliderController carouselController = CarouselSliderController();
+  final CarouselSliderController carouselController =
+      CarouselSliderController();
 
   ShapesList shapesList = ShapesList();
 
@@ -202,10 +197,11 @@ class SettingsProvider extends ChangeNotifier {
 
   CustomClipper<Path> shapes = Shape1();
 
-
   void goToPrevious() {
     carouselController.previousPage(
-        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
 
     _prefs.storeInt(SHAPE_PREFS_KEY, currentShape);
     notifyListeners();
@@ -213,7 +209,9 @@ class SettingsProvider extends ChangeNotifier {
 
   void goToNext() {
     carouselController.nextPage(
-        duration: const Duration(milliseconds: 300), curve: Curves.decelerate);
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.decelerate,
+    );
     _prefs.storeInt(SHAPE_PREFS_KEY, currentShape);
     notifyListeners();
   }
@@ -229,7 +227,10 @@ class SettingsProvider extends ChangeNotifier {
 
   void onCalendarSettingsChange(SettingsModel sets) async {
     sets.onChange();
-    await _prefs.storeStatesLite(CALENDAR_PREFS_KEY, calendarSets.calendarSettings);
+    await _prefs.storeStatesLite(
+      CALENDAR_PREFS_KEY,
+      calendarSets.calendarSettings,
+    );
     calendarStartingDay();
     isThemeChangeMonthly = calendarSets.calendarSettings[1].isOn ?? false;
 
@@ -250,11 +251,11 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  StartingDayOfWeek? calendarStartingDay(){
-
-    if(calendarSets.calendarSettings[0].isOn == null || calendarSets.calendarSettings[0].isOn == false){
+  StartingDayOfWeek? calendarStartingDay() {
+    if (calendarSets.calendarSettings[0].isOn == null ||
+        calendarSets.calendarSettings[0].isOn == false) {
       calendarStartDay = StartingDayOfWeek.monday;
-    }else{
+    } else {
       calendarStartDay = StartingDayOfWeek.sunday;
     }
     notifyListeners();
@@ -265,16 +266,17 @@ class SettingsProvider extends ChangeNotifier {
 
   void onNotificationSettingsChange(SettingsModel sets) async {
     sets.onChange();
-    await _prefs.storeStatesLite(NOTIFICATION_PREFS_KEY, notificationSets.notificationSettings);
+    await _prefs.storeStatesLite(
+      NOTIFICATION_PREFS_KEY,
+      notificationSets.notificationSettings,
+    );
 
     if (sets.isOn == true) {
       isNotification = true;
       final ok = await NotificationsHelper().ensureNotificationCapabilities();
       if (ok) {
         await _taskProvider?.resyncAllNotifications();
-      } else {
-        // pokaż snackbar/toast z instrukcją
-      }
+      } else {}
     } else {
       isNotification = false;
       await NotificationsHelper().cancelAllNotifications();
@@ -299,12 +301,9 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<void> playSound() async {
     try {
-
       final player = AudioPlayer();
       await player.play(AssetSource('sounds/sound.wav'));
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   Future<void> updateNotificationSettings() async {
@@ -312,12 +311,15 @@ class SettingsProvider extends ChangeNotifier {
       NOTIFICATION_PREFS_KEY,
       notificationSets.notificationSettings,
     );
-    final len = math.min(states.length, notificationSets.notificationSettings.length);
+    final len = math.min(
+      states.length,
+      notificationSets.notificationSettings.length,
+    );
     for (int i = 0; i < len; i++) {
       notificationSets.notificationSettings[i].isOn = states[i];
     }
     isNotification = notificationSets.notificationSettings[0].isOn ?? false;
-    isSoundOn     = notificationSets.notificationSettings[1].isOn ?? false;
+    isSoundOn = notificationSets.notificationSettings[1].isOn ?? false;
     notifyListeners();
   }
 
@@ -333,10 +335,10 @@ class SettingsProvider extends ChangeNotifier {
     trashSets.trashSettings = await _prefs
         .restoreTrashList(TRASH_PREFS_KEY, trashSets.trashSettings)
         .then((value) {
-      if (value[0].isOn == true) {}
-      if (value[1].isOn == true) {}
-      return value;
-    });
+          if (value[0].isOn == true) {}
+          if (value[1].isOn == true) {}
+          return value;
+        });
   }
 
   void cancelDeleteSettings(int index) {
@@ -356,7 +358,6 @@ class SettingsProvider extends ChangeNotifier {
   PolicyList policyList = PolicyList();
 
   Future<void> loadSets() async {
-
     await _prefs.storeList(TRASH_PREFS_KEY, trashSets.trashSettings);
     updateCalendarSettings();
     themeData = await loadTheme();
@@ -366,6 +367,5 @@ class SettingsProvider extends ChangeNotifier {
     loadCurrentShape();
   }
 
-  //social links
   SocialList socialList = SocialList();
 }

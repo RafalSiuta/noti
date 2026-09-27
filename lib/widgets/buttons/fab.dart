@@ -3,7 +3,6 @@ import '../../utils/custom_icon_helper/noti_system_icons_icons.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class CustomFab extends StatelessWidget {
-  //final IconData icon;
   final Function onTap;
   final Function addTask;
   final Function addNote;
@@ -14,17 +13,18 @@ class CustomFab extends StatelessWidget {
 
   final bool ignorePointer;
 
-  const CustomFab(
-      {super.key,
-      required this.hideBtn,
-     // required this.icon,
-      required this.onTap,
-      required this.addNote,
-      required this.translationValueOne,
-      required this.translationValueTwo,
-      required this.rotationValue,
-      required this.addTask,
-      required this.ignorePointer});
+  const CustomFab({
+    super.key,
+    required this.hideBtn,
+
+    required this.onTap,
+    required this.addNote,
+    required this.translationValueOne,
+    required this.translationValueTwo,
+    required this.rotationValue,
+    required this.addTask,
+    required this.ignorePointer,
+  });
 
   double getRadianFromDegree(double degree) {
     double unitRadian = 57.295779513;
@@ -53,32 +53,39 @@ class CustomFab extends StatelessWidget {
             ),
           ),
           Transform.translate(
-            offset: Offset.fromDirection(getRadianFromDegree(270),
-                translationValueOne * (fabSize * 2 + 40)),
+            offset: Offset.fromDirection(
+              getRadianFromDegree(270),
+              translationValueOne * (fabSize * 2 + 40),
+            ),
             child: Transform(
               transform: Matrix4.rotationZ(getRadianFromDegree(rotationValue))
                 ..scale(translationValueOne),
               alignment: Alignment.center,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .floatingActionButtonTheme
-                        .backgroundColor,
-                    shape: BoxShape.rectangle,
+                  color: Theme.of(
+                    context,
+                  ).floatingActionButtonTheme.backgroundColor,
+                  shape: BoxShape.rectangle,
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
+                      color: Theme.of(
+                        context,
+                      ).unselectedWidgetColor.withValues(alpha: 0.5),
                       offset: const Offset(0.5, 0.5),
                       blurRadius: 0.2,
                     ),
                   ],
-                borderRadius: BorderRadius.all(Radius.circular(btnRadius)),),
+                  borderRadius: BorderRadius.all(Radius.circular(btnRadius)),
+                ),
                 width: fabSize,
                 height: fabSize,
                 child: IconButton(
-                  icon: Icon(NotiSystemIcons.task,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: iconSize),
+                  icon: Icon(
+                    NotiSystemIcons.task,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: iconSize,
+                  ),
                   onPressed: () {
                     addTask();
                     hideBtn();
@@ -89,25 +96,31 @@ class CustomFab extends StatelessWidget {
             ),
           ),
           Transform.translate(
-            offset: Offset.fromDirection(getRadianFromDegree(270),
-                translationValueTwo * (fabSize + 20)),
+            offset: Offset.fromDirection(
+              getRadianFromDegree(270),
+              translationValueTwo * (fabSize + 20),
+            ),
             child: Transform(
               transform: Matrix4.rotationZ(getRadianFromDegree(rotationValue))
                 ..scale(translationValueTwo),
               alignment: Alignment.center,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .floatingActionButtonTheme
-                        .backgroundColor,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Theme.of(context).unselectedWidgetColor.withValues(alpha: 0.5),
-                        offset: const Offset(0.5, 0.5),
-                        blurRadius: 0.2,
-                      ),
-                    ],
-                    shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(btnRadius))),
+                  color: Theme.of(
+                    context,
+                  ).floatingActionButtonTheme.backgroundColor,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Theme.of(
+                        context,
+                      ).unselectedWidgetColor.withValues(alpha: 0.5),
+                      offset: const Offset(0.5, 0.5),
+                      blurRadius: 0.2,
+                    ),
+                  ],
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(btnRadius)),
+                ),
                 width: fabSize,
                 height: fabSize,
                 child: IconButton(
@@ -132,12 +145,14 @@ class CustomFab extends StatelessWidget {
               child: FloatingActionButton(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(btnRadius))
+                  borderRadius: BorderRadius.all(Radius.circular(btnRadius)),
                 ),
                 isExtended: true,
-                child: Icon(NotiSystemIcons.edit,
-                    size: iconSize,
-                    color: Theme.of(context).colorScheme.primary,),
+                child: Icon(
+                  NotiSystemIcons.edit,
+                  size: iconSize,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 onPressed: () {
                   onTap();
                 },

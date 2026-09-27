@@ -14,7 +14,7 @@ class SmallCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskProvider>(
-      builder: (context,taskProvider,child){
+      builder: (context, taskProvider, child) {
         DateTime focDay = DateTime.now();
         return Calendar(
           key: key,
@@ -22,10 +22,9 @@ class SmallCalendar extends StatelessWidget {
           gesturesEnable: false,
           focDay: focDay,
           selDay: taskProvider.selDay,
-          // startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+
           onDaySelected: taskProvider.onDaySelected,
-          onMonthChange: (day) {
-          },
+          onMonthChange: (day) {},
           calendarFormat: CalendarFormat.week,
           onFormatChanged: (format) {
             taskProvider.changeDateFormat(format);
@@ -33,19 +32,28 @@ class SmallCalendar extends StatelessWidget {
           taskEvents: taskProvider.getCalendarValues,
           onDayLongPressed: (DateTime date, dateTime) async {
             await Navigator.push(
-                context,
-                CustomPageRoute(
-                    child: TaskCreator(
-                        editEnable: true,
-                        newTask: Task(
-                            date: DateTime(
-                                date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-                            icon: 1,
-                            description: "",
-                            title: "",
-                            priority: 1,
-                            isTaskDone: false)),
-                    direction: AxisDirection.right));
+              context,
+              CustomPageRoute(
+                child: TaskCreator(
+                  editEnable: true,
+                  newTask: Task(
+                    date: DateTime(
+                      date.year,
+                      date.month,
+                      date.day,
+                      DateTime.now().hour,
+                      DateTime.now().minute,
+                    ),
+                    icon: 1,
+                    description: "",
+                    title: "",
+                    priority: 1,
+                    isTaskDone: false,
+                  ),
+                ),
+                direction: AxisDirection.right,
+              ),
+            );
           },
         );
       },

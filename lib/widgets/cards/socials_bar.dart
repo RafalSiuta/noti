@@ -25,39 +25,41 @@ class SocialsBar extends StatelessWidget {
             return GestureDetector(
               onTap: () async {
                 if (index == 2) {
-
                 } else {
                   await Navigator.push(
-                      context,
-                      CustomPageRoute(
-                          child: Web(
-
-                            link: listItem.link!,
-                          ),
-                          direction: AxisDirection.up));
+                    context,
+                    CustomPageRoute(
+                      child: Web(link: listItem.link!),
+                      direction: AxisDirection.up,
+                    ),
+                  );
                 }
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
                   Container(
                     width: btnSize,
                     height: btnSize,
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .floatingActionButtonTheme
-                          .backgroundColor,
+                      color: Theme.of(
+                        context,
+                      ).floatingActionButtonTheme.backgroundColor,
                       shape: BoxShape.rectangle,
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
+                          color: Theme.of(
+                            context,
+                          ).unselectedWidgetColor.withValues(alpha: 0.5),
                           offset: const Offset(0.5, 0.5),
                           blurRadius: 0.2,
                         ),
                       ],
-                      borderRadius: BorderRadius.all(Radius.circular(btnRadius)),),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(btnRadius),
+                      ),
+                    ),
                     child: Center(
                       child: Icon(
                         listItem.icon,
@@ -70,12 +72,11 @@ class SocialsBar extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: socialPadding),
                     child: Text(
                       listItem.title!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontSize: socialSubtitleFontSize),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: socialSubtitleFontSize,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             );

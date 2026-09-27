@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import '../../models/date/date_model.dart';
 import '../../utils/dimensions/size_info.dart';
@@ -7,7 +6,14 @@ import '../../utils/internationalization/app_localizations.dart';
 import '../buttons/icon_btn.dart';
 
 class CalendarHeader extends StatelessWidget {
-  const CalendarHeader({required this.next, required this.previous,required this.date,this.widget, this.padding = EdgeInsets.zero, super.key});
+  const CalendarHeader({
+    required this.next,
+    required this.previous,
+    required this.date,
+    this.widget,
+    this.padding = EdgeInsets.zero,
+    super.key,
+  });
 
   final VoidCallback next;
   final VoidCallback previous;
@@ -31,49 +37,58 @@ class CalendarHeader extends StatelessWidget {
           IconBtn(
             icon: Icons.arrow_left,
             iconSize: textSize,
-            iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+            iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,
             onPressed: previous,
           ),
-          widget != null ? Expanded(
-            child: LayoutBuilder(
-              builder: (context,constraints){
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      spacing: 4,
-                      children: [
-                        Text(
-                          d.monthYear!.capitalizeFirstLetter(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+          widget != null
+              ? Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minWidth: constraints.maxWidth,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 4,
+                            children: [
+                              Text(
+                                d.monthYear!.capitalizeFirstLetter(),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .dialogTheme
+                                    .titleTextStyle!
+                                    .copyWith(fontSize: textSize),
+                              ),
+                              widget!,
+                            ],
+                          ),
                         ),
-                        widget!
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                );
-              }
-            ),
-          ) : SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Text(
-              d.monthYear!.capitalizeFirstLetter(),
-              //DateFormat('MMMM yy').format(date),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: Theme.of(context).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
-            ),
-          ),
+                )
+              : SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    d.monthYear!.capitalizeFirstLetter(),
+
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: Theme.of(
+                      context,
+                    ).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize),
+                  ),
+                ),
           IconBtn(
             icon: Icons.arrow_right,
             iconSize: textSize,
-            iconColor:  Theme.of(context).dialogTheme.titleTextStyle!.color,
+            iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,
             onPressed: next,
           ),
         ],

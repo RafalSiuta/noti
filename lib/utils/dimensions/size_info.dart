@@ -14,27 +14,23 @@ class SizeInfo {
 
   static double fabSize = 48.0;
 
-  ///padding / margins:
   static double edgePadding = 8.0;
   static double menuTopMargin = 8.0;
   static double pageTopMargin = 12.0;
 
   static double appBarCollapsedHeight = 70.0;
 
-  ///corner radius
   static double cornerRadius = 15.0;
   static double buttonCornerRadius = 5.0;
   static double outherCardCornerRadius = 8.0;
   static double innerCardCornerRadius = 6.0;
 
-  ///general - repeat in other widgets:
   static double headerTitleSize = 32;
   static double headerSubtitleSize = 18;
   static double verticalHeaderPadding = 10;
   static double leftEdgeMainPadding = .0;
   static double leftEdgeCreatorPadding = 8.0;
 
-  ///search bar and headers:
   static double searchBarHeight = 40;
   static double searchIconSize = 18;
   static double sliverHeaderHeight = 42;
@@ -48,14 +44,11 @@ class SizeInfo {
   static double switchButtonIconSize = 15;
   static double dialogIconSize = 12;
 
-  ///social bar:
   static double socialIcons = 18;
 
-  ///nav rail dimens:
   static double leadingAndTrailingIconSize = 16;
   static double navSideTitleSize = 18;
 
-  ///task dimens:
   static double taskCardHeight = 82;
   static double taskCardTitle = 12;
   static double taskCardDescription = 12;
@@ -69,14 +62,10 @@ class SizeInfo {
   static double taskRingLineWidth = 2.5;
   static double taskContentPadding = 0.0;
 
-  ///task_swipe_card dimens:
   static double taskCardContentPadding = 10.0;
   static double cardInnerPadding = 6.0;
   static double toogleButtonSide = 28.0;
 
-
-
-  ///note dimens:
   static double noteCardImageSize = 50;
   static double noteCardTitle = 12;
   static double noteCardContent = 8.0;
@@ -87,30 +76,24 @@ class SizeInfo {
   static double noteListBottomSpacing = 8.0;
   static double noteGridSpacing = 5.0;
 
-  ///calendar dimens:
   static double calendarDaySize = 12;
   static double smallIndicatorIconSize = 10;
-  static double calendarMarkerSize = 12;//15
-  static double calendarMarkerFontSize = 8.0;//10
+  static double calendarMarkerSize = 12;
+  static double calendarMarkerFontSize = 8.0;
   static double calendarCellMargin = 8.0;
   static double rowHeight = 42;
 
-  ///settings dimens:
   static double settingsCardTitleFontSize = 12;
   static double settingsCardDescriptionFontSize = 10;
   static double settingsCardHeight = 70;
 
-  ///carousel height:
   static double carouselHeight = 4;
 
-  //dialog dimens:
   static double dialogScaleFactor = 1.0;
   static int iconDialogListCrossAxisCount = 4;
 
   void initDimensions() {
-    print('DIMENSIONS INITIALIZED');
-    if (screenType == ScreenType.smallMobile) {
-    }
+    if (screenType == ScreenType.smallMobile) {}
     if (screenType == ScreenType.tablet) {
       tabletDimens();
     }
@@ -119,15 +102,13 @@ class SizeInfo {
     }
   }
 
-  void mobileDimens(){
-  }
+  void mobileDimens() {}
 
   void tabletDimens() {
-
     fabSize = 60.0;
 
     edgePadding = 12.0;
-    leftEdgeMainPadding  = 18;
+    leftEdgeMainPadding = 18;
     leftEdgeCreatorPadding = 24.0;
 
     gridColumnCount = 3;
@@ -139,19 +120,14 @@ class SizeInfo {
 
     helpTextSize = 13;
 
-    //corner radius:
     buttonCornerRadius = 10.0;
 
-    ///social bar:
     socialIcons = 23;
 
-    ///nav rail:
     leadingAndTrailingIconSize = 24;
 
     navSideTitleSize = 32;
 
-    ///headers:
-    ///
     headerTitleSize = 38;
     headerSubtitleSize = 28;
     verticalHeaderPadding = 16;
@@ -159,14 +135,12 @@ class SizeInfo {
     sliverLargeHeaderHeight = 120;
     sliverCalendarHeaderHeight = 160;
 
-    ///calendar
     rowHeight = 72;
     calendarMarkerSize = 23;
     calendarMarkerFontSize = 12;
     calendarCellMargin = 12;
     switchButtonIconSize = 8.0;
 
-    ///task card:
     taskCardHeight = 132;
     taskCardTitle = 18.0;
     taskCardDescription = 14;
@@ -177,11 +151,9 @@ class SizeInfo {
     taskContentPadding = 5.0;
     toogleButtonSide = 36.0;
 
-    ///swipe task card dimens
     taskCardContentPadding = 12.0;
     cardInnerPadding = 10.0;
 
-    ///note card:
     noteCardTitle = 18;
     noteCardContent = 15;
     noteLeftPadding = 27;
@@ -191,20 +163,16 @@ class SizeInfo {
     noteListBottomSpacing = 24;
     noteGridSpacing = 12.0;
 
-    ///search bar
     searchBarHeight = 72;
     searchIconSize = 32;
 
-    ///settings card:
     settingsCardHeight = 90;
     settingsCardTitleFontSize = 18;
     settingsCardDescriptionFontSize = 14;
     switchButtonIconSize = 30;
 
-    ///carousel:
     carouselHeight = 3;
 
-    //dialog dimns:
     dialogIconSize = 24.0;
     dialogScaleFactor = 1.5;
     iconDialogListCrossAxisCount = 5;

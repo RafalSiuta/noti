@@ -3,13 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class GalleryImageProvider extends ChangeNotifier {
-
   GalleryImageProvider() {
     initImageGallery();
   }
 
   Future<void> initImageGallery() async {
-    print('IMAGE PROVIDER WAS LOADED');
     await getGalleryImages();
 
     notifyListeners();
@@ -46,11 +44,10 @@ class GalleryImageProvider extends ChangeNotifier {
   }
 
   Future<AssetEntity?> _saveImageToGallery(Uint8List imageData) async {
-
     final AssetEntity asset = await PhotoManager.editor.saveImage(
-        imageData,
-        title: 'Noti${imageData.length.toStringAsFixed(4)}',
-        filename: "noti${imageData.length.toStringAsFixed(2)}.jpg"
+      imageData,
+      title: 'Noti${imageData.length.toStringAsFixed(4)}',
+      filename: "noti${imageData.length.toStringAsFixed(2)}.jpg",
     );
     return asset;
   }
@@ -67,21 +64,22 @@ class GalleryImageProvider extends ChangeNotifier {
     return UnmodifiableListView(_albums);
   }
 
-  void onAlbumChoose(int index){
+  void onAlbumChoose(int index) {
     selectedAlbum = index;
     getGalleryImages();
     notifyListeners();
   }
 
   Future<void> fetchAlbums() async {
-    final PermissionState permissionState = await PhotoManager.requestPermissionExtend(
-      requestOption: PermissionRequestOption(
-        androidPermission: const AndroidPermission(
-          type: RequestType(1),
-          mediaLocation: false,
-        ),
-      ),
-    );
+    final PermissionState permissionState =
+        await PhotoManager.requestPermissionExtend(
+          requestOption: PermissionRequestOption(
+            androidPermission: const AndroidPermission(
+              type: RequestType(1),
+              mediaLocation: false,
+            ),
+          ),
+        );
 
     if (!permissionState.hasAccess) return;
 
@@ -94,12 +92,11 @@ class GalleryImageProvider extends ChangeNotifier {
   }
 
   Future<void> getGalleryImages() async {
-
     if (_albums.isEmpty) {
       await fetchAlbums();
     }
 
-    if (_albums.isEmpty) return; // secure problems in case is no albums
+    if (_albums.isEmpty) return;
 
     AssetPathEntity album = _albums[selectedAlbum];
 
@@ -108,5 +105,4 @@ class GalleryImageProvider extends ChangeNotifier {
     _galleryImages = images;
     notifyListeners();
   }
-
 }

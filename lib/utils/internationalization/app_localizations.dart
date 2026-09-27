@@ -15,43 +15,21 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   Map<String, dynamic> _localizedMap = {};
 
-  // Future<bool> load() async {
-  //   String jsonString;
-  //   final candidates = <String>[
-  //     if (locale.countryCode != null && locale.countryCode!.isNotEmpty)
-  //       'lang/${locale.languageCode}_${locale.countryCode}.json',
-  //     'lang/${locale.languageCode}.json',
-  //     'lang/en.json',
-  //   ];
-  //
-  //   Object? lastError;
-  //   for (final path in candidates) {
-  //     try {
-  //       print('[i18n] Trying: $path');
-  //       jsonString = await rootBundle.loadString(path);
-  //       _localizedMap = json.decode(jsonString) as Map<String, dynamic>;
-  //       print('[i18n] Loaded: $path, locale=$locale');
-  //       return true;
-  //     } catch (e) {
-  //       print('[i18n] Failed: $path -> $e');
-  //       lastError = e;
-  //     }
-  //   }
-  //   throw FlutterError('Unable to load any localization asset. Last error: $lastError');
-  // }
   Future<bool> load() async {
     String jsonString;
 
-    // spróbuj pełnego taga (np. en_GB -> en-GB), potem język, a na końcu en
     final candidates = <String>[
       if (locale.countryCode != null && locale.countryCode!.isNotEmpty)
         'lang/${locale.languageCode}_${locale.countryCode}.json',
       'lang/${locale.languageCode}.json',
-      'lang/en.json','lang/pl.json','lang/es.json',
+      'lang/en.json',
+      'lang/pl.json',
+      'lang/es.json',
     ];
 
     Object? lastError;
@@ -62,14 +40,14 @@ class AppLocalizations {
         return true;
       } catch (e) {
         lastError = e;
-        // próbuj dalej
       }
     }
-    // Jeśli nic nie weszło — rzuć czytelnym błędem
-    throw FlutterError('Unable to load any localization asset. Last error: $lastError');
+
+    throw FlutterError(
+      'Unable to load any localization asset. Last error: $lastError',
+    );
   }
 
-  /// Tłumaczenie z obsługą zagnieżdżeń: "headers_text.header_policy"
   String tr(String path, {String? fallback}) {
     if (path.isEmpty) return fallback ?? '';
     final parts = path.split('.');
@@ -79,15 +57,13 @@ class AppLocalizations {
       if (current is Map && current.containsKey(p)) {
         current = current[p];
       } else {
-        return fallback ?? ''; // lub `path` jeśli chcesz widzieć brakujące klucze
+        return fallback ?? '';
       }
     }
     if (current is String) return current;
     return fallback ?? current?.toString() ?? '';
   }
 
-  /// Resolves a value keyed by language code, such as a holiday `name` from
-  /// `holidays.json`. Falls back to English and then the first available value.
   String localizedValue(Map<String, String> values, {String fallback = ''}) {
     if (values.isEmpty) return fallback;
 
@@ -103,45 +79,44 @@ class AppLocalizations {
     final raw = _localizedMap['policy_rules'];
     if (raw is! List) return const [];
 
-    return raw.map<PolicyItem>((e) {
-      final m = (e as Map).cast<String, dynamic>();
-      return PolicyItem(
-        id: (m['policy_id'] ?? '').toString(),
-        title: (m['policy_title'] ?? '').toString(),
-        description: (m['policy_description'] ?? '').toString(),
-      );
-    }).toList(growable: false);
+    return raw
+        .map<PolicyItem>((e) {
+          final m = (e as Map).cast<String, dynamic>();
+          return PolicyItem(
+            id: (m['policy_id'] ?? '').toString(),
+            title: (m['policy_title'] ?? '').toString(),
+            description: (m['policy_description'] ?? '').toString(),
+          );
+        })
+        .toList(growable: false);
   }
 
-
-  // alias zgodny z Twoim wywołaniem
   String translate(String key) => tr(key);
 
   DateModel dateFormat(DateTime date, BuildContext context) {
     final tag = Localizations.maybeLocaleOf(context)?.toLanguageTag();
     final model = DateModel();
-    model.shortDate     = DateFormat('dd MMM ', tag).format(date);
-    model.fullDate      = DateFormat('dd MMM yy', tag).format(date);
-    model.weekDay       = DateFormat('EEEE', tag).format(date);
-    model.monthYear     = DateFormat('LLLL yyyy', tag).format(date);
-    model.shortMonthYear     = DateFormat('MMM yy', tag).format(date);
-    model.shortWeekday  = DateFormat('E', tag).format(date);
+    model.shortDate = DateFormat('dd MMM ', tag).format(date);
+    model.fullDate = DateFormat('dd MMM yy', tag).format(date);
+    model.weekDay = DateFormat('EEEE', tag).format(date);
+    model.monthYear = DateFormat('LLLL yyyy', tag).format(date);
+    model.shortMonthYear = DateFormat('MMM yy', tag).format(date);
+    model.shortWeekday = DateFormat('E', tag).format(date);
     return model;
   }
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'pl', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      ['en', 'pl', 'es'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
     final localizations = AppLocalizations(locale: locale);
-    // final manifest = await rootBundle.loadString('AssetManifest.json');
-    // print('[assets] AssetManifest contains lang?: ${manifest.contains('lang/')}');
-    // print('[assets] manifest snippet: ${manifest.substring(0, 500)}');
 
     await localizations.load();
     return localizations;
@@ -150,4 +125,3 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
-

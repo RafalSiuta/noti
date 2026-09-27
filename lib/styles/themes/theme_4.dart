@@ -2,39 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/dimensions/size_info.dart';
 
-const theme_4MainBackgroundColor = Color(0xFFE6E6E6); //main-background
-const theme_4PatternColor = Color(0xFFD9D9D9); //pattern
-const theme_4CardBackgroundColor = Color(0xFFF8F8F8); //card-background
-const theme_4TimerTextColor = Color(0xFFF8F8F8); //timer-text
-const theme_4CardTimerFirstColor = Color(0xFF757575); //card-timer-first
-const theme_4CardTimerMiddleColor = Color(0xFF666666); //card-timer-middle
-const theme_4CardTimerLastColor = Color(0xFF575757); //card-timer-last
-const theme_4UnselectedTaskTimerColor = Color(
-  0xFF474747,
-); //unselected-task-timer
-const theme_4ButtonOutlineColor = Color(0xFFA6A5A5); //button-outline
-const theme_4BaseTextColor = Color(0xFF161616); //base-text
-const theme_4Accent1Color = Color(0xFFEDBB4C); //accent-1
-const theme_4Accent2Color = Color(0xFFE08D52); //accent-2
-const theme_4Accent3Color = Color(0xFFCD664C); //accent-3
-const theme_4ErrorColor = Color(0xFFFF5252); //error
-const theme_4UnselectedColor = Color(0xFF999999); //unselected
-const theme_4DividerColor = Color(0xFF636363); //divider
-const theme_4ShadowColor = Color(0xCC949494); //shadow
-const theme_4FabIconColor = Color(0xFF161616); //fab-icon
-const theme_4CalendarCellSelectedColor = Color(
-  0xFFA6A5A5,
-); //calendar-cell-selected
-const theme_4CalendarSelectedTextColor = Color(
-  0xFFF8F8F8,
-); //calendar-selected-text
-const theme_4CalendarBaseTextColor = Color(0xFF161616); //calendar-base-text
-const theme_4CalendarWeekendTextColor = Color(
-  0xFFEDBB4C,
-); //calendar-weekend-text
-const theme_4CalendarNextMonthColor = Color(0xFF999999); //calendar-next-month
+const theme_4MainBackgroundColor = Color(0xFFE6E6E6);
+const theme_4PatternColor = Color(0xFFD9D9D9);
+const theme_4CardBackgroundColor = Color(0xFFF8F8F8);
+const theme_4TimerTextColor = Color(0xFFF8F8F8);
+const theme_4CardTimerFirstColor = Color(0xFF757575);
+const theme_4CardTimerMiddleColor = Color(0xFF666666);
+const theme_4CardTimerLastColor = Color(0xFF575757);
+const theme_4UnselectedTaskTimerColor = Color(0xFF474747);
+const theme_4ButtonOutlineColor = Color(0xFFA6A5A5);
+const theme_4BaseTextColor = Color(0xFF161616);
+const theme_4Accent1Color = Color(0xFFEDBB4C);
+const theme_4Accent2Color = Color(0xFFE08D52);
+const theme_4Accent3Color = Color(0xFFCD664C);
+const theme_4ErrorColor = Color(0xFFFF5252);
+const theme_4UnselectedColor = Color(0xFF999999);
+const theme_4DividerColor = Color(0xFF636363);
+const theme_4ShadowColor = Color(0xCC949494);
+const theme_4FabIconColor = Color(0xFF161616);
+const theme_4CalendarCellSelectedColor = Color(0xFFA6A5A5);
+const theme_4CalendarSelectedTextColor = Color(0xFFF8F8F8);
+const theme_4CalendarBaseTextColor = Color(0xFF161616);
+const theme_4CalendarWeekendTextColor = Color(0xFFEDBB4C);
+const theme_4CalendarNextMonthColor = Color(0xFF999999);
 
-const theme_4PickerTextColor = Color(0xFF575757); //picker-text
+const theme_4PickerTextColor = Color(0xFF575757);
 
 final theme2PickersBaseTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -51,9 +43,6 @@ final theme2PickersTitleTextStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w700,
   ),
 );
-//TEXT STYLES:
-//headers:
-//Large header:
 
 final TextStyle theme2LargeHeaderTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -62,7 +51,6 @@ final TextStyle theme2LargeHeaderTextStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w700,
   ),
 );
-//Subtitle header:
 
 final TextStyle theme2SubtitleHeaderTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -72,8 +60,6 @@ final TextStyle theme2SubtitleHeaderTextStyle = GoogleFonts.inter(
     decoration: TextDecoration.none,
   ),
 );
-//task & note card style:
-//title text style:
 
 final TextStyle theme2CardTitleTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -83,7 +69,6 @@ final TextStyle theme2CardTitleTextStyle = GoogleFonts.inter(
     decoration: TextDecoration.none,
   ),
 );
-//content text:
 
 final TextStyle theme2ContentTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -93,7 +78,6 @@ final TextStyle theme2ContentTextStyle = GoogleFonts.inter(
     decoration: TextDecoration.none,
   ),
 );
-//unselected text (is done):
 
 final TextStyle theme2UnselectedTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -104,8 +88,6 @@ final TextStyle theme2UnselectedTextStyle = GoogleFonts.inter(
     decoration: TextDecoration.lineThrough,
   ),
 );
-//calendar text style:
-//day text style:
 
 final theme2CalendarDayWeekendTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -116,8 +98,6 @@ final theme2CalendarDayWeekendTextStyle = GoogleFonts.inter(
   ),
 );
 
-//calendar selected text style:
-
 final theme_4CalendarSelectedDayTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
     fontSize: 12,
@@ -126,8 +106,6 @@ final theme_4CalendarSelectedDayTextStyle = GoogleFonts.inter(
     decorationColor: theme_4CalendarSelectedTextColor,
   ),
 );
-
-//next month text style:
 
 final theme2CalendarNextMonthTextStyle = GoogleFonts.inter(
   textStyle: const TextStyle(
@@ -181,28 +159,22 @@ final theme_4 = ThemeData(
   splashColor: Colors.transparent,
   splashFactory: NoSplash.splashFactory,
   textTheme: TextTheme(
-    /// main big title
     headlineLarge: theme2LargeHeaderTextStyle,
 
-    /// list title & small headers
     headlineMedium: theme2SubtitleHeaderTextStyle,
 
-    ///note & task description text style date header style
     displayLarge: theme2CardTitleTextStyle,
 
-    ///unselected text
     displayMedium: theme2UnselectedTextStyle,
-    //content text style
+
     bodyMedium: theme2ContentTextStyle,
 
     titleSmall: theme_4CalendarSelectedDayTextStyle,
 
-    ///calendar default text style
     labelLarge: theme2CalendarDayWeekendTextStyle,
-    //calendar next month text style:
+
     labelSmall: theme2CalendarNextMonthTextStyle,
 
-    ///calendar weekend text style:
     labelMedium: theme2CalendarWeekendTextStyle,
   ),
   textSelectionTheme: const TextSelectionThemeData(
@@ -247,7 +219,7 @@ final theme_4 = ThemeData(
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(Colors.transparent),
-      // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
+
       overlayColor: WidgetStatePropertyAll(Colors.transparent),
       surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
       splashFactory: NoSplash.splashFactory,
@@ -392,33 +364,33 @@ final theme_4 = ThemeData(
     ),
     todayForegroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme_4BaseTextColor; // selected element text color
+        return theme_4BaseTextColor;
       }
-      return theme_4UnselectedColor; // unselected element text color
+      return theme_4UnselectedColor;
     }),
     todayBackgroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return theme_4Accent1Color.withValues(alpha: 0.5);
       }
-      return Colors.transparent; // unselected element text color
+      return Colors.transparent;
     }),
     dayOverlayColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return theme_4Accent1Color.withValues(alpha: 0.5);
       }
-      return theme_4UnselectedColor; // unselected element text color
+      return theme_4UnselectedColor;
     }),
     dayBackgroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
         return theme_4Accent1Color.withValues(alpha: 0.5);
       }
-      return Colors.transparent; // unselected element text color
+      return Colors.transparent;
     }),
     dayForegroundColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme_4BaseTextColor; // selected element text color
+        return theme_4BaseTextColor;
       }
-      return theme_4UnselectedColor; // unselected element text color
+      return theme_4UnselectedColor;
     }),
   ),
   timePickerTheme: TimePickerThemeData(
@@ -427,29 +399,27 @@ final theme_4 = ThemeData(
     dayPeriodTextStyle: theme2PickersBaseTextStyle,
     hourMinuteTextStyle: theme2PickersBaseTextStyle,
     dialTextStyle: theme2PickersBaseTextStyle,
-    dialHandColor: theme_4Accent1Color, // color handles
-    hourMinuteTextColor: theme_4BaseTextColor, // text colors
-    backgroundColor: theme_4CardBackgroundColor, // background color
+    dialHandColor: theme_4Accent1Color,
+    hourMinuteTextColor: theme_4BaseTextColor,
+    backgroundColor: theme_4CardBackgroundColor,
     dayPeriodTextColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme_4BaseTextColor; // selected element text color
+        return theme_4BaseTextColor;
       }
-      return theme_4UnselectedColor; // unselected element text color
+      return theme_4UnselectedColor;
     }),
     dialTextColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme_4BaseTextColor; // selected element text color
+        return theme_4BaseTextColor;
       }
-      return theme_4UnselectedColor; // unselected element text color
+      return theme_4UnselectedColor;
     }),
-    entryModeIconColor: theme_4BaseTextColor, // entry mode icon color
+    entryModeIconColor: theme_4BaseTextColor,
     hourMinuteColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return theme_4Accent1Color.withValues(
-          alpha: 0.5,
-        ); // selected hour/minute background color
+        return theme_4Accent1Color.withValues(alpha: 0.5);
       }
-      return theme_4CardBackgroundColor; // unselected hour/minute background color
+      return theme_4CardBackgroundColor;
     }),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(

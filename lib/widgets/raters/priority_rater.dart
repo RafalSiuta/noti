@@ -22,14 +22,14 @@ class Rater extends StatelessWidget {
     this.height = 8.0,
     this.size = 10,
     this.helperTextSize = 8.0,
-    this.isDone
+    this.isDone,
   });
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
     var markerColor = isDone == true
         ? Theme.of(context).unselectedWidgetColor
-        : priorityColor(context,rating);
+        : priorityColor(context, rating);
 
     if (index >= rating) {
       icon = Icon(
@@ -38,22 +38,15 @@ class Rater extends StatelessWidget {
         size: size,
       );
     } else if (index > rating - 1 && index < rating) {
-      icon = Icon(
-        Icons.circle,
-        color: markerColor,
-        size: size,
-      );
+      icon = Icon(Icons.circle, color: markerColor, size: size);
     } else {
-      icon = Icon(
-        Icons.circle,
-        color:markerColor,
-        size: size,
-      );
+      icon = Icon(Icons.circle, color: markerColor, size: size);
     }
     return InkResponse(
       radius: height,
-      onTap:
-          onRatingChanged == null ? null : () => onRatingChanged!(index + 1.0),
+      onTap: onRatingChanged == null
+          ? null
+          : () => onRatingChanged!(index + 1.0),
       child: Padding(
         padding: const EdgeInsets.only(right: 3.0, top: .0),
         child: icon,
@@ -70,21 +63,23 @@ class Rater extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(
-                  starCount, (index) => buildStar(context, index))),
-          const SizedBox(
-            height: 8.0,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(
+              starCount,
+              (index) => buildStar(context, index),
+            ),
           ),
+          const SizedBox(height: 8.0),
           Text(
-              context.t("creators_text.priority"),
-              //'Priority',
-              textAlign: TextAlign.left,
-              style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                        fontSize: helperTextSize,
-                      )),
+            context.t("creators_text.priority"),
+
+            textAlign: TextAlign.left,
+            style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
+              fontSize: helperTextSize,
+            ),
+          ),
         ],
       ),
     );

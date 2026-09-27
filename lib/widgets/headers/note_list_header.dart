@@ -9,7 +9,12 @@ import '../../utils/dimensions/size_info.dart';
 import '../../utils/extensions/numeral_form_extension.dart';
 
 class NoteListHeader extends StatelessWidget {
-  const NoteListHeader({super.key, required this.title, this.isSearch = false, this.horizontalPadding = 8.0});
+  const NoteListHeader({
+    super.key,
+    required this.title,
+    this.isSearch = false,
+    this.horizontalPadding = 8.0,
+  });
 
   final String title;
   final bool isSearch;
@@ -25,40 +30,42 @@ class NoteListHeader extends StatelessWidget {
         final notesLabel = plForm(
           context,
           count: counter,
-          oneKey:  "headers_text.header_note",     // "notatkę"
-          fewKey:  "headers_text.header_notes",    // "notatki"
-          manyKey: "headers_text.header_notes_s",  // "notatek"
+          oneKey: "headers_text.header_note",
+          fewKey: "headers_text.header_notes",
+          manyKey: "headers_text.header_notes_s",
         );
         return Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: SizeInfo.verticalHeaderPadding, horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(
+            vertical: SizeInfo.verticalHeaderPadding,
+            horizontal: horizontalPadding,
+          ),
           child: Row(
             children: [
               PlayAnimationBuilder(
-                tween: Tween<Offset>(begin: const Offset(-20.0, 0), end: Offset.zero),
+                tween: Tween<Offset>(
+                  begin: const Offset(-20.0, 0),
+                  end: Offset.zero,
+                ),
                 duration: headerDuration,
                 delay: const Duration(milliseconds: 100),
                 curve: Curves.easeOut,
-                builder: (context, value, child){
+                builder: (context, value, child) {
                   return Transform.translate(
                     offset: value,
                     child: Text(
-                        counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter $notesLabel"
-,                     // title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
+                      counter == 0
+                          ? ""
+                          : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter $notesLabel",
+                      style: Theme.of(context).textTheme.headlineMedium!
                           .copyWith(fontSize: SizeInfo.headerSubtitleSize),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
                   );
                 },
-              )
-
+              ),
             ],
           ),
-
         );
       },
     );

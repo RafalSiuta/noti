@@ -21,66 +21,70 @@ class Carousel extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CarouselSlider.builder(
-                  itemCount: settingsProvider.shapesList.carouselListCounter,
-                  carouselController: settingsProvider.carouselController,
-                  options: CarouselOptions(
-                      aspectRatio: 4.5 / 8,
-                      height:
-                          MediaQuery.of(context).size.height / SizeInfo.carouselHeight,
-                      initialPage: settingsProvider.currentShape,
-                      enlargeCenterPage: true,
-                      autoPlay: false,
-                      reverse: true,
-                      scrollPhysics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      enableInfiniteScroll: false,
-                      scrollDirection: Axis.horizontal,
-                      viewportFraction: 0.4,
-                      pageSnapping: true,
-                      onPageChanged: (index, function) {
-                        settingsProvider.onActivityChange(index);
-                      }),
-                  itemBuilder: (context, index, hero) {
-                    final carousel =
-                        settingsProvider.shapesList.shapesList[index];
-                    return PlayAnimationBuilder(
-                        tween: Tween<double>(begin: scaleStartValue, end: 1.0), duration: headerDuration,
-                        builder: (context, value, child){
+                itemCount: settingsProvider.shapesList.carouselListCounter,
+                carouselController: settingsProvider.carouselController,
+                options: CarouselOptions(
+                  aspectRatio: 4.5 / 8,
+                  height:
+                      MediaQuery.of(context).size.height /
+                      SizeInfo.carouselHeight,
+                  initialPage: settingsProvider.currentShape,
+                  enlargeCenterPage: true,
+                  autoPlay: false,
+                  reverse: true,
+                  scrollPhysics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  enableInfiniteScroll: false,
+                  scrollDirection: Axis.horizontal,
+                  viewportFraction: 0.4,
+                  pageSnapping: true,
+                  onPageChanged: (index, function) {
+                    settingsProvider.onActivityChange(index);
+                  },
+                ),
+                itemBuilder: (context, index, hero) {
+                  final carousel =
+                      settingsProvider.shapesList.shapesList[index];
+                  return PlayAnimationBuilder(
+                    tween: Tween<double>(begin: scaleStartValue, end: 1.0),
+                    duration: headerDuration,
+                    builder: (context, value, child) {
                       return Transform.scale(
                         scale: value,
                         child: Card(
                           elevation: 2,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(SizeInfo.outherCardCornerRadius),
+                            ),
                           ),
                           color: Theme.of(context).scaffoldBackgroundColor,
                           shadowColor: Theme.of(context).shadowColor,
                           child: Padding(
                             padding: const EdgeInsets.all(.0),
-                            child:
-
-                            ClipPath(
+                            child: ClipPath(
                               clipper: carousel,
                               child: Container(
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(SizeInfo.outherCardCornerRadius),
-
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      SizeInfo.outherCardCornerRadius,
                                     ),
-                                    color: Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                  color: Theme.of(context).colorScheme.tertiary,
                                 ),
                               ),
                             ),
                           ),
                         ),
                       );
-                    });
-                  }),
+                    },
+                  );
+                },
+              ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,19 +92,23 @@ class Carousel extends StatelessWidget {
                 IconBtn(
                   icon: Icons.arrow_left,
                   iconSize: SizeInfo.headerSubtitleSize,
-                  iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+                  iconColor: Theme.of(
+                    context,
+                  ).dialogTheme.titleTextStyle!.color,
                   onPressed: () => settingsProvider.goToPrevious(),
                 ),
                 IconBtn(
                   icon: Icons.arrow_right,
                   iconSize: SizeInfo.headerSubtitleSize,
-                  iconColor: Theme.of(context).dialogTheme.titleTextStyle!.color,//Theme.of(context).indicatorColor,
+                  iconColor: Theme.of(
+                    context,
+                  ).dialogTheme.titleTextStyle!.color,
                   onPressed: () => settingsProvider.goToNext(),
                 ),
               ],
             ),
           ],
-        ); //slider
+        );
       },
     );
   }

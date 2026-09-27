@@ -42,14 +42,6 @@ class IdGenerator {
     _installationId = installationId;
   }
 
-  // String makeId(IdRecordType type) {
-  //   final installationId = _installationId ?? _uuid.v4();
-  //   final createdAtMicros = DateTime.now().toUtc().microsecondsSinceEpoch;
-  //   final recordId = _uuid.v4();
-  //
-  //   return '${type.prefix}_${installationId}_${createdAtMicros}_$recordId';
-  // }
-
   bool isLegacyId(String? id) {
     if (id == null || id.isEmpty) return true;
     if (id.startsWith('noti_mobile_')) return false;
@@ -59,12 +51,6 @@ class IdGenerator {
         !id.startsWith('${IdRecordType.taskItem.prefix}_');
   }
 }
-
-// String makeNoteId() => IdGenerator.instance.makeId(IdRecordType.note);
-//
-// String makeTaskId() => IdGenerator.instance.makeId(IdRecordType.task);
-//
-// String makeTaskItemId() => IdGenerator.instance.makeId(IdRecordType.taskItem);
 
 bool isLegacyId(String? id) => IdGenerator.instance.isLegacyId(id);
 

@@ -31,11 +31,6 @@ Future<void> main() async {
   await IdGenerator.instance.init();
   await NotificationsHelper().init();
   await NotificationsHelper().requestNotificationPermissions();
-  //testing
-  //await NotificationsHelper().showImmediateTest();
-  //await NotificationsHelper().scheduleInOneMinute();
-  //await NotificationsHelper().debugDumpNotificationState();
-  //await NotificationsHelper().cancelAllNotifications();
 
   Future<int> getAndroidVersion() async {
     if (Platform.isAndroid) {
@@ -101,16 +96,13 @@ class MyApp extends StatelessWidget {
               SettingsProvider(context.read<PermissionProvider>()),
           update: (context, permission, previous) {
             final sp = previous ?? SettingsProvider(permission);
-            // jeżeli SettingsProvider potrzebuje odświeżyć referencję do permission:
-            sp.updatePermission(
-              permission,
-            ); // (dodaj metodę, jeśli potrzebujesz)
+
+            sp.updatePermission(permission);
             return sp;
           },
         ),
         ChangeNotifierProvider(create: (_) => TaskSearchProvider()),
 
-        // 2) TaskProvider zależy od Settings + TaskSearch
         ChangeNotifierProxyProvider2<
           SettingsProvider,
           TaskSearchProvider,
@@ -127,7 +119,6 @@ class MyApp extends StatelessWidget {
           },
         ),
 
-        // ------------ Twoje inne providery zależne od Settings, itd. -------------
         ChangeNotifierProxyProvider2<
           SettingsProvider,
           NoteSearchProvider,
@@ -165,7 +156,7 @@ class MyApp extends StatelessWidget {
             ],
             localeResolutionCallback: (locale, supported) {
               if (locale == null) return supported.first;
-              // dopasuj po languageCode, a jak się da to także countryCode
+
               for (final l in supported) {
                 if (l.languageCode == locale.languageCode &&
                     (l.countryCode == locale.countryCode ||
@@ -173,19 +164,11 @@ class MyApp extends StatelessWidget {
                   return l;
                 }
               }
-              // fallback tylko po języku
+
               for (final l in supported) {
                 if (l.languageCode == locale.languageCode) return l;
               }
               return supported.first;
-
-              // for (var supportedLocale in supported) {
-              //   if (supportedLocale.languageCode == locale.languageCode &&
-              //       supportedLocale.countryCode == locale.countryCode) {
-              //     return supportedLocale;
-              //   }
-              // }
-              // return supported.first;
             },
             theme: settings.getTheme(),
             initialRoute: '/',

@@ -5,7 +5,16 @@ import '../../utils/dimensions/size_info.dart';
 import '../tooltip/custom_text_toolbar.dart';
 
 class SearchInput extends StatelessWidget {
-  const SearchInput({this.isExpanded = true, required this.searchInputController,required this.searchFocusNode, required this.onEditingComplete, required this.onChanged, required this.suffixIcon, this.title = "", super.key});
+  const SearchInput({
+    this.isExpanded = true,
+    required this.searchInputController,
+    required this.searchFocusNode,
+    required this.onEditingComplete,
+    required this.onChanged,
+    required this.suffixIcon,
+    this.title = "",
+    super.key,
+  });
   final bool isExpanded;
   final TextEditingController searchInputController;
   final FocusNode searchFocusNode;
@@ -16,8 +25,17 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius searchBarBorderRadius = BorderRadius.only(topLeft: Radius.circular(SizeInfo.innerCardCornerRadius),topRight: Radius.circular(SizeInfo.innerCardCornerRadius), bottomLeft: isExpanded ? Radius.circular(.0) : Radius.circular(SizeInfo.innerCardCornerRadius),  bottomRight: isExpanded ? Radius.circular(.0) : Radius.circular(SizeInfo.innerCardCornerRadius));
-    return  Container(
+    BorderRadius searchBarBorderRadius = BorderRadius.only(
+      topLeft: Radius.circular(SizeInfo.innerCardCornerRadius),
+      topRight: Radius.circular(SizeInfo.innerCardCornerRadius),
+      bottomLeft: isExpanded
+          ? Radius.circular(.0)
+          : Radius.circular(SizeInfo.innerCardCornerRadius),
+      bottomRight: isExpanded
+          ? Radius.circular(.0)
+          : Radius.circular(SizeInfo.innerCardCornerRadius),
+    );
+    return Container(
       key: key,
       width: MediaQuery.of(context).size.width,
       height: SizeInfo.searchBarHeight,
@@ -26,7 +44,9 @@ class SearchInput extends StatelessWidget {
         borderRadius: searchBarBorderRadius,
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
+            color: Theme.of(
+              context,
+            ).unselectedWidgetColor.withValues(alpha: 0.5),
             offset: const Offset(0.0, 0.0),
           ),
           BoxShadow(
@@ -48,30 +68,32 @@ class SearchInput extends StatelessWidget {
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
         contextMenuBuilder: (context, editableTextState) {
           return CustomTextSelectionToolbar(
-              key: key, editableTextState: editableTextState);
+            key: key,
+            editableTextState: editableTextState,
+          );
         },
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
         cursorColor: Theme.of(context).indicatorColor,
         textAlign: TextAlign.left,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(fontSize: SizeInfo.headerSubtitleSize),
+        style: Theme.of(
+          context,
+        ).textTheme.bodyMedium!.copyWith(fontSize: SizeInfo.headerSubtitleSize),
         decoration: InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            hintText: title,
-            hintMaxLines: 1,
-            hintStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(fontSize: SizeInfo.headerSubtitleSize, letterSpacing: 1),
-            suffixIcon: suffixIcon,
-            suffixIconConstraints: BoxConstraints(maxWidth: 40, maxHeight: 40)),
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          hintText: title,
+          hintMaxLines: 1,
+          hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: SizeInfo.headerSubtitleSize,
+            letterSpacing: 1,
+          ),
+          suffixIcon: suffixIcon,
+          suffixIconConstraints: BoxConstraints(maxWidth: 40, maxHeight: 40),
+        ),
       ),
     );
   }

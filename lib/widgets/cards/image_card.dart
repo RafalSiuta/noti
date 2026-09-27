@@ -6,12 +6,13 @@ import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class ImageAssetCard extends StatelessWidget {
-  const ImageAssetCard(
-      {super.key,
-      required this.img,
-      this.size = 100,
-      this.onTap,
-      this.onHold,});
+  const ImageAssetCard({
+    super.key,
+    required this.img,
+    this.size = 100,
+    this.onTap,
+    this.onHold,
+  });
 
   final AssetEntity img;
   final double size;
@@ -26,37 +27,42 @@ class ImageAssetCard extends StatelessWidget {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.outherCardCornerRadius),
+          ),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(SizeInfo.outherCardCornerRadius - 1)),
-          child:
-          Image(
+          borderRadius: BorderRadius.all(
+            Radius.circular(SizeInfo.outherCardCornerRadius - 1),
+          ),
+          child: Image(
             image: AssetEntityImageProvider(
               img,
               isOriginal: false,
               thumbnailSize: ThumbnailSize.square(size.toInt()),
               thumbnailFormat: ThumbnailFormat.jpeg,
             ),
-            width:size,
+            width: size,
             height: size,
             fit: BoxFit.cover,
             filterQuality: FilterQuality.high,
-          )
+          ),
         ),
       ),
     );
   }
 }
+
 class ImageCard extends StatelessWidget {
-  const ImageCard(
-      {super.key,
-      required this.img,
-      this.width = 100,
-      this.height = 120,
-      this.onTap,
-      this.onHold,
-      this.cornerRadius = 15});
+  const ImageCard({
+    super.key,
+    required this.img,
+    this.width = 100,
+    this.height = 120,
+    this.onTap,
+    this.onHold,
+    this.cornerRadius = 15,
+  });
 
   final Uint8List img;
   final double width;
@@ -80,7 +86,7 @@ class ImageCard extends StatelessWidget {
           child: SizedBox(
             width: width,
             child: AspectRatio(
-              aspectRatio: 3/5,
+              aspectRatio: 3 / 5,
               child: Image.memory(
                 img,
                 fit: BoxFit.cover,

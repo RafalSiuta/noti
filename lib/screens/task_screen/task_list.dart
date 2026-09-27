@@ -37,7 +37,6 @@ class TaskList extends StatelessWidget {
               title: context
                   .t("headers_text.header_no_tasks")
                   .capitalizeFirstLetter(),
-              //title: 'There is no assignments\nfor today headers_text.header_no_tasks',
             ),
           );
         } else {

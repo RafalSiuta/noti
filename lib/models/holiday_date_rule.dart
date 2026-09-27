@@ -114,7 +114,6 @@ class HolidayDateRule {
     }
   }
 
-  // Meeus/Jones/Butcher algorithm for Gregorian Western Easter.
   static DateTime calculateWesternEasterDate(int year) {
     final a = year % 19;
     final b = year ~/ 100;

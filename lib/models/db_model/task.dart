@@ -56,6 +56,5 @@ class Task extends HiveObject {
     } else {
       isNotification = true;
     }
-    //isNotification = !isNotification;
   }
 }

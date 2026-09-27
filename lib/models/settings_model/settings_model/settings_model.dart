@@ -3,14 +3,14 @@ class SettingsModel {
   String? description;
   bool? isOn;
 
-  SettingsModel(
-      {required this.title, required this.description, this.isOn = false});
+  SettingsModel({
+    required this.title,
+    required this.description,
+    this.isOn = false,
+  });
 
   Map<String, Object?> toMap() {
-    var map = <String, dynamic>{
-      'title': title,
-      'description': description,
-    };
+    var map = <String, dynamic>{'title': title, 'description': description};
     if (isOn != null) {
       if (isOn == true) {
         map['is_on'] = 1;

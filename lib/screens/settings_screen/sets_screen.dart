@@ -23,7 +23,6 @@ class SetsScreen extends StatelessWidget {
     double topMargin = SizeInfo.pageTopMargin;
     var switchIconSize = SizeInfo.switchButtonIconSize;
     var headerHeight = SizeInfo.sliverHeaderHeight;
-    var btnPadding = SizeInfo.edgePadding;
 
     return Consumer3<SettingsProvider, TaskProvider, NoteProvider>(
       builder: (context, settingsProvider, taskProvider, noteProvider, child) {
@@ -33,7 +32,6 @@ class SetsScreen extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           slivers: [
-            //notifications list settings
             SliverPadding(
               padding: EdgeInsets.only(top: topMargin),
               sliver: SliverPersistentHeader(
@@ -45,20 +43,11 @@ class SetsScreen extends StatelessWidget {
                     title: context
                         .t("headers_text.header_notifications")
                         .capitalizeFirstLetter(),
-                    // title: 'Calendar',
                   ),
                 ),
               ),
             ),
-            // SliverPersistentHeader(
-            //     pinned: true,
-            //     delegate: SliverHeader(
-            //         paddingHorizontal: 8.0,
-            //         height: headerHeight,
-            //         child: SmallHeader(
-            //             title:context.t("headers_text.header_notifications").capitalizeFirstLetter()
-            //           // title: 'Notifications',
-            //         ))),
+
             SliverList(
               delegate: SliverChildListDelegate([
                 ColumnBuilder(
@@ -69,7 +58,7 @@ class SetsScreen extends StatelessWidget {
                     final notificationSettings = settingsProvider
                         .notificationSets
                         .notificationSettingsList[index];
-                    // print("WHATS WRONG WITH CARD TITLE: ${notificationSettings.title!} AND DESCRIPTION: ${notificationSettings.description!}");
+
                     return SettingsCard(
                       title: notificationSettings.title!,
                       description: notificationSettings.description!,
@@ -87,25 +76,12 @@ class SetsScreen extends StatelessWidget {
                           }
                         },
                       ),
-                      // SwitchBtn(
-                      //     iconData: Icons.circle,
-                      //     iconSize: switchIconSize,
-                      //     value: notificationSettings.isOn,
-                      //     onChanged: (val) {
-                      //       if(index == 0){
-                      //         settingsProvider.onNotificationSettingsChange(
-                      //             notificationSettings);
-                      //       }else{
-                      //         settingsProvider.onNotificationSound(notificationSettings);
-                      //       }
-                      //
-                      //     }),
                     );
                   },
                 ),
               ]),
             ),
-            //calendar settings
+
             SliverPadding(
               padding: EdgeInsets.zero,
               sliver: SliverPersistentHeader(
@@ -117,7 +93,6 @@ class SetsScreen extends StatelessWidget {
                     title: context
                         .t("headers_text.header_calendar")
                         .capitalizeFirstLetter(),
-                    // title: 'Calendar',
                   ),
                 ),
               ),
@@ -142,20 +117,12 @@ class SetsScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      // ToogleCheck(
-                      //     iconData: Icons.circle,
-                      //     iconSize: switchIconSize,
-                      //     value: calendarSettings.isOn,
-                      //     onChanged: (val) {
-                      //       settingsProvider
-                      //           .onCalendarSettingsChange(calendarSettings);
-                      //     }),
                     );
                   },
                 ),
               ]),
             ),
-            //trash settings
+
             SliverPersistentHeader(
               pinned: true,
               delegate: SliverHeader(
@@ -165,7 +132,6 @@ class SetsScreen extends StatelessWidget {
                   title: context
                       .t("headers_text.header_trash")
                       .capitalizeFirstLetter(),
-                  //title: 'Trash',
                 ),
               ),
             ),

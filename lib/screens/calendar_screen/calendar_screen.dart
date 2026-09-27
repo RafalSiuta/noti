@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:noti/providers/settings_provider/settings_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import '../../models/db_model/task.dart';
 import 'package:noti/providers/task_provider/task_provider.dart';
 import '../../utils/customPageRoute/custom_page_route.dart';
 import '../../utils/dimensions/size_info.dart';
-import '../../widgets/headers/sliver_list_header.dart';
 import '../../widgets/headers/task_header.dart';
 import '../task_screen/sliver_task_list.dart';
 import '../task_screen/task_creator_screen.dart';
@@ -20,29 +17,28 @@ class CalendarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var spacingTop = SizeInfo.menuTopMargin;
     return Consumer<TaskProvider>(
-        builder: (context, taskProvider, child){
-          final GlobalKey<TooltipState> holidaysTooltipKey = GlobalKey<TooltipState>();
-
-         return AnimationLimiter(
-           child: CustomScrollView(
-            physics:
-            const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      builder: (context, taskProvider, child) {
+        return AnimationLimiter(
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
             slivers: [
               SliverToBoxAdapter(
                 child: Calendar(
                   key: key,
-                  //holidaysTooltipKey: holidaysTooltipKey,
+
                   topSpacing: spacingTop,
                   isHeaderVisible: true,
-                  next: (){
+                  next: () {
                     taskProvider.onButtonMonthChange("+");
                   },
-                  prev:(){
+                  prev: () {
                     taskProvider.onButtonMonthChange("-");
                   },
                   focDay: taskProvider.focDay,
                   selDay: taskProvider.selDay,
-                  // startingDayOfWeek: taskProvider.settings.calendarStartDay ?? StartingDayOfWeek.monday,
+
                   onDaySelected: taskProvider.onDaySelected,
                   onMonthChange: (day) {
                     taskProvider.onMonthChange(day);
@@ -52,32 +48,40 @@ class CalendarScreen extends StatelessWidget {
                     taskProvider.changeDateFormat(format);
                   },
                   taskEvents: taskProvider.getCalendarValues,
-                  onDayLongPressed:
-                      (DateTime date, dateTime) async {
+                  onDayLongPressed: (DateTime date, dateTime) async {
                     await Navigator.push(
-                        context,
-                        CustomPageRoute(
-                            child: TaskCreator(
-                                editEnable: true,
-                                newTask: Task(
-                                    date: DateTime(
-                                        date.year, date.month, date.day,DateTime.now().hour,DateTime.now().minute),
-                                    icon: 1,
-                                    description: "",
-                                    title: "",
-                                    priority: 1,
-                                    isTaskDone: false)),
-                            direction: AxisDirection.right));
+                      context,
+                      CustomPageRoute(
+                        child: TaskCreator(
+                          editEnable: true,
+                          newTask: Task(
+                            date: DateTime(
+                              date.year,
+                              date.month,
+                              date.day,
+                              DateTime.now().hour,
+                              DateTime.now().minute,
+                            ),
+                            icon: 1,
+                            description: "",
+                            title: "",
+                            priority: 1,
+                            isTaskDone: false,
+                          ),
+                        ),
+                        direction: AxisDirection.right,
+                      ),
+                    );
                   },
                 ),
               ),
-              //SliverListHeader(),
+
               TaskHeader(),
               SliverTaskList(),
             ],
           ),
         );
-        });
+      },
+    );
   }
 }
-

@@ -21,72 +21,79 @@ class NoteList extends StatelessWidget {
       builder: (context, noteProvider, child) {
         var columnCount = SizeInfo.gridColumnCount;
         var scaleCard = SizeInfo.scaleCard;
-        var  bottomSpacing = SizeInfo.noteListBottomSpacing;
+        var bottomSpacing = SizeInfo.noteListBottomSpacing;
         var noteSpacing = SizeInfo.noteGridSpacing;
         int counter = isGrid
             ? noteProvider.noteListByKeywordCounter
             : noteProvider.noteListCounter;
-        final noteList =
-            isGrid ? noteProvider.noteListByKeyword : noteProvider.noteList;
+        final noteList = isGrid
+            ? noteProvider.noteListByKeyword
+            : noteProvider.noteList;
 
         if (noteList.isEmpty) {
           return DefaultText(
-              title: "headers_text.header_no_notes",
-              isNotes: true,
-              //title:context.t("headers_text.header_no_notes").capitalizeFirstLetter()
-            // title: 'No Notes for today',
+            title: "headers_text.header_no_notes",
+            isNotes: true,
           );
         } else {
           return Padding(
-            padding: EdgeInsets.only(left: 8.0,bottom: bottomSpacing ),
+            padding: EdgeInsets.only(left: 8.0, bottom: bottomSpacing),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NoteListHeader(
-                    title:counter == 0 ? "" : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes"):context.t("headers_text.header_note")}"
-                  // title: 'You have $counter note${counter > 1 ? "s" : ""}',
+                  title: counter == 0
+                      ? ""
+                      : "${context.t("headers_text.header_you_have").capitalizeFirstLetter()} $counter ${counter > 1 ? context.t("headers_text.header_notes") : context.t("headers_text.header_note")}",
                 ),
                 Expanded(
                   child: AnimationLimiter(
                     child: GridView.count(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        scrollDirection:
-                            isGrid == true ? Axis.vertical : Axis.horizontal,
-                        crossAxisSpacing: noteSpacing,
-                        shrinkWrap: true,
-                        mainAxisSpacing: noteSpacing,
-                        crossAxisCount: isGrid == true ? columnCount : 1,
-                        childAspectRatio: isGrid == true ? 2.3 / 3 : 2.5 / 2,
-                        children: List.generate(counter, (index) {
-                          final list = noteList[index];
-                          return AnimationConfiguration.staggeredGrid(
-                            columnCount: isGrid == true ? 2 : 1,
-                            position: index,
-                            duration: headerDuration,
-                            child: ScaleAnimation(
-                              scale: 1.0,
-                              child: FadeInAnimation(
-                                  child: Transform.scale(
-                                      scale: isGrid == true ? 0.9 : scaleCard,
-                                      child: NoteCard(
-                                        isGrid: isGrid,
-                                        edit: () async {
-                                          await Navigator.push(
-                                              context,
-                                              CustomPageRoute(
-                                                  child: NoteCreator(
-                                                    newNote: list,
-                                                    editEnable: false,
-                                                  ),
-                                                  direction: AxisDirection.up));
-                                        },
-                                        note: list,
-                                      ))),
+                      physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
+                      scrollDirection: isGrid == true
+                          ? Axis.vertical
+                          : Axis.horizontal,
+                      crossAxisSpacing: noteSpacing,
+                      shrinkWrap: true,
+                      mainAxisSpacing: noteSpacing,
+                      crossAxisCount: isGrid == true ? columnCount : 1,
+                      childAspectRatio: isGrid == true ? 2.3 / 3 : 2.5 / 2,
+                      children: List.generate(counter, (index) {
+                        final list = noteList[index];
+                        return AnimationConfiguration.staggeredGrid(
+                          columnCount: isGrid == true ? 2 : 1,
+                          position: index,
+                          duration: headerDuration,
+                          child: ScaleAnimation(
+                            scale: 1.0,
+                            child: FadeInAnimation(
+                              child: Transform.scale(
+                                scale: isGrid == true ? 0.9 : scaleCard,
+                                child: NoteCard(
+                                  isGrid: isGrid,
+                                  edit: () async {
+                                    await Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                        child: NoteCreator(
+                                          newNote: list,
+                                          editEnable: false,
+                                        ),
+                                        direction: AxisDirection.up,
+                                      ),
+                                    );
+                                  },
+                                  note: list,
+                                ),
+                              ),
                             ),
-                          );
-                        })),
+                          ),
+                        );
+                      }),
+                    ),
                   ),
                 ),
               ],

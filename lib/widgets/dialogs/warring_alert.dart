@@ -53,15 +53,16 @@ class WarringAlert extends StatelessWidget {
                   Icon(
                     Icons.warning_rounded,
                     color: Theme.of(context).colorScheme.error,
-                    size: textSize*1.2,
+                    size: textSize * 1.2,
                   ),
                   Text(
                     context.t("dialogs_text.warring").capitalizeFirstLetter(),
                     textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).dialogTheme.titleTextStyle!.copyWith(fontSize: textSize,color:Theme.of(context).colorScheme.secondary,),
-
+                    style: Theme.of(context).dialogTheme.titleTextStyle!
+                        .copyWith(
+                          fontSize: textSize,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                   ),
                 ],
               ),
@@ -76,7 +77,6 @@ class WarringAlert extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: SizeInfo.taskCardDescription,
-                 // height: 1.35,
                 ),
               ),
             ),

@@ -1,4 +1,4 @@
-class DateModel{
+class DateModel {
   String? shortDate;
   String? fullDate;
   String? weekDay;

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
-// import 'package:simple_animations/simple_animations.dart';
-// import '../../utils/constants/const_values.dart';
+
 import '../../utils/dimensions/size_info.dart';
 
 class ExportButton extends StatelessWidget {
@@ -23,7 +22,7 @@ class ExportButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? borderColor = Theme.of(context).textTheme.headlineLarge!.color;
-    // ignore: deprecated_member_use
+
     Color? selectedColor = Theme.of(context).indicatorColor;
     var switchIconSize = SizeInfo.switchButtonIconSize;
     return Padding(
@@ -32,12 +31,14 @@ class ExportButton extends StatelessWidget {
         onPressed: onPress,
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(Colors.transparent),
-          // foregroundColor: WidgetStatePropertyAll(Colors.transparent),
+
           overlayColor: WidgetStatePropertyAll(Colors.transparent),
           surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(SizeInfo.innerCardCornerRadius)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(SizeInfo.innerCardCornerRadius),
+              ),
             ),
           ),
           side: WidgetStateProperty.resolveWith((states) {
@@ -85,10 +86,9 @@ class ExportButton extends StatelessWidget {
           children: [
             Text(
               context.t(textKey).capitalizeFirstLetter(),
-              style: Theme.of(
-                context,
-
-              ).textButtonTheme.style?.textStyle?.resolve(<WidgetState>{})!.copyWith(fontSize:SizeInfo.settingsCardTitleFontSize ),
+              style: Theme.of(context).textButtonTheme.style?.textStyle
+                  ?.resolve(<WidgetState>{})!
+                  .copyWith(fontSize: SizeInfo.settingsCardTitleFontSize),
             ),
             SizedBox(
               width: switchIconSize,

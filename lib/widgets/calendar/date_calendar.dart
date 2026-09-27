@@ -3,15 +3,14 @@ import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:intl/intl.dart';
 import '../../providers/settings_provider/settings_provider.dart';
 import '../../utils/constants/const_values.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../../utils/internationalization/app_localizations.dart';
 
 class DateCalendar extends StatelessWidget {
-
-  const DateCalendar({required this.focDay,
+  const DateCalendar({
+    required this.focDay,
     required this.onMonthChange,
     required this.startingDayOfWeek,
     required this.selDay,
@@ -21,9 +20,9 @@ class DateCalendar extends StatelessWidget {
     this.onDayLongPressed,
     required this.calendarFormat,
     required this.onFormatChanged,
-    required this.events,super.key,
+    required this.events,
+    super.key,
     required this.markerColor,
-   // this.isRangeUsed = false,
   });
 
   final DateTime focDay;
@@ -36,270 +35,250 @@ class DateCalendar extends StatelessWidget {
   final Function(DateTime) onMonthChange;
   final CalendarFormat calendarFormat;
   final Function(CalendarFormat)? onFormatChanged;
-  final List<DateTime> Function(DateTime)  events;
+  final List<DateTime> Function(DateTime) events;
   final Color? markerColor;
-  //final bool isRangeUsed;
-
 
   @override
   Widget build(BuildContext context) {
     var rowHeight = SizeInfo.rowHeight;
     var calendarFontSize = SizeInfo.calendarDaySize;
     var cellMargin = SizeInfo.calendarCellMargin;
-    return Consumer<SettingsProvider>(builder: (context,settingsProvider,child){
-      return AnimationLimiter(
-        child: TableCalendar<DateTime>(
-          focusedDay: focDay,
-          availableGestures: AvailableGestures.all,
-          firstDay: calendarMinDate,
-          lastDay: calendarMaxDate,
-          rangeStartDay: rangeStartDay,
-          rangeEndDay:rangeEndDay,
-          calendarFormat: calendarFormat,
-          onFormatChanged: onFormatChanged,
-          onDayLongPressed: onDayLongPressed ?? (date,dateTime){},
-          rowHeight: rowHeight,
-          daysOfWeekHeight: rowHeight,
-          headerVisible: false,
-          startingDayOfWeek:settingsProvider.calendarStartDay ?? StartingDayOfWeek.monday,
-          daysOfWeekVisible: true,
-          onPageChanged: (day) => onMonthChange(day),//dodaj do konstruktora
-          onDaySelected: onDaySelected,
-          selectedDayPredicate: (day) =>
-              isSameDay(selDay, day),
-          eventLoader: events,
-          calendarBuilders: CalendarBuilders(
-            dowBuilder: (context, date) {
-              return AnimationConfiguration.staggeredGrid(
-                columnCount: 7,
-                position: date.day,
-                duration: const Duration(milliseconds: 200),
-                child: ScaleAnimation(
-                  scale: 0.8,
-                  child: FadeInAnimation(
+    return Consumer<SettingsProvider>(
+      builder: (context, settingsProvider, child) {
+        return AnimationLimiter(
+          child: TableCalendar<DateTime>(
+            focusedDay: focDay,
+            availableGestures: AvailableGestures.all,
+            firstDay: calendarMinDate,
+            lastDay: calendarMaxDate,
+            rangeStartDay: rangeStartDay,
+            rangeEndDay: rangeEndDay,
+            calendarFormat: calendarFormat,
+            onFormatChanged: onFormatChanged,
+            onDayLongPressed: onDayLongPressed ?? (date, dateTime) {},
+            rowHeight: rowHeight,
+            daysOfWeekHeight: rowHeight,
+            headerVisible: false,
+            startingDayOfWeek:
+                settingsProvider.calendarStartDay ?? StartingDayOfWeek.monday,
+            daysOfWeekVisible: true,
+            onPageChanged: (day) => onMonthChange(day),
+            onDaySelected: onDaySelected,
+            selectedDayPredicate: (day) => isSameDay(selDay, day),
+            eventLoader: events,
+            calendarBuilders: CalendarBuilders(
+              dowBuilder: (context, date) {
+                return AnimationConfiguration.staggeredGrid(
+                  columnCount: 7,
+                  position: date.day,
+                  duration: const Duration(milliseconds: 200),
+                  child: ScaleAnimation(
+                    scale: 0.8,
+                    child: FadeInAnimation(
                       child: Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.dateFormat(date, context).shortWeekday!.capitalizeFirstLetter(),
-                            //'${DateFormat('E').format(date)} ',
-                            style: (date.weekday != 6 && date.weekday != 7)
-                                ? Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                              fontSize: calendarFontSize,)
-                                : Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: calendarFontSize,),
-                          ))),
-                ),
-              );
-            },
-            defaultBuilder: (context, date, notes) {
-              return AnimationConfiguration.staggeredGrid(
-                columnCount: 7,
-                position: date.day,
-                duration: const Duration(milliseconds: 200),
-                child: ScaleAnimation(
-                  scale: 0.8,
-                  child: FadeInAnimation(
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .dateFormat(date, context)
+                              .shortWeekday!
+                              .capitalizeFirstLetter(),
+
+                          style: (date.weekday != 6 && date.weekday != 7)
+                              ? Theme.of(context).textTheme.headlineMedium!
+                                    .copyWith(fontSize: calendarFontSize)
+                              : Theme.of(
+                                  context,
+                                ).textTheme.labelMedium!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: calendarFontSize,
+                                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              defaultBuilder: (context, date, notes) {
+                return AnimationConfiguration.staggeredGrid(
+                  columnCount: 7,
+                  position: date.day,
+                  duration: const Duration(milliseconds: 200),
+                  child: ScaleAnimation(
+                    scale: 0.8,
+                    child: FadeInAnimation(
                       child: Center(
-                          child: Text(
-                            '${date.day}',
-                            style: (date.weekday != 6 && date.weekday != 7)
-                                ? Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                fontSize: calendarFontSize )
-                                : Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                fontSize: calendarFontSize),
-                          ))),
-                ),
-              );
-            },
-            markerBuilder: (context, date, notes) {
-              return notes.isNotEmpty
-                  ? Positioned(
-                  right: 5,
-                  bottom: 2,
-                  child: Icon(
-                    Icons.circle,
-                    size: 8,
-                    color: markerColor ?? Theme.of(context).indicatorColor,
-                  )
-              )
-                  : const Positioned(
-                right: 1,
-                bottom: 1,
-                child: SizedBox(
-                  width: 5,
-                  height: 5,
-                ),
-              );
-            },
-            rangeStartBuilder: (context,date,end,){
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5.0)),
-                  color:  Theme.of(context).focusColor.withValues(alpha: 0.5),
-                ),
-                child: Center(
+                        child: Text(
+                          '${date.day}',
+                          style: (date.weekday != 6 && date.weekday != 7)
+                              ? Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(fontSize: calendarFontSize)
+                              : Theme.of(context).textTheme.labelMedium!
+                                    .copyWith(fontSize: calendarFontSize),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              markerBuilder: (context, date, notes) {
+                return notes.isNotEmpty
+                    ? Positioned(
+                        right: 5,
+                        bottom: 2,
+                        child: Icon(
+                          Icons.circle,
+                          size: 8,
+                          color:
+                              markerColor ?? Theme.of(context).indicatorColor,
+                        ),
+                      )
+                    : const Positioned(
+                        right: 1,
+                        bottom: 1,
+                        child: SizedBox(width: 5, height: 5),
+                      );
+              },
+              rangeStartBuilder: (context, date, end) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5.0),
+                    ),
+                    color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                  ),
+                  child: Center(
                     child: Text(
                       '${date.day}',
 
                       style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize )
-                          : Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize),
-                    )),
-              );
-            },
-            rangeEndBuilder: (context,date,end,){
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(5.0)),
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            )
+                          : Theme.of(context).textTheme.labelMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            ),
+                    ),
+                  ),
+                );
+              },
+              rangeEndBuilder: (context, date, end) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(5.0),
+                    ),
+                    color: Theme.of(context).focusColor.withValues(alpha: 0.5),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${date.day}',
+
+                      style: (date.weekday != 6 && date.weekday != 7)
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            )
+                          : Theme.of(context).textTheme.labelMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            ),
+                    ),
+                  ),
+                );
+              },
+              withinRangeBuilder: (context, date, end) {
+                return Container(
                   color: Theme.of(context).focusColor.withValues(alpha: 0.5),
-                ),
-                child: Center(
-                    child: Text(
-                      '${date.day}',
-
-                      style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize )
-                          : Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize),
-                    )),
-              );
-            },
-            withinRangeBuilder: (context,date,end,){
-              return Container(
-                color: Theme.of(context).focusColor.withValues(alpha: 0.5),
-                child: Center(
+                  child: Center(
                     child: Text(
                       '${date.day}',
                       style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize )
-                          : Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(
-                          fontSize: calendarFontSize),
-                    )),
-              );
-            },
-            rangeHighlightBuilder: (context,date,end,){
-              return Center(
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            )
+                          : Theme.of(context).textTheme.labelMedium!.copyWith(
+                              fontSize: calendarFontSize,
+                            ),
+                    ),
+                  ),
+                );
+              },
+              rangeHighlightBuilder: (context, date, end) {
+                return Center(
                   child: Text(
                     '${date.day}',
                     style: (date.weekday != 6 && date.weekday != 7)
-                        ? Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(
-                        fontSize: calendarFontSize )
-                        : Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(
-                        fontSize: calendarFontSize),
-                  ));
-            },
-          ),
-          calendarStyle: CalendarStyle(
-            cellMargin: EdgeInsets.symmetric(
-                horizontal: cellMargin / 5, vertical: cellMargin / 5),
-            isTodayHighlighted: true,
-            defaultTextStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(
-              fontSize: calendarFontSize,),
-            weekendTextStyle: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(
-              fontSize: calendarFontSize,),
-            selectedTextStyle: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(
-              fontSize: calendarFontSize,
+                        ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: calendarFontSize,
+                          )
+                        : Theme.of(context).textTheme.labelMedium!.copyWith(
+                            fontSize: calendarFontSize,
+                          ),
+                  ),
+                );
+              },
             ),
-            todayTextStyle: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(
-              fontSize: calendarFontSize,
-            ),
-            outsideTextStyle: Theme.of(context).textTheme.labelSmall!.copyWith(fontSize: calendarFontSize),
-            todayDecoration: BoxDecoration(
+            calendarStyle: CalendarStyle(
+              cellMargin: EdgeInsets.symmetric(
+                horizontal: cellMargin / 5,
+                vertical: cellMargin / 5,
+              ),
+              isTodayHighlighted: true,
+              defaultTextStyle: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(fontSize: calendarFontSize),
+              weekendTextStyle: Theme.of(
+                context,
+              ).textTheme.labelMedium!.copyWith(fontSize: calendarFontSize),
+              selectedTextStyle: Theme.of(
+                context,
+              ).textTheme.headlineMedium!.copyWith(fontSize: calendarFontSize),
+              todayTextStyle: Theme.of(
+                context,
+              ).textTheme.headlineMedium!.copyWith(fontSize: calendarFontSize),
+              outsideTextStyle: Theme.of(
+                context,
+              ).textTheme.labelSmall!.copyWith(fontSize: calendarFontSize),
+              todayDecoration: BoxDecoration(
                 color: Theme.of(context).focusColor,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.2)
-            ),
-            selectedDecoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outline,
+                  width: 0.2,
+                ),
+              ),
+              selectedDecoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onPrimary,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(color: Theme.of(context).colorScheme.outline, width: 0.5)
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outline,
+                  width: 0.5,
+                ),
+              ),
+              defaultDecoration: BoxDecoration(
+                color: Colors.transparent,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              weekendDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              outsideDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
             ),
-            defaultDecoration: BoxDecoration(
-              color: Colors.transparent,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            weekendDecoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            outsideDecoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-          ),
-          daysOfWeekStyle: DaysOfWeekStyle(
-            weekdayStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(
-              fontSize: calendarFontSize,
-            ),
-            weekendStyle: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(
-              fontSize: calendarFontSize,
+            daysOfWeekStyle: DaysOfWeekStyle(
+              weekdayStyle: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(fontSize: calendarFontSize),
+              weekendStyle: Theme.of(
+                context,
+              ).textTheme.labelMedium!.copyWith(fontSize: calendarFontSize),
             ),
           ),
-        ),
-      );
-    });
-
-
+        );
+      },
+    );
   }
 }

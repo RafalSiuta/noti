@@ -17,18 +17,22 @@ class DefaultText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<TaskProvider, HolidaysProvider>(builder: (context,taskProvider,holidaysProvider,child) {
-      final holidays = holidaysProvider.getHolidaysForDay(taskProvider.selDay);
-      String holidayName = '';
-      if (!isNotes && holidays.isNotEmpty) {
-        holidayName = holidays
-            .map(
-              (holiday) => AppLocalizations.of(context)!
-                  .localizedValue(holiday.name, fallback: holiday.id),
-            )
-            .join('\n');
-      }
-      return Center(
+    return Consumer2<TaskProvider, HolidaysProvider>(
+      builder: (context, taskProvider, holidaysProvider, child) {
+        final holidays = holidaysProvider.getHolidaysForDay(
+          taskProvider.selDay,
+        );
+        String holidayName = '';
+        if (!isNotes && holidays.isNotEmpty) {
+          holidayName = holidays
+              .map(
+                (holiday) => AppLocalizations.of(
+                  context,
+                )!.localizedValue(holiday.name, fallback: holiday.id),
+              )
+              .join('\n');
+        }
+        return Center(
           child: PlayAnimationBuilder(
             tween: Tween<double>(begin: 0.8, end: 1.0),
             duration: headerDuration,
@@ -40,27 +44,26 @@ class DefaultText extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: RichText(
-                   text:TextSpan(
-                     text: context.t(title).capitalizeFirstLetter(),
-                     children: <TextSpan>[
-                       TextSpan(
-                         text: "\n$holidayName",//.isNotEmpty ? "\n$holidayName" : "",
-                         style: Theme.of(context)
-                             .textTheme
-                             .headlineMedium!
-                             .copyWith(
-                             fontSize: SizeInfo.calendarDaySize,color:  Theme.of(context).colorScheme.secondaryFixed),
-                       )
-                     ],
-                     style: Theme
-                         .of(context)
-                         .textTheme
-                         .bodyMedium!
-                         .copyWith(
-                         fontSize: SizeInfo.headerSubtitleSize,
-                         letterSpacing: 1),
-                   ),
-                    //title,
+                    text: TextSpan(
+                      text: context.t(title).capitalizeFirstLetter(),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: "\n$holidayName",
+                          style: Theme.of(context).textTheme.headlineMedium!
+                              .copyWith(
+                                fontSize: SizeInfo.calendarDaySize,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryFixed,
+                              ),
+                        ),
+                      ],
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: SizeInfo.headerSubtitleSize,
+                        letterSpacing: 1,
+                      ),
+                    ),
+
                     maxLines: 10,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -68,8 +71,9 @@ class DefaultText extends StatelessWidget {
                 ),
               );
             },
-          )
-      );
-    });
+          ),
+        );
+      },
+    );
   }
 }

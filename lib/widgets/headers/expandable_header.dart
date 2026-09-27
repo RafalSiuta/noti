@@ -6,8 +6,13 @@ import '../../utils/dimensions/size_info.dart';
 import '../buttons/icon_btn.dart';
 
 class ExpandableHeader extends StatelessWidget {
-  const ExpandableHeader({this.title = "", required this.onTap, this.isExpanded = true,
-    this.padding = EdgeInsets.zero, super.key});
+  const ExpandableHeader({
+    this.title = "",
+    required this.onTap,
+    this.isExpanded = true,
+    this.padding = EdgeInsets.zero,
+    super.key,
+  });
 
   final VoidCallback onTap;
   final String title;
@@ -22,7 +27,7 @@ class ExpandableHeader extends StatelessWidget {
     var iconSize = SizeInfo.headerSubtitleSize;
 
     return GestureDetector(
-      onTap:onTap,
+      onTap: onTap,
       child: Padding(
         padding: padding,
         child: Row(
@@ -30,17 +35,17 @@ class ExpandableHeader extends StatelessWidget {
           children: [
             Text(
               context.t(title).capitalizeFirstLetter(),
-              //title,
-              style: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(
-              height: 1.5,
-              fontSize:pickerSubtitle,
-              color: baseColor,
-            ),),
+
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                height: 1.5,
+                fontSize: pickerSubtitle,
+                color: baseColor,
+              ),
+            ),
             IconBtn(
-              icon: isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down_outlined,
+              icon: isExpanded
+                  ? Icons.arrow_drop_up
+                  : Icons.arrow_drop_down_outlined,
               iconSize: iconSize,
               iconColor: isExpanded ? selectedColor : baseColor,
               onPressed: onTap,

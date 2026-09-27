@@ -4,7 +4,6 @@ import '../../models/menu_model/nav_model.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../responsive/screen_type_layout.dart';
 
-
 class CreatorNav extends StatelessWidget {
   final int itemCount;
   final List<NavModel> titles;
@@ -14,39 +13,48 @@ class CreatorNav extends StatelessWidget {
   final double navDotIndicatorSize;
   final bool isIconsNamed;
 
-  const CreatorNav(
-      {super.key,
-      required this.itemCount,
-      required this.titles,
-      required this.onTap,
-      required this.selectedItem,
-      this.backgroundColor = Colors.transparent,
-      this.navDotIndicatorSize = 8.0,
-      this.isIconsNamed = false});
+  const CreatorNav({
+    super.key,
+    required this.itemCount,
+    required this.titles,
+    required this.onTap,
+    required this.selectedItem,
+    this.backgroundColor = Colors.transparent,
+    this.navDotIndicatorSize = 8.0,
+    this.isIconsNamed = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var menuTop = 18.0;//SizeInfo.menuTopMargin;
+    var menuTop = 18.0;
     return ScreenTypeLayout(
       mobile: Container(
         key: key,
-        margin:  EdgeInsets.only( bottom: 8.0, left: 8.0),
+        margin: EdgeInsets.only(bottom: 8.0, left: 8.0),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface,
-            borderRadius:  BorderRadius.only(
-                topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
-            boxShadow: [
-              BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
-                  blurRadius: 1.0,
-                  offset: const Offset(.0, .0),
-                  spreadRadius: 1.0)
-            ]),
+          color: Theme.of(context).colorScheme.onSurface,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+            bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(
+                context,
+              ).unselectedWidgetColor.withValues(alpha: 0.5),
+              blurRadius: 1.0,
+              offset: const Offset(.0, .0),
+              spreadRadius: 1.0,
+            ),
+          ],
+        ),
         child: ClipRRect(
-          borderRadius:  BorderRadius.only(
-              topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+            bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+          ),
           child: Padding(
-            padding:  EdgeInsets.symmetric(vertical: menuTop),
+            padding: EdgeInsets.symmetric(vertical: menuTop),
             child: Wrap(
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -54,66 +62,77 @@ class CreatorNav extends StatelessWidget {
               direction: Axis.vertical,
               children: List.generate(
                 itemCount,
-                (index) =>
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 10.0),
-                      child: InkWell(
-                        borderRadius:  BorderRadius.all(Radius.circular(10)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                                   Icon(
-                                    titles[index].icon,
-                                    size: navDotIndicatorSize,
-                                    color: selectedItem == index
-                                        ? Theme.of(context).indicatorColor
-                                        : Theme.of(context).unselectedWidgetColor,
-                                  ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                                context.t(titles[index].title),
-                              // titles[index].title,
-                              style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                              fontSize:navDotIndicatorSize * 0.52, color:selectedItem == index
-                                    ? Theme.of(context).indicatorColor
-                                    : Theme.of(context).unselectedWidgetColor,),)
-
-                          ],
+                (index) => Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                    bottom: 10.0,
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          titles[index].icon,
+                          size: navDotIndicatorSize,
+                          color: selectedItem == index
+                              ? Theme.of(context).indicatorColor
+                              : Theme.of(context).unselectedWidgetColor,
                         ),
-                        onTap: (){
-                          onTap(index);
-                        },
-                      ),
-                    )
-              ).toList(),
+                        const SizedBox(height: 5),
+                        Text(
+                          context.t(titles[index].title),
 
+                          style: Theme.of(context)
+                              .inputDecorationTheme
+                              .helperStyle!
+                              .copyWith(
+                                fontSize: navDotIndicatorSize * 0.52,
+                                color: selectedItem == index
+                                    ? Theme.of(context).indicatorColor
+                                    : Theme.of(context).unselectedWidgetColor,
+                              ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      onTap(index);
+                    },
+                  ),
+                ),
+              ).toList(),
             ),
           ),
         ),
       ),
-      tablet:Container(
+      tablet: Container(
         key: key,
-        constraints: const BoxConstraints(
-          minWidth: 120,
-        ),
+        constraints: const BoxConstraints(minWidth: 120),
         margin: EdgeInsets.only(top: menuTop, bottom: 8.0, left: 8.0),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface,
-            borderRadius:  BorderRadius.only(
-                topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
-            boxShadow: [
-              BoxShadow(
-                  color: Theme.of(context).unselectedWidgetColor.withValues(alpha:0.5),
-                  blurRadius: 1.0,
-                  spreadRadius: 1.0)
-            ]),
+          color: Theme.of(context).colorScheme.onSurface,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+            bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(
+                context,
+              ).unselectedWidgetColor.withValues(alpha: 0.5),
+              blurRadius: 1.0,
+              spreadRadius: 1.0,
+            ),
+          ],
+        ),
         child: ClipRRect(
-          borderRadius:  BorderRadius.only(
-              topLeft: Radius.circular(SizeInfo.outherCardCornerRadius), bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius)),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+            bottomLeft: Radius.circular(SizeInfo.outherCardCornerRadius),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8.0),
             child: Wrap(
@@ -123,37 +142,45 @@ class CreatorNav extends StatelessWidget {
               direction: Axis.vertical,
               children: List.generate(
                 itemCount,
-                    (index) =>  Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                           padding: const EdgeInsets.only(left: 5.0,right: 5.0,top: 5.0),
-                           onPressed: () {
-                              onTap(index);
-                                          },
-                              disabledColor: Theme.of(context).unselectedWidgetColor,
-                              icon: Icon(
+                (index) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      padding: const EdgeInsets.only(
+                        left: 5.0,
+                        right: 5.0,
+                        top: 5.0,
+                      ),
+                      onPressed: () {
+                        onTap(index);
+                      },
+                      disabledColor: Theme.of(context).unselectedWidgetColor,
+                      icon: Icon(
                         titles[index].icon,
                         size: navDotIndicatorSize,
                         color: selectedItem == index
                             ? Theme.of(context).indicatorColor
                             : Theme.of(context).unselectedWidgetColor,
-                                          ),
-                                        ),
-                        Text(titles[index].title,style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12.0, color:selectedItem == index
-                            ? Theme.of(context).indicatorColor
-                            : Theme.of(context).unselectedWidgetColor,),)
-                      ],
+                      ),
                     ),
+                    Text(
+                      titles[index].title,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 12.0,
+                        color: selectedItem == index
+                            ? Theme.of(context).indicatorColor
+                            : Theme.of(context).unselectedWidgetColor,
+                      ),
+                    ),
+                  ],
+                ),
               ).toList(),
-
             ),
           ),
         ),
       ),
-
     );
   }
 }

@@ -1,10 +1,8 @@
-
 import 'package:flutter/widgets.dart';
 
 class Shape11 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    //stars
     Path path = Path();
     path.moveTo(size.width * 0.09567867, size.height * 0.9496350);
     path.lineTo(size.width * 0.1128218, size.height * 0.9644837);

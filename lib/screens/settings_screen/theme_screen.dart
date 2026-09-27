@@ -18,76 +18,92 @@ class ThemeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingsProvider>(
-        builder: (context, settingsProvider, child) {
-          var headerHeight = SizeInfo.sliverHeaderHeight;
-      var mediaQuery = MediaQuery.of(context);
-      var sizeInfo = SizeInfo(
-          screenType: getScreenType(mediaQuery), screenSize: mediaQuery.size);
+      builder: (context, settingsProvider, child) {
+        var headerHeight = SizeInfo.sliverHeaderHeight;
+        var mediaQuery = MediaQuery.of(context);
+        var sizeInfo = SizeInfo(
+          screenType: getScreenType(mediaQuery),
+          screenSize: mediaQuery.size,
+        );
 
-      var columnCount = SizeInfo.gridColumnCount;
-      double topMargin = SizeInfo.pageTopMargin;
-      return CustomScrollView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        slivers: [
-          SliverPadding(
-            padding: EdgeInsets.only(top: topMargin),
-            sliver: SliverPersistentHeader(
+        var columnCount = SizeInfo.gridColumnCount;
+        double topMargin = SizeInfo.pageTopMargin;
+        return CustomScrollView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          slivers: [
+            SliverPadding(
+              padding: EdgeInsets.only(top: topMargin),
+              sliver: SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverHeader(
-                    paddingHorizontal: 8.0,
-                    height: headerHeight,
-                    child:  SmallHeader(
-                        title:context.t("headers_text.header_shapes").capitalizeFirstLetter()
-                      // title: 'Shapes',
-                    ))),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              const Carousel(),
-            ]),
-          ),
-          SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverHeader(
                   paddingHorizontal: 8.0,
                   height: headerHeight,
                   child: SmallHeader(
-                      title:context.t("headers_text.header_themes").capitalizeFirstLetter(),
-                    // title: 'Themes',
-                  ))),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-            sliver: AnimationLimiter(
-              child: SliverGrid.count(
-                  crossAxisSpacing:
-                      sizeInfo.screenType == ScreenType.tablet ? 12.0 : 8.0,
-                  mainAxisSpacing:
-                      sizeInfo.screenType == ScreenType.tablet ? 12.0 : 8.0,
+                    title: context
+                        .t("headers_text.header_shapes")
+                        .capitalizeFirstLetter(),
+                  ),
+                ),
+              ),
+            ),
+            SliverList(delegate: SliverChildListDelegate([const Carousel()])),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: SliverHeader(
+                paddingHorizontal: 8.0,
+                height: headerHeight,
+                child: SmallHeader(
+                  title: context
+                      .t("headers_text.header_themes")
+                      .capitalizeFirstLetter(),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 8.0,
+              ),
+              sliver: AnimationLimiter(
+                child: SliverGrid.count(
+                  crossAxisSpacing: sizeInfo.screenType == ScreenType.tablet
+                      ? 12.0
+                      : 8.0,
+                  mainAxisSpacing: sizeInfo.screenType == ScreenType.tablet
+                      ? 12.0
+                      : 8.0,
                   crossAxisCount: columnCount,
                   childAspectRatio: 2 / 2,
                   children: List.generate(
-                      settingsProvider.themes.themesListCounter, (index) {
-                        var theme = settingsProvider.themes.themesList[index];
-                    return AnimationConfiguration.staggeredGrid(
-                      columnCount: columnCount,
-                      position: index,
-                      duration: headerDuration,
-                      child: ScaleAnimation(
-                        scale: scaleStartValue,
-                        child: FadeInAnimation(
+                    settingsProvider.themes.themesListCounter,
+                    (index) {
+                      var theme = settingsProvider.themes.themesList[index];
+                      return AnimationConfiguration.staggeredGrid(
+                        columnCount: columnCount,
+                        position: index,
+                        duration: headerDuration,
+                        child: ScaleAnimation(
+                          scale: scaleStartValue,
+                          child: FadeInAnimation(
                             child: ThemeCard(
-                          onChangeTheme: () =>
-                              settingsProvider.setCustomTheme(theme.id),
-                          themeData: settingsProvider.themes.themesList[index],
-                        )),
-                      ),
-                    );
-                  })),
+                              onChangeTheme: () =>
+                                  settingsProvider.setCustomTheme(theme.id),
+                              themeData:
+                                  settingsProvider.themes.themesList[index],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ),
-          )
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

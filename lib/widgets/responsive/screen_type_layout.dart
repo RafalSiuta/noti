@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/dimensions/screen_type.dart';
 
 class ScreenTypeLayout extends StatelessWidget {
-  const ScreenTypeLayout({
-    super.key,
-    this.mobile,
-    this.tablet,
-    this.desktop,
-  });
+  const ScreenTypeLayout({super.key, this.mobile, this.tablet, this.desktop});
 
   final Widget? mobile;
   final Widget? tablet;

@@ -27,7 +27,6 @@ class HolidaysProvider extends ChangeNotifier {
   Future<void> init() async {
     final locale = WidgetsBinding.instance.platformDispatcher.locale;
     await loadHolidays(year: DateTime.now().year, locale: locale);
-    printHolidaysForSelectedLocale();
   }
 
   Future<void> updateForLocale(Locale locale) async {
@@ -43,7 +42,6 @@ class HolidaysProvider extends ChangeNotifier {
       year: _selectedYear ?? DateTime.now().year,
       locale: locale,
     );
-    printHolidaysForSelectedLocale();
   }
 
   Future<void> loadHolidays({
@@ -75,17 +73,16 @@ class HolidaysProvider extends ChangeNotifier {
       for (var index = 0; index < decoded.length; index++) {
         final item = decoded[index];
         if (item is! Map) {
-          debugPrint('[Holidays] Skipped entry $index: expected an object.');
           continue;
         }
         try {
           parsedHolidays.add(Holiday.fromJson(Map<String, dynamic>.from(item)));
-        } on Object catch (error) {
-          debugPrint('[Holidays] Skipped entry $index: $error');
+        } on Object {
+          continue;
         }
       }
-    } on Object catch (error) {
-      debugPrint('[Holidays] Could not load $_assetPath: $error');
+    } on Object {
+      parsedHolidays.clear();
     }
 
     final datedHolidays = <({DateTime date, Holiday holiday})>[];
@@ -96,7 +93,6 @@ class HolidaysProvider extends ChangeNotifier {
       }
       final resolvedDate = holiday.dateRule.resolveDate(year);
       if (resolvedDate == null) {
-        debugPrint('[Holidays] Could not resolve date for ${holiday.id}.');
         continue;
       }
       datedHolidays.add((
@@ -159,36 +155,6 @@ class HolidaysProvider extends ChangeNotifier {
       overrideCountryCode: countryCode,
       overrideLanguageCode: languageCode,
     );
-  }
-
-  void printHolidaysForSelectedLocale() {
-    final countryCode = _selectedCountryCode;
-    final languageCode = _selectedLanguageCode;
-    final year = _selectedYear;
-    if (!_isLoaded ||
-        countryCode == null ||
-        languageCode == null ||
-        year == null) {
-      debugPrint('[Holidays] Holidays are not loaded yet.');
-      return;
-    }
-
-    debugPrint(
-      '[Holidays] $countryCode/$languageCode, $year: '
-      '${_filteredHolidays.length} holidays',
-    );
-    for (final entry in _holidaysByDate.entries) {
-      for (final holiday in entry.value) {
-        final date = entry.key.toIso8601String().split('T').first;
-        final dayOff = holiday.isDayOffForCountry(countryCode)
-            ? 'day off'
-            : 'observance';
-        debugPrint(
-          '[Holidays] $date | '
-          '${holiday.getLocalizedName(languageCode)} | $dayOff',
-        );
-      }
-    }
   }
 
   void clear() {

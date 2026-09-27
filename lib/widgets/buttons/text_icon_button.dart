@@ -10,7 +10,7 @@ class IconButtonWithText extends StatelessWidget {
     this.iconSize = 18,
     this.align = Alignment.center,
     this.iconName = "",
-    this.padding = EdgeInsets.zero
+    this.padding = EdgeInsets.zero,
   });
 
   final bool? value;
@@ -26,39 +26,30 @@ class IconButtonWithText extends StatelessWidget {
     var selectedColor = value == true
         ? Theme.of(context).indicatorColor
         : Theme.of(context).unselectedWidgetColor;
-    return
-      InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        child: Padding(
-          padding: padding,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                    Icon(
-                      iconData,
-                      size: iconSize,
-                      color: selectedColor
-                    ),
-              const SizedBox(
-                height: 7,
-              ),
-              Text(
-                context.t(iconName),
-                //iconName,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).inputDecorationTheme.helperStyle!.copyWith(
-                        color: selectedColor,
-                        fontSize: iconSize * 0.52
-                    ),)
+    return InkWell(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      child: Padding(
+        padding: padding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(iconData, size: iconSize, color: selectedColor),
+            const SizedBox(height: 7),
+            Text(
+              context.t(iconName),
 
-            ],
-          ),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).inputDecorationTheme.helperStyle!
+                  .copyWith(color: selectedColor, fontSize: iconSize * 0.52),
+            ),
+          ],
         ),
-        onTap: (){
-          onChanged!(value!);
-        },
-      );
+      ),
+      onTap: () {
+        onChanged!(value!);
+      },
+    );
   }
 }

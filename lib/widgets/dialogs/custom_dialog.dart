@@ -5,7 +5,7 @@ import 'package:noti/utils/internationalization/i18_extension.dart';
 import '../../utils/dimensions/size_info.dart';
 
 class CustomDialog {
-  showDialog(context, title, child) => showModal(
+  Future<dynamic> showDialog(context, title, child) => showModal(
     configuration: const FadeScaleTransitionConfiguration(
       transitionDuration: Duration(milliseconds: 300),
     ),
@@ -133,7 +133,9 @@ class _CustomDialState extends State<CustomDial> {
                     padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
                     child: TextButton(
                       onPressed: () => Navigator.pop(context),
-                      style: Theme.of(context).datePickerTheme.confirmButtonStyle,
+                      style: Theme.of(
+                        context,
+                      ).datePickerTheme.confirmButtonStyle,
                       child: Text(
                         'Ok',
                         style: Theme.of(context).dialogTheme.contentTextStyle!

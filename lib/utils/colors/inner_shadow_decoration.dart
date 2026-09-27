@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class InnerShadowDecoration extends Decoration {
-  const InnerShadowDecoration({required this.borderRadius, required this.color});
+  const InnerShadowDecoration({
+    required this.borderRadius,
+    required this.color,
+  });
 
   final BorderRadius borderRadius;
   final Color color;
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _InnerShadowBoxPainter(
-      borderRadius: borderRadius,
-      color: color,
-    );
+    return _InnerShadowBoxPainter(borderRadius: borderRadius, color: color);
   }
 }
 

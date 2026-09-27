@@ -20,16 +20,16 @@ class CameraScreen extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CameraPreview(
-                  controller,
-                ),
-              )),
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CameraPreview(controller),
+            ),
+          ),
         ),
 
         SizedBox(
@@ -39,10 +39,7 @@ class CameraScreen extends StatelessWidget {
             onPressed: () {
               onPhoto();
             },
-            icon: Icon(
-              Icons.camera,
-              size: cameraIconSize,
-            ),
+            icon: Icon(Icons.camera, size: cameraIconSize),
           ),
         ),
       ],

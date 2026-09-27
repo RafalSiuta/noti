@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants/sets_keys.dart';
 
-// const String kPrefsLocaleKey =
-//     'app_locale_code'; // przechowujemy BCP-47, np. 'pl-PL', 'en-GB', 'es-ES'
-
 class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
   LocaleProvider() {
     WidgetsBinding.instance.addObserver(this);
 
-    // Natychmiast ustaw język urządzenia, żeby providery zależne od locale
-    // nie startowały z domyślnym en-GB przed wczytaniem prefs.
     final device = WidgetsBinding.instance.platformDispatcher.locale;
     _locale = _normalizeToSupported(device);
     _hasUserChoice = false;
 
-    _init(); // potem asynchronicznie nadpisz z prefs (jeśli jest)
+    _init();
   }
 
-  // --- public API ---
   Locale get locale => _locale;
   bool get hasUserChoice => _hasUserChoice;
-  String get code => _locale.languageCode; // do radiobuttonów ('pl'/'en'/'es')
+  String get code => _locale.languageCode;
   List<Locale> get supportedLocales => _supported;
 
   @override
@@ -41,19 +35,16 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
     super.dispose();
   }
 
-  /// Ustaw ręcznie po 'en'/'pl'/'es'
   Future<void> setLanguageCode(String code) async {
     final next = _localeFromCode(code);
     await _applyUserChoice(next, persistTag: _toTag(next));
   }
 
-  /// Ustaw ręcznie konkretny Locale (np. przyszłe warianty regionalne)
   Future<void> setLocale(Locale locale) async {
     final next = _normalizeToSupported(locale);
     await _applyUserChoice(next, persistTag: _toTag(next));
   }
 
-  /// Wróć do języka urządzenia (czyści preferencję użytkownika)
   Future<void> resetToSystemLanguage() async {
     final device = WidgetsBinding.instance.platformDispatcher.locale;
     final next = _normalizeToSupported(device);
@@ -67,12 +58,7 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
     await prefs.remove(kPrefsLocaleKey);
   }
 
-  // --- private ---
-
-  Locale _locale = const Locale(
-    'en',
-    'GB',
-  ); // i tak nadpisujemy w konstruktorze
+  Locale _locale = const Locale('en', 'GB');
   bool _hasUserChoice = false;
 
   static const _supported = <Locale>[
@@ -86,7 +72,6 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
     final saved = prefs.getString(kPrefsLocaleKey);
 
     if (saved != null && saved.isNotEmpty) {
-      // akceptuj zarówno 'en', jak i 'en-GB'
       final parsed = _fromTag(saved) ?? _localeFromCode(saved);
       final next = _normalizeToSupported(parsed);
       _hasUserChoice = true;
@@ -95,9 +80,7 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
         notifyListeners();
       }
     } else {
-      // brak wyboru użytkownika — zostaje, co ustawiliśmy z urządzenia
       _hasUserChoice = false;
-      // tu zazwyczaj nic nie zmieniamy, więc bez notify
     }
   }
 
@@ -105,7 +88,7 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
     Locale next, {
     required String persistTag,
   }) async {
-    if (next == _locale && _hasUserChoice) return; // bez zbędnych rebuildów
+    if (next == _locale && _hasUserChoice) return;
     _locale = next;
     _hasUserChoice = true;
     notifyListeners();
@@ -115,11 +98,10 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   static Locale _normalizeToSupported(Locale device) {
-    // dopasuj po languageCode (pomijamy country, chyba że chcesz rozbudować)
     for (final l in _supported) {
       if (l.languageCode == device.languageCode) return l;
     }
-    return const Locale('en', 'GB'); // globalny fallback
+    return const Locale('en', 'GB');
   }
 
   static Locale _localeFromCode(String code) {
@@ -140,7 +122,6 @@ class LocaleProvider extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   static Locale? _fromTag(String tag) {
-    // akceptuje 'en' lub 'en-GB'
     final parts = tag.split('-');
     if (parts.isEmpty) return null;
     if (parts.length == 1) return Locale(parts[0]);

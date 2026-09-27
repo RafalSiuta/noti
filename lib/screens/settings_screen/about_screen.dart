@@ -18,7 +18,10 @@ class AboutScreen extends StatelessWidget {
     double topMargin = SizeInfo.pageTopMargin;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sidePadding, vertical: topMargin),
+      padding: EdgeInsets.symmetric(
+        horizontal: sidePadding,
+        vertical: topMargin,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,10 +30,12 @@ class AboutScreen extends StatelessWidget {
           TextButton.icon(
             onPressed: () async {
               await Navigator.push(
-                  context,
-                  CustomPageRoute(
-                      child: const PolicyScreen(),
-                      direction: AxisDirection.up));
+                context,
+                CustomPageRoute(
+                  child: const PolicyScreen(),
+                  direction: AxisDirection.up,
+                ),
+              );
             },
             icon: Icon(
               Icons.copyright,
@@ -38,10 +43,11 @@ class AboutScreen extends StatelessWidget {
               size: textFontSize,
             ),
             label: Text(
-                context.t("headers_text.header_policy").capitalizeFirstLetter(),
-              //"Privacy Policy",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: textFontSize,),
+              context.t("headers_text.header_policy").capitalizeFirstLetter(),
+
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(fontSize: textFontSize),
             ),
           ),
         ],

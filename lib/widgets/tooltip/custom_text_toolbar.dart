@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class CustomTextSelectionToolbar extends StatelessWidget {
   final EditableTextState editableTextState;
 
-  const CustomTextSelectionToolbar({super.key, required this.editableTextState});
+  const CustomTextSelectionToolbar({
+    super.key,
+    required this.editableTextState,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,10 @@ class CustomTextSelectionToolbar extends StatelessWidget {
         ),
         TextSelectionToolbarTextButton(
           padding: const EdgeInsets.all(5.0),
-          child: Text('select all', style: Theme.of(context).textTheme.bodyMedium),
+          child: Text(
+            'select all',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           onPressed: () {
             editableTextState.selectAll(SelectionChangedCause.toolbar);
           },

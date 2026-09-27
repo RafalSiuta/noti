@@ -17,10 +17,9 @@ class LicenceScreen extends StatelessWidget {
     var titleSize = SizeInfo.taskCreatorDescription;
     var helpText = SizeInfo.noteCardTitle;
     var padding = SizeInfo.edgePadding;
-    var titleStyle = Theme.of(context)
-        .textTheme
-        .headlineMedium!
-        .copyWith(fontSize: titleSize, letterSpacing: 2);
+    var titleStyle = Theme.of(
+      context,
+    ).textTheme.headlineMedium!.copyWith(fontSize: titleSize, letterSpacing: 2);
     double cardSize = 100;
     var headerHeight = SizeInfo.sliverHeaderHeight;
     return Scaffold(
@@ -29,123 +28,114 @@ class LicenceScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         key: key,
-        padding:
-            EdgeInsets.symmetric(horizontal: padding, vertical: padding * 2),
+        padding: EdgeInsets.symmetric(
+          horizontal: padding,
+          vertical: padding * 2,
+        ),
         child: CustomScrollView(
-            key: key,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.only(top: 24),
-                sliver: SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverHeader(
-                    paddingHorizontal: padding,
-                    height: headerHeight,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: cardSize,
+          key: key,
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 24),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: SliverHeader(
+                  paddingHorizontal: padding,
+                  height: headerHeight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: cardSize,
+                        width: cardSize,
+                        child: Image.asset(
+                          'assets/images/noti.png',
                           width: cardSize,
-                          child: Image.asset(
-                            'assets/images/noti.png',
-                            width: cardSize,
-                            height: cardSize,
-                            fit: BoxFit.fill,
-                          ),
+                          height: cardSize,
+                          fit: BoxFit.fill,
                         ),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Noti version: 1.0.0", style: titleStyle),
-                            SizedBox(
-                              width: padding,
-                            ),
-                            Text("Made by R85unit", style: titleStyle),
-                            SizedBox(
-                              width: padding,
-                            ),
-                            Text("Powered by", style: titleStyle),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                await Navigator.push(
-                                    context,
-                                    CustomPageRoute(
-                                        child: const Web(
-                                          link: 'https://flutter.dev',
-                                        ),
-                                        direction: AxisDirection.up));
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Flutter",
-                                    style: titleStyle,
-                                  ),
-                                  FlutterLogo(
-                                    size: titleSize + 10,
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
+                      ),
+                      const SizedBox(width: 8.0),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Noti version: 1.0.0", style: titleStyle),
+                          SizedBox(width: padding),
+                          Text("Made by R85unit", style: titleStyle),
+                          SizedBox(width: padding),
+                          Text("Powered by", style: titleStyle),
+                          const SizedBox(width: 10.0),
+                          GestureDetector(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                  child: const Web(link: 'https://flutter.dev'),
+                                  direction: AxisDirection.up,
+                                ),
+                              );
+                            },
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
-                                  width: 100.0,
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    await Navigator.push(
-                                        context,
-                                        CustomPageRoute(
-                                            child: const PolicyScreen(),
-                                            direction: AxisDirection.up));
-                                  },
-                                  child: Text("Privacy Policy",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontSize: helpText,
-                                              letterSpacing: 2)),
-                                ),
+                                Text("Flutter", style: titleStyle),
+                                FlutterLogo(size: titleSize + 10),
+                                const SizedBox(width: 5.0),
                               ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const SizedBox(width: 100.0),
+                              TextButton(
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                      child: const PolicyScreen(),
+                                      direction: AxisDirection.up,
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Privacy Policy",
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(
+                                        fontSize: helpText,
+                                        letterSpacing: 2,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverHeader(
-                      paddingHorizontal: 8.0,
-                      height: headerHeight,
-                      child: const SmallHeader(
-                        title:
-                            'This app is built thanks to external libraries and software',
-                      ))),
-              SliverList(
-                  delegate: SliverChildListDelegate([
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: SliverHeader(
+                paddingHorizontal: 8.0,
+                height: headerHeight,
+                child: const SmallHeader(
+                  title:
+                      'This app is built thanks to external libraries and software',
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: padding),
                   child: const Divider(),
@@ -159,29 +149,22 @@ class LicenceScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () async {
                           await Navigator.push(
-                              context,
-                              CustomPageRoute(
-                                  child: Web(
-                                    link: list.link!,
-                                  ),
-                                  direction: AxisDirection.up));
+                            context,
+                            CustomPageRoute(
+                              child: Web(link: list.link!),
+                              direction: AxisDirection.up,
+                            ),
+                          );
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              list.icon,
-                              size: helpText,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            Icon(list.icon, size: helpText),
+                            const SizedBox(width: 10),
                             Text(
                               "${list.title} \n",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge!
+                              style: Theme.of(context).textTheme.headlineLarge!
                                   .copyWith(fontSize: helpText),
                             ),
                           ],
@@ -189,18 +172,17 @@ class LicenceScreen extends StatelessWidget {
                       );
                     },
                   ),
-                )
-              ]))
-            ]),
+                ),
+              ]),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.transparent,
         splashColor: Colors.transparent,
         elevation: 0,
-        child: Icon(
-          Icons.cancel,
-          color: Theme.of(context).indicatorColor,
-        ),
+        child: Icon(Icons.cancel, color: Theme.of(context).indicatorColor),
         onPressed: () {
           Navigator.pop(context);
         },

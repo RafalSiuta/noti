@@ -4,21 +4,25 @@ import 'package:noti/models/settings_model/settings_model/settings_model.dart';
 class ExportSettings {
   List<SettingsModel> exportSettings = [
     SettingsModel(
-        title: "export_all",
-        description: "export_all_description",
-        isOn: true),
+      title: "export_all",
+      description: "export_all_description",
+      isOn: true,
+    ),
     SettingsModel(
-        title: "export_tasks",
-        description: "export_tasks_description",
-        isOn: false),
+      title: "export_tasks",
+      description: "export_tasks_description",
+      isOn: false,
+    ),
     SettingsModel(
-        title: "export_notes",
-        description: "export_notes_description",
-        isOn: false),
+      title: "export_notes",
+      description: "export_notes_description",
+      isOn: false,
+    ),
     SettingsModel(
-        title: 'protect_export',
-        description: 'protect_export_description',
-        isOn: false),
+      title: 'protect_export',
+      description: 'protect_export_description',
+      isOn: false,
+    ),
   ];
 
   UnmodifiableListView<SettingsModel> get exportSettingsList {
