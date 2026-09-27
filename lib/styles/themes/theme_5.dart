@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/dimensions/size_info.dart';
 
-const theme_5MainBackgroundColor = Color(0xFFDDEEEE); //main-background
+const theme_5MainBackgroundColor = Color(0xFFF3F3F3); //main-background
 const theme_5PatternColor = Color(0xFFE0F5F5); //pattern
 const theme_5CardBackgroundColor = Color(0xFFFFFFFF); //card-background
 const theme_5TimerTextColor = Color(0xFFFFFFFF); //timer-text
@@ -20,8 +20,8 @@ const theme_5Accent3Color = Color(0xFF156660); //accent-3
 const theme_5ErrorColor = Color(0xFFFF5252); //error
 const theme_5UnselectedColor = Color(0xFF90A4A4); //unselected
 const theme_5DividerColor = Color(0xFF0C2627); //divider
-const theme_5ShadowColor = Color(0xCC7E9595); //shadow
-const theme_5FabIconColor = Color(0xFF041B4B); //fab-icon
+const theme_5ShadowColor = Color(0xCC99AFAF); //shadow
+const theme_5FabIconColor = Color(0xFF0C2627); //fab-icon
 const theme_5CalendarCellSelectedColor = Color(
   0xFFD0FBFD,
 ); //calendar-cell-selected
