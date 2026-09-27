@@ -1,57 +1,5 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
-
-import '../../utils/dimensions/size_info.dart';
-
-class ImageAssetCard extends StatelessWidget {
-  const ImageAssetCard({
-    super.key,
-    required this.img,
-    this.size = 100,
-    this.onTap,
-    this.onHold,
-  });
-
-  final AssetEntity img;
-  final double size;
-  final Function()? onTap;
-  final Function()? onHold;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      onLongPress: onHold,
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(SizeInfo.outherCardCornerRadius),
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(
-            Radius.circular(SizeInfo.outherCardCornerRadius - 1),
-          ),
-          child: Image(
-            image: AssetEntityImageProvider(
-              img,
-              isOriginal: false,
-              thumbnailSize: ThumbnailSize.square(size.toInt()),
-              thumbnailFormat: ThumbnailFormat.jpeg,
-            ),
-            width: size,
-            height: size,
-            fit: BoxFit.cover,
-            filterQuality: FilterQuality.high,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class ImageCard extends StatelessWidget {
   const ImageCard({

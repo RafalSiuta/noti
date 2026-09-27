@@ -51,9 +51,9 @@ class LibList {
       link: 'https://pub.dev/packages/flutter_native_timezone/license',
     ),
     SocialModel(
-      title: "kikt.top \nphoto_manager: ^1.3.2 ...read more",
+      title: "flutter.dev \nimage_picker: ^1.2.2 ...read more",
       icon: Icons.info,
-      link: 'https://pub.dev/packages/photo_manager/license',
+      link: 'https://pub.dev/packages/image_picker/license',
     ),
     SocialModel(
       title: "flutter.dev \ncamera: ^0.9.4 ...read more",

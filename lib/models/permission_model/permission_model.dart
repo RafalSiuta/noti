@@ -37,18 +37,10 @@ class PermissionModel {
     if (permissionString == null) return null;
 
     switch (permissionString) {
-      case 'Permission.storage':
-        return Permission.storage;
       case 'Permission.camera':
         return Permission.camera;
-      case 'Permission.accessMediaLocation':
-        return Permission.accessMediaLocation;
       case 'Permission.notification':
         return Permission.notification;
-      case 'Permission.photos':
-        return Permission.photos;
-      case 'Permission.mediaLibrary':
-        return Permission.mediaLibrary;
       default:
         return null;
     }

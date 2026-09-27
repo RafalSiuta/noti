@@ -91,16 +91,10 @@ If you are a resident in Switzerland, the contact details for the data protectio
           '''For local notifications, the app needs to wake up the screen or processor and keep it awake to remind the user of coming tasks.\n''',
     ),
     SocialModel(
-      title: "Camera and image gallery permission:",
+      title: "Camera and image selection:",
       icon: Icons.circle,
       link:
-          '''Used for accessing the camera or capturing images from the device.\n''',
-    ),
-    SocialModel(
-      title: "Read and write external storage permission:",
-      icon: Icons.circle,
-      link:
-          '''Data saved by the user, i.e. tasks from the calendar and notes are stored locally only.\n''',
+          '''Used for accessing the camera or selecting a user-chosen image with the system photo picker.\n''',
     ),
     SocialModel(
       title: "Internet permission:",

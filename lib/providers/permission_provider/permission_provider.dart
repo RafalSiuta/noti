@@ -11,20 +11,7 @@ class PermissionProvider extends ChangeNotifier {
 
   final Prefs _prefs = Prefs();
 
-  List<PermissionModel> _permissionSettings = [
-    PermissionModel(
-      title: "File storage",
-      description:
-          "Allows an application to write and read from external storage.",
-      isOn: false,
-      permission: Permission.storage,
-    ),
-    PermissionModel(
-      title: "Media location",
-      description: "Required to be able to access photo albums.",
-      isOn: false,
-      permission: Permission.storage,
-    ),
+  final List<PermissionModel> _permissionSettings = [
     PermissionModel(
       title: "Camera access",
       description: "Required to be able to access the camera device.",
@@ -36,19 +23,6 @@ class PermissionProvider extends ChangeNotifier {
       description: "Allows an app to post notifications",
       isOn: false,
       permission: Permission.notification,
-    ),
-    PermissionModel(
-      title: "Wake lock",
-      description:
-          "Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming.",
-      isOn: false,
-      permission: Permission.accessMediaLocation,
-    ),
-    PermissionModel(
-      title: "Media library",
-      description: "Allows access to device's media library.",
-      isOn: false,
-      permission: Permission.mediaLibrary,
     ),
   ];
 
@@ -95,10 +69,22 @@ class PermissionProvider extends ChangeNotifier {
   }
 
   void updatePermissionSettings() async {
-    _permissionSettings = await _prefs.restorePermissionsList(
+    final restored = await _prefs.restorePermissionsList(
       'permissionSettings',
       permissionSettingsList,
     );
+
+    for (final current in _permissionSettings) {
+      for (final stored in restored) {
+        if (stored.permission == current.permission &&
+            stored.title == current.title) {
+          current.isOn = stored.isOn;
+          break;
+        }
+      }
+    }
+
+    await _prefs.storeList('permissionSettings', permissionSettingsList);
 
     notifyListeners();
   }

@@ -1,14 +1,11 @@
 import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:noti/utils/internationalization/i18_extension.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../providers/image_provider/gallery_image_provider.dart';
 import '../../utils/dimensions/size_info.dart';
 import '../buttons/text_icon_button.dart';
-import '../cards/image_card.dart';
 
 class GallerySheet extends StatefulWidget {
   const GallerySheet({super.key, required this.pickImage});
@@ -22,22 +19,20 @@ class GallerySheet extends StatefulWidget {
 class _GallerySheetState extends State<GallerySheet>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  int currentPage = 0;
-  int? lastPage;
   bool expand = true;
 
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
-  late CameraController _cameraController;
+  CameraController? _cameraController;
+  final ImagePicker _imagePicker = ImagePicker();
   bool _isInit = false;
   bool _isFlashOn = false;
   bool _isCameraReverse = false;
+  bool _isPickingImage = false;
 
   final DraggableScrollableController _scrollableController =
       DraggableScrollableController();
-
-  bool isFullyCollapsed = false;
 
   Future<void> switchCamera() async {
     await _fadeController
@@ -58,15 +53,16 @@ class _GallerySheetState extends State<GallerySheet>
             );
           }
 
-          _cameraController.dispose();
+          await _cameraController?.dispose();
           _cameraController = CameraController(
             newCamera,
             ResolutionPreset.max,
             enableAudio: false,
           );
 
-          await _cameraController.initialize();
+          await _cameraController?.initialize();
 
+          if (!mounted) return;
           setState(() {
             _isInit = true;
             _isCameraReverse = !_isCameraReverse;
@@ -78,11 +74,6 @@ class _GallerySheetState extends State<GallerySheet>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        currentPage = _tabController.index;
-      });
-    });
     super.initState();
 
     _fadeController = AnimationController(
@@ -94,18 +85,9 @@ class _GallerySheetState extends State<GallerySheet>
       CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
     );
 
-    _scrollableController.addListener(() {
-      double currentSize = _scrollableController.size;
-
-      if (currentSize <= 0.2) {
-        isFullyCollapsed = true;
-      } else {
-        isFullyCollapsed = false;
-      }
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final cameras = await availableCameras();
+      if (cameras.isEmpty) return;
       final initialCamera = cameras.firstWhere(
         (camera) => camera.lensDirection == CameraLensDirection.back,
         orElse: () => cameras.first,
@@ -117,20 +99,63 @@ class _GallerySheetState extends State<GallerySheet>
         enableAudio: false,
       );
 
-      await _cameraController.initialize();
+      await _cameraController?.initialize();
 
+      if (!mounted) return;
       setState(() {
         _isInit = true;
       });
 
-      await _cameraController.setFlashMode(FlashMode.off);
+      await _cameraController?.setFlashMode(FlashMode.off);
     });
+  }
+
+  Future<void> _pickGalleryImage() async {
+    if (_isPickingImage) return;
+
+    setState(() {
+      _isPickingImage = true;
+    });
+
+    try {
+      final image = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 90,
+      );
+
+      if (image == null) return;
+
+      final bytes = await image.readAsBytes();
+      if (bytes.isEmpty) return;
+
+      widget.pickImage(bytes);
+
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    } catch (_) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            context.t("headers_text.header_gallery").capitalizeFirstLetter(),
+          ),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isPickingImage = false;
+        });
+      }
+    }
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _cameraController.dispose();
+    _cameraController?.dispose();
     super.dispose();
   }
 
@@ -152,7 +177,6 @@ class _GallerySheetState extends State<GallerySheet>
           maxChildSize: .8,
           expand: expand,
           builder: (context, scrollController) {
-            final txtStyle = Theme.of(context).textTheme.bodyMedium;
             return Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
@@ -164,153 +188,16 @@ class _GallerySheetState extends State<GallerySheet>
                 ),
                 color: Theme.of(context).colorScheme.onSurface,
               ),
-              child: Consumer<GalleryImageProvider>(
-                builder: (context, imageProvider, child) {
-                  var cameraPadding = SizeInfo.edgePadding;
+              child: Builder(
+                builder: (context) {
+                  final cameraPadding = SizeInfo.edgePadding;
                   return Column(
                     children: [
                       Expanded(
                         child: TabBarView(
-                          physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics(),
-                          ),
+                          physics: const NeverScrollableScrollPhysics(),
                           controller: _tabController,
                           children: [
-                            NotificationListener<ScrollNotification>(
-                              onNotification: (ScrollNotification scroll) {
-                                if (scroll.metrics.pixels /
-                                        scroll.metrics.maxScrollExtent >
-                                    0.4) {
-                                  if (currentPage != lastPage) {
-                                    lastPage = currentPage;
-                                    imageProvider.getGalleryImages();
-                                  }
-                                }
-                                return true;
-                              },
-
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: AnimationLimiter(
-                                      child: GridView.builder(
-                                        controller: scrollController,
-                                        physics: const BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics(),
-                                        ),
-                                        shrinkWrap: true,
-                                        padding: EdgeInsets.all(cameraPadding),
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3,
-                                              mainAxisSpacing: 5.0,
-                                              crossAxisSpacing: 5.0,
-                                            ),
-                                        itemCount:
-                                            imageProvider.imageListCounter,
-                                        itemBuilder: (context, index) {
-                                          if (imageProvider.imageList.isEmpty) {
-                                            return Center(
-                                              child: Text(
-                                                context
-                                                    .t(
-                                                      "headers_text.header_gallery",
-                                                    )
-                                                    .capitalizeFirstLetter(),
-
-                                                style: txtStyle,
-                                              ),
-                                            );
-                                          } else {
-                                            final img =
-                                                imageProvider.imageList[index];
-
-                                            return AnimationConfiguration.staggeredGrid(
-                                              columnCount: 3,
-                                              position: index,
-                                              duration: const Duration(
-                                                milliseconds: 374,
-                                              ),
-                                              child: ScaleAnimation(
-                                                scale: 0.5,
-                                                child: FadeInAnimation(
-                                                  child: ImageAssetCard(
-                                                    img: img,
-                                                    onTap: () async {
-                                                      img.file.then((value) {
-                                                        if (value != null) {
-                                                          return widget.pickImage(
-                                                            value
-                                                                .readAsBytesSync(),
-                                                          );
-                                                        }
-                                                      });
-                                                      Navigator.of(
-                                                        context,
-                                                      ).pop();
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: !isFullyCollapsed,
-                                    child: Container(
-                                      padding: EdgeInsets.all(cameraPadding),
-                                      height: 60,
-                                      child: ListView.builder(
-                                        itemCount:
-                                            imageProvider.albumsListCounter,
-                                        shrinkWrap: true,
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: cameraPadding,
-                                        ),
-                                        itemBuilder: (context, index) {
-                                          var album =
-                                              imageProvider.albumsList[index];
-                                          return TextButton(
-                                            onPressed: () {
-                                              imageProvider.onAlbumChoose(
-                                                index,
-                                              );
-                                            },
-                                            child: Text(
-                                              album.name,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(
-                                                    fontSize: tabTitleSize,
-                                                    color:
-                                                        imageProvider
-                                                                .selectedAlbum ==
-                                                            index
-                                                        ? Theme.of(
-                                                            context,
-                                                          ).indicatorColor
-                                                        : Theme.of(context)
-                                                              .textTheme
-                                                              .bodyMedium!
-                                                              .color,
-                                                  ),
-                                            ),
-                                          );
-                                        },
-                                        scrollDirection: Axis.horizontal,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             _isInit
                                 ? Padding(
                                     padding: EdgeInsets.all(cameraPadding),
@@ -333,7 +220,7 @@ class _GallerySheetState extends State<GallerySheet>
                                                   ),
                                                 ),
                                                 child: CameraPreview(
-                                                  _cameraController,
+                                                  _cameraController!,
                                                 ),
                                               ),
                                             ),
@@ -355,14 +242,11 @@ class _GallerySheetState extends State<GallerySheet>
                                               ),
                                               onChanged: (value) async {
                                                 final res =
-                                                    await _cameraController
+                                                    await _cameraController!
                                                         .takePicture();
                                                 final value = await res
                                                     .readAsBytes();
-                                                imageProvider
-                                                    .addTakenPictureToGallery(
-                                                      value,
-                                                    );
+                                                if (!context.mounted) return;
                                                 widget.pickImage(value);
                                                 Navigator.pop(context);
                                               },
@@ -391,12 +275,12 @@ class _GallerySheetState extends State<GallerySheet>
                                                   _isFlashOn = !_isFlashOn;
                                                   if (_isFlashOn == true) {
                                                     _cameraController
-                                                        .setFlashMode(
+                                                        ?.setFlashMode(
                                                           FlashMode.always,
                                                         );
                                                   } else {
                                                     _cameraController
-                                                        .setFlashMode(
+                                                        ?.setFlashMode(
                                                           FlashMode.off,
                                                         );
                                                   }
@@ -411,14 +295,19 @@ class _GallerySheetState extends State<GallerySheet>
                                 : const Center(
                                     child: CircularProgressIndicator(),
                                   ),
+                            const SizedBox.shrink(),
                           ],
                         ),
                       ),
                       TabBar(
-                        onTap: (index) {
-                          setState(() {
-                            currentPage = index;
-                          });
+                        onTap: (index) async {
+                          if (index != 1) return;
+
+                          await _pickGalleryImage();
+
+                          if (mounted) {
+                            _tabController.animateTo(0);
+                          }
                         },
                         labelStyle: Theme.of(context).tabBarTheme.labelStyle!
                             .copyWith(fontSize: tabTitleSize),
@@ -430,12 +319,12 @@ class _GallerySheetState extends State<GallerySheet>
                         tabs: [
                           Tab(
                             text: context
-                                .t("headers_text.header_gallery")
+                                .t("headers_text.header_camera")
                                 .capitalizeFirstLetter(),
                           ),
                           Tab(
                             text: context
-                                .t("headers_text.header_camera")
+                                .t("headers_text.header_gallery")
                                 .capitalizeFirstLetter(),
                           ),
                         ],

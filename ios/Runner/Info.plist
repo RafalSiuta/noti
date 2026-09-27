@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Noti uses the camera only when you choose to attach a new photo to a note.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Noti uses the photo library only when you choose a photo to attach to a note.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
