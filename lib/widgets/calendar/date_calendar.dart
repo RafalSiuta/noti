@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noti/providers/holiday_provider/holidays_provider.dart';
 import 'package:noti/utils/extensions/string_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,8 +44,80 @@ class DateCalendar extends StatelessWidget {
     var rowHeight = SizeInfo.rowHeight;
     var calendarFontSize = SizeInfo.calendarDaySize;
     var cellMargin = SizeInfo.calendarCellMargin;
-    return Consumer<SettingsProvider>(
-      builder: (context, settingsProvider, child) {
+    return Consumer2<SettingsProvider, HolidaysProvider>(
+      builder: (context, settingsProvider, holidaysProvider, child) {
+        final theme = Theme.of(context);
+
+        String? holidayNameFor(DateTime date) {
+          final holidays = holidaysProvider.getHolidaysForDay(date);
+          if (holidays.isEmpty) return null;
+          return AppLocalizations.of(
+            context,
+          )!.localizedValue(holidays.first.name, fallback: holidays.first.id);
+        }
+
+        Widget dayWithHoliday(
+          DateTime date,
+          TextStyle dayStyle, {
+          Color? holidayColor,
+        }) {
+          final holidayName = holidayNameFor(date);
+          if (holidayName == null) {
+            return Center(child: Text('${date.day}', style: dayStyle));
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(child: Text('${date.day}', style: dayStyle)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Text(
+                  holidayName,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    fontSize: SizeInfo.helpTextSize,
+                    color: holidayColor ?? dayStyle.color,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+
+        TextStyle rangeDayStyle(DateTime date) =>
+            (date.weekday != 6 && date.weekday != 7
+                    ? theme.textTheme.bodyMedium!
+                    : theme.textTheme.labelMedium!)
+                .copyWith(
+                  fontSize: calendarFontSize,
+                  color: holidaysProvider.hasHoliday(date)
+                      ? theme.colorScheme.secondaryFixed
+                      : null,
+                );
+
+        Widget rangeCell(DateTime date, {BorderRadius? borderRadius}) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              color: theme.focusColor.withValues(alpha: 0.5),
+            ),
+            child: dayWithHoliday(
+              date,
+              rangeDayStyle(date),
+              holidayColor: theme.colorScheme.secondaryFixed,
+            ),
+          );
+        }
+
+        bool isWithinRange(DateTime date) {
+          if (rangeStartDay == null || rangeEndDay == null) return false;
+          return date.isAfter(DateUtils.dateOnly(rangeStartDay!)) &&
+              date.isBefore(DateUtils.dateOnly(rangeEndDay!));
+        }
+
         return AnimationLimiter(
           child: TableCalendar<DateTime>(
             focusedDay: focDay,
@@ -62,11 +135,64 @@ class DateCalendar extends StatelessWidget {
             startingDayOfWeek:
                 settingsProvider.calendarStartDay ?? StartingDayOfWeek.monday,
             daysOfWeekVisible: true,
-            onPageChanged: (day) => onMonthChange(day),
+            holidayPredicate: holidaysProvider.hasHoliday,
+            onPageChanged: (day) {
+              onMonthChange(day);
+              if (holidaysProvider.selectedYear != day.year) {
+                holidaysProvider.reloadForYear(day.year);
+              }
+            },
             onDaySelected: onDaySelected,
             selectedDayPredicate: (day) => isSameDay(selDay, day),
             eventLoader: events,
             calendarBuilders: CalendarBuilders(
+              selectedBuilder: (context, date, _) {
+                if (!holidaysProvider.hasHoliday(date)) return null;
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: cellMargin / 5,
+                    vertical: cellMargin / 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.secondaryFixed,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: theme.colorScheme.secondaryFixed,
+                      width: 0.5,
+                    ),
+                  ),
+                  child: dayWithHoliday(
+                    date,
+                    theme.textTheme.titleSmall!.copyWith(
+                      fontSize: calendarFontSize,
+                    ),
+                  ),
+                );
+              },
+              todayBuilder: (context, date, _) {
+                if (!holidaysProvider.hasHoliday(date)) return null;
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: cellMargin / 5,
+                    vertical: cellMargin / 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.focusColor,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: theme.colorScheme.outline,
+                      width: 0.2,
+                    ),
+                  ),
+                  child: dayWithHoliday(
+                    date,
+                    theme.textTheme.headlineMedium!.copyWith(
+                      fontSize: calendarFontSize,
+                    ),
+                    holidayColor: theme.colorScheme.secondaryFixed,
+                  ),
+                );
+              },
               dowBuilder: (context, date) {
                 return AnimationConfiguration.staggeredGrid(
                   columnCount: 7,
@@ -91,6 +217,37 @@ class DateCalendar extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   fontSize: calendarFontSize,
                                 ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              holidayBuilder: (context, date, _) {
+                if (isWithinRange(date)) return rangeCell(date);
+                return AnimationConfiguration.staggeredGrid(
+                  columnCount: 7,
+                  position: date.day,
+                  duration: const Duration(milliseconds: 200),
+                  child: ScaleAnimation(
+                    scale: 0.8,
+                    child: FadeInAnimation(
+                      child: Container(
+                        margin: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.secondaryFixed.withAlpha(20),
+                          borderRadius: BorderRadius.circular(4.0),
+                          border: Border.all(
+                            color: theme.colorScheme.secondaryFixed,
+                            width: 0.5,
+                          ),
+                        ),
+                        child: dayWithHoliday(
+                          date,
+                          theme.textTheme.bodyMedium!.copyWith(
+                            fontSize: calendarFontSize,
+                            color: theme.colorScheme.secondaryFixed,
+                          ),
                         ),
                       ),
                     ),
@@ -138,67 +295,23 @@ class DateCalendar extends StatelessWidget {
                       );
               },
               rangeStartBuilder: (context, date, end) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5.0),
-                    ),
-                    color: Theme.of(context).focusColor.withValues(alpha: 0.5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${date.day}',
-
-                      style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            )
-                          : Theme.of(context).textTheme.labelMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            ),
-                    ),
+                return rangeCell(
+                  date,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(5),
                   ),
                 );
               },
               rangeEndBuilder: (context, date, end) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(5.0),
-                    ),
-                    color: Theme.of(context).focusColor.withValues(alpha: 0.5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '${date.day}',
-
-                      style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            )
-                          : Theme.of(context).textTheme.labelMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            ),
-                    ),
+                return rangeCell(
+                  date,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(5),
                   ),
                 );
               },
               withinRangeBuilder: (context, date, end) {
-                return Container(
-                  color: Theme.of(context).focusColor.withValues(alpha: 0.5),
-                  child: Center(
-                    child: Text(
-                      '${date.day}',
-                      style: (date.weekday != 6 && date.weekday != 7)
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            )
-                          : Theme.of(context).textTheme.labelMedium!.copyWith(
-                              fontSize: calendarFontSize,
-                            ),
-                    ),
-                  ),
-                );
+                return rangeCell(date);
               },
               rangeHighlightBuilder: (context, date, end) {
                 return Center(

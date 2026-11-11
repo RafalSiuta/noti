@@ -49,6 +49,8 @@ class DateHeader extends StatelessWidget {
                   offset: value,
                   child: RichText(
                     textScaler: MediaQuery.textScalerOf(context),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     text: textSpan(
                       context,
                       date,
